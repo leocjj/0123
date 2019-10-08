@@ -1,0 +1,171 @@
+https://www.tutorialspoint.com/cprogramming/
+https://www.tutorialspoint.com/cprogramming/c_pointers.htm
+https://www.dyclassroom.com/c/c-pointers-and-strings
+https://www.youtube.com/watch?v=XISnO2YhnsY
+https://beginnersbook.com/2014/01/2d-arrays-in-c-example/
+
+https://www.geeksforgeeks.org/data-structures/
+
+GOOD PRACTICES
+DECLARE + DEFINE + USE
+CHECK LIMITS, EXTREMS, SPECIAL CASES.
+
+
+
+------------------------------------ DECLARATION ----------------------------------------------------------------
+type *var-name;//declaration of a pointer
+int  *ptr = NULL;//GOOD PRACTICE. To avoid using a pointer not defined.
+if(ptr)     /* succeeds if p is not null */
+
+int *p;// * is used in the declaration: p is a pointer to an integer, and so, after dereferencing, *p is an integer.
+p = &n;// & takes the address of n. So now p == &n, so *p == n
+
+int  var = 20;   /* actual variable declaration */
+int  *ip;        /* pointer variable declaration */
+ip = &var;  /* store address of var in pointer variable*
+printf("%d\n", *ip );/* access the value using the pointer */
+
+---------------------------------- DEREFERENCING ----------------------------------------------------------------
+double balance[50];//balance is a pointer to &balance[0]
+double *p;
+p = balance;//assigns p as the address of the first element of balance
+*p, *(p+1), *(p+2);//access the array elements using this.
+*(balance + 0); *(balance + 1); *(balance + 2)//The same as abode
+
+int  var[MAX] = {10, 100, 200};   int  i, *ptr;
+ptr = var;//pointer to first position of the array, var[0]
+ptr = &var[MAX-1];//pointer ot last position of the array, var[2]
+while ( ptr <= &var[MAX - 1] )//evaluate last position of an array
+int _strlen(char *s){
+        int i; i = 0;//the next dosn't work if the content is 0x00.
+        while (*str++)//evaluate last position of an string. Opción compacta
+                i++;
+        while (*s++ != '\0')//evaluate last position of an string. Opción explícita
+                i++;
+while (*(str + i))//evaluate legth of an string. Without moving pointer.
+                i++;
+        return (i);}
+ptr++;//pointer to the address 1000, will point to 1004, POINTER MOVES
+//to the next integer location which is 4 bytes next to the current location
+a pointer (variable -) can be incremented, unlike the array name which cannot be incremented 
+because it is a constant pointer to position 0 of the array.
+
+------------------------------------ ARRAY OF POINTERS ------------------------------------------------------
+int *ptr[MAX];//declaration of an array of pointers to an integer
+ptr[i] = &var[i]; /* assign the address of integer. */
+char *names[] = {"nombre", "apellido", "telefono", "direccion" };//to store a list of strings as follows
+printf("%s\n", names[i] );//to print a list of strings
+
+----------------------------------------------------------------------------------------------------
+#include <stdio.h>
+
+int main (void)
+
+{
+
+char str [6] = "hello"; //memory      h   e l l o \0
+                            
+//addres      1000
+    
+char *ptr = str;
+while (*ptr != '\0')
+
+{
+
+printf("%c ", *ptr);
+
+printf("%p ", ptr);
+ptr++;
+}
+
+int var = 20;
+int* p = &var;
+//Memory addres of var, stored in p
+printf ("Size of int pointer: %lu\n", sizeof(int *));
+
+printf ("Mem addres: %p\n", p);
+//Prints memory addres stored in p
+printf ("Value of variable: %d\n", var);
+}
+
+
+------------------------------------------  STRINGS ---------------------------------------------------------
+
+#include <string.h>
+strcpy(s1, s2);Copies string s2 into string s1.
+strcat(s1, s2);Concatenates string s2 onto the end of string s1.
+strlen(s1);Returns the length of string s1.
+strcmp(s1, s2);Returns 0 if s1 and s2 are the same; less than 0 if s1<s2; greater than 0 if s1>s2.
+strchr(s1, ch);Returns a pointer to the first occurrence of character ch in string s1.
+strstr(s1, s2);Returns a pointer to the first occurrence of string s2 in string s1.
+
+
+----------------------------------------- POINTER TO POINTER -------------------------------------------
+
+int  var;// Variable
+int  *ptr;// Pointer to variable
+int  **pptr;// Pointer to pointer to variable
+
+var = 3000;
+ptr = &var; /* take the address of var */
+pptr = &ptr;/* take the address of ptr using address of operator & */
+
+printf("Value of var = %d\n", var );/* take the value using var */
+printf("Value available at *ptr = %d\n", *ptr );/* take the value using ptr */
+printf("Value available at **pptr = %d\n", **pptr);/* take the value using pptr */
+
+-------------------------
+
+Variable num has address: XX771230
+Address of Pointer pr1 is: XX661111
+Address of Pointer pr2 is: 66X123X1
+
+num == *pr2 == **pr1
+&num == pr2 == *pr1
+&pr2 == pr1
+
+int main() {
+int num=123;
+int *pr2;//A normal pointer pr2
+int **pr1;//This pointer pr2 is a double pointer
+pr2 = &num;// Assigning the address of variable num to the pointer pr2
+pr1 = &pr2;// Assigning the address of pointer pr2 to the pointer-to-pointer pr1
+
+     printf("\n Value of num is: %d", num);//Value of num is: 123
+     printf("\n Value of num using pr2 is: %d", *pr2);//Value of num using pr2 is: 123
+     printf("\n Value of num using pr1 is: %d", **pr1);//Value of num using pr1 is: 123
+
+     printf("\n Address of num is: %p", &num);//Address of num is: XX771230
+     printf("\n Address of num using pr2 is: %p", pr2);//Address of num using pr2 is: XX771230
+     printf("\n Address of num using pr1 is: %p", *pr1);//Address of num using pr1 is: XX771230
+
+     printf("\n Value of Pointer pr2 is: %p", pr2);//Value of Pointer pr2 is: XX771230
+     printf("\n Value of Pointer pr2 using pr1 is: %p",*pr1);//Value of Pointer pr2 using pr1 is: XX771230
+
+     printf("\n Address of Pointer pr2 is:%p",&pr2);//Address of Pointer pr2 is: 66X123X1
+     printf("\n Address of Pointer pr2 using pr1 is:%p",pr1);//Address of Pointer pr2 using pr1 is: 66X123X1
+
+     printf("\n Value of Pointer pr1 is:%p",pr1);//Value of Pointer pr1 is:  66X123X1
+     printf("\n Address of Pointer pr1 is:%p",&pr1);//Address of Pointer pr1 is: XX661111
+
+     return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

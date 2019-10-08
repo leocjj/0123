@@ -1,0 +1,108 @@
+https://www.tutorialspoint.com/cprogramming/c_preprocessors.htm
+https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_C_libraries.html
+https://www.quora.com/How-can-I-build-my-own-special-C-library-functions
+https://www.quora.com/How-do-you-make-your-own-libraries-in-C-programming
+
+main.cwith #include "mylib.h"
+mylib.hwith const, var, func declarationsreturn_type function_name( parameter list );
+mycode.c#include "vector.h"with functions definitions/implementation
+gcc -Wall -pedantic -Werror -Wextra _putchar.c 0-holberton.c -o 0-holberton
+
+
+C Preprocessor is just a text substitution tool and it instructs the compiler to do required
+pre-processing before the actual compilation.
+
+1#define  Substitutes a preprocessor macro.
+2#include  Inserts a particular header from another file.
+3#undefUndefines a preprocessor macro.
+4#ifdefReturns true if this macro is defined.
+5#ifndefReturns true if this macro is not defined.
+6#ifTests if a compile time condition is true.
+7#elseThe alternative for #if.
+8#elif#else and #if in one statement.
+9#endifEnds preprocessor conditional.
+10#errorPrints error message on stderr.
+11#pragmaIssues special commands to the compiler, using a standardized method.
+
+#define MAX_ARRAY_LENGTH 20// Create a constant
+
+#include <stdio.h>//to get stdio.h from System Libraries and add the text to the current source file.
+#include "myheader.h"//to get myheader.h from the local directory and add the content to the current source file.
+
+#undef  FILE_SIZE
+#define FILE_SIZE 42
+to undefine existing FILE_SIZE and define it as 42.
+
+#ifndef MESSAGE
+   #define MESSAGE "You wish!"
+#endif
+to define MESSAGE only if MESSAGE isn't already defined.
+
+#ifdef DEBUG
+   /* Your debugging statements here */
+#endif
+to process the statements enclosed if DEBUG is defined.
+This is useful if you pass the -DDEBUG flag to the gcc compiler at the time of compilation.
+This will define DEBUG, so you can turn debugging on and off on the fly during compilation.
+
+
+---------------------------Header file
+#ifndef HEADER_FILE
+#define HEADER_FILE
+
+the entire header file file
+
+#endif
+---------------------------
+#if SYSTEM_1
+   # include "system_1.h"
+#elif SYSTEM_2
+   # include "system_2.h"
+#elif SYSTEM_3
+   ...
+#endif
+---------------------------Using macro 
+#define SYSTEM_H "system_1.h"
+...
+#include SYSTEM_H
+----------------------------
+
+--------------------------------- MACROS
+1__DATE__ The current date as a character literal in "MMM DD YYYY" format.
+2__TIME__ The current time as a character literal in "HH:MM:SS" format.
+3__FILE__ This contains the current filename as a string literal.
+4__LINE__  This contains the current line number as a decimal constant.
+5__STDC__ Defined as 1 when the compiler complies with the ANSI standard.
+
+printf("Date :%s\n", __DATE__ );
+
+
+#define  message_for(a, b)  \// Use \ as continuation
+   printf(#a " and " #b ": We love you!\n")// Stringize (#) Operator
+
+
+----------------------------------------
+#ifndef _MYLIB_H_
+#define _MYLIB_H_
+
+    // a constant definition exported by library:
+    #define MAX_FOO  20
+
+    // a type definition exported by library:
+    struct foo_struct {  
+        int x;
+        float y;
+    };
+    typedef struct foo_struct foo_struct;
+
+    // a global variable exported by library
+    // "extern" means that this is not a variable declaration, it 
+    // just defines that a variable named total_foo of type int
+    // exits and you can use it (its declaration is in some library source file)
+    extern int total_foo; 
+
+    // a function prototype for a function exported by library:
+    extern int foo(float y, float z);   // a very bad function name
+
+#endif
+

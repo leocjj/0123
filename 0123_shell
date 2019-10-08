@@ -1,0 +1,728 @@
+https://elementary.io/
+https://sourceforge.net/projects/elementaryos/?source=navbar
+https://dev.to/awwsmm/101-bash-commands-and-tips-for-beginners-to-experts-30je
+
+https://askubuntu.com/questions/16728/hide-current-working-directory-in-terminal
+export PS1='> '//not to show path in command line
+
+---------------------------------------------------------
+---------------------------------------------------------
+ Your level 2 deadline
+
+Aug 11 2019 at 11:53pm -05 (in about 14 days)
+---------------------------------------------------------
+---------------------------------------------------------
+
+Here is an overview of what you will do and learn during Level 2:
+
+access a distant server using ssh
+learn the very basics of the Linux command line
+install a software on Linux
+use the Emacs text editor
+install a web server on Linux
+read a configuration file
+use HTML, CSS and javascript to build a website
+and most importantly: search for information and help each other
+
+https://commonmark.org/help/
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/Interlocking.html
+
+Take notes of everything you do on Level 2 and store it in a Google Doc, as well as popular links in a simple file. It helps if your computer is not that good, and at any given time you might have to go back to what does less do stuff like that.
+Do everything that youre confident you know how to do. In the least, do everything that the tutorial requires. Once you hit a roadblock, understand where the code is that is giving you trouble. What I do is leave spaces around the block, and comments so that way if I have to leave the issue for another time, I dont get lost and mess up my code progress. Figure out your problem, write it down, Google search your questions, and even search the forum before asking. Try to solve your problem before asking the forum.
+Before moving onto the final sections, make sure that every instruction has been followed. That means class, position, dos and donts, proper elements in their places, classes, etc.
+
+The scrollbar doesnt appear. At first I thought this was my problem, but on an iPad I can scroll down my webpage on the left side without the comment section moving. I replaced auto with hidden and couldnt see the full page on my tablet, so I returned it to auto and it works, so I think Im fine.
+I want to change the location of my footer, but again I dont want to violate any tutorial rules for messin with positioning.
+If I have enough time, I will read more about JavaScript and see if I can do some cool events based off eventListening, such as fade in or something like that.
+I also want to try and refactor my code, which I think could be done with loops.
+
+check full email print out. Sometimes what we look for is at the end. If so It should prompt you with the instructions. good looking.
+
+Make sure you read the tips and links we gave you and try Google and StackOverflow before asking any question on the Forum
+When you ask a question, tell your peers what you tried, and give them all information possible, including all error messages you get
+Help your peers by giving them directions. Never give your peers the answers otherwise they will never learn anything
+Be polite 
+
+Higher priority will be given to candidates who:
+
+Helped their peers
+Finished Level 2 with the optional part, and built interesting things beyond what was asked
+Had great essays and videos from the Level 1
+Please do Level 2 by yourself. Make sure you understand everything you do. During level 3, we will ask you to do part of Level 2 again in front of us.
+
+
+Let's go!
+
+  I have read this page entirely and carefully.
+  I certify that I'm going to perform the entire selection process by myself, and that I won't share the answers with other applicants.
+  I will try to find the solution by myself before asking anything on the Forum.
+  I will go out of my way to help my peers on the Forum.
+  I won't give the straight solution to a challenge on the Forum, but only give guidance.
+  I will not change my server's root password. (Doing so would disqualify you.)
+  I will not give anyone my password.
+  I understand that I am responsible for my server.
+
+Connect to the server. First, choose an SSH client.
+
+PuTTY https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+mobaxterm https://mobaxterm.mobatek.net/download-home-edition.html
+SmarTTY http://sysprogs.com/SmarTTY/
+Chrome Adon https://chrome.google.com/webstore/detail/secure-shell-app/pnhechapfaindjhompbnflcldabbghjo?hl=en
+
+Others https://www.smarthomebeginner.com/best-ssh-clients-windows-putty-alternatives/
+
+Android: JuiceSSH, Termius, ConnectBot, Termux, MobileSSH, SSHDroid, SSH/SFTP/FTP/Telenet Advanced Client  Admin Hands, AndFTP, Putty SSH, OrangeSSH Client
+
+Mac OS X includes the SSH client Terminal by default.
+Windows-based do not come with an SSH client. We recommend PuTTY.
+Linux include SSH. Simply start up a terminal. $ ssh remote_username@remote_host. To finish $ exit
+ssh root@3.93.184.46
+
+Tips and links
+The IP address that we gave you is the address of your server on the Internet.
+Your connection settings will always be visible on the left menu after this challenge.
+If you are on Windows, we recommend using PuTTY to login via SSH. You can download it from this page.
+If you are on Mac OS or Linux, open a terminal (if on Mac OS, the application called "Terminal") and type this command to login to your server: ssh root@3.93.184.46. Press enter to run the command, the terminal will then prompt you for your password. Press enter again after your password, and now you're logged in!
+The first time you will login to your server via ssh, you will probably see a warning message. Read it. You can trust the host (server) that we give you.
+Once you are logged in, you should see a shell prompt. It should look something like this: root@production-679b9140:~#. It is where you will type your commands.
+Your logging code will be displayed on the terminal when you log in. It should look something like this: 1337B377y.
+
+uname (short for unix name) is a software program in Unix and Unix-like computer operating systems that prints the name, version and other details about the current machine and the operating system running on it.
+
+-----------------------------------------------------Commands----------------------------------------------
+
+COPIAR Y PEGAR EN LA TERMINAL
+A terminal which provides select-to-copy (left mouse) and right-click-to-paste (right mouse) 
+Ctrl+c y Ctrl+v. En la terminal GNOME Ctrl+Shift+c Ctrl+Shift+v
+
+uname -a  //Unix name
+ls, cd dir/ .. ~, pwd, 
+type command
+file type
+
+chmod [OPTION]... OCTAL-MODE FILE...
+chmod 755 index.php
+           owner group everyone. 
+rwx rwx rwx = 111  111   111
+7 = Read + Write + Execute
+6 = Read + Write
+5 = Read + Execute
+4 = Read
+3 = Write + Execute
+2 = Write
+1 = Execute
+0 = All access denied
+
+chmod [OPTION]... MODE[,MODE]... FILE...
+Each MODE is of the form '[ugoa]*([-+=]([rwxXst]*|[ugo]))+|[-+=][0-7]+'.     u-ser (owner), g-roup, o-thers, a-ll
+p.e. chmod u+x,g+x,o+r hello
+chmod --reference=f1 f2 // copia los permisos de f1 a f2
+chmod -R a+X .      // cambia permisos solo a folders
+chmod -R a+rX *
+mkdir --mode=751 dir_holberton//Crear un directorio con permisos específicos
+https://stackoverflow.com/questions/3740152/how-do-i-change-permissions-for-a-folder-and-all-of-its-subfolders-and-files-in
+chown betty:holberton *//cambia usuario:grupo
+chown -h betty:holberton _hello //cambia links
+chown --from=guillaume betty hello //cambia si el usuario actual es from=
+telnet towel.blinkenlights.nl
+emacs --> fn+F10//tetris
+
+******************************** MAN PAGES*********************************************************************
+Crear un archivo plano con la siguiente sintaxis.  ejecutar con man ./file
+https://stackoverflow.com/questions/33049205/how-to-make-a-man-page-for-my-shell-script
+https://askubuntu.com/questions/455444/what-is-the-meaning-of-the-words-with-underline-in-a-man-page
+
+./" Manpage for your_fonction
+.TH man 1 "10 September 2017" "1.0" "your_fonction man page"
+.SH NAME
+your_fonction - do.... 
+.SH SYNOPSIS
+your_fonction [optionnal argument] [optionnal argument]
+.SH DESCRIPTION
+your_fonction is a function which .....
+.SH OPTIONS
+your_fonction does not take any options
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+written by your_name (your_website or your_github or whatever)
+.SH REPORTING BUGS
+you_github_repository/isssues for example
+
+.TH man 2 "04 May 2015" "0.32" "holberton man page"
+.SH NAME
+.B holberton
+- become a full-stack software engineer.
+.SH SYNOPSIS
+holberton [STUDENTNAME]
+.SH DESCRIPTION
+Holberton School is a project-based alternative to college for the next generation of software engineers.
+.SH OPTIONS
+.B holberton
+does not take any options. However, you can supply studentname.
+.SH SEE ALSO
+.I peerlearning(2), projectbased(2), fullstack(2), Betty(1)
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Julien Barbier, Sylvain Kalache, Sophie Barbier, Guillaume Salva, Kris Bredemeier, Julien Cyr, Alex Gautier and all the Holberton mentors
+
+wc - print newline, word, and byte counts for each file
+     16  89            608 101-man_holberton
+***********************************************************************************************************************
+chgrp holberton hello
+
+chown domainuser file//change owner
+chgrp group index.php  //change group
+chown domainuser:psacln index.php
+
+cat /etc/passwd//List of all users.   Info:  User name    Encrypted password (x means that the password is stored in the /etc/shadow file)    User ID number (UID)    Users group ID number (GID)    Full name of the user (GECOS)    User home directory    Login shell (defaults to /bin/bash)
+getent passwd       //List of all users.   
+cut -d: -f1 /etc/passwd       //List of all users. Just names. First row
+https://linuxize.com/post/how-to-list-users-in-linux/
+
+groups//List of groups I belong
+id//List of users and groups.
+id -Gd//List of groups only.
+getent group userName //My group
+https://www.cyberciti.biz/faq/linux-show-groups-for-user/
+
+su//Become a superuser, exit to comeback to original user.
+su user //chang user
+su - user //Provides an enviroment like user
+sudo command //Run a command as superuser
+
+cat index.html   // Ver un archivo
+cat >index.html  // Crear un archivo. ctlr + d to exit
+> fichero.txt    // Crar un archivo en blanco.
+touch new_file.html //crea un archivo en blano, si ya existe, sobreescribe la fecha de modificación.
+
+less access_log
+cat access_log | more
+cat access_log | less
+pg  file       // Display in pages
+cat -n song.txt   // Display with line numbers.
+cat error_log | egrep "permission"
+cat mytext.txt> newfile.txt  // redirect this output to a file. copiar uno en el otro, lo crea o lo sobreescribe.
+cat mytext.txt mytext2.txt        > newfile.txt  //concatena dos archivos en el tercero, lo crea o lo sobreescribe.
+cat mytext.txt               >> another-text-file.txt  //Concateda adicionando al final del segundo archivo.
+cat mytext.txt mytext2.txt       >> another-text-file.txt // Concatena dos archivos al final del tercero
+cat                      < test2  // Redirect input
+
+find [location] [comparison-criteria] [-options] [what to find]
+find ./GFG/ -name "sample.txt"       // Search a file/dir with specific name. CASE SENSITIVE
+find ./GFG/ -iname "sample.txt"    // Search a file/dir with specific name. NO CASE SENSITIVE
+find ./GFG/ -name "*.txt"        // Search a file/dir with pattern. Con comillas o sin comillas ?
+find ./GFG/ -name "sample.txt" -exec rm -i {} \;   //How to find and delete a file with confirmation.
+find ./GFG/ -empty               //Search for empty files and directories.
+find ./GFG/ -perm 664             //Search for file with entered permissions.
+find ./test -maxdepth 2 -name "*.php"             //Search 2 levels down in the sub directories.
+find ./test -not -name "*.php"         //Search INVERTED. find ./test ! -name "*.php"
+find ./test -name 'abc*' ! -name '*.php'  //files beginning with abc and do not have a php ext
+find -name '*.php' -o -name '*.txt'    //Files ending in either the php extension or the txt
+find ./ -type f -name "*.txt" -exec grep 'Geek'  {} \;  // Search text within multiple files.
+-print       //Display the path name of the files found by using the rest of the criteria.
+find ./test -type f -name "abc*"      //Search for files only.
+find ./test -type d -name "abc*"             //Search for directories only.
+find ./test ./dir2 -type f -name "abc*"       //Search in 2 diferent directiries.
+find ./ -type f -name '*.js' -delete
+find ./ -type d | wc -l
+https://www.binarytides.com/linux-find-command-examples/
+
+grep "root" /etc/passwd//search inside a file
+
+cp logo.png image/logo.png
+cp index.php index.php_old
+cp -r image/ image2
+mv logo.png image/logo.png
+mv index.php index.php_old
+mv image/ ..
+rm index.php_old
+rm -rf index.php_old  //borra todo subfolder (r), sin preguntar (f)
+******Before you use rm, construct your command using ls instead**********
+
+mkdir  // Crea directorio y ruta completa
+rmdir  // Elimina un directorio
+
+zip -r archive_name.zip folder_to_compress
+unzip archive_name.zip
+
+rsync -a logo.png images/logo.png  //-a' flag which lets the system know to preserve all 
+rsync -a index.php index.php_old
+rsync -avz example.com user@host:/path/to/destination
+rsync -avz user@host:/path/to/source ./
+
+df -h  // Disk usage
+du -h  // All folders size
+du -sh
+free   // Memoria del sistema
+top    // Muestra los procesos del sistema
+ps     // Pantallado procesos actuales [-auxf]
+kill [-s] <pid>  // Terminar un proceso
+tmux   // permite ver varias terminales
+
+useradd // Crear usuarios
+usermod // Modifica usuarios
+deluser
+passwd  // Cambiar contraseña de usuario
+whoami
+uptime
+
+find / -mount -noleaf -type f -size +10000k -print0 | xargs -0 ls -lhSr | awk '{printf "%*s %s\n",7,$5":",$9}'
+
+tail -n 100 /var/www/vhosts/example.com/statistics/logs/error_log
+tail -f /var/www/vhosts/example.com/statistics/logs/access_log
+
+head -n 3 file | tail -n 1//Mostrar solo la linea 3 del archivo
+
+touch: cambia la fecha de acceso y modificación a la actual del sistema, opcionalmente si el fichero no existe se crea con contenido vacío.
+
+---------------------- TUBERIAS, SCRIPTS Y MAS ----------------------------------
+https://picodotdev.github.io/blog-bitix/2016/07/guia-basica-del-interprete-de-comandos-bash/
+
+WildcardMatches
+   *zero or more characters
+   ?     exactly one character
+[abcde]    exactly one character listed
+ [a-e]        exactly one character in the given range
+[!abcde]any character that is not listed
+ [!a-e]          any character that is not in the given range
+{debian,linux}        exactly one entire word in the options given
+
+---------------------- EDITORES DE TEXTO PARA TERMINAL -----------------------
+nano       https://www.nano-editor.org/
+emacs       https://www.gnu.org/software/emacs/download.html#gnu-linux
+       https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf
+       apt-get install emacs
+
+vi       https://www.cs.colostate.edu/helpdocs/vi.html
+       toggle bettween command and insert mode  <esc> , i . :q<Return> for quit, 
+       vi filename     edit filename starting at line 1
+       :x<Return>      quit vi, writing out modified file to file named in original invocation
+       :q!<Return>     quit vi even though latest changes have not been saved for this vi call
+       0 (zero)        move cursor to start of current line (the one with the cursor)
+       $            move cursor to end of current line
+       u      UNDO WHATEVER YOU JUST DID; a simple toggle
+       i  insert text before cursor, until <Esc> hit
+       a  append text after cursor, until <Esc> hit
+       o  open and put text in a new line below current line, until <Esc> hit
+       O  open and put text in a new line above current line, until <Esc> hit
+       r  replace single character under cursor (no <Esc> needed)
+       x  delete single character under cursor
+       dd  delete entire current line
+
+vim       https://www.vim.org/ i, esc, to enter insert/normal mode
+:set mouse=a       :set showmode u, undo. ctrl r, redo. ZZ guardar y salir. :q, salir. :q!, salir sin guardar
+https://hipertextual.com/archivo/2014/09/como-usar-vim-1-introduccion-a-vim/
+https://blog.desdelinux.net/usando-vim-tutorial-basico/
+
+wget http://kylconsultores.com/   //Copia de un URL
+
+
+http://www.tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html
+http://linuxcommand.org/index.php
+http://www.cygwin.com/   //Linux commands in Windows
+https://en.wikibooks.org/wiki/Guide_to_Unix
+
+https://www.gnu.org/software/emacs/manual/html_node/emacs/index.html#Top
+emacsF10MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU MENU
+
+C-zsuspende y envia al shell, fb regresa a emacs 
+(global-unset-key (kbd "C-z"))  //colocar este código en .emacs para suspender esta opción.
+
+C-f     Move forward a character
+        C-b     Move backward a character
+        M-f     Move forward a word
+        M-b     Move backward a word
+        C-n     Move to next line
+        C-p     Move to previous line
+        C-a     Move to beginning of line
+        C-e     Move to end of line
+        M-a     Move back to beginning of sentence
+        M-e     Move forward to end of sentence
+M-<, C-u 8 C-f moves forward eight characters.  C-g to stop a command,  C-x 1
+undo command, C-- or C-/ or C-x u
+
+C-x C-f   Open a file to edit, if none is in bottom bar
+C-x C-s   Save the file
+C-x s     Save some buffers
+C-x C-s TUTORIAL <Return> Save with other name
+C-x C-b   List buffers, after open several files with C-x C-f
+C-x b buffer's name // to change buffer file
+cut line C-k
+paste C-y
+        C-x C-f         Find file
+        C-x C-s         Save file
+        C-x s           Save some buffers
+        C-x C-b         List buffers
+        C-x b           Switch buffer
+        C-x C-c         Quit Emacs
+        C-x 1           Delete all but one window
+        C-x u           Undo
+C-s Incremental search forward
+C-r    Incremental search backward
+C-x 2 which splits the screen into two windows
+C-x o ("o" for "other") to move the cursor to the other window.
+
+---------------------------------------APACHE ---------------------------------------------
+https://httpd.apache.org/
+https://cwiki.apache.org/confluence/display/httpd/FAQ#FAQ-Background
+https://cwiki.apache.org/confluence/display/HTTPD/CommonHTTPStatusCodes
+https://httpd.apache.org/docs/2.4/
+apache2ctl -v//Version
+apt-get install apache2//Instalar
+
+./var/log/apache2/error.log//Logs de error, también está access.log
+
+/etc/apache2           // Apache main configuration files
+/etc/apache2/sites-available/000-default.conf // Default website configuration file
+ ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html      // Where the web site is.
+ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+
+
+--------------------------------------- SCRIPTS -----------------------------------------
+http://linuxcommand.org/lc3_wss0010.php
+Create a filehello
+        #!/bin/bash
+# My first script
+  echo "Hello World!"
+Set permissions  chmod 755 hello
+Excecute  ./hello
+
+
+-------------------------------------- HTML -------------------------------------------
+https://validator.w3.org/
+http://w3schools.com/
+
+I dont know where is the balance between the following goals, but I will publish my dev-env:
+
+Productivity (modern automatic environments, VS Code?)
+Low-level tools (EMACS for learning?)
+Quality (How much additional content may I add to my UX, http://52.87.186.211 3)
+
+Browser: Chrome with its devtools always opened
+Terminal/Shell: Oh My ZSH! https://ohmyz.sh 1
+HOLBERTON Server login: SSH KEY https://www.ssh.com/ssh/copy-id
+IDE: VS Code https://code.visualstudio.com
+Create and edit files: VS Code plugin https://code.visualstudio.com/docs/remote/ssh
+Backup/Sync/Versioning your code Github https://github.com
+
+
+https://developers.facebook.com/docs/plugins/share-button
+https://about.twitter.com/resources/buttons#tweet
+https://developer.linkedin.com/plugins
+
+
+http://34.229.96.161/tweets.html
+http://52.87.186.211/
+
+
+--------------------------------- SHELL ADVANCED -------------------------------
+http://linuxcommand.org/lc3_man_pages/man1.html
+******************* PENDING  http://linuxcommand.org/lc3_lts0070.php
+
+wc -l 12-file_type  //return number of rows of a text file
+head -n 1 12-file_type     //return the first rows of a text file. In this case 1 row, the first.
+
+#!/bin/bash
+echo '#!/bin/bash' >> file//
+chmod u+x file      //change a text file (script) to executable
+      ./file              //execute a file
+
+git add file
+git commit -m "M
+git push origin master
+
+
+ls -al . .. /root// Listar varios directorios
+
+Wildcard    Meaning
+
+*    Matches any characters
+?    Matches any single character
+
+[characters]
+Matches any character that is a member of the set characters. The set of characters may also be expressed as a POSIX character class such as one of the following:
+POSIX Character Classes [:alnum:]      Alphanumeric characters
+[:alpha:] Alphabetic characters
+[:digit:] Numerals
+[:upper:] Uppercase alphabetic characters
+[:lower:] Lowercase alphabetic characters
+
+[!characters]
+Matches any character that is not a member of the set characters
+
+[abc]*
+Any filename that begins with "a" or "b" or "c" followed by any other characters
+
+grep ^[[:alpha:]] /etc/ssh/sshd_config//Display rows of the file begenning with letter.
+grep ^d//Display rows of the file begenning with d.
+
+[[:upper:]]*
+Any filename that begins with an uppercase letter. This is an example of a character class.
+
+BACKUP.[[:digit:]][[:digit:]]
+Another example of character classes. This pattern matches any filename that begins with the characters "BACKUP." followed by exactly two numerals.
+
+cd -  // go to previos directory
+
+*[![:lower:]]
+Any filename that does not end with a lowercase letter.
+
+cp -i file1 file2
+Like above however, since the "-i" (interactive) option is specified, if file2 exists, the user is prompted before it is overwritten with the contents of file1.
+
+cp -R dir1 dir2
+Copy the contents of the directory dir1. If directory dir2 does not exist, it is created. Otherwise, it creates a directory named dir1 within directory dir2.
+-R, -r, --recursive copy directories recursively
+
+mv file1 file2 file3 dir1
+The files file1, file2, file3 are moved to directory dir1. If dir1 does not exist, mv will exit with an error.
+
+rm -r dir1 dir2
+Directories dir1 and dir2 are deleted along with all of their contents.
+-r, -R, --recursive remove directories and their contents recursively
+
+mv my_dir ../*.bak my_new_dir
+Move the subdirectory my_dir and all the files ending in ".bak" in the current working directory's parent directory to an existing directory named my_new_dir.
+
+https://slideplayer.com/slide/8699972///Hard link vs softlink
+$ ln file1.txt link1
+$ rm file1.txt          #The file cannot be deleted until the link is removed.
+$ ln -s /some/name            # create a link ./name pointing to /some/name
+$ ln -s /some/name mylink2    # or give the link a name
+$ ln -s /home/simon/demo /home/jules/mylink3   #Create mylink3 pointing to demo
+$ ln -s item1 item2 ..        # creates links ../item1 and ../item2 pointing to ./item1 and ./item2
+
+********************************Commands can be one of 4 different kinds:
+    An executable program like all those files we saw in /usr/bin. Within this category, programs can be compiled binaries such as programs written in C and C++, or programs written in scripting languages such as the shell, Perl, Python, Ruby, etc.
+    A command built into the shell itself. bash provides a number of commands internally called shell builtins. The cd command, for example, is a shell builtin.
+    A shell function. These are miniature shell scripts incorporated into the environment. We will cover configuring the environment and writing shell functions in later lessons, but for now, just be aware that they exist.
+    An alias. Commands that you can define yourselves, built from other commands. This will be covered in a later lesson.
+
+type command  //what kind of command is.
+which command //to identify which version of the command is in use.
+command --help
+man program
+
+ **** Tab: Automatically complete the file, directory, or command youre typing.
+
+    Ctrl+C: Interrupt (kill) the current foreground process running in in the terminal. This sends the SIGINT signal to the process, which is technically just a requestmost processes will honor it, but some may ignore it.
+    Ctrl+Z: Suspend the current foreground process running in bash. This sends the SIGTSTP signal to the process. To return the process to the foreground later, use the fg process_name command.
+    Ctrl+D: Close the bash shell. This sends an EOF (End-of-file) marker to bash, and bash exits when it receives this marker. This is similar to running the exit command.
+
+    Ctrl+W: Cut the word before the cursor, adding it to the clipboard.
+    Ctrl+K: Cut the part of the line after the cursor, adding it to the clipboard.
+    Ctrl+U: Cut the part of the line before the cursor, adding it to the clipboard.
+    Ctrl+Y: Paste the last thing you cut from the clipboard. The y here stands for yank.
+
+    Ctrl+L: Clear the screen. This is similar to running the clear command.
+    Ctrl+S: Stop all output to the screen. This is particularly useful when running commands with a lot of long, verbose output, but you dont want to stop the command itself with Ctrl+C.
+    Ctrl+Q: Resume output to the screen after stopping it with Ctrl+S.
+
+    Ctrl+A or Home: Go to the beginning of the line.
+    Ctrl+E or End: Go to the end of the line.
+    Alt+B: Go left (back) one word.
+    Ctrl+B: Go left (back) one character.
+    Alt+F: Go right (forward) one word.
+    Ctrl+F: Go right (forward) one character.
+    Ctrl+XX: Move between the beginning of the line and the current position of the cursor. This allows you to press Ctrl+XX to return to the start of the line, change something, and then press Ctrl+XX to go back to your original cursor position. To use this shortcut, hold the Ctrl key and tap the X key twice.
+
+    Ctrl+D or Delete: Delete the character under the cursor.
+    Alt+D: Delete all characters after the cursor on the current line.
+    Ctrl+H or Backspace: Delete the character before the cursor.
+
+    Alt+T: Swap the current word with the previous word.
+    Ctrl+T: Swap the last two characters before the cursor with each other. You can use this to quickly fix typos when you type two characters in the wrong order.
+    Ctrl+_: Undo your last key press. You can repeat this to undo multiple times.
+
+    Alt+U: Capitalize every character from the cursor to the end of the current word, converting the characters to upper case.
+    Alt+L: Uncapitalize every character from the cursor to the end of the current word, converting the characters to lower case.
+    Alt+C: Capitalize the character under the cursor. Your cursor will move to the end of the current word.
+
+    Ctrl+P or Up Arrow: Go to the previous command in the command history. Press the shortcut multiple times to walk back through the history.
+    Ctrl+N or Down Arrow: Go to the next command in the command history. Press the shortcut multiple times to walk forward through the history.
+    Alt+R: Revert any changes to a command youve pulled from your history if youve edited it.
+
+    Ctrl+R: Recall the last command matching the characters you provide. Press this shortcut and start typing to search your bash history for a command.
+    Ctrl+O: Run a command you found with Ctrl+R.
+    Ctrl+G: Leave history searching mode without running a command.
+
+++++++++++ ANOTHER SHELL   ZSH   http://ohmyz.sh/
+sudo apt install zsh
+zsh
+Type  exit  at the shell to leave it and return to your current shell.
+      chsh , or Change Shell, command
+      which zsh
+      chsh
+      wed enter /usr/bin/zsh 
+
+------------------------------------------------------------
+when installing a package with the apt-get install command, you can use tab completion to automatically complete a packages name. 
+
+********************** SCRIPTS*****************************
+shebang (#!) at the beginning of a script. sha-bang,[1][2] hashbang,[3][4] pound-bang,[5][6] or hash-pling.[7]
+Any text file beginning with #! interpretará el resto de la linea como una directiva de interprete.
+shebang is the character sequence consisting of the characters number sign and exclamation mark (#!) at the beginning of a script. It is also called sha-bang,[1][2] hashbang,[3][4] pound-bang,[5][6] or hash-pling.[7]será pasado al interprete como un argumento y será ejecutado.
+pueden ser instrucciones o input data
+#!interpreter [optional-arg]  // interpreter es an absolut path to an executable program.
+Can also be a script or chain of files with shebang.For example #!/bin/sh
+
+    #!/bin/sh  Execute the file using the Bourne shell, or a compatible shell, assumed to be in the /bin directory
+    #!/usr/bin/env python  Execute with a Python interpreter, using the program search path to find it
+    #!/bin/false  Do nothing, but return a non-zero exit status, indicating failure.
+    Used to prevent stand-alone execution of a script file intended for execution in a specific context,
+    such as by the . command from sh/bash, source from csh/tcsh, or as a .profile, .cshrc, or .login file.
+
+Shebang lines may include specific options that are passed to the interpreter. However, implementations vary in the parsing behavior of options; for portability, only one option should be specified without any embedded whitespace. Further portability guidelines are found below. 
+
+Interpretation
+
+File execution:some/path/to/foo bar baz
+Content of file foo:#!/bin/sh -x
+Equivalent instruccion:/bin/sh -x some/path/to/foo bar baz
+
+If /bin/sh specifies the Bourne shell, then the end result is that all of the shell commands in the file some/path/to/foo are executed with the positional variables $1 and $2 having the values bar and baz, respectively.
+
+
+git config --global credential.helper 'cache --timeout=99999999'   //To avoid put pass and user for every git push
+
+#!/bin/bash
+#./g 'File_to_push' 'Commit message'
+git add $1
+git commit -m $2
+git push origin master
+
+#!/bin/bash
+#./c 'file_to_create'  'command_to_append'
+echo '#!/bin/bash' > $1
+echo 'File created: ' $1
+echo $2 >> $1
+echo 'File created with: ' $2 ; chmod u+x $1
+echo 'Number of lines of the file: '; wc -l $1
+echo 'Header of the file: '; head -n 1 $1
+echo 'Execution result: '
+./$1
+
+
+
+*********************************** EXPANSIONS & VARIABLES *************************************************
+
+echo *//It will show every files and directories. ~ home dir
+echo $((2 + 2))//Only integer
+
+echo Front{A,Bas,222}Back// Brace expansion: Front-A-Back Front-B-Back Front-C-Back
+echo Front{1..10}Back// Range of number, or letters {z..a}
+echo a{A{1,2},B{3,4}}b// nested (anidado) 
+mkdir {2007..2009}-0{1..9} {2007..2009}-{10..12}
+echo {a..z}{a..z} | tr ' ' '\n' | grep -v oo//imprime pares letraletra sin oo
+
+echo $USER
+printenv | less//Enviromental variables
+echo $(ls)//Output substitution
+ls -l $(which cp)//Command substitution allows us to use the output of a command as an expansion
+file $(ls /usr/bin/* | grep bin/zip)//find patter bin/zip inside /usr/bin/*  and then show kind of file
+ls -l `which cp`// back-quotes old alternative to $() expansion
+
+SHELL expland $1 as a variable, assume spaces, tab and EOL as delimiters, not part of a command (delete it)
+
+Double quotes, avoid expansions (special characters --> ordinary). Except $, \, `(back- quote)
+word-splitting, pathname expansion, tilde expansion, and brace expansion are suppressed
+but spaces, tap, EOL, parameter expansion $(), arithmetic expansion $(()) and command substitution are still carried out
+
+echo "$USER $((2+2)) $(cal)"//"" will permit $, $() will expand every command
+
+echo text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER-->text /home/me/ls-output.txt a b foo 4 me
+echo "text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER"-->text ~/*.txt {a,b} foo 4 me
+echo 'text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER'-->text ~/*.txt {a,b} $(echo foo) $((2+2)) $USER
+
+\$5//Escape charactger, to avoid expansion for $, !, &
+To backslash appear, typing \\. Within single quotes, the backslash loses its special meaning.
+ls -l \ --reverse//Allows to write a long command in several rows.
+echo -e "New lines\n\n\n"// -e allows echo to recognize escape characters \n, \t-ab, \a-lert, \\, \0NNN octal, \xHH hexad
+printf "octal: %o\nhex: %x\ndec: %d\nbin: %b\n" 42 42 42 42%s, %b, %d, %x and %f
+printf "%s\n" "1" "2" "\n3"
+printf "%.1f\n" 255 0xff 0377 3.5
+printf "%03d\t" "$i";
+echo $((base#number))//Converts to decimal from any base
+
+#/bin/bash
+divider===============================
+divider=$divider$divider
+
+header="\n %-10s %8s %10s %11s\n"
+format=" %-10s %08d %10s %11.2f\n"
+
+width=43
+
+printf "$header" "ITEM NAME" "ITEM ID" "COLOR" "PRICE"
+
+printf "%$width.${width}s\n" "$divider"
+
+printf "$format" \
+Triangle 13  red 20 \
+Oval 204449 "dark blue" 65.656 \
+Square 3145 orange .7
+
+
+set//lists all local variables and environment variables, and functions.
+VARNAME="value"//To set a LOCAL variable in the shell. Without spaces.
+unset VARNAME//To unset
+bash//Creates a subshell,
+export VARNAME//Will export variable to as enviromental variables.
+
+Variable nameDefinition
+CDPATHA colon-separated list of directories used as a search path for the cd built-in command.
+HOMEThe current user's home directory; the default for the cd built-in. The value of this variable is also used by tilde expansion.
+IFSA list of characters that separate fields; used when the shell splits words as part of expansion.
+MAILIf this parameter is set to a file name and the MAILPATH variable is not set, Bash informs the user of the arrival of mail in the specified file.
+MAILPATHA colon-separated list of file names which the shell periodically checks for new mail.
+OPTARGThe value of the last option argument processed by the getopts built-in.
+OPTINDThe index of the last option argument processed by the getopts built-in.
+PATHA colon-separated list of directories in which the shell looks for commands.
+PS1The primary prompt string. The default value is "'\s-\v\$ '".
+PS2The secondary prompt string. The default value is "'> '".
+
+export PATH="$PATH:/Developer/Tools"
+
+Table 3-2. Reserved Bash variableshttp://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_02.html
+
+3.2.5. Special parameters
+The shell treats several parameters specially. These parameters may only be referenced; assignment to them is not allowed.
+$*Expands to the positional parameters, starting from one. When the expansion occurs within double quotes, it expands to a single word with the value of each parameter separated by the first character of the IFS special variable.
+$@Expands to the positional parameters, starting from one. When the expansion occurs within double quotes, each parameter expands to a separate word.
+$#Expands to the number of positional parameters in decimal.
+$?Expands to the exit status of the most recently executed foreground pipeline.
+$-A hyphen expands to the current option flags as specified upon invocation, by the set built-in command, or those set by the shell itself (such as the -i).
+$$Expands to the process ID of the shell.
+$!Expands to the process ID of the most recently executed background (asynchronous) command.
+$0Expands to the name of the shell or shell script.
+$_The underscore variable is set at shell startup and contains the absolute file name of the shell or script being executed as passed in the argument list. Subsequently, it expands to the last argument to the previous command, after expansion. It is also set to the full pathname of each command executed and placed in the environment exported to that command. When checking mail, this parameter holds the name of the mail file. 
+The positional parameters are the words following the name of a shell script. They are put into the variables $1, $2, $3 and so on.
+As long as needed, variables are added to an internal array. $# holds the total number of parameters, as is demonstrated with this simple script:
+
+/etc/profile//holds shell environment and program startup settings, 
+/etc/bash.bashrc//bashrc file contains system-wide definitions for shell functions and aliases.
+
+
+3.1.2.1. ~/.bash_profile and others//http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_01.html
+
+************************************  ALIASES AND EXECUTIONS ***************************************
+alias [-p] [name="value"]// are recognized only by the shell in which they are created, and they apply only for the user that creates them
+\ls//Disable alias
+alias pl='pwd; ls'//Multiple commands or even other aliases
+alias rm="rm -i"//To increase safety
+/etc/bashrc//System-wide aliases can be put in the file.
+.bashrc//File in home directory, for user aliases. Need restart.
+unalias [-a] name(s)//Remove alias including permanent aliases that are listed in system configuration files.
+Use -a to remove all aliases for the current user for the current shell. 
+
+. filename [arguments]// executes the content of the file passed as argument, in the current shell.
+source filename [arguments]// Synonim of . filename
+./script//runs the script as an executable file, launching a new shell to run it 
+source script//reads and executes commands from filename in the current shell environment
+
