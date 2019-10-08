@@ -1,0 +1,69 @@
+https://github.com/leocjj///Main git
+https://github.com/leocjj/0123//Repository for notes
+
+
+-------------------------------- WORKING IN ORIGIN ---------------------------------
+First, create a repository in github.com
+In a local folder:
+$ git clone url_of_your_remote_repository   # Clone a repository from a remote repository  
+$ git add file1 file2    # will add those two files to the index if they were modified  
+$ git commit -m "Meaningful commit message"   # will commit those two files (locally)  
+$ git add .   # will add all of the modified files to the index at once  
+$ git commit -m "Other meaningful commit message"   # will commit all of those files together  
+$ git push origin master   # send all commit to the remote server
+
+In a non-Git directory in local computer, to turn it into a Git repository, it’s that easy:
+First, create a repository in github.com
+echo "Readme" >> README.md
+$ git init   # You're done!
+$ git add README.md
+$ git commint -m "Readme file"
+$ git remote add origin url_of_your_git_server# So that you can push your code somewhere.  
+$ git push -u origin master
+
+Or just
+$ git init# You're done!  
+$ git remote add origin url_of_your_git_server# So that you can push your code somewhere.  
+
+
+
+-------------------------------- WORKING IN A BRANCH - FIRST TIME ---------------------------------
+$ git branch my_feature   # Creating the branch  
+$ git checkout my_feature   # Changing the codebase so that we're on that branch now  
+$ git checkout -b my_feature   # This does the two previous operations in one ;)  
+$ git add file1 file2  
+$ git commit -m "Meaningful commit message"   # We didn't just commit this on the master branch like last time, but on the my_feature one  
+$ git add .  
+$ git commit -m "Other meaningful commit message"  
+$ git push origin my_feature   # Notice: we're not pushing master anymore, you just create a new remote branch
+
+
+-------------------------------- WORKING IN A BRANCH - NEXT TIME ---------------------------------
+$ git checkout my_feature   # Just making sure you're currently on the right branch!  
+$ git pull origin my_feature   # Pulling what your coworkers have done so far.  
+
+And when you’re done with the whole feature and want to merge it to master:
+$ git checkout master  
+$ git merge my_feature  
+
+
+---------------------------------- OTHERS ------------------------------------------
+$ git status  //List of files modified
+
+echo '*~'>>.gitignore//To ignore temp files.
+
+git config --global credential.helper 'cache --45000//To avoid put pass and user for every git push
+
+----------------------- SCRIPT TO UPLOAD A FILE
+#!/bin/bash
+#./g 'File_to_push' 'Commit message'
+git add $1
+git commit -m $2
+git push origin master
+
+
+Git provides many more abilities, such as rewriting pieces of the history of the project if you feel the commits were not meaningful enough, displaying the history in visually meaningful ways, … 
+For instance, you should run this right now, and see how a complex history can be viewed really nicely: 
+$ git clone [https://github.com/loverajoel/jstips.git](https://github.com/loverajoel/jstips.git)   # You will need a GitHub account for this to work  
+$ cd jstips   # changing your directory into the one you just downloaded  
+$ git log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative  
