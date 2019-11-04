@@ -1,0 +1,390 @@
+
+https://github.com/holbertonschool/Betty/wiki
+
+******************************************** VARIABLES ***************************************
+
+char		1 byte		%c		-128 to 127
+unsigned char	1 byte		%c	0 to 255
+short		2 bytes		%	-32,768 to 32,767
+unsigned short	2 bytes		%	0 to 65,535
+int		4 bytes		%d	-2,147,483,648 to 2,147,483,647
+unsigned int	4 bytes			0 to 4,294,967,295
+long		8 bytes			-9,223,372,036,854,775,808 to	9,223,372,036,854,775,807
+unsigned long	8 bytes			0 to 18,446,744,073,709,551,615
+float		4 bytes		%f
+double		8 bytes		%f
+long double	18 bytes	%lf
+
+sizeof(char);	1 bytes, size in memory
+sizeof(int);	4
+printf("The size of int is: %lu.\n", (unsigned long)sizeof(i));
+
+f= (float) i;	i = (int) f;	//Casting
+
+'c'	//Single character. The value of a character is its ASCII code (man ascii)
+"string"	// When using strings, the computer creates an array of chars,
+		containing the same number of cells as the length of the string + 1,
+		and then fills the array with the ASCII codes of each letter of the string.
+		In the extra cell (the last one) the computer will store the ASCII code of ‘\0’ = NULL
+
+******************************************* ARRAYS ****************************************
+char a[] = {"Holberton\n"};
+type varname;
+int myarray [32];
+double balance[5] = {1000.0, 2.0, 3.4, 7.0, 50.0};
+double balance[] = {1000.0, 2.0, 3.4, 7.0, 50.0};
+char buffer[98] = {0};			//Initialize ALL content of an array
+balance[4] = 50.0;
+double salary = balance[9];
+int myarrayofarrays [32][24];
+type name[size1][size2]...[sizeN];
+int threedim[5][10][4];
+int arr[5]; printf("%lu",sizeof(arr));	//returns arr memory size equals to 20 = 5 x 4bytes
+
+
+int arr[] = {10, 5, 15, 12, 90, 80}; 	// TO KNOW THE SIZE OF AN ARRAY OF ANY TYPE
+int n = sizeof(arr)/sizeof(arr[0]);
+
+-----------------------------------------Multi-dimensional arrays---------------------------------------
+int a[3][4] = {0,1,2,3,4,5,6,7,8,9,10,11};		/* Valid declaration*/
+int a[][4] = {0,1,2,3,4,5,6,7,8,9,10,11};		/* Valid declaration*/
+int a[3][4] = {  
+   {0, 1, 2, 3} ,   		/*  initializers for row indexed by 0 */
+   {4, 5, 6, 7} ,   		/*  initializers for row indexed by 1 */
+   {8, 9, 10, 11}   		/*  initializers for row indexed by 2 */
+};
+int val = a[2][3];
+printf("%p ",a[i]);		// Pointer to the row i of the array, prints the addres contained in a[i]
+printf("%d ",*abc[i]);		// Print the content of the first element of the row i.
+
+int abc[][] = {1, 2, 3 ,4 }   		/* Invalid declaration – you must specify second dimension*/
+int abc[2][] = {1, 2, 3 ,4 }		/* Invalid because of the same reason  mentioned above*/
+
+-----------------------------------------Passing arrays to functions and return it----------------------------------------
+void myFunction(int *param) {		//Formal parameters as a pointer
+void myFunction(int param[10]) {	//Formal parameters as a sized array
+void myFunction(int param[]) {		//Formal parameters as an unsized array
+myFunction(array);
+
+Return array from a function
+int * getRandom( ) {
+   static int  r[10];
+   r[i] = rnd();
+   return r;}
+
+int main () {
+   int *p;
+   p = getRandom();
+   printf( "*(p + %d) : %d\n", i, *(p + i));
+   return 0;}
+
+---------------------------------------- STATIC AND STRUCT-------------------------------------------------------------
+static int i=0;		// Local variable. Init happends once no matter how many times the function is called, value persist.
+
+struct new_struct {	//Creates a new type of data
+	int a;
+	char b[32];
+	struct addres ar;	//Can have another structure variable
+}
+
+struct new_struct s;	//Declaration of a variable of type new_struct
+
+struct new_struct var_array[32];	//Array of structures
+
+var_struct.field_name = expresion;
+
+--------------------------------------  VARIABLE SCOPES -----------------------------------------
+
+#include <stdio.h>
+
+/* global variable declaration */
+int g = 20;
+ 
+int main () {
+  /* local variable declaration */
+  int g = 10;		// If has the same name of a globar var, local will take preference
+  printf ("value of g = %d\n",  g);
+  return 0;
+}
+
+*********************************** FUNCTIONS **********************************
+To declare functions before first use. Good practice, declare all functions at the begining
+
+return_type function_name( parameter list );	// Declaration. The body can be defined separately.
+int max(int num1, int num2);	int max(int, int);
+Required when you define a function in one source file and you call that function in another file. In such case, you should declare the function at the top of the file calling the function.
+
+return_type function_name (type param1,...)	// Definition
+{//block}
+
+function_name (var1, ...)		// Call by value
+
+int main() {} 	//Init the program, when it returns, program ends.
+
+---------------------------------- CALL BY REFERENCE ----------------------------------
+Copies the address of an argument into the parameter. Inside, the address is used to access the actual
+argument used in the call. It means the changes made to the parameter affect the passed argument.
+Argument pointers are passed to the functions just like any other value.
+So accordingly you need to declare the function parameters as pointer types 
+
+*x = value at address x.
+&a = address of a, pointer to a
+
+void swap(int *x, int *y) {
+
+   int temp;
+   temp = *x;    /* save the value at address x */
+   *x = *y;      /* put y into x */
+   *y = temp;    /* put temp into y */
+   return;
+}
+
+int main () {
+/* local variable definition */
+   int a = 100;
+   int b = 200;
+ 
+   /* calling a function to swap the values.
+      * &a indicates pointer to a ie. address of variable a and 
+      * &b indicates pointer to b ie. address of variable b.
+   */
+   swap(&a, &b);
+
+
+********************************** OPERATOR **********************************
+< Less than
+<= Less or equal to
+== Equal to
+>= Greater or equal to
+> Greater than
+!= Different than
+|| OR, && AND, ! NOT	//LOGICAL OPERATORS
+| OR, & AND, << LEFT SHIFT, >> RIGHT SHIFT, ^ XOR, ~ NOT	//Bitwise operators
+
++ addition, - subtraction, * multiplication, / division, % modulo (integer remainder), 
+++increment, --decrement,  +=, -=, *=, /=, %=, &=, |=, ^=, <<=, >>=
+&	Bitwise AND
+|	Bitwise OR
+^	Bitwise exclusive OR
+~	Bitwise complement
+<<	Shift left
+>>	Shift right
+
+var_array[expresion] = expresion;
+var_struct.field_name = expresion;
+expression1, expression2	//The value of the whole expression is the value of expression2
+expression1? expression2: expression3
+
+&var_name	//The address in memory of the variable var_name
+
+*********************************** FLOW CONTROL ******************************
+if (expresion)
+	{//block}
+else
+	{//block}
+
+while (expresion)
+	{//block}
+
+for ( [initialize] ; condition ; [update] )
+	{//block}
+
+return (expresion)	// ends the function and returns the value of expresion to the calling function
+			// The type of expression must match the return type of the function
+
+*********************************** COMPILING **********************************
+1) Create a text file with extension .c
+2) gcc file.c -o executable_name_file		//To execute use ./executable_name_file
+2b)make file
+
+************************************ INPUT & OUTPUTS *********************************
+stdio.h		// https://en.wikipedia.org/wiki/C_file_input/output
+
+int getchar(void);	//Reads the next character from standar input
+			//Returns EOF when end of file or error condition
+int putchar (int c);	//Converts c to unsigned char, then white it to standard output
+			//Returns the character that was written.
+printf( format_str, var1, var2, ...);	//
+%s - Expects char *	
+%d - Integer		%5.2f	Float		%lu - unsigned long
+scanf(format_str, &var1, 6var2, ...);
+char c; int i; scanf("%c %d", &c, &i, ...);	// Guarda la información de entrada en la memoria &var1...
+
+#include <unistd.h>
+ssize_t write(int fildes, const void *buf, size_t nbytes);
+int fildes	The file descriptor of where to write the output. You can either use a file descriptor obtained 
+		from the open system call, or you can use 0, 1, or 2, to refer to standard input, standard output,
+		or standard error, respectively.
+const void *buf	A pointer to a buffer of at least nbytes bytes, which will be written to the file.
+size_t nbytes	The number of bytes to write. If smaller than the provided buffer, the output is truncated.
+return value	Returns the number of bytes that were written. If value is negative, then the system call returned an error.
+write(1, "This will be output to standard out\n", 36)
+write(2, "There was an error writing to standard out\n", 44)
+
+
+putchar (int )
+int getchar(void);		//is equivalent to getc(stdin)
+
+int puts(const char *string);
+int getc(FILE *stream);		//reads a single character from a given input stream. Returns EOF on failure
+
+int getch();			//conio.h. Nonstandard function. character is immediately returned without waiting for the enter key.
+
+**********************************BETTY STYLE *************************************+++
+git clone https://github.com/holbertonschool/Betty.git
+./install.sh
+betty-style file1 [file2 [file3 [...]]]
+betty-doc file1 [file2 [file3 [...]]]
+
+betty script copied to /bin/ to be executed everywhere. use betty filename
+=========================================================================
+#!/bin/bash
+# Simply a wrapper script to keep you from having to use betty-style
+# and betty-doc separately on every item.
+# Originally by Tim Britton (@wintermanc3r), multiargument added by
+# Larry Madeo (@hillmonkey)
+
+BIN_PATH="/usr/local/bin"
+BETTY_STYLE="betty-style"
+BETTY_DOC="betty-doc"
+
+if [ "$#" = "0" ]; then
+    echo "No arguments passed."
+    exit 1
+fi
+
+for argument in "$@" ; do
+    echo -e "\n========== $argument =========="
+    ${BIN_PATH}/${BETTY_STYLE} "$argument"
+    ${BIN_PATH}/${BETTY_DOC} "$argument"
+done
+=========================================================================
+
+add this to your ~/.emacs file to use 8 character tabs an 80 characters per line
+
+(setq c-default-style "bsd"
+      c-basic-offset 8
+      tab-width 8
+      indent-tabs-mode t)
+(require 'whitespace)
+(setq whitespace-style '(face empty lines-tail trailing))
+(global-whitespace-mode t)
+
+?*********************************** KEYWORDS ****************************
+
+auto	double	int	struct
+break	else	long	switch
+case	enum	register	typedef
+char	extern	return	union
+const	float	short	unsigned
+continue	for	signed	void
+default	goto	sizeof	volatile
+do	if	static	while
+	const, signed, void and volatile 
+************************* HEADERS ***************************************
+
+#include <file>		//This form is used for system header files.
+#include "file"		//This form is used for header files of your own program.
+
+In total, there are now 29 header files. https://en.wikipedia.org/wiki/C_standard_library
+
+Name	From	Description
+<assert.h>		Contains the assert macro, used to assist with detecting logical errors and other types of bug in debugging versions of a program.
+<complex.h>	C99	A set of functions for manipulating complex numbers.
+<ctype.h>		Defines set of functions used to classify characters by their types or to convert between upper and lower case in a way that is independent of the used character set (typically ASCII or one of its extensions, although implementations utilizing EBCDIC are also known).
+<errno.h>		For testing error codes reported by library functions.
+<fenv.h>	C99	Defines a set of functions for controlling floating-point environment.
+<float.h>		Defines macro constants specifying the implementation-specific properties of the floating-point library.
+<inttypes.h>	C99	Defines exact-width integer types.
+<iso646.h>	NA1	Defines several macros that implement alternative ways to express several standard tokens. For programming in ISO 646 variant character sets.
+<limits.h>		Defines macro constants specifying the implementation-specific properties of the integer types.
+<locale.h>		Defines localization functions.
+<math.h>		Defines common mathematical functions.
+<setjmp.h>		Declares the macros setjmp and longjmp, which are used for non-local exits.
+<signal.h>		Defines signal-handling functions.
+<stdalign.h>	C11	For querying and specifying the alignment of objects.
+<stdarg.h>		For accessing a varying number of arguments passed to functions.
+<stdatomic.h>	C11	For atomic operations on data shared between threads.
+<stdbool.h>	C99	Defines a boolean data type.
+<stddef.h>		Defines several useful types and macros.
+<stdint.h>	C99	Defines exact-width integer types.
+<stdio.h>		Defines core input and output functions
+<stdlib.h>		Defines numeric conversion functions, pseudo-random numbers generation functions, memory allocation, process control functions
+<stdnoreturn.h>	C11	For specifying non-returning functions
+<string.h>		Defines string-handling functions
+<tgmath.h>	C99	Defines type-generic mathematical functions.
+<threads.h>	C11	Defines functions for managing multiple threads, mutexes and condition variables
+<time.h>		Defines date- and time-handling functions
+<uchar.h>	C11	Types and functions for manipulating Unicode characters
+<wchar.h>	NA1	Defines wide-string-handling functions
+<wctype.h>	NA1	Defines set of functions used to classify wide characters by their types or to convert between upper and lower case
+Three of the header files (complex.h, stdatomic.h, and threads.h) are conditional features that implementations are not required to support.
+
+unistd.h	//miscelanius, read, write, etc.
+https://en.wikipedia.org/wiki/C_POSIX_library
+
+
+******************************************* RECURSION *******************************************
+
+int factorial(int n)
+{
+	int retval = 1;
+	if(n! = 1)
+		retval = n * factorial(n - 1);
+	return retval;
+}
+
+int function(int n)
+{
+	if(n==0)
+		return 0;
+	} else if(n==1) {
+		return 1;
+	} else {
+		return (function(n - 1) + function(n - 2));
+
+	}
+}
+	
+*************************** DEBUGIN ***************************
+
+First step: instalation
+sudo apt-get update
+sudo apt-get install gdb
+
+Before using gdb: 
+gcc -g main.c
+
+Opening gdb in emacs:
+emacs esc + x gdb
+esc + x gdb-many-windows
+
+Basic command:
+start		//start in main()
+start 1 2 	//start main() with parameters
+run		//run to first break
+next		//execute line with arrow
+step		//execute line an enter to functions
+break		//stop program
+continue
+
+print		//show variable once
+display 	//shows varriable all the time
+
+enter	//repeats last command
+quit	//salir
+
+print &i	//prints address of variable i.
+print *(p+1)	//prints... can use any...
+display *(s1 + i)
+
+
+
+
+
+
+
+
+
+
+

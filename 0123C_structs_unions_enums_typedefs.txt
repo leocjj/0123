@@ -1,0 +1,90 @@
+https://github.com/holbertonschool/Betty/wiki/Documentation:-Data-structures
+
+/**
+ * struct my_struct - Short description
+ * @a: First member
+ * @b: Second member
+ *
+ * Description: Longer description
+ */
+struct my_struct
+{
+	int a;
+	int b;
+	/**
+	 * @c: This is longer description of C
+	 *
+	 * Description: You can use paragraphs to describe arguments using this method.
+	 */
+	int c;
+};
+
+
+/**
+ * u_int - Typedef for unsigned int
+ */
+typedef unsigned int u_int;
+
+-------------------------------------------------------------------------------------------------
+
+//class members are private by default, whereas struct members are public by default.
+
+typedef struct tag_name {	//Typedefs can be used as shortcuts, to create an alias name for another data type.
+   type member1;		//If there is a change in the type of variable, we only need to change one line of code.
+   type member2;
+}
+
+struct MyStruct a;		//This defines the data type struct MyStruct.
+typedef struct MyStruct newtype;	//is reduced to:
+newtype a;
+
+int stat(const char *filename, struct stat *buf)
+{
+    // code is here
+}
+
+------------------------------- DEFINITION -----------------------------------------------
+Can be done in global scope
+struct Point {
+   int    x;
+   int    y;
+};
+
+struct Point point;	//Declare in its scope
+	
+point.x = 5;		
+
+------------------------------- INITIALIZAION -------------------------------------------
+
+/* Forward declare a type "point" to be a struct. */
+typedef struct point point;
+/* Declare the struct with integer members x, y */
+struct point {
+   int    x;
+   int    y;
+};
+
+1)  point p = { 1, 2 };		// Define variable p of type point, initialize its first two (CONSECUTIVE) members.
+2)  point p = { .y = 2, .x = 1 };	// For non contiguous members.
+If an initializer is given or if the object is statically allocated, omitted elements are initialized to 0.
+3)  point q = p;		//to copy the value of an existing object of the same type
+
+--------------------------------- POINTERS TO STRUCT -----------------------------------------
+
+struct point {
+   int x;
+   int y;
+};
+
+struct point my_point = { 3, 7 };
+struct point *p = &my_point;		/* p is a pointer to my_point */
+if (p){					// ALWAYS check if pointer is different from NULL
+	(*p).x = 8;			/* set the first member of the struct */
+	p->x = 8;			/* equivalent method to set the first member of the struct */
+}
+malloc(sizeof(struct point));
+
+
+
+
+

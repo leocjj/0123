@@ -1,0 +1,13 @@
+PGPLOT
+PLPLOT
+https://bitbucket.org/libgd/gd-libgd/	gd library
+http://www.clutter-project.org/		clutter 
+http://www.libsdl.org/			SDL
+http://www.cairographics.org/		Cairo library
+http://www.mps.mpg.de/dislin/		DISLIN
+
+https://www.gnu.org/software/ncurses/
+
+tar -tvf file.tar.gz		//view a detailed table of content by listing all files in archive
+tar xvzf file.tar.gz -C /path/to/somedirectory		// To uncompress tar.gz file into a different directory
+gunzip file.gz			//To extract the .gz file without tar

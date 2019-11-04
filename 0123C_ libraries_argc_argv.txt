@@ -1,0 +1,198 @@
+﻿http://docencia.ac.upc.edu/FIB/USO/Bibliografia/unix-c-libraries.html#what_is_a_library
+
+Static Library
+Windows	.lib (library)	Linux	.a (archive)
+Dinamic Library
+Windows	.dll (Dinamic link library)	Linux	.so (shared object)
+
+Compilar todo sin linker, quedan archivos .o
+gcc -Wall -pedantic -Werror -Wextra -c *.c
+
+ar--- creates, modifies, and extracts from archives.  An archive is a single file holding a collection of other files
+ar -rc libholberton.a *.o
+ar -t libholberton.a		//Display a table listing the contents of archive, members.
+
+ranlib - generate index to archive.
+running ranlib is completely equivalent to executing ar -s.
+ranlib libholberton.a
+
+nm - list symbols from object files
+
+
+-----------------------------
+
+gcc main.c -L. -lholbertonschool -o alpha
+
+
+./c _putchar.c '#include "holberton.h"' 'int _putchar(char c);'
+./c _islower.c '#include "holberton.h"' 'int _islower(int c);'
+./c _isalpha.c '#include "holberton.h"' 'int _isalpha(int c);'
+./c _abs.c '#include "holberton.h"' 'int _abs(int n);'
+./c _isupper.c '#include "holberton.h"' 'int _isupper(int c);'
+./c _isdigit.c '#include "holberton.h"' 'int _isdigit(int c);'
+./c _strlen.c '#include "holberton.h"' 'int _strlen(char *s);'
+./c _puts.c '#include "holberton.h"' 'void _puts(char *s);'
+./c _strcpy.c '#include "holberton.h"' 'char *_strcpy(char *dest, char *src);'
+./c _atoi.c '#include "holberton.h"' 'int _atoi(char *s);'
+./c _strcat.c '#include "holberton.h"' 'char *_strcat(char *dest, char *src);'
+./c _strncat.c '#include "holberton.h"' 'char *_strncat(char *dest, char *src, int n);'
+./c _strncpy.c '#include "holberton.h"' 'char *_strncpy(char *dest, char *src, int n);'
+./c _strcmp.c '#include "holberton.h"' 'int _strcmp(char *s1, char *s2);'
+./c _memset.c '#include "holberton.h"' 'char *_memset(char *s, char b, unsigned int n);'
+./c _memcpy.c '#include "holberton.h"' 'char *_memcpy(char *dest, char *src, unsigned int n);'
+./c _strchr.c '#include "holberton.h"' 'char *_strchr(char *s, char c);'
+./c _strspn.c '#include "holberton.h"' 'unsigned int _strspn(char *s, char *accept);'
+./c _strpbrk.c '#include "holberton.h"' 'char *_strpbrk(char *s, char *accept);'
+./c _strstr.c '#include "holberton.h"' 'char *_strstr(char *haystack, char *needle);'
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+int main(int argc, char *argv[]);
+int main(int argc, char **argv);
+argc	//is a count of the arguments supplied to the program
+argv	//array of pointers to the strings which are those arguments. array of strings.
+	when it is passed to a function, the name of an array is converted to the address of its first element.
+	This means that we can also declare argv as char **argv; the two declarations are equivalent in this context.
+	First argument is the name of the program.
+
+exit(0) is used to return ‘success’
+it is now considered better practice to use the values defined in <stdlib.h>: EXIT_SUCCESS and EXIT_FAILURE.
+
+When a program starts, the arguments to main will have been initialized to meet the following conditions:
+    argc is greater than zero.		//Have at least one element, the program's name
+    argv[argc] is a null pointer.	//Have argc elements, from 0 to argc -1, so argc element is '\0'
+    argv[0] through to argv[argc-1]	//are pointers to strings whose meaning will be determined by the program.
+    argv[0] 				//string containing the program's name or a null string if that is not available.
+					Remaining elements of argv represent the arguments supplied to the program.
+In cases where there is only support for single-case characters, the contents of these strings will be supplied to the program in lower-case.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char **argv)
+{
+        while(argc--)
+                printf("%s\n", *argv++);
+        exit(EXIT_SUCCESS);
+}
+
+#include <stdio.h>			$./a.out "hola mundo" bye			
+int main(int argc, char **argv)		0 ./a.out
+{					1 hola mundo
+        int i = 0;			2 bye
+	while(i <= argc)		3 (null)
+        {				
+                printf("%d %s\n", i, *(argv + i));
+                i++;
+        }
+        return (0);
+}
+
+--------------------------CONVERTERS ---------------------------
+	#include <stdlib.h>		convert a string to an integer
+
+       int atoi(const char *nptr);
+       long atol(const char *nptr);
+       long long atoll(const char *nptr);
+       long long atoq(const char *nptr);
+
+       #include <stdlib.h>		convert ASCII string to floating-point number
+
+       double strtod(const char *nptr, char **endptr);
+       float strtof(const char *nptr, char **endptr);
+       long double strtold(const char *nptr, char **endptr);
+
+---------------------------- UNUSED VARIABLES-------------------------
+
+void foo(int bar) {
+    (void)bar;
+}
+
+#define UNUSED(x) (void)(x)
+void f(int x) {
+    UNUSED(x);
+}
+
+#define UNUSED(...) (void)(__VA_ARGS__) which allows me to apply this to multiple variables
+
+void foo(__attribute__((unused)) workerid_t workerId) { }
+
+
+-------------------------------- FUNCTIONS WITH VARIABLE NUMBER OF ARGUMENTS ---------------------
+
+http://www.firmcodes.com/can-write-function-takes-variable-number-arguments-limitations-vprintf/
+https://en.wikipedia.org/wiki/Stdarg.h
+
+#include <stdio.h>
+#include <stdarg.h>
+ 
+int SumArgs(int first_arg, ...)		//At least one fixed argument and then ellipsis ...
+{
+	int i,sum=0;
+
+	va_list args;			
+	va_start(args, first_arg);
+
+//Variable args, to manipulating the argument list containing variable arguments
+// This line initializes args variable with function’s last fixed argument i.e. first_arg. va_start() uses this to figure out from where the variable arguments begin.
+
+Note: va_arg( ) function will never receive arguments of type char, short int, or float. va_arg( ) function only accept arguments of type char *, unsigned int, int or double.
+//va_arg() fetches the next argument from the argument list. The second parameter to va_arg() is the data type of the argument we expect. 
+
+	for (i = first_arg; i > 0; i = va_arg(args, int))	
+	{
+		sum+=i;
+	}
+	
+	va_end(args);			//performs any necessary cleanup.
+	
+	return sum;
+}
+ 
+int main(void)
+{
+   printf("%d",SumArgs(10,10,10,0));
+
+   return 0;
+}
+
+There is no mechanism defined for determining the number or types of the unnamed arguments passed to the function. The function is simply required to know or determine this somehow, the means of which vary. Common conventions include:
+
+    Use of a printf or scanf-like format string with embedded specifiers that indicate argument types.
+    A sentinel value at the end of the variadic arguments.
+    A count argument indicating the number of variadic arguments.
+
+va_copy takes two arguments, both of them va_list objects. It clones the second (which must have been initialised) into the first. Going back to the "scan the variable arguments more than once"
+
+
+--------------------------------- CONSTRUCTOR AND DESTRUCTOR ------------------------------
+
+#include<stdio.h>
+
+/* Apply the constructor attribute to StartupFunction() so that it is executed before main() */
+void StartupFunction(void) __attribute__ ((constructor));
+
+/* Apply the destructor attribute to CleanupFunction() so that it is executed after main() */
+void CleanupFunction(void) __attribute__ ((destructor));
+
+/* implementation of StartupFunction*/
+void StartupFunction(void)
+{
+    printf ("startup code before main()\n");
+}
+
+/* implementation of CleanupFunctiom */
+void CleanupFunction(void)
+{
+    printf ("cleanup code after main()\n");
+}
+
+int main (void)
+{
+    printf ("hello\n");
+    return 0;
+}
+
+
+

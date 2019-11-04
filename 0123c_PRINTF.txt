@@ -1,0 +1,28 @@
+http://www.firmcodes.com/write-printf-function-c/
+
+http://www.it.uc3m.es/pbasanta/asng/course_notes/input_output_printf_es.html
+
+  20 #include <libioP.h>
+  21 #include <stdarg.h>
+  22 #include <stdio.h>
+  23 
+  24 #undef printf
+  25 
+  26 /* Write formatted output to stdout from the format string FORMAT.  */
+  27 /* VARARGS1 */
+  28 int
+  29 __printf (const char *format, ...)
+  30 {
+  31   va_list arg;
+  32   int done;
+  33 
+  34   va_start (arg, format);
+  35   done = vfprintf (stdout, format, arg);
+  36   va_end (arg);
+  37 
+  38   return done;
+  39 }
+
+%[parameter][flags][width][.precision][length]type
+
+

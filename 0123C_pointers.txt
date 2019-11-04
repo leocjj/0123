@@ -1,0 +1,331 @@
+https://www.tutorialspoint.com/cprogramming/
+https://www.tutorialspoint.com/cprogramming/c_pointers.htm
+https://www.dyclassroom.com/c/c-pointers-and-strings
+https://www.youtube.com/watch?v=XISnO2YhnsY
+https://beginnersbook.com/2014/01/2d-arrays-in-c-example/
+
+https://www.geeksforgeeks.org/data-structures/
+
+POINTERS FULL
+https://www.youtube.com/playlist?list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_
+
+https://boredzo.org/pointers/
+
+GOOD PRACTICES
+DECLARE + DEFINE + USE
+CHECK LIMITS, EXTREMS, SPECIAL CASES.
+
+-------------------------------------	MEMORY -------------------------------------------------
+
+Heap		//Dinamic memory, accessed by malloc/calloc
+Stack		//Static memory. Function calls, local variables. Fixed size.
+Static/global	//global variables
+Code (text)	//Instructions
+
+
+------------------------------------ DECLARATION ----------------------------------------------------------------
+type *var-name;			//declaration of a pointer
+int  *ptr = NULL;		//GOOD PRACTICE. To avoid using a pointer not defined.
+if(ptr)     			/* succeeds if p is not null */
+
+int *p;		// * is used in the declaration: p is a pointer to an integer, and so, after dereferencing, *p is an integer.
+p = &n;		// & takes the address of n. So now p == &n, so *p == n
+
+int  var = 20;   		/* actual variable declaration */
+int  *ip;        		/* pointer variable declaration */
+ip = &var;  			/* store address of var in pointer variable*
+printf("%d\n", *ip );		/* access the value using the pointer */
+
+---------------------------------- DEREFERENCING ----------------------------------------------------------------
+double balance[50];		//balance is a pointer to &balance[0]
+double *p;			
+p = balance;			//assigns p as the address of the first element of balance
+*p, *(p+1), *(p+2);		//access the array elements using this.
+*(balance + 0); *(balance + 1); *(balance + 2)		//The same as abode
+
+int  var[MAX] = {10, 100, 200};   int  i, *ptr;
+ptr = var;			//pointer to first position of the array, var[0]
+ptr = &var[MAX-1];		//pointer ot last position of the array, var[2]
+while ( ptr <= &var[MAX - 1] )	//evaluate last position of an array
+int _strlen(char *s){
+        int i; i = 0;		//the next dosn't work if the content is 0x00.
+        while (*str++)		//evaluate last position of an string. Opción compacta
+                i++;
+        while (*s++ != '\0')	//evaluate last position of an string. Opción explícita
+                i++;
+	while (*(str + i))	//evaluate legth of an string. Without moving pointer.
+                i++;
+        return (i);}
+ptr++;				//pointer to the address 1000, will point to 1004, POINTER MOVES
+				//to the next integer location which is 4 bytes next to the current location
+a pointer (variable -) can be incremented, unlike the array name which cannot be incremented 
+because it is a constant pointer to position 0 of the array.
+
+------------------------------------ ARRAY OF POINTERS ------------------------------------------------------
+int *ptr[MAX];			//declaration of an array of pointers to an integer
+ptr[i] = &var[i]; 		/* assign the address of integer. */
+char *names[] = {"nombre", "apellido", "telefono", "direccion" };	//to store a list of strings as follows
+printf("%s\n", names[i] );	//to print a list of strings
+
+----------------------------------------------------------------------------------------------------
+#include <stdio.h>
+
+int main (void)
+
+{
+char str [6] = "hello"; //memory      h   e l l o \0
+	//addres      1000
+   
+char *ptr = str;
+while (*ptr != '\0')
+{
+	printf("%c ", *ptr);
+	printf("%p ", ptr);
+	ptr++;
+}
+
+int var = 20;
+int* p = &var;
+				//Memory addres of var, stored in p
+printf ("Size of int pointer: %lu\n", sizeof(int *));
+
+printf ("Mem addres: %p\n", p);
+		//Prints memory addres stored in p
+printf ("Value of variable: %d\n", var);
+}
+
+
+------------------------------------------  STRINGS ---------------------------------------------------------
+
+#include <string.h>
+strcpy(s1, s2);		Copies string s2 into string s1.
+strcat(s1, s2);		Concatenates string s2 onto the end of string s1.
+strlen(s1);		Returns the length of string s1.
+strcmp(s1, s2);		Returns 0 if s1 and s2 are the same; less than 0 if s1<s2; greater than 0 if s1>s2.
+strchr(s1, ch);		Returns a pointer to the first occurrence of character ch in string s1.
+strstr(s1, s2);		Returns a pointer to the first occurrence of string s2 in string s1.
+
+
+----------------------------------------- POINTER TO POINTER -------------------------------------------
+
+int  var;		// Variable
+int  *ptr;		// Pointer to variable
+int  **pptr;		// Pointer to pointer to variable
+
+var = 3000;
+ptr = &var;		 /* take the address of var */
+pptr = &ptr;		/* take the address of ptr using address of operator & */
+
+printf("Value of var = %d\n", var );			/* take the value using var */
+printf("Value available at *ptr = %d\n", *ptr );	/* take the value using ptr */
+printf("Value available at **pptr = %d\n", **pptr);	/* take the value using pptr */
+
+-------------------------
+
+Variable num has address: XX771230
+Address of Pointer pr1 is: XX661111
+Address of Pointer pr2 is: 66X123X1
+
+num == *pr2 == **pr1
+&num == pr2 == *pr1
+&pr2 == pr1
+
+int a[5];
+int* p = a; 
+*(p + i) == *(a + i) ==  a[i]
+ (p + i) ==  (a + i) == &a[i]
+
+int b[2][3];
+b[0] --> array of 3 integers
+b[1] --> array of 3 integers
+ *b  == b[0] == &b[0][0]	//pointer to integer == 1-dim array
+*(b+1) == b[1] == &b[1][0]	//pointer to integer
+*(b+1)+2 == b[1]+2 == &b[1][2]	//pointer to integer
+ b   == &b[0] 			//pointer to 1-dim array
+ b+1 == &b[1] 			//pointer to 1-dim array
+
+	b[i][j]	= *(b[i] + j)
+		= *(*(b + i) + j))
+
+for (j = 0; j < i; i++)
+	free(result[j]);
+
+
+int main() {
+	int num=123;
+	int *pr2;		//A normal pointer pr2
+	int **pr1;		//This pointer pr2 is a double pointer
+	pr2 = &num;		// Assigning the address of variable num to the pointer pr2
+	pr1 = &pr2;		// Assigning the address of pointer pr2 to the pointer-to-pointer pr1
+
+     printf("\n Value of num is: %d", 			num);		//Value of num is: 123
+     printf("\n Value of num using pr2 is: %d", 	*pr2);		//Value of num using pr2 is: 123
+     printf("\n Value of num using pr1 is: %d", 	**pr1);		//Value of num using pr1 is: 123
+
+     printf("\n Address of num is: %p", 		&num);		//Address of num is: XX771230
+     printf("\n Address of num using pr2 is: %p", 	pr2);		//Address of num using pr2 is: XX771230
+     printf("\n Address of num using pr1 is: %p", 	*pr1);		//Address of num using pr1 is: XX771230
+
+     printf("\n Value of Pointer pr2 is: %p", 		pr2);		//Value of Pointer pr2 is: XX771230
+     printf("\n Value of Pointer pr2 using pr1 is: %p",	*pr1);		//Value of Pointer pr2 using pr1 is: XX771230
+
+     printf("\n Address of Pointer pr2 is:%p",		&pr2);		//Address of Pointer pr2 is: 66X123X1
+     printf("\n Address of Pointer pr2 using pr1 is:%p",pr1);		//Address of Pointer pr2 using pr1 is: 66X123X1
+
+     printf("\n Value of Pointer pr1 is:%p",		pr1);		//Value of Pointer pr1 is:  66X123X1
+     printf("\n Address of Pointer pr1 is:%p",		&pr1);		//Address of Pointer pr1 is: XX661111
+
+     return 0;
+}
+
+
+*******************************************************  DINAMIC MEMORY ALLOCATION ****************************
+
+<stdlib.h>
+void *malloc(size_t size)	//size_t <-- unsigned int
+	malloc	allocates (size) bytes, returns a VOID pointer to allocated HEAP memory. Memory not initialized.
+void *calloc(size_t num, size_t size
+	calloc	allocates the specified number of bytes and initializes them to zero.
+	Two arguments (the number of variables to allocate in memory, and the size in bytes of a single variable).
+void *realloc(void* ptr, size_t size)
+	realloc	increases or decreases to a new size of memory, moving it if necessary.
+void free(void *ptr)
+free	//Release dynamic memory allocation, the specified block of memory back to the system
+
+int array[10];					//Static memory allocation
+int *array = malloc(10 * sizeof(int));		//Dynamic memory allocation
+int *array = calloc(10, sizeof(int));		//All bytes of the allocated memory block initialized to 0
+
+int *array = (int*)malloc(n*sizeof(int));
+
+int *arr = malloc(2 * sizeof(int));		//pointer as an array (size n), change it to a size m.
+arr[0] = 1;					
+arr[1] = 2;
+arr = realloc(arr, 3 * sizeof(int));		//addres can change due to relocation of the data.
+arr[2] = 3;					//any pointers to addresses within the original block are also no longer valid.
+
+int *ptr;
+ptr = malloc(10 * sizeof(*ptr));		// without a cast, no specific type of data for memory, USELESS.
+ptr = (int *)malloc(10 * sizeof(*ptr));		/* with a cast */
+
+int *A = (int*)realloc(A, 0);			//Equivalent to free(A)
+int *A = (int*)realloc(NULL, n*sizeof(int));	//Equivalent to malloc
+
+TO AVOID ERRORS
+
+if (array == NULL) {				//Good practice to verify allocation
+  fprintf(stderr, "malloc failed\n");
+  return(1);
+}
+
+Memory leaks	//Failure to deallocate memory using free. This wastes memory resources.
+
+Follow the pattern: allocation using malloc, verify allocation, usage to store data, deallocation using free.
+
+Logical errors
+Failures: 	such as memory usage after a call to free (dangling pointer)
+		or before a call to malloc (wild pointer),
+		calling free twice ("double free").
+
+------------------------------------------------------------------------------------------------------------
+http://valgrind.org/		//programming tool for memory debugging
+
+sudo apt-get install valgrind
+gcc malloc_mem.c -o m
+valgrind ./m
+
+
+void exit(int status);		//does not return anything.
+calls all functions registered with atexit and terminates the program.
+File buffers are flushed, streams are closed, and temporary files are deleted.
+
+EXIT_SUCCESS	Successful termination
+0	Successful termination
+EXIT_FAILURE	Unsuccessful termination
+
+
+echo $?				//to know exit status
+
+
+---------------------------- POINTER TO FUNCTIONS --------------------------------------------------
+https://www.geeksforgeeks.org/function-pointer-in-c/
+
+function pointer points to code, not data.
+
+void fun(int a){ 				// A normal function with an int parameter and void return type 
+	printf("Value of a is %d\n", a); 
+} 
+int main() 
+{ 
+	// fun_ptr is a pointer to function fun() 
+	//func ret. val.	parentesis to say is a func.	parameters types of the func. in parentesis	asignation with addres of function fun.
+	void			(*fun_ptr)			(int) 						= &fun; 	
+	void (*fun_ptr)(int) = &fun;
+
+	void (*fun_ptr)(int); 		// Equivalente declaration
+	fun_ptr = &fun; 		// And definition.
+
+	(*fun_ptr)(10); 		// Invoking fun() using fun_ptr 
+
+	void (*fun_ptr)(int) = fun;	// Equivalente declaration+definition, & removed 
+	fun_ptr(10); 			// And invokation, * removed 
+
+
+---------------------------- ARRAY OF POINTERS TO FUNCTIONS ------------------
+
+void add(int a, int b) { 	printf("Addition is %d\n", a+b); } 
+void subtract(int a, int b) { 	printf("Subtraction is %d\n", a-b); } 
+void multiply(int a, int b) { 	printf("Multiplication is %d\n", a*b); } 
+
+int main() 
+{ 
+	void (*fun_ptr_arr[])(int, int) = {add, subtract, multiply}; 		// fun_ptr_arr is an array of function pointers 
+	unsigned int ch, a = 15, b = 10; 
+
+	printf("Enter Choice: 0 for add, 1 for subtract and 2 for multiply\n"); 
+	scanf("%d", &ch); 
+
+	if (ch > 2) return 0; 
+		(*fun_ptr_arr[ch])(a, b); 					// In place of switch case
+
+------------------------------ FUNCTION POINTERS AS ARGUMENTS ------------------------------
+void fun1() { printf("Fun1\n"); } 
+void fun2() { printf("Fun2\n"); } 
+
+void wrapper(void (*fun)())	// A function that receives a simple function as parameter and calls the function 
+{     fun(); } 
+  
+int main() 
+{ 
+    wrapper(fun1); 		// TO SAY THE FUNCTION wrapper, WHICH FUNCTION HAVE TO USE.
+    wrapper(fun2); 
+    return 0; 
+}
+
+--------------------------------
+If a general pointer is passed as an argument, then we must to cast and deference:
+
+int compare(const void *a){		//const avoid modification of the pointer passed.
+	int a = *((int*) a);		//internal parentesis is cast, external is for deference the a pointer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

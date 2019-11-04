@@ -1,0 +1,553 @@
+https://www.tutorialspoint.com/data_structures_algorithms/index.htm
+
+	https://www.geeksforgeeks.org/data-structures/linked-list/
+	https://www.geeksforgeeks.org/data-structures/linked-list/singly-linked-list/
+
+way of storing data so that data can be used efficiently. 
+
+An interface:
+	list of supported operations
+	type of parameters they can accept
+	return type of these operations.
+
+Implementation
+	internal representation of a data structure.
+	definition of the algorithms used in the operations of the data structure.
+
+Characteristics of a Data Structure
+
+    Correctness − Data structure implementation should implement its interface correctly.
+    Time Complexity − Running time or the execution time of operations of data structure.
+    Space Complexity − Memory usage of a data structure operation.
+
+common problems that applications face now-a-days.
+
+    Data Search − As data grows, search will become slower.
+    Processor speed − Processor speed falls limited if the data grows to billion records.
+    Multiple requests − As thousands of users can search data simultaneously.
+
+algorithms −
+    Search − Algorithm to search an item in a data structure.
+    Sort − Algorithm to sort items in a certain order.
+    Insert − Algorithm to insert item in a data structure.
+    Update − Algorithm to update an existing item in a data structure.
+    Delete − Algorithm to delete an existing item from a data structure.
+
+Execution Time Cases.
+	used to compare various data structure's execution time in a relative manner.
+	Worst Case − where a data structure operation takes maximum time it can take.
+	Average Case − average execution time of an operation of a data structure.
+	Best Case − the least possible execution time of an operation of a data structure. 
+
+Basic Terminology
+    Data − Data are values or set of values.
+    Data Item − Data item refers to single unit of values.
+    Group Items − Data items that are divided into sub items are called as Group Items.
+    Elementary Items − Data items that cannot be divided are called as Elementary Items.
+    Attribute and Entity − contains certain attributes or properties, which may be assigned values.
+    Entity Set − Entities of similar attributes form an entity set.
+    Field − Field is a single elementary unit of information representing an attribute of an entity.
+    Record − Record is a collection of field values of a given entity.
+    File − File is a collection of records of the entities in a given entity set.
+
+
+Linked list
+Represented by a pointer to the first node, is called the head.
+If the linked list is empty, then the value of the head is NULL.
+
+Each node in a list consists of at least two parts:
+	1) data
+	2) Pointer (Or Reference) to the next node
+In C, we can represent a node using structures. Below is an example of a linked list node with integer data.
+
+#include <stdio.h> 
+#include <stdlib.h> 
+  
+struct Node { 
+    int data; 
+    struct Node* next; 
+}; 
+  
+int main() 			// list with 3 nodes 
+{ 
+    struct Node* head = NULL; 
+    struct Node* second = NULL; 
+    struct Node* third = NULL; 
+  
+    head = (struct Node*)malloc(sizeof(struct Node)); 		  // allocate 3 nodes in the heap 
+    second = (struct Node*)malloc(sizeof(struct Node)); 
+    third = (struct Node*)malloc(sizeof(struct Node)); 
+  
+    /* Three blocks have been allocated dynamically.Ppointers to head, second and third
+  
+    head->data = 1; 				// assign data in first node 
+    head->next = second; 			// Link first node with the second node 
+  
+    /* data has been assigned to the data part of the first block (block pointed by the head). And next 
+     pointer of first block points to second. So they both are linked. 
+  
+       head          second         third 
+        |              |              | 
+        |              |              | 
+    +---+---+     +----+----+     +-----+----+ 
+    | 1  | o----->| #  | #  |     |  #  | #  | 
+    +---+---+     +----+----+     +-----+----+     
+  */
+    second->data = 2; 				// assign data to second node 
+    second->next = third; 			// Link second node with the third node 
+  
+    /* data has been assigned to the data part of the second block (block pointed by second). And next 
+     pointer of the second block points to the third block. So all three blocks are linked. 
+    
+       head         second         third 
+        |             |             | 
+        |             |             | 
+    +---+---+     +---+---+     +----+----+ 
+    | 1  | o----->| 2 | o-----> |  # |  # | 
+    +---+---+     +---+---+     +----+----+      */
+  
+    third->data = 3; 				// assign data to third node 
+    third->next = NULL; 			// Link third node to NULL
+  
+    /* data has been assigned to data part of third block (block pointed by third). And next pointer 
+    of the third block is made NULL to indicate that the linked list is terminated here. 
+  
+     We have the linked list ready.   
+  
+           head     
+             | 
+             |  
+        +---+---+     +---+---+       +----+------+ 
+        | 1  | o----->|  2  | o-----> |  3 | NULL | 
+        +---+---+     +---+---+       +----+------+        
+         
+    Note that only head is sufficient to represent the whole list.  We can traverse the complete  
+    list by following next pointers.*/
+
+    printList(head); 
+  
+    return 0; 
+} 
+
+// This function prints contents of linked list starting from the given node 
+void printList(struct Node* n) 
+{ 
+    while (n != NULL) { 
+        printf(" %d ", n->data); 
+        n = n->next; 
+    } 
+} 
+
+--------------------------------  Functions that operate on Linked lists ----------------------------
+https://www.geeksforgeeks.org/how-to-write-functions-that-modify-the-head-pointer-of-a-linked-list/
+
+1) Functions that do not modify the head pointer: 
+
+	print, acces/update data.
+	Pass head pointer as an argument and traverse/update the list. 
+	void addXtoList(struct Node *node, int x)
+
+2) Functions that modify the head pointer: 
+
+	Inserting a node at the beginning (head pointer is always modified in this function)
+	Inserting a node at the end (head pointer is modified only when the first node is being inserted)
+	Deleting a given node (head pointer is modified when the deleted node is first node).
+	There may be different ways to update the head pointer in these functions.
+	
+	2a) Make head pointer global (deleteFirst() example)
+	
+		struct Node *head = NULL; 
+  
+		void deleteFirst() 
+		{ 
+		    if(head != NULL) 
+		    { 
+		       struct Node *temp = head; 
+		       head = head->next;  
+		       free(temp); 
+		    } 
+		} 
+
+	2b) Returns the modified head pointer (deleteFirst() example). Have to use the returned value to update the head node.
+
+		struct Node *deleteFirst(struct Node *head) 
+		{ 
+		    if(head != NULL) 
+		    { 
+		       struct Node *temp = head; 
+		       head = head->next; 
+		       free(temp); 
+		    } 
+		    return head; 
+		} 
+
+	2c) Use Double Pointer: 
+
+This approach follows the simple C rule: if you want to modify local variable of one function inside another function, pass pointer to that variable. So we can pass pointer to the head pointer to modify the head pointer in our deleteFirst() function.
+
+		void deleteFirst(struct Node **head_ref) 
+		{ 
+		    if(*head_ref != NULL) 
+		    { 
+		       struct Node *temp = *head_ref; 
+		       *head_ref = (*head_ref)->next; 
+		       free(temp); 
+		    } 		
+		} 
+
+
+------------------------------------- Inserting a node ---------------------------------------------
+https://www.geeksforgeeks.org/linked-list-set-2-inserting-a-node/
+
+Add a node at the front: (A 4 steps process) Newly added node becomes the new head of the Linked List. Given a reference (pointer to pointer) to the head of a list and an int, inserts a new node on the front of the list.
+
+	void push(struct Node** head_ref, int new_data) 
+	{ 
+	    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node)); 	/* 1. allocate node */
+	    new_node->data  = new_data; 			/* 2. put in the data  */	
+	    new_node->next = (*head_ref); 			/* 3. Make next of new node as head */
+	    (*head_ref)    = new_node; 				/* 4. move the head to point to the new node */
+	} 
+	Time complexity of push() is O(1) as it does constant amount of work.
+
+
+Add a node after a given node: (5 steps process) We are given pointer to a node, and the new node is inserted after the given node.
+
+	void insertAfter(struct Node* prev_node, int new_data) 
+	{ 
+	    if (prev_node == NULL)  			/*1. check if the given prev_node is NULL */ 
+	       return;   
+	    struct Node* new_node =(struct Node*) malloc(sizeof(struct Node)); 		/* 2. allocate new node */
+	    new_node->data  = new_data; 		/* 3. put in the data  */
+	    new_node->next = prev_node->next;  		/* 4. Make next of new node as next of prev_node */
+	    prev_node->next = new_node; 		/* 5. move the next of prev_node as new_node */
+	}  
+	Time complexity of insertAfter() is O(1) as it does constant amount of work.
+
+
+Add a node at the end: (6 steps process)
+
+	void append(struct Node** head_ref, int new_data) 
+	{ 
+	    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node)); 	/* 1. allocate node */
+	  
+		struct Node *last = *head_ref;  	/* used in step 5*/
+		new_node->data  = new_data; 		/* 2. put in the data  */
+		new_node->next = NULL; 			/* 3. This new node is going to be the last node*/
+		if (*head_ref == NULL) 			/* 4. If the Linked List is empty, then make the new node as head */
+		{ 
+			*head_ref = new_node; 
+			return; 
+		}
+		while (last->next != NULL) 		/* 5. Else traverse till the last node */
+		last = last->next;
+
+   		last->next = new_node; 			/* 6. Change the next of last node */
+		return;     
+	}
+	Time complexity of append is O(n) where n is the number of nodes in linked list.
+	Since there is a loop from head to end, the function does O(n) work.
+	This method can also be optimized to work in O(1) by keeping an extra pointer to tail of linked list/
+
+
+------------------------------------- Deleting a node ---------------------------------------------
+https://www.geeksforgeeks.org/linked-list-set-3-deleting-node/
+
+Given a ‘key’, delete the first occurrence of this key in linked list.
+To delete a node from linked list, we need to do following steps.
+	1) Find previous node of the node to be deleted.
+	2) Change the next of previous node.
+	3) Free memory for the node to be deleted.
+
+/* Given a reference (pointer to pointer) to the head of a list and a key, deletes the first occurrence of key in linked list */
+	void deleteNode(struct Node **head_ref, int key) 
+	{ 
+    		struct Node* temp = *head_ref, *prev; 		// Store head node 
+		if (temp != NULL && temp->data == key) 		// If head node itself holds the key to be deleted 
+		{ 
+			*head_ref = temp->next;			// Changed head 
+			free(temp);				// free old head 
+			return; 
+		} 
+		while (temp != NULL && temp->data != key) 	// Search for the key to be deleted, keep track of the
+		{ 						// previous node as we need to change 'prev->next'
+			prev = temp; 
+			temp = temp->next; 
+		} 
+		if (temp == NULL) return; 			// If key was not present in linked list 
+			prev->next = temp->next; 		// Unlink the node from linked list 
+		free(temp);  					// Free memory 
+} 
+
+
+
+------------------------------------- Delete a node at a given position ------------------------------
+https://www.geeksforgeeks.org/delete-a-linked-list-node-at-a-given-position/
+
+Given a singly linked list and a position, delete a linked list node at the given position.
+	If node to be deleted is root, simply delete it.
+	To delete a middle node, we must have pointer to the node previous to the node to be deleted.
+	So if positions is not zero, we run a loop position-1 times and get pointer to the previous node.
+
+/* Given a reference (pointer to pointer) to the head of a list and a position, deletes the node at the given position */
+void deleteNode(struct Node **head_ref, int position) 
+{
+	if (*head_ref == NULL) 					// If linked list is empty 
+		return; 
+
+	struct Node* temp = *head_ref; 				// Store head node 
+
+	if (position == 0) 					// If head needs to be removed 
+	{ 
+		*head_ref = temp->next;   // Change head 
+		free(temp);               // free old head 
+		return; 
+	} 
+  
+	for (int i=0; temp!=NULL && i<position-1; i++) 		// Find previous node of the node to be deleted 
+		temp = temp->next; 
+
+	if (temp == NULL || temp->next == NULL)			// If position is more than number of ndoes 
+		return; 
+  
+	// Node temp->next is the node to be deleted. Store pointer to the next of node to be deleted 
+	struct Node *next = temp->next->next; 
+
+	// Unlink the node from linked list 
+	free(temp->next);  // Free memory 	
+  	temp->next = next;  // Unlink the deleted node from list 
+}
+
+
+------------------------------------------- Delete a Linked List ---------------------------------------------
+https://www.geeksforgeeks.org/write-a-function-to-delete-a-linked-list/
+
+Iterate through the linked list and delete all the nodes one by one. Main point here is not to access next of the current pointer if current pointer is deleted.
+
+void deleteList(struct Node** head_ref) 	/* Function to delete the entire linked list */
+{ 
+	struct Node* current = *head_ref; 	/* deref head_ref to get the real head */
+	struct Node* next; 
+
+	while (current != NULL)  
+	{ 
+		next = current->next; 
+		free(current); 
+		current = next; 
+	} 
+	*head_ref = NULL; 			/* deref head_ref to affect the real head back in the caller. */
+} 
+Time Complexity: O(n)
+
+
+-------------------------------------------- to count the number of nodes -----------------------------------------
+https://www.geeksforgeeks.org/find-length-of-a-linked-list-iterative-and-recursive/
+
+Iterative Solution
+	1) Initialize count as 0 
+	2) Initialize a node pointer, current = head.
+	3) Do following while current is not NULL
+		a) current = current -> next
+		b) count++;
+	4) Return count 
+
+	int getCount(struct Node* head) 
+	{ 
+	    int count = 0;  // Initialize count 
+	    struct Node* current = head;  		// Initialize current 
+	    while (current != NULL) 
+	    { 
+	        count++; 
+	        current = current->next; 
+	    } 
+	    return count; 
+	} 
+
+Recursive Solution
+	1) If head is NULL, return 0.
+	2) Else return 1 + getCount(head->next) 
+
+	int getCount(struct Node* head) 
+	{ 
+		if (head == NULL) 			// Base case 
+			return 0; 
+		return 1 + getCount(head->next); 	// count is 1 + count of remaining list 
+	} 
+
+
+----------------------------------------- Search an element ---------------------------------------------
+https://www.geeksforgeeks.org/search-an-element-in-a-linked-list-iterative-and-recursive/
+
+Searches a given key ‘x’ in a given singly linked list.
+The function should return true if x is present in linked list and false otherwise.
+
+Iterative Solution
+	1) Initialize a node pointer, current = head.
+	2) Do following while current is not NULL
+	    a) current->key is equal to the key being searched return true.
+	    b) current = current->next
+	3) Return false 
+
+	bool search(struct Node* head, int x) 		/* Checks whether the value x is present in linked list */
+	{ 
+	    struct Node* current = head;  		// Initialize current 
+	    while (current != NULL) 
+	    { 
+	        if (current->key == x) 
+	            return true; 
+	        current = current->next; 
+	    } 
+	    return false; 
+	} 
+
+Recursive Solution
+	1) If head is NULL, return false.
+	2) If head's key is same as x, return true;
+	3) Else return search(head->next, x) 
+
+	bool search(struct Node* head, int x) 		/* Checks whether the value x is present in linked list */
+	{ 
+	    if (head == NULL) 
+	        return false; 
+	    if (head->key == x) 		// If key is present in current node, return true
+	        return true; 
+	    return search(head->next, x); 	// Recur for remaining list 
+	} 
+
+
+---------------------------------------------- to get Nth node in a Linked List ---------------------------
+
+returns the data value stored in the node at that index position.
+	1. Initialize count = 0
+	2. Loop through the link list
+		a. if count is equal to the passed index then return current node
+		b. Increment count
+		c. change current to point to next of the current.
+
+	#include <assert.h>
+	int GetNth(struct Node* head, int index) 	// return data at index
+	{ 
+		struct Node* current = head; 
+		int count = 0;
+		while (current != NULL) 		// the index of the node we're currently looking at
+		{ 
+			if (count == index) 
+				return(current->data); 
+			count++; 
+			current = current->next; 
+		} 
+		/* if we get to this line, the caller was asking for a non-existent element so we assert fail */
+		assert(0);              
+	}
+	Time Complexity: O(n) 
+
+Method 2- With Recursion
+	1. Initialize count = 1
+	2. if count==n
+	     return node->data
+	3. else
+	    return getnth(node->next,n-1)
+    
+	int GetNth(struct Node *head,int n) 
+	{ 
+		int count = 1; 
+		if(count == n) 				//if count equal too n return node->data 
+			return head->data; 
+		return GetNth(head->next, n-1);  	//recursively decrease n and increase head to next pointer  
+	} 
+	Time Complexity: O(n)
+
+
+------------------------------------------------Reverse a linked list --------------------------------------
+https://www.geeksforgeeks.org/reverse-a-linked-list/
+
+Iterative Method
+        Initialize three pointers prev as NULL, curr as head and next as NULL.
+        Iterate trough the linked list. In loop, do following.
+        	// Before changing next of current, store next node
+		next = curr->next
+		// Now change next of current. This is where actual reversing happens
+		curr->next = prev
+		// Move prev and curr one step forward
+		prev = curr
+		curr = next
+
+	static void reverse(struct Node** head_ref) 	/* Function to reverse the linked list */
+	{ 
+	    struct Node* prev = NULL; 
+	    struct Node* current = *head_ref; 
+	    struct Node* next = NULL; 
+	    while (current != NULL) { 
+	        next = current->next; 			// Store next 
+	        current->next = prev; 			// Reverse current node's pointer 
+ 	       prev = current; 				// Move pointers one position ahead. 
+ 	       current = next; 
+ 	   } 
+	    *head_ref = prev; 
+	}
+	Time Complexity: O(n).	Space Complexity: O(1)
+
+
+--------------------------------------------- Detect loop in a linked list ---------------------------------------
+https://www.geeksforgeeks.org/detect-loop-in-a-linked-list/
+
+Check if the linked list has loop or not
+Use Hashing: Traverse the list one by one and keep putting the node addresses in a Hash Table
+Mark Visited Nodes: This solution requires modifications to the basic linked list data structure. 
+
+Floyd’s Cycle-Finding Algorithm: This is the fastest method and has been described below:
+	Traverse linked list using two pointers. 
+	Move one pointer(slow_p) by one and another pointer(fast_p) by two. 
+	If these pointers meet at the same node, there is a loop. If pointers do not meet, linked list doesn’t have a loop.
+
+	int detectloop(struct Node* list) 
+	{ 
+		struct Node *slow_p = list, *fast_p = list; 
+
+		while (slow_p && fast_p && fast_p->next) { 
+			slow_p = slow_p->next; 
+			fast_p = fast_p->next->next;
+			if (slow_p == fast_p) { 
+	        		printf("Found Loop");
+	        		return 1; 
+			} 
+		} 
+		return 0; 
+	} 
+	Time Complexity: O(n).	Auxiliary Space: O(1)
+
+Marking visited nodes without modifying the linked list data structure: a temporary node is created. The next pointer of each node that is traversed is made to point to this temporary node. This way we are using the next pointer of a node as a flag to indicate whether the node has been traversed or not. Every node is checked to see if the next is pointing to a temporary node or not. In the case of the first node of the loop, the second time we traverse it this condition will be true, hence we find that loop exists. If we come across a node that points to null then loop doesn’t exist.
+	bool detectLoop(Node* head) 
+	{
+		Node* temp = new Node; 		// Create a temporary node 	
+		while (head != NULL) { 
+			if (head->next == NULL) 	// This condition is for the case when there is no loop 
+				return false; 
+	        	if (head->next == temp) 	// Check if next is already pointing to temp 
+	        	    return true; 
+	        	Node* nex = head->next; // Store the pointer to the next node in order to get to it in the next step
+			head->next = temp; 		// Make next point to temp 
+			head = nex; 			// Get to the next node in the list 
+		}  
+  	return false; 
+	} 
+
+
+--------------------------------------------- QUICK SORT --------------------------------------------------
+https://www.geeksforgeeks.org/quicksort-on-singly-linked-list/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
