@@ -138,6 +138,13 @@ void printList(struct Node* n)
     } 
 } 
 
+-------------------------------- GOOD PRACTICES -------------------------------------
+EVALUATES NULL CASES.
+FREE MEMORY, STRINGS WHEN STRDUP
+DUPLICATE **HEAD_REF PASED AS PARAMETER TO AVOID MODIFY REAL HEAD.
+
+
+
 --------------------------------  Functions that operate on Linked lists ----------------------------
 https://www.geeksforgeeks.org/how-to-write-functions-that-modify-the-head-pointer-of-a-linked-list/
 
@@ -229,7 +236,7 @@ Add a node at the end: (6 steps process)
 
 	void append(struct Node** head_ref, int new_data) 
 	{ 
-	    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node)); 	/* 1. allocate node */
+		struct Node* new_node = (struct Node*) malloc(sizeof(struct Node)); 	/* 1. allocate node */
 	  
 		struct Node *last = *head_ref;  	/* used in step 5*/
 		new_node->data  = new_data; 		/* 2. put in the data  */
@@ -240,7 +247,7 @@ Add a node at the end: (6 steps process)
 			return; 
 		}
 		while (last->next != NULL) 		/* 5. Else traverse till the last node */
-		last = last->next;
+			last = last->next;
 
    		last->next = new_node; 			/* 6. Change the next of last node */
 		return;     
