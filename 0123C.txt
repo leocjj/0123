@@ -40,6 +40,62 @@ Operator	Description	Example
 <<	Binary Left Shift Operator. The left operands value is moved left by the number of bits specified by the right operand.	A << 2 = 240 i.e., 1111 0000
 >>	Binary Right Shift Operator. The left operands value is moved right by the number of bits specified by the right operand.	A >> 2 = 15 i.e., 0000 1111
 
+0 ^ 0 = 0
+0 ^ 1 = 1
+1 ^ 0 = 1
+1 ^ 1 = 0
+
+Right shift
+divides by two
+Left shift
+multiplies by two
+
+Right shift
+divides by two
+Left shift
+multiplies by two
+
+x ^ 0s = x
+x ^ 1s = ~x
+x ^ x = 0
+x & 0s = 0
+x & 1s = x
+x & x = x
+x | 0s = x
+x | 1s = 1
+x | x = x
+x ^ 0 = x
+x ^ 1 = x
+x ^ x = 0
+
+int setBit(int num, int position) {
+	int mask = 1 << position;
+	return x | mask;
+}
+boolean getBit(int num, int position) {
+	return ((num & (1 << i)) != 0);
+}
+int clearBit(int num, int position) {
+	int mask = 1 << position;
+	return x & ~mask;
+}
+int updateBit(int num, int position, boolean isOne) {
+	int value = isOne? 1:0;
+	int mask = ~(1 << i)l
+	return (num & mask) | (value << i);
+}
+Check if a given number is even?
+if the least bit is 0, this can be done by using the bit-wise AND
+(x & 1 ) == 0
+  0110 (6)
+& 0001
+= 0000 TRUE
+
+Check if the number is a power of 2?
+a number that is a power of two, should only have one 1 set;
+if we subtract 1, all the zeros following will be set to one. If we & that with the original number we get 0
+(x & x-1) == 0
+
 
 ******************************************* ARRAYS ****************************************
 char a[] = {"Holberton\n"};
