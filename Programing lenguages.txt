@@ -1,2 +1,7 @@
 
 R is a language and environment for statistical computing and graphics. different implementation of S. It compiles and runs on a wide variety of UNIX platforms and similar systems (including FreeBSD and Linux), Windows and MacOS
+
+https://www.rust-lang.org/	
+https://www.genbeta.com/desarrollo/que-rust-lenguaje-amado-muchos-programadores-gran-desconocido
+
+https://ionicframework.com/
