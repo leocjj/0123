@@ -281,8 +281,9 @@ To delete a node from linked list, we need to do following steps.
 			prev = temp; 
 			temp = temp->next; 
 		} 
-		if (temp == NULL) return; 			// If key was not present in linked list 
-			prev->next = temp->next; 		// Unlink the node from linked list 
+		if (temp == NULL)
+			return; 				// If key was not present in linked list 
+		prev->next = temp->next; 			// Unlink the node from linked list 
 		free(temp);  					// Free memory 
 } 
 

@@ -27,19 +27,6 @@ f= (float) i;	i = (int) f;	//Casting
 		and then fills the array with the ASCII codes of each letter of the string.
 		In the extra cell (the last one) the computer will store the ASCII code of ‘\0’ = NULL
 
-***************************************** OPERATORS *************************************
-https://www.tutorialspoint.com/cprogramming/c_operators.htm
-https://www.tutorialspoint.com/cprogramming/c_bitwise_operators.htm
-
-The following table lists the Bitwise operators supported by C. Assume variable 'A' holds 60 and variable 'B' holds 13, then -
-Operator	Description	Example
-&	Binary AND Operator copies a bit to the result if it exists in both operands.	(A & B) = 12, i.e., 0000 1100
-|	Binary OR Operator copies a bit if it exists in either operand.	(A | B) = 61, i.e., 0011 1101
-^	Binary XOR Operator copies the bit if it is set in one operand but not both.	(A ^ B) = 49, i.e., 0011 0001
-~	Binary One's Complement Operator is unary and has the effect of 'flipping' bits.	(~A ) = ~(60), i.e,. -0111101
-<<	Binary Left Shift Operator. The left operands value is moved left by the number of bits specified by the right operand.	A << 2 = 240 i.e., 1111 0000
->>	Binary Right Shift Operator. The left operands value is moved right by the number of bits specified by the right operand.	A >> 2 = 15 i.e., 0000 1111
-
 
 ******************************************* ARRAYS ****************************************
 char a[] = {"Holberton\n"};
