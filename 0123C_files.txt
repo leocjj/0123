@@ -1,0 +1,85 @@
+letters_readed = read(fd_from, buffer, 1024);
+	while (letters_readed > 0)
+	{
+		letters_printed = write(fd_to, buffer, letters_readed);
+		if (letters_printed != letters_readed)
+		{
+			close_fds(fd_from, fd_to);
+			dprintf(STDERR_FILENO, "Can't write to %s\n", file_to);
+			exit(99);
+		}
+		letters_readed = read(fd_from, buffer, 1024);
+	}
+	if (letters_readed < 0)
+	{
+		close_fds(fd_from, fd_to);
+		dprintf(STDERR_FILENO, "Can't read from file %s\n", file_from);
+		exit(98);
+	}
+
+
+
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+int main (int argc, char *argv[])
+{
+	int fd1;
+	char buf[128];
+
+http://manpages.ubuntu.com/manpages/trusty/man2/open.2.html
+	fd1 = open(argv[1], O_WRONLY);		// O_RDONLY, O_WRONLY, O_RDWR,  O_WRONLY | O_CREAT | O_APPEND
+
+	open(argv[1], O_WRONLY);
+fd_to = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+              S_IRUSR  00400 user has read permission
+              S_IWUSR  00200 user has write permission
+              S_IXUSR  00100 user has execute permission
+
+              S_IRWXG  00070 group has read, write and execute permission
+              S_IRGRP  00040 group has read permission
+              S_IWGRP  00020 group has write permission
+              S_IXGRP  00010 group has execute permission
+
+              S_IRWXO  00007 others have read, write and execute permission
+              S_IROTH  00004 others have read permission
+              S_IWOTH  00002 others have write permission
+              S_IXOTH  00001 others have execute permission
+
+	// fd1 It is the file descriptor which has been obtained from the call to open.
+	// It is an integer value. The values 0, 1, 2 can also be given, for standard input, standard output & standard error.
+
+	if (fd1 == -1)
+	{
+		perror(argv[1]);
+		return EXIT_FAILURE;
+	}
+	scanf("%127s", buf);
+http://manpages.ubuntu.com/manpages/trusty/man2/write.2.html
+	write(fd1, buf, strlen(buf));		// ssize_t write(int fd, const void *buf, size_t nbytes);
+						// ssize_t is a typedef. It is a signed data type defined in stddef.h.
+
+	Integer valueName<unistd.h> symbolic constant<stdio.h> file stream
+	0 	Standard input		STDIN_FILENO		stdin
+	1 	Standard output		STDOUT_FILENO		stdout
+	2 	Standard error		STDERR_FILENO		stderr
+
+http://manpages.ubuntu.com/manpages/trusty/man2/read.2.html
+	// ssize_t read(int fd, void *buf, size_t count);
+	// returned the number of bytes read (zero indicates end of file) and the file position is advanced by this number. 
+
+	close(fd1);
+	return 0;
+}
