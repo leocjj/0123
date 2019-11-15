@@ -83,3 +83,108 @@ http://manpages.ubuntu.com/manpages/trusty/man2/read.2.html
 	close(fd1);
 	return 0;
 }
+
+
+************************************ GETLINE *******************************************************
+#include <stdio.h>
+ssize_t getline(char **line_read, size_t *len_of_line, FILE *file_descriptor);
+
+getline() reads an entire line from stream, storing the address of the buffer containing the text into *lineptr.
+The buffer is null-terminated and includes the newline character, if one was found.
+
+If *lineptr is set to NULL and *n is set 0 before the call, then getline() will allocate a buffer for storing the line.
+This buffer should be freed by the user program even if getline() failed.
+
+Alternatively, before calling getline(), *lineptr can contain a pointer to a malloc(3)-allocated buffer *n bytes in size.
+
+//return the number of characters or -1 on error (including end-of-file condition)
+
+
+************************************ EXECVE *******************************************************
+#include <unistd.h>
+int execve(const char *path_and_filename, char *const argv[], char *const envp[]); 
+On success, execve() does not return, on error -1 is returned
+
+execve() executes the program referred to by pathname.  This causes the program that is currently being run by the calling process to be replaced with a new program, with newly initialized stack, heap, and data segments.
+
+argv is an array of argument strings passed to the new program.
+envp is an array of strings, conventionally of the form key=value, which are passed as environment to the new program.
+The argv and envp arrays must each include a null pointer at the end of the array.
+
+according to POSIX.1, the environment should be accessed via the external variable environ(7).
+
+execve() does not return on success, and the text, initialized data, uninitialized data (bss), and stack of the calling process are over‐written according to the contents of the newly loaded program.
+
+If the current program is being ptraced, a SIGTRAP signal is sent to it after a successful execve().
+
+By default, file descriptors remain open across an execve().
+
+
+*************************************** FORK ******************************************************
+#include <sys/types.h>
+#include <unistd.h>
+
+pid_t fork(void);
+
+fork() creates a new process by duplicating the calling process.
+The new process is referred to as the child process.  The calling process is referred to as the parent process.
+
+The child process and the parent process run in separate memory spaces.
+At the time of fork() both memory spaces have the same content.
+Memory writes, file mappings (mmap(2)), and unmappings (munmap(2)) performed by one of the processes do not affect the other.
+
+The child process is an exact duplicate of the parent process except for the following points:
+
+       *  The child has its own unique process ID
+       *  The child's parent process ID is the same as the parent's process ID.
+       *  The child does not inherit its parent's memory locks (mlock(2), mlockall(2)).
+       *  The child does not inherit process-associated record locks from its parent (fcntl(2)).
+	(On the other hand, it does inherit fcntl(2) open file description locks and flock(2) locks from its parent.)
+
+       *  The termination signal of the child is always SIGCHLD (see clone(2)).
+
+       *  The child inherits copies of the parent's set of open file descriptors.
+	Each file descriptor in the child refers to the same open file description (see open(2)) as the corresponding file
+          descriptor in the parent.  This means that the two file descriptors share open file status flags, file offset, and signal-driven I/O attributes (see the description of F_SETOWN and F_SETSIG in fcntl(2)).
+
+       *  The child inherits copies of the parent's set of open directory streams (see opendir(3)).  POSIX.1 says that the corresponding directory streams in the parent and child may share the directory stream positioning; on Linux/glibc they do not.
+
+RETURN VALUE         top
+On success, the PID of the child process is returned in the parent, and 0 is returned in the child.
+On failure, -1 is returned in the parent, no child process is created, and errno is set appropriately.
+
+
+************************************************* WAIT ********************************************
+#include <sys/types.h>
+#include <sys/wait.h>
+pid_t wait(int *wstatus);
+pid_t waitpid(pid_t pid, int *wstatus, int options);
+
+wait for state changes in a child of the calling process, and obtain information about the child whose state has changed.
+A state change is considered to be: the child terminated; the child was stopped by a signal; or the child was resumed by a signal.  In the case of a terminated child, performing a wait allows the system to release the resources associated with the child; if a wait is not performed, then the terminated child remains in a "zombie" state (see NOTES below).
+
+If a child has already changed state, then these calls return immediately.  Otherwise, they block until either a child changes state.
+The wait() system call suspends execution of the calling thread until one of its children terminates.  The call wait(&wstatus) is equivalent to: waitpid(-1, &wstatus, 0);
+
+The waitpid() system call suspends execution of the calling thread until a child specified by pid argument has changed state.  By default, waitpid() waits only for terminated children.
+
+wait() and waitpid() store status information in the int to which it points.
+This integer can be inspected with the following macros (which take the integer itself as an argument, not a pointer to it, as is done in wait() and waitpid()!):
+WIFEXITED(wstatus) returns true if the child terminated normally, that is, by calling exit(3) or _exit(2), or by returning from main().
+
+wait(): on success, returns the process ID of the terminated child; on error, -1 is returned.
+
+waitpid(): on success, returns the process ID of the child whose state has changed; if WNOHANG was specified and one or more child(ren) specified by pid exist, but have not yet changed state, then 0 is returned.  On error, -1 is returned.
+
+
+
+
+
+
+
+
+
+
+
+
+
