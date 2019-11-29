@@ -1,4 +1,16 @@
+Qué debemos hacer
+	Costo/beneficio
+	Agilismo
+Que nos gusta
+	programar
+	automatizar test, tester.
+	nube: aws, servlets
+	apps políglotas
+	back-end + front-end + infraestructura--> full stack
+
+
 ---------------------------------- Distribución de Binomial.------------------------------------
+Número de ensayos fijos, observar número de éxitos.
 p- prob. exito, de que ocurra x, es constante.
 n- ensayos independientes.
 p(x;n,p) = C(n,x) . p^x . (1-p)^(n-x)
@@ -28,4 +40,13 @@ n-x	- objetos de tipo B
 p(x;N,n,k) = C(k,x) . C( N-k, n-x) / C(N,n)
 
 Se puede aproximar por la distribución binomial si cociente n/N es pequeño (<0,1)
+
+Media: nk/N	Varianza: nk.(N-k).(N-n) / N^2.(N-1)
+
+
+---------------------------------- Distribución de Binomial Negativa.------------------------------------
+Se continuan los ensayos hasta que han ocurrido exactamente k exitos.
+n - var. aleatoria número de ensayos necesarios para observar k exitos.
+
+p(n;k,p) = C(n-1, k-1).p^k.(1-p)^(n-k)
 
