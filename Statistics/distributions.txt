@@ -13,3 +13,18 @@ Límite de la distribución binomial n->inf(muy grande), p->0(muy pequeña).
 Es decir, si es cierto que p=lambda/n --> lambda = n.p
 
 E(X) = lambda		Var(X) = lambda		Coef. asimetría = 1 / raiz(lambda)
+
+---------------------------------- Distribución de Hipergeométrica.------------------------------------
+Es un muestreo sin reemplazo, si se sacó una opción, no se devuelve --> probabilidad cambia en cada muestra
+En la distrib. binomial, se hace con reemplazo, asegurando independencia y probabilidad constante.
+
+N	- total de elementos de una población
+k	- elementos de tipo A
+N-k	- elementos de tipo B
+n	- muestra aleatoria. n = (x) + (n-x)
+x	- objetos de tipo A
+n-x	- objetos de tipo B
+
+p(x;N,n,k) = C(k,x) . C( N-k, n-x) / C(N,n)
+
+Se puede aproximar por la distribución binomial si cociente n/N es pequeño (<0,1)

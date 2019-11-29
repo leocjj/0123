@@ -1,5 +1,5 @@
-Empresas
-Open, Compunet, Siesa, Carvajal tecnolog�a
+﻿Empresas
+Open, Compunet, Siesa, Carvajal tecnologia, Green SQA
 
 
 deeplearningbook.org		//
