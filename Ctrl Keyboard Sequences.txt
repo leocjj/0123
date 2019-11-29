@@ -33,7 +33,7 @@ Ctrl	ASCII	Dec	Hex	Meaning
 ^]	GS	029	1D	Group separator
 ^^	RS	030	1E	Record separator
 ^_	US	031	1F	Unit separator
-SP	032	20	Space
+	SP	032	20	Space
 
 The ^ symbol stands for Ctrl
 
