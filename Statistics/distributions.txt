@@ -28,3 +28,4 @@ n-x	- objetos de tipo B
 p(x;N,n,k) = C(k,x) . C( N-k, n-x) / C(N,n)
 
 Se puede aproximar por la distribución binomial si cociente n/N es pequeño (<0,1)
+
