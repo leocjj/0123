@@ -1,0 +1,52 @@
+Qué debemos hacer
+	Costo/beneficio
+	Agilismo
+Que nos gusta
+	programar
+	automatizar test, tester.
+	nube: aws, servlets
+	apps políglotas
+	back-end + front-end + infraestructura--> full stack
+
+
+---------------------------------- Distribución de Binomial.------------------------------------
+Número de ensayos fijos, observar número de éxitos.
+p- prob. exito, de que ocurra x, es constante.
+n- ensayos independientes.
+p(x;n,p) = C(n,x) . p^x . (1-p)^(n-x)
+p(X <= x) = F(x;n,p) = sumatoria hasta x de p(i;n,p)
+
+
+---------------------------------- Distribución de Poisson.------------------------------------
+X variable aleatoria, representa eventos que ocurren con rapidez constante, en tiempo o espacio.
+
+p(x;lambda) = (e^-lambda . lambda^x) / x!  , 	lambda > 0
+Límite de la distribución binomial n->inf(muy grande), p->0(muy pequeña).
+Es decir, si es cierto que p=lambda/n --> lambda = n.p
+
+E(X) = lambda		Var(X) = lambda		Coef. asimetría = 1 / raiz(lambda)
+
+---------------------------------- Distribución de Hipergeométrica.------------------------------------
+Es un muestreo sin reemplazo, si se sacó una opción, no se devuelve --> probabilidad cambia en cada muestra
+En la distrib. binomial, se hace con reemplazo, asegurando independencia y probabilidad constante.
+
+N	- total de elementos de una población
+k	- elementos de tipo A
+N-k	- elementos de tipo B
+n	- muestra aleatoria. n = (x) + (n-x)
+x	- objetos de tipo A
+n-x	- objetos de tipo B
+
+p(x;N,n,k) = C(k,x) . C( N-k, n-x) / C(N,n)
+
+Se puede aproximar por la distribución binomial si cociente n/N es pequeño (<0,1)
+
+Media: nk/N	Varianza: nk.(N-k).(N-n) / N^2.(N-1)
+
+
+---------------------------------- Distribución de Binomial Negativa.------------------------------------
+Se continuan los ensayos hasta que han ocurrido exactamente k exitos.
+n - var. aleatoria número de ensayos necesarios para observar k exitos.
+
+p(n;k,p) = C(n-1, k-1).p^k.(1-p)^(n-k)
+

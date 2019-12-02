@@ -1,7 +1,10 @@
+﻿Empresas
+PSL, Open, Compunet, Siesa, Carvajal tecnologia, Green SQA
+
 
 deeplearningbook.org		//
 https://onlinejudge.org/
-https://www.24x7wpsupport.com/blog/top-15-best-code-editors-for-programming-coding/
+@ -5,17 +8,8 @@ https://www.24x7wpsupport.com/blog/top-15-best-code-editors-for-programming-codi
 
 http://inning.com.co/
 https://datapico.com/
