@@ -1,5 +1,12 @@
 ﻿Empresas
-PSL, Open, Compunet, Siesa, Carvajal tecnologia, Green SQA
+	PSL
+	Open (Albarracín)
+	Compunet
+	Siesa
+	Carvajal tecnologia
+	Green SQA
+	Felipe Arcos
+	Banco de occidente (Vero)
 
 
 deeplearningbook.org		//
