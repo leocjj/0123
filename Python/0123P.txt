@@ -1,0 +1,108 @@
+
+************************** PYTHON STYLE **********************
+sudo apt-get install python3-pep8
+	or
+sudo apt-get install python3-pip
+pip3 install pep8
+
+Make sure you have the right version
+$ pep8 --version
+1.7
+$
+If it’s not the case, it means PEP8 is installed but not linked in your PATH. You should look at these folders to find where it has been installed:
+
+/usr/local/lib/python3*/dist-packages/pep8.py
+/usr/lib/python3*/dist-packages/pep8.py
+Don’t hesitate to delete /usr/bin/pep8 and replace by one of those pep8.py:
+
+sudo cp /usr/lib/python3*/dist-packages/pep8.py /usr/bin/pep8
+sudo chmod u+x /usr/bin/pep8
+sudo pep8 --version
+sudo pip3 install pep8 --upgrade	//To upgrade version
+Finally, if you can’t make it work, please use the “container-on-demand” tool to “PEP8” your files in a pre-configured container.
+
+sudo apt-get --purge remove pep8	//Uninstall
+pip3 uninstall pep8
+
+************************* PYTHON INSTALL *************************
+python3 -V
+sudo apt-get install idle-python3.4
+sudo apt-get install python3
+
+/usr/local/bin/python3.4	//Installation dir, put it in path
+set path=%path%;C:\python34	//To set path in Windows
+
+
+************************* PYTHON TUTORIAL *************************
+https://docs.python.org/3.4/tutorial/index.html
+https://docs.python.org/3.4/library/index.html#library-index		//Standar library
+https://docs.python.org/3.4/reference/index.html#reference-index	//Language reference
+https://docs.python.org/3.4/extending/index.html#extending-index	//To write extensions in C
+https://docs.python.org/3.4/c-api/index.html#c-api-index		//API
+
+
+************************* RUN PYTHON ******************************
+>python3			//Run python shell, interpreter
+>>> quit(), exit(), ctrl + D	//To exit
+
+Interactively: 		when called with standard input connected to a tty device, it reads and executes commands.
+Non-Interactively:	when called with a file name argument or with a file as standard input, it reads and executes a script from that file.
+			to run the script and enter interactive mode afterwards. This can be done by passing -i before the script.
+
+python -c 'command' [arg] ..., 	which executes the statement(s) in command, analogous to the shell’s -c option.
+python -m  module [arg] ..., 	which executes the source file for module as if you had spelled out its full name on the command line.
+
+
+All command line options are described in Command line and environment.
+
+************************** SCRIPTS *******************************
+python myscript.py
+
+PYTHON SCRIPT			//main.py 	EXECUTABLE!!!!!!!!
+	#!/usr/bin/python3
+	print("Holberton School")
+export PYFILE=main.py
+SHELL SCRIPT			//Shell script to run python script
+	#!/bin/bash
+	python $PYFILE
+	
+PYTHON CODE
+export PYCODE='print("Holberton School: {}".format(88+10))'
+SHELL SCRIPT			//Shell script that runs Python code.
+	#!/bin/bash
+	python3 $PYCODE
+
+************************* BASIC COMMANDS **************************
+a = range(stop)			//range object
+a[i]				//range element
+
+range(start, stop [,step])
+range.__len__(self, /)
+
+array = [i for i in range (1,10)]
+array[:5]
+
+
+https://pyformat.info/#number		//print format
+print('{} {}'.format('one', 'two'))		'%s %s' % ('one', 'two')
+print('{0} {1}'.format('one', 'two'))
+print('{1} {0}'.format('one', 'two'))
+print('{} {}'.format(1, 2))			'%d %d' % (1, 2)
+print('{:d}'.format(42))			'%d' % (42)
+print('{:f}'.format(3.141592653589793))		'%f' % (3.141592653589793,)
+print('{:06.2f}'.format(3.141592653589793))	'%06.2f' % (3.141592653589793,)		6 padding, .2 precision
+
+***************************** PYTHON BYTECODE **********************
+import dis
+dis.dis("a=5")
+
+requests.get("http://www.google.com")
+requests.__dict__
+
+import pprint
+pprint.pprint(requests.__dict__)
+pprint.pprint(requests.json)
+
+import os
+[os.path.basename(object["ssh_url"]) for object in json]
+
