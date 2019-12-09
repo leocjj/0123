@@ -82,8 +82,16 @@ range.__len__(self, /)
 array = [i for i in range (1,10)]
 array[:5]
 
+a = "Python is cool"
+array[init_index[:final_index]]		//if index missing, takes to the start/end.
+					//if index negative, takes counting in reverse.
 
-https://pyformat.info/#number		//print format
+print('{index[:format]}...'.format(var1,...))
+a = "Python is cool"
+print(a[7:-5])					//print is
+
+https://pyformat.info/#number
+print("...".format(...))			//print format
 print('{} {}'.format('one', 'two'))		'%s %s' % ('one', 'two')
 print('{0} {1}'.format('one', 'two'))
 print('{1} {0}'.format('one', 'two'))
@@ -91,6 +99,23 @@ print('{} {}'.format(1, 2))			'%d %d' % (1, 2)
 print('{:d}'.format(42))			'%d' % (42)
 print('{:f}'.format(3.141592653589793))		'%f' % (3.141592653589793,)
 print('{:06.2f}'.format(3.141592653589793))	'%06.2f' % (3.141592653589793,)		6 padding, .2 precision
+print('{:.5}'.format('xylophone'))		'%.5s' % ('xylophone',)		Truncate string
+
+
+https://docs.python.org/3/library/sys.html
+https://docs.python.org/2/library/sys.html
+
+
+sys.argv
+sys.executable
+sys.exit			//sys.exit(0)
+sys.modules
+sys.path
+sys.platform
+
+from sys import stderr
+sys.stdin/stdout/stderr		//stderr.write("Couldn't open, error: {0}\n".format(e))
+
 
 ***************************** PYTHON BYTECODE **********************
 import dis
