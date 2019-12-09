@@ -117,7 +117,22 @@ from sys import stderr
 sys.stdin/stdout/stderr		//stderr.write("Couldn't open, error: {0}\n".format(e))
 
 
+***************************** FUNCTIONS ***************************
+
+def functionname( parameters ):
+   "function_docstring"
+   function_suite
+   return [expression]
+
+
 ***************************** PYTHON BYTECODE **********************
+
+https://docs.python.org/3/library/py_compile.html
+https://docs.python.org/3/library/compileall.html
+https://stackoverflow.com/questions/5607283/how-can-i-manually-generate-a-pyc-file-from-a-py-file/38426786#38426786
+
+python3 -m compileall -b $PYFILE	//
+
 import dis
 dis.dis("a=5")
 
