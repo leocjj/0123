@@ -195,9 +195,25 @@ On error (at least one bit in mode asked for a permission that is denied, or mod
 
 
 
+CONDICIONES DE ARCHIVO ACTUALIZADAS: SI EXISTE EL ARCHIVO Y SI SE PUEDE EJECUTAR.
+file_found = stat(command_line, &st);
+file_access = access(command_line, F_OK | X_OK);
+if (file_found >= 0)
+{
+	if (file_access >= 0)
+	{
+	} else
+		printf("-%s: %s: Permission denied\n", argv, command_line);
+}
+else
+	printf("-%s: %s: No such file or directory\n", argv, command_line);
 
-
-
+EN ARCHIVO _read.c, por que aparece EXIT SUCCESS??
+if (len_of_read == -1)
+	{
+		printf("\n");
+		exit(EXIT_SUCCESS);
+	}
 
 
 

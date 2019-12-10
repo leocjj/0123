@@ -1,0 +1,5 @@
+Comment each part of the code
+Use readable names for variables, functions, files
+Team work: define versions, branches, management, repos, aprovals
+
+Methodology

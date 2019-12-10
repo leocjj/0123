@@ -7,6 +7,7 @@
 	Green SQA
 	Felipe Arcos
 	Banco de occidente (Vero)
+	Remotas canadá
 
 
 deeplearningbook.org		//
@@ -15,6 +16,7 @@ https://onlinejudge.org/
 
 http://inning.com.co/
 https://datapico.com/
+https://apps.co/		//Emprendimiento, curos gratis
 https://trello.com/b/zPPxLrK2/mapa-del-emprendimiento-en-colombia
 
 
