@@ -86,7 +86,7 @@ a = "Python is cool"
 array[init_index[:final_index]]		//if index missing, takes to the start/end.
 					//if index negative, takes counting in reverse.
 
-print('{index[:format]}...'.format(var1,...))
+print('{index[:format]}...'.format(var1,...), end=' ')	//end specify end character
 a = "Python is cool"
 print(a[7:-5])					//print is
 
@@ -99,9 +99,88 @@ print('{} {}'.format(1, 2))			'%d %d' % (1, 2)
 print('{:d}'.format(42))			'%d' % (42)
 print('{:f}'.format(3.141592653589793))		'%f' % (3.141592653589793,)
 print('{:06.2f}'.format(3.141592653589793))	'%06.2f' % (3.141592653589793,)		6 padding, .2 precision
-print('{:.5}'.format('xylophone'))		'%.5s' % ('xylophone',)		Truncate string
+print('{:.5}'.format('xylophone'))		'%.5s' % ('xylophone',)		Truncate {:c}	'{:c}'.format(int unicode)			character
 
 
+
+************************* BUILTIN METHODS **************************
+
+ord()		//Accept character and return unicode code, B --> 66
+chr()		//Accept integer [0, 1114111]and return character
+abs()		//Absolute value of integer, float or complex
+
+https://www.programiz.com/python-programming/methods/built-in/abs
+    Python abs()
+    Python any()
+    Python all()
+    Python ascii()
+    Python bin()
+    Python bool()
+    Python bytearray()
+    Python callable()
+    Python bytes()
+    Python chr()
+    Python compile()
+    Python classmethod()
+    Python complex()
+    Python delattr()
+    Python dict()
+    Python dir()
+    Python divmod()
+    Python enumerate()
+    Python staticmethod()
+    Python filter()
+    Python eval()
+    Python float()
+    Python format()
+    Python frozenset()
+    Python getattr()
+    Python globals()
+    Python exec()
+    Python hasattr()
+    Python help()
+    Python hex()		//converts an integer number to the corresponding hexadecimal string.
+    Python hash()
+    Python input()
+    Python id()
+    Python isinstance()
+    Python int()
+    Python issubclass()
+    Python iter()
+    Python list() Function
+    Python locals()
+    Python len()		//the number of items (length) in an object.
+    Python max()
+    Python min()
+    Python map()
+    Python next()
+    Python memoryview()
+    Python object()
+    Python oct()
+    Python ord()
+    Python open()
+    Python pow()
+    Python print()
+    Python property()
+    Python range()
+    Python repr()
+    Python reversed()
+    Python round()
+    Python set()
+    Python setattr()
+    Python slice()
+    Python sorted()
+    Python str()		//returns the "informal" or nicely printable representation of a given object.
+    Python sum()		//adds the items of an iterable and returns the sum.
+
+    Python tuple() Function
+    Python type()
+    Python vars()
+    Python zip()
+    Python __import__()
+    Python super()
+
+*********************************************************
 https://docs.python.org/3/library/sys.html
 https://docs.python.org/2/library/sys.html
 

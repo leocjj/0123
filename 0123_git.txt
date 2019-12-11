@@ -52,7 +52,7 @@ $ git status  		//List of files modified
 
 echo '*~'>>.gitignore	//To ignore temp files.
 
-git config --global credential.helper 'cache --45000	//To avoid put pass and user for every git push
+git config --global credential.helper cache --45000	//To avoid put pass and user for every git push
 
 ----------------------- SCRIPT TO UPLOAD A FILE
 #!/bin/bash
