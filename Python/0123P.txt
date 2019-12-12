@@ -180,7 +180,130 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python __import__()
     Python super()
 
-*********************************************************
+************************************* IMPORT MODULES ***********************************
+
+Module: contain executable statements (to initialize the module) as well as function definitions. 
+	Statements: executed only the first time is imported. Run if the file is executed as a script.
+	Has its own private symbol: can access with tablemodname.itemname
+
+__name__	//global variable, within a module, the module’s name (as a string)
+fibo.__name__	//Result: 'fibo' 
+
+import fibo	//This does not enter the names of the functions defined in fibo directly in the current symbol table. it only enters the module name fibo there. Using the module name you can access the functions:
+fibo.fib(1000)	//To use a function in module
+fib = fibo.fib	//To create a variabla to te function and then use fib(500)
+
+Modules can import other modules. Imported module names are placed in the importing module’s global symbol table.
+
+from fibo import fib, fib2	Imports names into the importing module’s symbol table. doesn't introduce module name.
+fib(500)
+
+from fibo import *		This imports all names except those beginning with an underscore (_)
+
+if you change your modules, you must restart the interpreter – or,  use import imp; imp.reload(modulename).
+
+python fibo.py <arguments>	//Executing modules as scripts, the code in the module will be executed
+				//just as if you imported it, but with the __name__ set to "__main__".
+				//That means that by adding this code at the end of your module:
+	if __name__ == "__main__":
+	    import sys
+	    fib(int(sys.argv[1]))
+	you can make the file usable as a script as well as an importable module.
+	$ python fibo.py 50
+
+sys.path			//Module Search Path
+	    The directory containing the input script (or the current directory).
+	    PYTHONPATH (a list of directory names, as the shell variable PATH).
+	    The installation-dependent default.
+
+**************************************** MODULES ***********************************
+https://docs.python.org/3.4/tutorial/stdlib.html#command-line-arguments
+
+
+sys 		//also has attributes for stdin, stdout, and stderr
+glob 		//provides a function for making file lists from directory wildcard searches: glob.glob('*.py')
+os		//provides dozens of functions for interacting with the operating system
+shutil 		//provides a higher level interface that is easier to use:
+urllib.request	//for retrieving data from URLs
+smtplib 	//for sending mail:
+datetime 	//supplies classes for manipulating dates and times in both simple and complex ways.
+zlib		//Common data archiving and compression, modules: zlib, gzip, bz2, lzma, zipfile and tarfile.
+timeit		//quickly demonstrates a modest performance advantage
+doctest module provides a tool for scanning a module and validating tests embedded in a program’s docstrings.
+statistics 	//calculates basic statistical properties 
+random 		//provides tools for making random selections:
+math 		//access to the underlying C library functions for floating point math:
+re 		//provides regular expression tools for advanced string processing
+
+SciPy project <http://scipy.org> has many other modules for numerical computations.
+
+************************************** SYS and DIR***********************************
+https://docs.python.org/3.4/library/sys.html#module-sys
+
+import sys
+
+sys.ps1 = 'C> ';	sys.ps2 = '.. ' 	//Variables, define strings used prompts, interactive mode only.
+sys.path					//A list of strings that specifies the search path for modules
+sys.path.append('/ufs/guido/lib/python')	//determines the interpreter’s search path for modules
+
+sys.__stdin__		//objects containing original values of stdin, stderr and stdout.
+sys.__stdout__
+sys.__stderr__
+sys.stdin		//File objects used by the interpreter for standard input, output and errors:
+sys.stdout		//stdin is used for all interactive input (including calls to input());
+sys.stderr		//stdout is used for the output of print() and expression statements;
+			//The interpreter’s own prompts and its error messages go to stderr.
+			//These streams are regular text files like those returned by the open() function.
+
+dir(fibo)  -->  ['__name__', 'fib', 'fib2']	//sorted list of strings: variables, modules, functions, etc.
+dir(sys)
+dir()						//lists the names you have defined currently:
+dir(builtins)		//built-in functions and variables.
+
+python demo.py one two three		//arguments are stored in the sys module’s argv attribute as a list.
+>>> import sys
+>>> print(sys.argv)			//argv[0] is the script name
+['demo.py', 'one', 'two', 'three']
+
+
+The getopt module processes sys.argv using the conventions of the Unix getopt() function.
+More powerful and flexible command line processing is provided by the argparse module.
+
+************************************** OS MODULE ********************************
+>>> import os
+>>> os.getcwd()      # Return the current working directory
+'C:\\Python34'
+>>> os.chdir('/server/accesslogs')   # Change current working directory
+>>> os.system('mkdir today')   # Run the command mkdir in the system shell
+
+************************************** PACKAGES *********************************+
+structuring module namespace,module name A.B designates a submodule named B in a package named A.
+
+modules avoid to worry about each other’s global variable names
+dotted module names: avoid to worry about each other’s module names.
+
+sound/                  Top-level package
+      __init__.py       Initialize the sound package. can just be an empty file.
+			can also execute initialization code for the package or set the __all__ variable.
+      formats/                  Subpackage for file format conversions
+              __init__.py
+              wavread.py
+              ...
+      effects/                  Subpackage for sound effects
+              __init__.py
+              echo.py
+              ...
+import sound.effects.echo			//To import individual modules from the package
+sound.effects.echo.echofilter(input, output, delay=0.7, atten=4)	//loads the submodule sound.effects.echo.
+from sound.effects import echo			//To importing the submodule
+	echo.echofilter(input, output, delay=0.7, atten=4)
+from sound.effects.echo import echofilter	//to import the desired function or variable directly
+	echofilter(input, output, delay=0.7, atten=4)
+from sound.effects import *			//__init__.py code defines a list named __all__
+	__all__ = ["echo", "surround", "reverse"]	//Content of file sound/effects/__init__.py
+	//if not defined, only ensures that the package sound.effects has been imported
+
+************************************ SYS MODULE *********************
 https://docs.python.org/3/library/sys.html
 https://docs.python.org/2/library/sys.html
 
@@ -210,6 +333,7 @@ https://docs.python.org/3/library/py_compile.html
 https://docs.python.org/3/library/compileall.html
 https://stackoverflow.com/questions/5607283/how-can-i-manually-generate-a-pyc-file-from-a-py-file/38426786#38426786
 
+https://docs.python.org/3.4/library/compileall.html#module-compileall
 python3 -m compileall -b $PYFILE	//
 
 import dis
