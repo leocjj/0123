@@ -1,3 +1,8 @@
+https://docs.python.org/3/index.html
+https://docs.python.org/3/tutorial/index.html
+https://docs.python.org/3/library/index.html
+https://docs.python.org/3/reference/index.html
+
 
 ************************** PYTHON STYLE **********************
 sudo apt-get install python3-pep8
@@ -91,6 +96,7 @@ a = "Python is cool"
 print(a[7:-5])					//print is
 
 https://pyformat.info/#number
+https://docs.python.org/3/library/string.html
 print("...".format(...))			//print format
 print('{} {}'.format('one', 'two'))		'%s %s' % ('one', 'two')
 print('{0} {1}'.format('one', 'two'))
