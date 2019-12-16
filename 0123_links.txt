@@ -19,7 +19,7 @@ https://datapico.com/
 https://apps.co/		//Emprendimiento, curos gratis
 https://trello.com/b/zPPxLrK2/mapa-del-emprendimiento-en-colombia
 
-
+https://elementary.io/		//Alternative OS
 https://stackedit.io/		//In-browser Markdown editor. Twitter, github
 https://stackoverflow.com/questions/174942/how-should-strace-be-used/1223848
 https://www.hackerrank.com/

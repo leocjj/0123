@@ -706,7 +706,7 @@ The positional parameters are the words following the name of a shell script. Th
 As long as needed, variables are added to an internal array. $# holds the total number of parameters, as is demonstrated with this simple script:
 
 /etc/profile		//holds shell environment and program startup settings, 
-/etc/bash.bashrc	//bashrc file contains system-wide definitions for shell functions and aliases.
+/etc/bash.bashrc	//bashrc file contains system-wide definitions for shell functions and aliases. Edit ~/.bash_aliases or ~/.bashrc file.
 
 
 3.1.2.1. ~/.bash_profile and others	//http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_01.html

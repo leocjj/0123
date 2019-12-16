@@ -1,52 +1,88 @@
 ﻿http://docencia.ac.upc.edu/FIB/USO/Bibliografia/unix-c-libraries.html#what_is_a_library
+http://www.yolinux.com/TUTORIALS/LibraryArchives-StaticAndDynamic.html
+https://renenyffenegger.ch/notes/development/languages/C-C-plus-plus/GCC/create-libraries/index
 
+**************************** STATIC LIBRARIES *********************************************
 Static Library
-Windows	.lib (library)	Linux	.a (archive)
+Windows	.lib (library)
+Linux	.a (archive)		//lib<your_lib_name>.a, ussualy at usr/local/lib
+
+1) Compile without linker, to generate '.o' files
+	gcc -Wall -pedantic -Werror -Wextra -pedantic -Werror -Wextra -c *.c
+
+2) To create .a file (archive)		//ALWAYS USE lib<your_lib_name>.a
+	'ar' creates, modifies, and extracts from archives.
+	Archive is a single file holding a collection of other files.
+	ar -rc libholberton.a *.o	//r flag ensures that older files will be updated
+					//c flag means library will be created if it does not exist
+					//v displays operations, verbose
+					//s generate index into the archive.
+	ar -t libholberton.a		//Display a table listing the contents of archive, members.
+
+3) generate index to archive. 
+	ranlib libholberton.a		//Is equivalent to ar -s.
+
+4) Verify archive
+	nm file.o or libholberton.a	//list symbols from object files
+
+5) Compile program with static library (archive)
+	gcc -Wall -pedantic -Werror -Wextra main.c -L. -lholberton -o alpha	//-l with holberton, to look for an archive libholberton.a
+	gcc -Wall -pedantic -Werror -Wextra test.c -lholberton -o test		// [-static],
+
+	-llibrary	//Search the library named library when linking.
+	-static		//To specify is static and avoid look for dinamic.
+	-Idir		//Add directory dir to the head of the list of directories to be searched for header files.
+			//This can be used to override a system header file, substituting your own version.
+	-Ldir		//Add directory dir to the list of directories to be searched for -l.
+			//surrounds library with lib and .a and searches several directories.
+	--sysroot=dir	//Use dir as root directory for headers and libraries. Change /usr/include by dir/usr/include
+
+**************************** DYNAMIC LIBRARIES *********************************************
 Dinamic Library
-Windows	.dll (Dinamic link library)	Linux	.so (shared object)
+Windows	.dll (Dinamic link library)
+Linux	.so (shared object)	//lib<your_lib_name>.so
+	/usr/local/lib		GNU standards, when distributing source code, libraries that are not part of the system 
+	/usr/lib		FHS, most libraries should be installed here
+	/lib			libraries required for startup should be in 
+	//The list of directories to be searched is stored in the file /etc/ld.so.conf.
+	//Many Red Hat-derived distributions don't normally include /usr/local/lib in the file /etc/ld.so.conf. 
+		//and adding /usr/local/lib to /etc/ld.so.conf is a common ``fix'' required.
 
-Compilar todo sin linker, quedan archivos .o
-gcc -Wall -pedantic -Werror -Wextra -c *.c
+1) Compile without linker, to generate '.o' files
+	gcc -Wall -pedantic -Werror -Wextra *.c -c -fPIC	//generates one object file .o for each source file .c
+				//-fPIC flag ensures that the code is position-independent. 
+				//-c then the linker is not run.
 
-ar--- creates, modifies, and extracts from archives.  An archive is a single file holding a collection of other files
-ar -rc libholberton.a *.o
-ar -t libholberton.a		//Display a table listing the contents of archive, members.
+2) Compile all the .o files into a dynamic library
+	gcc -Wall -pedantic -Werror -Wextra  *.o -shared -o libholberton.so
+		//ALWAYS USE name lib<your_lib_name>.so
 
-ranlib - generate index to archive.
-running ranlib is completely equivalent to executing ar -s.
-ranlib libholberton.a
+[3)] Path for libraries so that programs know where to look for them
+	Making the library available at runtime
+	export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH	//Append actual directory to LD_LIBRARY_PATH
+	or
+	Rpath, or the run path, is a way of embedding the location of shared libraries in the executable itself
+	gcc -Wall -pedantic -Werror -Wextra -L/home/username/foo -Wl,-rpath=/home/username/foo main.c -lfoo -o test 
 
-nm - list symbols from object files
+4) Compile program with dynamic library
+	gcc -Wall -pedantic -Werror -Wextra -L test.c -lholberton -o test
+
+5) Verify
+	ldd name-of-executable		//List library dependencies
+	ldd libname-of-lib.so
+	nm -D libctest.so.1.0 		//lists symbols contained in object file or shared library (try also nm -gC)
+	readelf -s /libjpeg.so		//list symbols contained in a shared library: 
 
 
------------------------------
+Man Pages:
+    gcc - GNU C compiler
+    ld - The GNU Linker
+    ldd - List library dependencies
+    ldconfig - configure dynamic linker run time bindings (update cache /etc/ld.so.cache)
+Links:
+    LDP: Shared libraries	http://www.tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
 
-gcc main.c -L. -lholbertonschool -o alpha
-
-
-./c _putchar.c '#include "holberton.h"' 'int _putchar(char c);'
-./c _islower.c '#include "holberton.h"' 'int _islower(int c);'
-./c _isalpha.c '#include "holberton.h"' 'int _isalpha(int c);'
-./c _abs.c '#include "holberton.h"' 'int _abs(int n);'
-./c _isupper.c '#include "holberton.h"' 'int _isupper(int c);'
-./c _isdigit.c '#include "holberton.h"' 'int _isdigit(int c);'
-./c _strlen.c '#include "holberton.h"' 'int _strlen(char *s);'
-./c _puts.c '#include "holberton.h"' 'void _puts(char *s);'
-./c _strcpy.c '#include "holberton.h"' 'char *_strcpy(char *dest, char *src);'
-./c _atoi.c '#include "holberton.h"' 'int _atoi(char *s);'
-./c _strcat.c '#include "holberton.h"' 'char *_strcat(char *dest, char *src);'
-./c _strncat.c '#include "holberton.h"' 'char *_strncat(char *dest, char *src, int n);'
-./c _strncpy.c '#include "holberton.h"' 'char *_strncpy(char *dest, char *src, int n);'
-./c _strcmp.c '#include "holberton.h"' 'int _strcmp(char *s1, char *s2);'
-./c _memset.c '#include "holberton.h"' 'char *_memset(char *s, char b, unsigned int n);'
-./c _memcpy.c '#include "holberton.h"' 'char *_memcpy(char *dest, char *src, unsigned int n);'
-./c _strchr.c '#include "holberton.h"' 'char *_strchr(char *s, char c);'
-./c _strspn.c '#include "holberton.h"' 'unsigned int _strspn(char *s, char *accept);'
-./c _strpbrk.c '#include "holberton.h"' 'char *_strpbrk(char *s, char *accept);'
-./c _strstr.c '#include "holberton.h"' 'char *_strstr(char *haystack, char *needle);'
-
-------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------
+************************************** main ARGUMENTS, argc, argv ********************************
 
 int main(int argc, char *argv[]);
 int main(int argc, char **argv);
@@ -97,10 +133,12 @@ int main(int argc, char **argv)		0 ./a.out
        long long atoll(const char *nptr);
        long long atoq(const char *nptr);
 
+	1 + '0'				convert digit to char
+
        #include <stdlib.h>		convert ASCII string to floating-point number
 
        double strtod(const char *nptr, char **endptr);
-       float strtof(const char *nptr, char **endptr);
+       float  strtof(const char *nptr, char **endptr);
        long double strtold(const char *nptr, char **endptr);
 
 ---------------------------- UNUSED VARIABLES-------------------------
@@ -134,11 +172,11 @@ int SumArgs(int first_arg, ...)		//At least one fixed argument and then ellipsis
 	va_list args;			
 	va_start(args, first_arg);
 
-//Variable args, to manipulating the argument list containing variable arguments
-// This line initializes args variable with function’s last fixed argument i.e. first_arg. va_start() uses this to figure out from where the variable arguments begin.
+	//Variable args, to manipulating the argument list containing variable arguments
+	// This line initializes args variable with function’s last fixed argument i.e. first_arg. va_start() uses this to figure out from where the variable arguments begin.
 
-Note: va_arg( ) function will never receive arguments of type char, short int, or float. va_arg( ) function only accept arguments of type char *, unsigned int, int or double.
-//va_arg() fetches the next argument from the argument list. The second parameter to va_arg() is the data type of the argument we expect. 
+	Note: va_arg( ) function will never receive arguments of type char, short int, or float. va_arg( ) function only accept arguments of type char *, unsigned int, int or double.
+	//va_arg() fetches the next argument from the argument list. The second parameter to va_arg() is the data type of the argument we expect. 
 
 	for (i = first_arg; i > 0; i = va_arg(args, int))	
 	{

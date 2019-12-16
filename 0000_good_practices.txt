@@ -2,4 +2,6 @@ Comment each part of the code
 Use readable names for variables, functions, files
 Team work: define versions, branches, management, repos, aprovals
 
+TO SPLIT THE CODE IN FUNCTIONS, REUSE, REUSE, REUSE PAST FUNCTIONS.
+
 Methodology
