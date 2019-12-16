@@ -54,7 +54,7 @@ Linux	.so (shared object)	//lib<your_lib_name>.so
 				//-c then the linker is not run.
 
 2) Compile all the .o files into a dynamic library
-	gcc -Wall -pedantic -Werror -Wextra  *.o -shared -o libholberton.so
+	gcc *.o -shared -o libholberton.so
 		//ALWAYS USE name lib<your_lib_name>.so
 
 [3)] Path for libraries so that programs know where to look for them
@@ -65,7 +65,7 @@ Linux	.so (shared object)	//lib<your_lib_name>.so
 	gcc -Wall -pedantic -Werror -Wextra -L/home/username/foo -Wl,-rpath=/home/username/foo main.c -lfoo -o test 
 
 4) Compile program with dynamic library
-	gcc -Wall -pedantic -Werror -Wextra -L test.c -lholberton -o test
+	gcc -Wall -pedantic -Werror -Wextra -L. test.c -lholberton -o test
 
 5) Verify
 	ldd name-of-executable		//List library dependencies
