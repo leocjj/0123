@@ -14,17 +14,17 @@ Make sure you have the right version
 $ pep8 --version
 1.7
 $
-If it’s not the case, it means PEP8 is installed but not linked in your PATH. You should look at these folders to find where it has been installed:
+If itÂ’s not the case, it means PEP8 is installed but not linked in your PATH. You should look at these folders to find where it has been installed:
 
 /usr/local/lib/python3*/dist-packages/pep8.py
 /usr/lib/python3*/dist-packages/pep8.py
-Don’t hesitate to delete /usr/bin/pep8 and replace by one of those pep8.py:
+DonÂ’t hesitate to delete /usr/bin/pep8 and replace by one of those pep8.py:
 
 sudo cp /usr/lib/python3*/dist-packages/pep8.py /usr/bin/pep8
 sudo chmod u+x /usr/bin/pep8
 sudo pep8 --version
 sudo pip3 install pep8 --upgrade	//To upgrade version
-Finally, if you can’t make it work, please use the “container-on-demand” tool to “PEP8” your files in a pre-configured container.
+Finally, if you canÂ’t make it work, please use the Â“container-on-demandÂ” tool to Â“PEP8Â” your files in a pre-configured container.
 
 sudo apt-get --purge remove pep8	//Uninstall
 pip3 uninstall pep8
@@ -78,7 +78,82 @@ SHELL SCRIPT			//Shell script that runs Python code.
 	#!/bin/bash
 	python3 $PYCODE
 zYxWvUtSrQpOnMlKjIhGfEdCbA>
-************************* BASIC COMMANDS **************************
+
+
+*************************** OPERATORS ********************************
+
++ - * /, // (integer division), % remainder, ** powers, ()
+special class: decimal, fractions
+numeric types: integers, floating point numbers, and complex numbers.
+Booleans are a subtype of integers. Integers have unlimited precision.
+
+
+*************************** STRINGS **********************************
+
+Python strings cannot be changed â€” they are immutable. you should create a new one
+'asdf' or "asdf", \ to scape quotes or special char: \n
+print('C:\some\name')	--> C:\some\
+print(r'C:\some\name')  --> C:\some\name   //RAW STRING
+
+span multiple lines. Using triple-quotes: """...""" or '''...'''.
+End of lines are automatically included in the string, to prevent this, add a \ at the end of the line.
+print("""\
+Usage: thingy [OPTIONS]
+     -h                        Display this usage message
+     -H hostname               Hostname to connect to
+""")
+concatenate + or 'Py' 'thon', 3*'un' to repeat
+
+word = 'Python'	>>> word[0] --> 'P' 	//Strings can be indexed7
+		>>> word[-1] --> 'n'	//To start counting from the right, negative indices start from -1.
+
+SLICING
+class slice(start, stop[, step]), return a slice object representing the set of
+indices specified by range(start, stop, step). start and step  default to None.
+
+word[[init_index:] final_index [:step] ]
+	>>> word[0:2] --> 'Py'	// SLICING allows you to obtain substring
+	//if index missing, takes to the start/end.
+	//if index negative, takes counting in reverse.
+
+
++---+---+---+---+---+---+
+ | P | y | t | h | o | n |
+ +---+---+---+---+---+---+
+ 0   1   2   3   4   5   6
+-6  -5  -4  -3  -2  -1
+
+********************************************************************************
+****************************** SECUENCES ***************************************
+ 
+An iterable (object capable of returning its members one at a time.) which
+supports efficient element access using integer indices via the __getitem__()
+special method and defines a __len__() method that returns the length of the
+sequence.
+
+Types: list, str, tuple, and bytes.
+dict also supports __getitem__() and __len__(), is considered a mapping rather
+than a sequence because the lookups use arbitrary immutable keys, no integers.
+
+****************************** LIST *******************************************
+comma-separated values (items) in square brackets. can be indexed and sliced
+Unlike strings, which are immutable, lists are a mutable type.
+squares = [1, 4, 9, 16, 25]
+
+squares + [36, 49, 64, 81, 100]	//concatenation
+cubes[3] = 64			//change their content
+cubes.append(216)		//add new items at the end of the list
+letters[2:5] = ['C', 'D', 'E']	//replace with slice
+letters[2:5] = []		//remove some items
+letters[:] = []			//clear the list
+new = letters[:]		//copy of the list
+len(letters)			//len of the list
+a = ['a', 'b', 'c']
+>>> n = [1, 2, 3]
+>>> x = [a, n]
+>>> x
+[['a', 'b', 'c'], [1, 2, 3]]	//nested lists
+
 a = range(stop)			//range object
 a[i]				//range element
 
@@ -110,7 +185,51 @@ print('{:.5}'.format('xylophone'))		'%.5s' % ('xylophone',)		Truncate {:c}	'{:c}
 
 
 
-************************* BUILTIN METHODS **************************
+********************************************************************************
+************************* CONTROL FLOW *****************************************
+a, b = 0, 1		//multiple assignment
+
+**************************** IF-ELIF-ELSE **************************************
+if x < 0:
+	print('Negative changed to zero')
+elif x == 0:
+	print('Zero')
+else:
+	print('More')
+
+******************************** FOR  LOOP ************************************
+
+for statement iterates over the items of any sequence (a list or a string),
+in the order that they appear in the sequence. 
+
+words = ['cat', 'window', 'defenestrate']
+
+>>> for w in words:
+...     print(w, len(w))	--> cat 3, window 6, defenestrate 12s
+
+>>> for w in words[:]:  	//Loop over a slice copy of the entire list.
+...     if len(w) > 6:
+...         words.insert(0, w)	//To modify the slice used for iterate.
+>>> words
+['defenestrate', 'cat', 'window', 'defenestrate']
+
+***************************** RANGE BUILT-IN FUNCTION *************************
+To iterate over a sequence of numbers, generates arithmetic progression.
+It is an object which returns the successive items of the desired sequence when
+you iterate over it, but it doesnâ€™t really make the list, thus saving space.
+The given end point is never part of the generated sequence
+
+for i in range(5): 		//Iterates from 0 through 4
+range(5, 10)			//5 through 9
+range(0, 10, 3)			--> 0, 3, 6, 9
+a = ['Mary', 'had', 'a', 'little', 'lamb']
+for i in range(len(a)):
+	print(i, a[i])		--> 0 Mary, 1 had, 2 a, 3 little, 4 lamb
+list(range(5))			//to create a list with range.
+
+
+*******************************************************************************
+***************************** BUILTIN METHODS *********************************
 
 ord()		//Accept character and return unicode code, B --> 66
 chr()		//Accept integer [0, 1114111]and return character
@@ -156,7 +275,7 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python iter()
     Python list() Function
     Python locals()
-    Python len()		//the number of items (length) in an object.
+    Python len()		//the number of items (length) in an object, chars in a string
     Python max()
     Python min()
     Python map()
@@ -193,21 +312,21 @@ Module: contain executable statements (to initialize the module) as well as func
 	Statements: executed only the first time is imported. Run if the file is executed as a script.
 	Has its own private symbol: can access with tablemodname.itemname
 
-__name__	//global variable, within a module, the module’s name (as a string)
+__name__	//global variable, within a module, the moduleÂ’s name (as a string)
 fibo.__name__	//Result: 'fibo' 
 
 import fibo	//This does not enter the names of the functions defined in fibo directly in the current symbol table. it only enters the module name fibo there. Using the module name you can access the functions:
 fibo.fib(1000)	//To use a function in module
 fib = fibo.fib	//To create a variabla to te function and then use fib(500)
 
-Modules can import other modules. Imported module names are placed in the importing module’s global symbol table.
+Modules can import other modules. Imported module names are placed in the importing moduleÂ’s global symbol table.
 
-from fibo import fib, fib2	Imports names into the importing module’s symbol table. doesn't introduce module name.
+from fibo import fib, fib2	Imports names into the importing moduleÂ’s symbol table. doesn't introduce module name.
 fib(500)
 
 from fibo import *		This imports all names except those beginning with an underscore (_)
 
-if you change your modules, you must restart the interpreter – or,  use import imp; imp.reload(modulename).
+if you change your modules, you must restart the interpreter Â– or,  use import imp; imp.reload(modulename).
 
 python fibo.py <arguments>	//Executing modules as scripts, the code in the module will be executed
 				//just as if you imported it, but with the __name__ set to "__main__".
@@ -236,7 +355,7 @@ smtplib 	//for sending mail:
 datetime 	//supplies classes for manipulating dates and times in both simple and complex ways.
 zlib		//Common data archiving and compression, modules: zlib, gzip, bz2, lzma, zipfile and tarfile.
 timeit		//quickly demonstrates a modest performance advantage
-doctest module provides a tool for scanning a module and validating tests embedded in a program’s docstrings.
+doctest module provides a tool for scanning a module and validating tests embedded in a programÂ’s docstrings.
 statistics 	//calculates basic statistical properties 
 random 		//provides tools for making random selections:
 math 		//access to the underlying C library functions for floating point math:
@@ -259,7 +378,7 @@ sys.__stderr__
 sys.stdin		//File objects used by the interpreter for standard input, output and errors:
 sys.stdout		//stdin is used for all interactive input (including calls to input());
 sys.stderr		//stdout is used for the output of print() and expression statements;
-			//The interpreter’s own prompts and its error messages go to stderr.
+			//The interpreterÂ’s own prompts and its error messages go to stderr.
 			//These streams are regular text files like those returned by the open() function.
 
 dir(fibo)  -->  ['__name__', 'fib', 'fib2']	//sorted list of strings: variables, modules, functions, etc.
@@ -286,8 +405,8 @@ More powerful and flexible command line processing is provided by the argparse m
 ************************************** PACKAGES *********************************+
 structuring module namespace,module name A.B designates a submodule named B in a package named A.
 
-modules avoid to worry about each other’s global variable names
-dotted module names: avoid to worry about each other’s module names.
+modules avoid to worry about each otherÂ’s global variable names
+dotted module names: avoid to worry about each otherÂ’s module names.
 
 sound/                  Top-level package
       __init__.py       Initialize the sound package. can just be an empty file.
