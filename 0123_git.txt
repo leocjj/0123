@@ -1,6 +1,8 @@
 https://github.com/leocjj/		//Main git
 https://github.com/leocjj/0123		//Repository for notes
 
+https://github.com/shiftkey/desktop/releases/	     //Github desktop for Linux
+
 
 -------------------------------- WORKING IN ORIGIN ---------------------------------
 First, create a repository in github.com
@@ -53,6 +55,9 @@ $ git status  		//List of files modified
 echo '*~'>>.gitignore	//To ignore temp files.
 
 git config --global credential.helper cache --45000	//To avoid put pass and user for every git push
+
+git config --list      //To verify, ~/.gitconfig
+
 
 ----------------------- SCRIPT TO UPLOAD A FILE
 #!/bin/bash
