@@ -54,11 +54,12 @@ Interactively: 		when called with standard input connected to a tty device, it r
 Non-Interactively:	when called with a file name argument or with a file as standard input, it reads and executes a script from that file.
 			to run the script and enter interactive mode afterwards. This can be done by passing -i before the script.
 
-python -c 'command' [arg] ..., 	which executes the statement(s) in command, analogous to the shell’s -c option.
+python -c 'command' [arg] ..., 	which executes the statement(s) in command, analogous to the shell's -c option.
 python -m  module [arg] ..., 	which executes the source file for module as if you had spelled out its full name on the command line.
 
 
-All command line options are described in Command line and environment.
+Command line options: https://docs.python.org/3.4/using/cmdline.html#using-on-general
+
 
 ************************** SCRIPTS *******************************
 python myscript.py
@@ -250,7 +251,7 @@ import sys
 
 sys.ps1 = 'C> ';	sys.ps2 = '.. ' 	//Variables, define strings used prompts, interactive mode only.
 sys.path					//A list of strings that specifies the search path for modules
-sys.path.append('/ufs/guido/lib/python')	//determines the interpreter’s search path for modules
+sys.path.append('/ufs/guido/lib/python')	//determines the interpreter's search path for modules
 
 sys.__stdin__		//objects containing original values of stdin, stderr and stdout.
 sys.__stdout__
@@ -266,7 +267,7 @@ dir(sys)
 dir()						//lists the names you have defined currently:
 dir(builtins)		//built-in functions and variables.
 
-python demo.py one two three		//arguments are stored in the sys module’s argv attribute as a list.
+python demo.py one two three		//arguments are stored in the sys module's argv attribute as a list.
 >>> import sys
 >>> print(sys.argv)			//argv[0] is the script name
 ['demo.py', 'one', 'two', 'three']
