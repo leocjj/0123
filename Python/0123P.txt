@@ -14,17 +14,17 @@ Make sure you have the right version
 $ pep8 --version
 1.7
 $
-If its not the case, it means PEP8 is installed but not linked in your PATH. You should look at these folders to find where it has been installed:
+If it's not the case, it means PEP8 is installed but not linked in your PATH. You should look at these folders to find where it has been installed:
 
 /usr/local/lib/python3*/dist-packages/pep8.py
 /usr/lib/python3*/dist-packages/pep8.py
-Dont hesitate to delete /usr/bin/pep8 and replace by one of those pep8.py:
+Don't hesitate to delete /usr/bin/pep8 and replace by one of those pep8.py:
 
 sudo cp /usr/lib/python3*/dist-packages/pep8.py /usr/bin/pep8
 sudo chmod u+x /usr/bin/pep8
 sudo pep8 --version
 sudo pip3 install pep8 --upgrade	//To upgrade version
-Finally, if you cant make it work, please use the container-on-demand tool to PEP8 your files in a pre-configured container.
+Finally, if you can't make it work, please use the 'container-on-demand' tool to 'PEP8' your files in a pre-configured container.
 
 sudo apt-get --purge remove pep8	//Uninstall
 pip3 uninstall pep8
@@ -121,7 +121,7 @@ word[[init_index:] final_index [:step] ]
  | P | y | t | h | o | n |
  +---+---+---+---+---+---+
  0   1   2   3   4   5   6
--6  -5  -4  -3  -2  -1
+-7  -6  -5  -4  -3  -2  -1
 
 ********************************************************************************
 ****************************** SECUENCES ***************************************
@@ -146,7 +146,8 @@ cubes.append(216)		//add new items at the end of the list
 letters[2:5] = ['C', 'D', 'E']	//replace with slice
 letters[2:5] = []		//remove some items
 letters[:] = []			//clear the list
-new = letters[:]		//copy of the list
+new = letters[:]		//copy of the list, BY REFERENCE, if letters is
+				modified, new will be modified too.
 len(letters)			//len of the list
 a = ['a', 'b', 'c']
 >>> n = [1, 2, 3]
