@@ -8,7 +8,7 @@ https://docs.python.org/3/reference/index.html
 sudo apt-get install python3-pep8
 	or
 sudo apt-get install python3-pip
-pip3 install pep8
+sudo pip3 install pep8
 
 Make sure you have the right version
 $ pep8 --version
@@ -213,6 +213,11 @@ words = ['cat', 'window', 'defenestrate']
 ...         words.insert(0, w)	//To modify the slice used for iterate.
 >>> words
 ['defenestrate', 'cat', 'window', 'defenestrate']
+
+    if my_list[0] != None:
+        max = my_list[0]
+    else:
+        return None
 
 ***************************** RANGE BUILT-IN FUNCTION *************************
 To iterate over a sequence of numbers, generates arithmetic progression.
