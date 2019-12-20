@@ -1,4 +1,4 @@
-https://docs.python.org/3.4/tutorial/datastructures.html
+﻿https://docs.python.org/3.4/tutorial/datastructures.html
 https://www.python-course.eu/python3_lambda.php
 
 5. Data Structures
@@ -185,7 +185,7 @@ by iterating over the list.
 
 construction of tuples containing 0 or 1 items.
 empty = ()		//Empty tuples
-singleton = 'hello',    //trailing comma
+singleton = ('hello',)	//trailing comma
 x, y, z = tuples	//The reverse operation is also possible
 			//sequence unpacking and works for any sequence
 Sequence unpacking requires as many variables on the left side as elements in
@@ -232,7 +232,7 @@ Tuples can be used as keys if they contain only strings, numbers, or tuples;
 
 Is an unordered set of key: value pairs, keys must be unique in dictionary.
 A pair of braces creates an empty dictionary: {}.
-Ccomma-separated list of key:value pairs within the braces.
+Comma-separated list of key:value pairs within the braces.
 
 Operations
 storing a value with some key and extracting the value given the key.
@@ -382,10 +382,45 @@ Footnotes
 
 *******************************************************************************
 
-string
-array
-list
+			String		List		Tupla 		dict		Set		Map
 
+Mutable			No		Yes		No		Yes		Yes
+Iterable				Yes		Yes						Yes
+Unique values		No		No		No		No		Yes
+Slicing			Yes		Yes		Yes		No		
+
+Define empty		a=''		a=[]		a=()		a={}		a=set()									
+Define 1 item		a='c'		a=['H']		a=(1,)		a={'key': 1}	a={1}
+Define general		a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
+
+Index item		a[i]		a[i]		a[i]		a['key']	N/P
+			a[i:j] slice	a[i:j] slice					N/P
+Add item		a+=b		a=['H']		a+=(2,)		a['key']='val'	a |= {2}
+Item assignment		N/P		a[i]='H'	N/P		a['key']='val'	N/P
+Delete item		N/P		del a[i]	N/P		del a['key']	a -= {2}
+
+Deep copy (ref.)	b=a  *P/U	b=a		b=a  *P/U	b=a		b=a	
+Shallow copy (w/o ref)	b=a[:]		b=a[:]		b=a[:]		N/P		N/P	
+			N/P		b=a.copy()	N/P		b=a.copy()	b=a.copy()
+
+Special			a		a+='Hi'						| Union
+					>>> ['H','i']					- Substration
+											& Intersection
+											^ (aub)-(anb)
+											
+
+N/P: Not Permited
+P/U: Permited but useless
+
+for a,b in {'key': 1}.items():
+...  print(a,b)
+
+		Define		Concatenate	Read item	Delete item	Copy		Copy(ref)
+string		a='Hola'	a += b		a[i]		
+list		a=[0, 1, 2]	a += b		a[i]
+tupla		a=(1, 'a, [1])	
+		a=(1,)		
+dict
 
 
 ***************************** LAMBDA & MAP **********************************
