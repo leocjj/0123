@@ -16,7 +16,7 @@ list.clear()    Remove all items from the list. Equivalent to del a[:].
 list.index(x)    Return the index in the list of the first item whose value is x. It is an error if there is no such item.
 list.count(x)    Return the number of times x appears in the list.
 list.sort()    Sort the items of the list in place.
-list.reverse()    Reverse the elements of the list in place.
+list.reverse()    Reverse the elements of the list in place. a[::-1]
 list.copy()    Return a shallow copy of the list. Equivalent to a[:].
 
 methods like insert, remove or sort that only modify the list return the default None. 
@@ -203,8 +203,8 @@ Curly braces or the set() function can be used to create sets.
 set()		//Empty set, not {}; the latter creates an empty dictionary.
 
 basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
-print(basket)                      	//duplicates have been removed
-{'orange', 'banana', 'pear', 'apple'}
+print(basket)                      	
+{'orange', 'banana', 'pear', 'apple'}	//duplicates have been removed
 'orange' in basket	-->True		//fast membership testing
 'crabgrass' in basket	-->False
 
