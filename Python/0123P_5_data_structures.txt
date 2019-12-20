@@ -239,7 +239,9 @@ storing a value with some key and extracting the value given the key.
 delete a key:value pair with del.
 If you store using a key that is already in use, the value is overwrited.
 
-list(d.keys()) 		// returns a list of all keys used, in arbitrary order
+list(d.keys()) 		// returns a list of all keys used, in aleatory order
+list(d.values())	// returns a list of all keys used, in aleatory order
+
 sorted(d.keys())	// sorted
 in keyword		//To check whether a single key is in the dictionary
 d.keys() 		// will return a dictionary view object.
@@ -256,6 +258,18 @@ list(tel.keys())	--> ['irv', 'guido', 'jack']
 sorted(tel.keys())	--> ['guido', 'irv', 'jack']
 'guido' in tel		--> True
 'jack' not in tel	--> False
+
+clear()		Removes all the elements from the dictionary
+copy()		Returns a copy of the dictionary
+fromkeys()	Returns a dictionary with the specified keys and values
+get()		Returns the value of the specified key
+items()		Returns a list containing a tuple for each key value pair
+keys()		Returns a list containing the dictionary's keys
+pop()		Removes the element with the specified key
+popitem()	Removes the last inserted key-value pair
+setdefault()	Returns the value of the specified key. If the key does not exist: insert the key, with the specified value
+update()	Updates the dictionary with the specified key-value pairs
+values()	Returns a list of all the values in the dictionary
 
 The dict() constructor builds dictionaries directly from sequences of pairs
 
@@ -374,14 +388,18 @@ list
 
 
 
-***************************** LAMBDA ***************************************
+***************************** LAMBDA & MAP **********************************
 
 lambda argument_list: expression
 
 sum = lambda x, y : x + y
 sum(3,4)			--> 7
 
-
+r = map(func, seq)
+def fahrenheit(T):
+    return ((float(9)/5)*T + 32)
+temperatures = (36.5, 37, 37.5, 38, 39)
+temperatures_in_Fahrenheit = list(map(fahrenheit, temperatures))
 
 
 

@@ -281,7 +281,7 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python iter()
     Python list() Function
     Python locals()
-    Python len()		//the number of items (length) in an object, chars in a string
+    Python len()		//NUMBER OF ITEMS (length) in an object, chars in a string
     Python max()
     Python min()
     Python map()
