@@ -9,6 +9,8 @@
 	Banco de occidente (Vero)
 	Remotas canadá
 
+https://digitaljobs.la/		freelancer.com		upwork.com	fiverr.com
+
 
 deeplearningbook.org		//
 https://onlinejudge.org/
@@ -30,7 +32,6 @@ https://publish.buffer.com/profile/5dd04c5899bd9561a435b923/tab/queue		//Buffer 
 https://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer/		//Good articles
 https://www.joelonsoftware.com/2006/09/06/finding-great-developers-2/
 
-https://digitaljobs.la/
 
 Software:
 Codeblocks		//C compiler
