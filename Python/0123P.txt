@@ -217,7 +217,7 @@ words = ['cat', 'window', 'defenestrate']
     if my_list[0] != None:
         max = my_list[0]
     else:
-        return None
+        return None		
 
 ***************************** RANGE BUILT-IN FUNCTION *************************
 To iterate over a sequence of numbers, generates arithmetic progression.
@@ -304,7 +304,6 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python sorted()
     Python str()		//returns the "informal" or nicely printable representation of a given object.
     Python sum()		//adds the items of an iterable and returns the sum.
-
     Python tuple() Function
     Python type()
     Python vars()
