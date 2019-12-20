@@ -1,4 +1,4 @@
-https://docs.python.org/3/index.html
+﻿https://docs.python.org/3/index.html
 https://docs.python.org/3/tutorial/index.html
 https://docs.python.org/3/library/index.html
 https://docs.python.org/3/reference/index.html
@@ -124,7 +124,21 @@ word[[init_index:] final_index [:step] ]
 -7  -6  -5  -4  -3  -2  -1
 
 ********************************************************************************
-****************************** SECUENCES ***************************************
+****************************** ITERABLE & SECUENCES ****************************
+
+a = (x for x in [1,2,3])	//Iterable, once uses, returns one bye one each
+				//element and then is empty.
+Object capable of returning its members one at a time.
+Examples: all sequence types (such as list, str, and tuple) and some non-sequence
+types like dict, file objects, and objects of any classes you define with an
+__iter__() or __getitem__() method. Iterables can be used in a for loop and in
+many other places where a sequence is needed (zip(), map(), ...). When an
+iterable object is passed as an argument to the built-in function iter(), it
+returns an iterator for the object. This iterator is good for one pass over
+the set of values. When using iterables, it is usually not necessary to call
+iter() or deal with iterator objects yourself. The for statement does that
+automatically for you, creating a temporary unnamed variable to hold the
+iterator for the duration of the loop. See also iterator, sequence, and generator.
  
 An iterable (object capable of returning its members one at a time.) which
 supports efficient element access using integer indices via the __getitem__()
@@ -252,7 +266,7 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python callable()
     Python bytes()
     Python chr()
-    Python compile()
+	    Python compile()
     Python classmethod()
     Python complex()
     Python delattr()
