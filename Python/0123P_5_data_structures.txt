@@ -1,4 +1,5 @@
 https://docs.python.org/3.4/tutorial/datastructures.html
+https://www.python-course.eu/python3_lambda.php
 
 5. Data Structures
 
@@ -193,121 +194,99 @@ the sequence. Multiple assignment is tuple packing and sequence unpacking.
 ********************************************************************************
 ******************************* 5.4. Sets **************************************
 
-Python also includes a data type for sets. A set is an unordered collection with no duplicate elements. Basic uses include membership testing and eliminating duplicate entries. Set objects also support mathematical operations like union, intersection, difference, and symmetric difference.
+An unordered collection with no duplicate elements.
+For membership testing and eliminating duplicate entries.
+Support operations union, intersection, difference, and symmetric difference.
 
-Curly braces or the set() function can be used to create sets. Note: to create an empty set you have to use set(), not {}; the latter creates an empty dictionary, a data structure that we discuss in the next section.
+Curly braces or the set() function can be used to create sets.
+set()		//Empty set, not {}; the latter creates an empty dictionary.
 
-Here is a brief demonstration:
->>>
-
->>> basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
->>> print(basket)                      # show that duplicates have been removed
+basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
+print(basket)                      	//duplicates have been removed
 {'orange', 'banana', 'pear', 'apple'}
->>> 'orange' in basket                 # fast membership testing
-True
->>> 'crabgrass' in basket
-False
+'orange' in basket	-->True		//fast membership testing
+'crabgrass' in basket	-->False
 
->>> # Demonstrate set operations on unique letters from two words
-...
->>> a = set('abracadabra')
->>> b = set('alacazam')
->>> a                                  # unique letters in a
-{'a', 'r', 'b', 'c', 'd'}
->>> a - b                              # letters in a but not in b
-{'r', 'd', 'b'}
->>> a | b                              # letters in either a or b
-{'a', 'c', 'r', 'd', 'b', 'm', 'z', 'l'}
->>> a & b                              # letters in both a and b
-{'a', 'c'}
->>> a ^ b                              # letters in a or b but not both
-{'r', 'd', 'b', 'm', 'z', 'l'}
+//Set operations on unique letters from two words
+a = set('abracadabra')
+b = set('alacazam')
+a	--> {'a', 'r', 'b', 'c', 'd'}	// unique letters in a
+a - b	--> {'r', 'd', 'b'}		// letters in a but not in b
+a | b	--> {'a', 'c', 'r', 'd', 'b', 'm', 'z', 'l'}	//in either a or b
+a & b	--> {'a', 'c'}			// in both a and b
+a ^ b	--> {'r', 'd', 'b', 'm', 'z', 'l'}	//in a or b but not both
 
-Similarly to list comprehensions, set comprehensions are also supported:
->>>
-
->>> a = {x for x in 'abracadabra' if x not in 'abc'}
->>> a
-{'r', 'd'}
+Set comprehensions are also supported:
+a = {x for x in 'abracadabra' if x not in 'abc'}
+a	--> {'r', 'd'}
 
 
 *******************************************************************************
 *************************** 5.5. Dictionaries *********************************
 
-Another useful data type built into Python is the dictionary (see Mapping Types — dict). Dictionaries are sometimes found in other languages as “associative memories” or “associative arrays”. Unlike sequences, which are indexed by a range of numbers, dictionaries are indexed by keys, which can be any immutable type; strings and numbers can always be keys. Tuples can be used as keys if they contain only strings, numbers, or tuples; if a tuple contains any mutable object either directly or indirectly, it cannot be used as a key. You can’t use lists as keys, since lists can be modified in place using index assignments, slice assignments, or methods like append() and extend().
+(see Mapping Types — dict). “associative memories” or “associative arrays”.
+Dictionaries are indexed by keys, key must be immutable type;
+strings and numbers can always be keys. You can’t use lists as keys
+Tuples can be used as keys if they contain only strings, numbers, or tuples;
 
-It is best to think of a dictionary as an unordered set of key: value pairs, with the requirement that the keys are unique (within one dictionary). A pair of braces creates an empty dictionary: {}. Placing a comma-separated list of key:value pairs within the braces adds initial key:value pairs to the dictionary; this is also the way dictionaries are written on output.
+Is an unordered set of key: value pairs, keys must be unique in dictionary.
+A pair of braces creates an empty dictionary: {}.
+Ccomma-separated list of key:value pairs within the braces.
 
-The main operations on a dictionary are storing a value with some key and extracting the value given the key. It is also possible to delete a key:value pair with del. If you store using a key that is already in use, the old value associated with that key is forgotten. It is an error to extract a value using a non-existent key.
+Operations
+storing a value with some key and extracting the value given the key.
+delete a key:value pair with del.
+If you store using a key that is already in use, the value is overwrited.
 
-Performing list(d.keys()) on a dictionary returns a list of all the keys used in the dictionary, in arbitrary order (if you want it sorted, just use sorted(d.keys()) instead). [2] To check whether a single key is in the dictionary, use the in keyword.
+list(d.keys()) 		// returns a list of all keys used, in arbitrary order
+sorted(d.keys())	// sorted
+in keyword		//To check whether a single key is in the dictionary
+d.keys() 		// will return a dictionary view object.
+		//Operations: membership test and iteration, it is only a view
 
-Here is a small example using a dictionary:
->>>
+tel = {'jack': 4098, 'sape': 4139}
+tel['guido'] = 4127
+tel			--> {'sape': 4139, 'guido': 4127, 'jack': 4098}
+tel['jack']		--> 4098
+del tel['sape']
+tel['irv'] = 4127
+tel			--> {'guido': 4127, 'irv': 4127, 'jack': 4098}
+list(tel.keys())	--> ['irv', 'guido', 'jack']
+sorted(tel.keys())	--> ['guido', 'irv', 'jack']
+'guido' in tel		--> True
+'jack' not in tel	--> False
 
->>> tel = {'jack': 4098, 'sape': 4139}
->>> tel['guido'] = 4127
->>> tel
-{'sape': 4139, 'guido': 4127, 'jack': 4098}
->>> tel['jack']
-4098
->>> del tel['sape']
->>> tel['irv'] = 4127
->>> tel
-{'guido': 4127, 'irv': 4127, 'jack': 4098}
->>> list(tel.keys())
-['irv', 'guido', 'jack']
->>> sorted(tel.keys())
-['guido', 'irv', 'jack']
->>> 'guido' in tel
-True
->>> 'jack' not in tel
-False
+The dict() constructor builds dictionaries directly from sequences of pairs
 
-The dict() constructor builds dictionaries directly from sequences of key-value pairs:
->>>
+dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
+--> {'sape': 4139, 'jack': 4098, 'guido': 4127}
 
->>> dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
-{'sape': 4139, 'jack': 4098, 'guido': 4127}
+dict comprehensions can be used to create dictionaries
+{x: x**2 for x in (2, 4, 6)}	--> {2: 4, 4: 16, 6: 36}
 
-In addition, dict comprehensions can be used to create dictionaries from arbitrary key and value expressions:
->>>
-
->>> {x: x**2 for x in (2, 4, 6)}
-{2: 4, 4: 16, 6: 36}
-
-When the keys are simple strings, it is sometimes easier to specify pairs using keyword arguments:
->>>
-
->>> dict(sape=4139, guido=4127, jack=4098)
-{'sape': 4139, 'jack': 4098, 'guido': 4127}
+When keys are simple strings, can specify pairs using keyword arguments:
+dict(sape=4139, guido=4127, jack=4098)
+--> {'sape': 4139, 'jack': 4098, 'guido': 4127}
 
 
 *******************************************************************************
 **************************** 5.6. Looping Techniques **************************
 
-When looping through dictionaries, the key and corresponding value can be retrieved at the same time using the items() method.
->>>
+When looping through dictionaries, the key and corresponding value can be
+retrieved at the same time using the items() method.
 
->>> knights = {'gallahad': 'the pure', 'robin': 'the brave'}
->>> for k, v in knights.items():
-...     print(k, v)
-...
-gallahad the pure
-robin the brave
+knights = {'gallahad': 'the pure', 'robin': 'the brave'}
+for k, v in knights.items():
+	print(k, v)	--> gallahad the pure --> robin the brave
 
-When looping through a sequence, the position index and corresponding value can be retrieved at the same time using the enumerate() function.
->>>
+When looping through a sequence, the position index and corresponding value
+can be retrieved at the same time using the enumerate() function.
 
->>> for i, v in enumerate(['tic', 'tac', 'toe']):
-...     print(i, v)
-...
-0 tic
-1 tac
-2 toe
+for i, v in enumerate(['tic', 'tac', 'toe']):
+	print(i, v)	--> 0 tic	--> 1 tac	--> 2 toe
 
-To loop over two or more sequences at the same time, the entries can be paired with the zip() function.
->>>
+To loop over two or more sequences at the same time, the entries can be paired
+with the zip() function.
 
 >>> questions = ['name', 'quest', 'favorite color']
 >>> answers = ['lancelot', 'the holy grail', 'blue']
@@ -322,36 +301,24 @@ To loop over a sequence in reverse, first specify the sequence in a forward dire
 >>>
 
 >>> for i in reversed(range(1, 10, 2)):
-...     print(i)
-...
-9
-7
-5
-3
-1
+...     print(i)	-->  9  7  5  3  1
 
-To loop over a sequence in sorted order, use the sorted() function which returns a new sorted list while leaving the source unaltered.
->>>
+To loop over a sequence in sorted order, use the sorted() function which
+returns a new sorted list while leaving the source unaltered.
 
->>> basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
->>> for f in sorted(set(basket)):
-...     print(f)
-...
-apple
-banana
-orange
-pear
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+for f in sorted(set(basket)):
+	print(f)	--> apple  banana  orange  pear
 
-To change a sequence you are iterating over while inside the loop (for example to duplicate certain items), it is recommended that you first make a copy. Looping over a sequence does not implicitly make a copy. The slice notation makes this especially convenient:
->>>
+To change a sequence you are iterating over while inside the loop (for example
+to duplicate certain items), it is recommended that you first make a copy.
+Looping over a sequence does not implicitly make a copy. The slice notation makes this especially convenient:
 
->>> words = ['cat', 'window', 'defenestrate']
->>> for w in words[:]:  # Loop over a slice copy of the entire list.
-...     if len(w) > 6:
-...         words.insert(0, w)
-...
->>> words
-['defenestrate', 'cat', 'window', 'defenestrate']
+words = ['cat', 'window', 'defenestrate']
+for w in words[:]:  # Loop over a slice copy of the entire list.
+	if len(w) > 6:
+		words.insert(0, w)
+words		--> ['defenestrate', 'cat', 'window', 'defenestrate']
 
 
 *******************************************************************************
@@ -395,4 +362,35 @@ Note that comparing objects of different types with < or > is legal provided tha
 
 Footnotes
 [1]	Other languages may return the mutated object, which allows method chaining, such as d->insert("a")->remove("b")->sort();.
-[2]	Calling d.keys() will return a dictionary view object. It supports operations like membership test and iteration, but its contents are not independent of the original dictionary – it is only a view.
+
+
+
+*******************************************************************************
+
+string
+array
+list
+
+
+
+***************************** LAMBDA ***************************************
+
+lambda argument_list: expression
+
+sum = lambda x, y : x + y
+sum(3,4)			--> 7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
