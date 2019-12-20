@@ -1,15 +1,4 @@
-﻿Empresas
-	PSL
-	Open (Albarracín)
-	Compunet
-	Siesa
-	Carvajal tecnologia
-	Green SQA
-	Felipe Arcos
-	Banco de occidente (Vero)
-	Remotas canadá
-
-
+﻿
 deeplearningbook.org		//
 https://onlinejudge.org/
 @ -5,17 +8,8 @@ https://www.24x7wpsupport.com/blog/top-15-best-code-editors-for-programming-codi
@@ -36,3 +25,18 @@ Software:
 Codeblocks		//C compiler
 Visual Studio Code	//IDE for C, Python,...
 Rufus  	      		//To create ISO image for install SO
+
+
+Empresas
+	PSL -Software development (linkedin)
+	Open (Albarracín)
+	Compunet
+	Siesa
+	Carvajal tecnologia
+	Green SQA
+	Felipe Arcos
+	Banco de occidente (Vero)
+	Remotas canadá
+	Sestra Consulting sestra.co
+
+yovana.jimenez@ixerv.com, Maria Alejandra Rodas Sanchez (HR PSL en Linkedin)
