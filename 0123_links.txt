@@ -1,42 +1,72 @@
-Empresas
-	PSL
-	Open (Albarracín)
-	Compunet
-	Siesa
-	Carvajal tecnologia
-	Green SQA
-	Felipe Arcos
-	Banco de occidente (Vero)
-	Remotas canadá
-
-https://digitaljobs.la/		freelancer.com		upwork.com	fiverr.com
+Cursos
+	http://linuxcommand.org/lc3_lts0080.php
+	https://www.datasciencecentral.com/profiles/blogs/large-collection-of-neural-networks-ml-numpy-pandas-matplotlib-sc
+	https://riptutorial.com/
+	https://drive.google.com/drive/mobile/folders/1Rw95Uo2_XrdZN4l1WJ3t96sRxbnKrcDb?usp=sharing
+	https://drive.google.com/drive/mobile/folders/1Rw95Uo2_XrdZN4l1WJ3t96sRxbnKrcDb?usp=sharing
+	https://openwebinars.net/cursos/metodologias-agiles/
+	https://openlibra.com/en/book/lies-damned-lies-or-statistics-how-to-tell-the-truth-with-statistics
+	http://immersivemath.com/ila/index.html
 
 deeplearningbook.org		//
 https://onlinejudge.org/
-https://www.24x7wpsupport.com/blog/top-15-best-code-editors-for-programming-codi
 
 http://inning.com.co/
 https://datapico.com/
 https://apps.co/		//Emprendimiento, curos gratis
 https://trello.com/b/zPPxLrK2/mapa-del-emprendimiento-en-colombia
 
-https://elementary.io/		//Alternative OS
-https://stackedit.io/		//In-browser Markdown editor. Twitter, github
 https://stackoverflow.com/questions/174942/how-should-strace-be-used/1223848
 https://www.hackerrank.com/
 https://research.hackerrank.com/developer-skills/2019#skills1
 
+https://emscripten.org/		//toolchain for compiling to asm.js and WebAssembly, built using LLVM, that lets you run C and C++ on the web at near-native speed without plugins.
+
 https://publish.buffer.com/profile/5dd04c5899bd9561a435b923/tab/queue		//Buffer for social media publications
 
-https://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer/		//Good articles
-https://www.joelonsoftware.com/2006/09/06/finding-great-developers-2/
-
+Good articles
+	https://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer/
+	https://www.joelonsoftware.com/2006/09/06/finding-great-developers-2/
+	https://start.askwonder.com/#pricing
+	https://verne.elpais.com/verne/2014/09/29/articulo/1411970154_000194.html   sesgos cognitivos
+	https://cienciadesofa.com/2017/04/patranas-xv-desmontando-argumentos-defensores-tierra-plana.html
+	https://verne.elpais.com/verne/2015/04/15/articulo/1429098765_280220.html la paradoja de Fermi
+	https://www.cimpa.info/en/schools_list_with_map/2019
+	http://www.doc.ic.ac.uk/~svb/oslab/Minix/usr/include/sys/types.h
+	https://www.sonarsource.com/
+	https://elementary.io/		//Alternative OS
+	https://stackedit.io/		//In-browser Markdown editor. Twitter, github
+	https://www.24x7wpsupport.com/blog/top-15-best-code-editors-for-programming-codi
 
 Software:
-Codeblocks		//C compiler
-Visual Studio Code	//IDE for C, Python,...
-Rufus  	      		//To create ISO image for install SO
+	Codeblocks.org		//C compiler.	sudo apt install codeblocks
+	Visual Studio Code	//IDE for C, Python,...
+	Rufus  	      		//To create ISO image for install SO
+	libsdl.org/		//sudo apt install codeblocks. Simple DirectMedia Layer library
+	SteamOS 		//store.steampowered.com. OS for media and video games	
 
+C compilers
+	sudo apt install mingw-w64	//to compile native Windows binaries on Linux
+	sudo apt install clang		//Clang – Clang is much faster and uses far less memory than GCC
+	sudo apt install gcc		//the defacto-standard open-source C compiler
+
+IDEs Compatibles La mayoría de Entornos de desarrollo integrado escritos para GNU/Linux y algunos otros sistemas operativos soportan GCC. Estos incluyen:
+
+    Anjuta
+    Code::Blocks
+    CodeLite
+    Dev-C++
+    Eclipse
+    geany
+    KDevelop
+    NetBeans
+    Qt Creator
+    Xcode
+
+Employable software engineer
+	Profesionalism
+	Comunications (english)
+	Technical skills
 
 Empresas
 	PSL -Software development (linkedin)
@@ -49,5 +79,7 @@ Empresas
 	Banco de occidente (Vero)
 	Remotas canadá
 	Sestra Consulting sestra.co
+	https://digitaljobs.la/		freelancer.com		upwork.com	fiverr.com
+	Accenture labs, nano lab, paiky, calidev on slack, darient.com, https://hireremote.io/, DB System ltda
+	yovana.jimenez@ixerv.com, Maria Alejandra Rodas Sanchez (HR PSL en Linkedin)
 
-yovana.jimenez@ixerv.com, Maria Alejandra Rodas Sanchez (HR PSL en Linkedin)

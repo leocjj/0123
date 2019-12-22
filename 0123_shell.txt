@@ -726,3 +726,32 @@ source filename [arguments]	// Synonim of . filename
 ./script			//runs the script as an executable file, launching a new shell to run it 
 source script			//reads and executes commands from filename in the current shell environment
 
+
+*******************************************************************************
+************************** INTALATION OF PROGRAMS *****************************
+
+sudo apt-get update
+[sudo apt-get install xz-utils]		//for .xs files
+
+	Download the file 
+		wget http://...FILE
+	Extract the .tar.gz or (.tar.bz2) file
+		tar xvf program.tar.xz
+		tar xvzf PACKAGENAME.tar.gz
+		tar xvjf PACKAGENAME.tar.bz2
+		tar -xf  PACKAGENAME.tar.xz
+	Navigate to the extracted folder
+		cd PACKAGENAME
+	Now run the following command to install the tarball
+		./configure
+		make
+		sudo make install
+		[sudo reboot]
+
+sudo apt install ./codeblocks_17.12-1_amd64.deb
+
+
+
+
+
+

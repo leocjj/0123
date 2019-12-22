@@ -67,7 +67,7 @@ git commit -m $2
 git push origin master
 
 
-Git provides many more abilities, such as rewriting pieces of the history of the project if you feel the commits were not meaningful enough, displaying the history in visually meaningful ways, … 
+Git provides many more abilities, such as rewriting pieces of the history of the project if you feel the commits were not meaningful enough, displaying the history in visually meaningful ways,
 For instance, you should run this right now, and see how a complex history can be viewed really nicely: 
 $ git clone [https://github.com/loverajoel/jstips.git](https://github.com/loverajoel/jstips.git)   # You will need a GitHub account for this to work  
 $ cd jstips   # changing your directory into the one you just downloaded  

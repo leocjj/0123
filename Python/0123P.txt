@@ -83,6 +83,8 @@ zYxWvUtSrQpOnMlKjIhGfEdCbA>
 *************************** OPERATORS ********************************
 
 + - * /, // (integer division), % remainder, ** powers, ()
+A//b división entera, y % funcionan con enteros y flotantes
+==, !=, >, < (Funcionan tambien para cadenas)
 special class: decimal, fractions
 numeric types: integers, floating point numbers, and complex numbers.
 Booleans are a subtype of integers. Integers have unlimited precision.
@@ -203,7 +205,7 @@ print('{:.5}'.format('xylophone'))		'%.5s' % ('xylophone',)		Truncate {:c}	'{:c}
 ********************************************************************************
 ************************* CONTROL FLOW *****************************************
 a, b = 0, 1		//multiple assignment
-
+and, or, not, True, False
 **************************** IF-ELIF-ELSE **************************************
 if x < 0:
 	print('Negative changed to zero')
@@ -225,6 +227,10 @@ words = ['cat', 'window', 'defenestrate']
 >>> for w in words[:]:  	//Loop over a slice copy of the entire list.
 ...     if len(w) > 6:
 ...         words.insert(0, w)	//To modify the slice used for iterate.
+
+while i <=5:      		//break, continue
+   print(i)
+
 >>> words
 ['defenestrate', 'cat', 'window', 'defenestrate']
 
