@@ -44,6 +44,8 @@ Software:
 	Rufus  	      		//To create ISO image for install SO
 	libsdl.org/		//sudo apt install codeblocks. Simple DirectMedia Layer library
 	SteamOS 		//store.steampowered.com. OS for media and video games	
+	pycharm			//	https://www.jetbrains.com/es-es/pycharm/
+	mingw			//	http://www.mingw.org/	 Minimalist GNU for Windows
 
 C compilers
 	sudo apt install mingw-w64	//to compile native Windows binaries on Linux
