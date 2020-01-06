@@ -80,6 +80,8 @@ git push origin master
 
 git clone --recursive <project url>	//For clone all including submodules
 
+git pull				//Inside folder_name to update files
+
 
 ----------------------- SCRIPT TO UPLOAD A FILE -------------------------------
 #!/bin/bash
