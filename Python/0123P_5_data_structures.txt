@@ -399,7 +399,7 @@ Iterable				Yes		Yes						Yes
 Unique values		No		No		No		No		Yes
 Slicing			Yes		Yes		Yes		No		
 
-Define empty		a=''		a=[]		a=()		a={}		a=set()									
+Define empty		a=''		a=[]		a=()		a={}  		a=set()
 Define 1 item		a='c'		a=['H']		a=(1,)		a={'key': 1}	a={1}
 Define general		a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
 
@@ -408,6 +408,8 @@ Index item		a[i]		a[i]		a[i]		a['key']	N/P
 Add item		a+=b		a+=['H']	a+=(2,)		a['key']='val'	a |= {2}
 Item assignment		N/P		a[i]='H'	N/P		a['key']='val'	N/P
 Delete item		N/P		del a[i]	N/P		del a['key']	a -= {2}
+
+Merge									a.update(dic2)
 
 Deep copy (ref.)	b=a  *P/U	b=a		b=a  *P/U	b=a		b=a	
 Shallow copy (w/o ref)	b=a[:]		b=a[:]		b=a[:]		N/P		N/P	

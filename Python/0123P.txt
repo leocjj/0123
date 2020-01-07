@@ -256,7 +256,8 @@ while i <=5:      		//break, continue
 To iterate over a sequence of numbers, generates arithmetic progression.
 It is an object which returns the successive items of the desired sequence when
 you iterate over it, but it doesn’t really make the list, thus saving space.
-The given end point is never part of the generated sequence
+
+** The given end point is never part of the generated sequence **
 
 for i in range(5): 		//Iterates from 0 through 4
 range(5, 10)			//5 through 9
@@ -331,7 +332,7 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python repr()
     Python reversed()
     Python round()
-    Python set()
+    Python set()		
     Python setattr()
     Python slice()
     Python sorted()
