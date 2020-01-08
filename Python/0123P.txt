@@ -151,6 +151,11 @@ print('{:.5}'.format('xylophone'))		'%.5s' % ('xylophone',)
 Truncate {:c}	'{:c}'.format(int unicode)			character
 
 
+import sys
+print("Hello, world!", file=sys.stderr)     // print to standar error
+sys.stderr.write("spam\n")
+os.write(2, b"spam\n")
+
 ********************************************************************************
 ****************************** ITERABLE & SECUENCES ****************************
 
