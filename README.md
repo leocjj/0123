@@ -13,6 +13,8 @@ Each subject has information contiguous (without) blank line, and some others
 
 ### Prerequisites
 
+Read plain text files using an editor configured with tab width of 8 spaces.
+
 Is very desirable to know something about:
 
 ```
