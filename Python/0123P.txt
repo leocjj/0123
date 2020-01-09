@@ -67,6 +67,14 @@ Command line options:
 https://docs.python.org/3.4/using/cmdline.html#using-on-general
 
 
+************************ PYTHON IDE *******************************************
+
+Download https://www.jetbrains.com/es-es/pycharm/download/#section=linux
+tar -xzf pycharm-2019.3.1.tar.gz
+./bin/pycharm.sh
+or in Ubuntu >= 16
+sudo snap install [pycharm-professional|pycharm-community] --classic
+
 ************************** SCRIPTS ********************************************
 python myscript.py
 

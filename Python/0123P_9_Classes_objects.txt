@@ -1,0 +1,14 @@
+https://swaroop-c-h.gitbook.io/byte-of-python/
+https://www.python-course.eu/python3_object_oriented_programming.php
+https://www.python-course.eu/python3_properties.php
+https://www.youtube.com/watch?v=1AGyBuVCTeE&
+
+
+
+*******************************************************************************
+                      9. Classes and objects
+*******************************************************************************
+
+Class			--> a template
+Fields	/ Variables 	--> Attributes
+Methods / Functions	--> Capabilities
