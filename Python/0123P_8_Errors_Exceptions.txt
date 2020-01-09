@@ -261,15 +261,19 @@ Is always executed before leaving the try statement, whether an exception has
 occurred or not. When an exception has occurred in the try clause and has not been handled by an except clause (or it has occurred in an except or else clause), it is re-raised after the finally clause has been executed. The finally clause is also executed “on the way out” when any other clause of the try statement is left via a break, continue or return statement. A more complicated example:
 >>>
 
- def divide(x, y):
-     try:				//PROTECTED CODE
+
+def divide(x, y):
+     try:							//PROTECTED CODE
          result = x / y
      except ZeroDivisionError:		//EXCECUTED IF EXCEPTION OCCURS
          print("division by zero!")
-     else:				//EXCECUTED IF EXCEPTION DOESN'T OCCURS
+     else:							//EXCECUTED IF EXCEPTION DOESN'T OCCURS
          print("result is", result)
-     finally:				//EXCECUTED NO MATTER WHAT.
-         print("executing finally clause")
+     finally:						//EXCECUTED NO MATTER WHAT.
+         print("finally clause")
+
+https://github.com/leocjj/0123
+
 
 >>> divide(2, 1)
 result is 2.0

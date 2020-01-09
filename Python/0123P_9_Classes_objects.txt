@@ -1,7 +1,21 @@
 https://swaroop-c-h.gitbook.io/byte-of-python/
+https://github.com/swaroopch/byte-of-python
+
 https://www.python-course.eu/python3_object_oriented_programming.php
 https://www.python-course.eu/python3_properties.php
 https://www.youtube.com/watch?v=1AGyBuVCTeE&
+
+
+********************** OBJECT ORIENTED PROGRAMMING ****************************
+https://www.python-course.eu/python3_object_oriented_programming.php
+
+Everything is a class: functions and methods are values just like lists,
+integers or floats. Each of these are instances of their corresponding classes.
+
+    Encapsulation
+    Data Abstraction
+    Polymorphism
+    Inheritance
 
 
 
@@ -9,10 +23,131 @@ https://www.youtube.com/watch?v=1AGyBuVCTeE&
                       9. Classes and objects
 *******************************************************************************
 
-Class			--> a template
-Fields	/ Variables 	--> Attributes.
-			can belong to instance/object --> instance variables
-			can belong to the class itself --> class variables
-Methods / Functions	--> Capabilities
+Class				--> a template to create...
+Objects/Instances	-->
 
-__self__		--> My ...
+Fields/Variables 	--> Attributes. Valid within context of...
+
+	instance variables (are owned): belong to instance/object
+		each object has its own copy of the field i.e. they are not shared 
+
+	class variables (are shared): belong to the class itself
+		can be accessed by all instances of that class
+		Only one copy of the class variable, if one object change it, that 
+		change will be seen by all the other instances.
+
+
+Methods / Functions	--> Capabilities
+	__self__	--> My ... Equivalente to 'this' in C and Java
+					Reference to variables and methods of the same object.
+
+Methods
+Have at least one argument: method(self)
+__ini__		is run as soon as an object of a class is instantiated, created
+		to do initialization, passing initial values to your object
+
+Instead of Class_name.field	--> self.__class__.fiels
+every object refers to its class via the self.__class__ attribute.
+
+All class members are public (and virtual, note for c++, java)
+EXCEPTION: double underscore prefix, __privatevar iS a private variable.
+Convention: underscore prefix, is to be used only within the class or object
+
+Class C, instance x of C, method m of C, the following are equivalent:
+    type(x).m(x, ...)
+    C.m(x, ...)
+    x.m(...)
+
+"""Descriptions of class or method."""		//use docstrings.
+	class_name.__doc__ 			//access the class docstring at runtime
+	class_name.method.__doc__	//access the method docstring 
+
+https://www.python-course.eu/python3_properties.php
+https://www.tutorialsteacher.com/python/property-function
+https://www.python-course.eu/python3_object_oriented_programming.php //Data abstraction
+http://www.newthinktank.com/2016/07/learn-program-9/
+http://www.few.vu.nl/~nsilvis/PPL/2007/index.html
+
+
+###############################################################################
+
+class Dog:              #Class name (definition)
+    """Represents a dog, with a name."""            #docstring for the class
+    population = 0      # public class attribute, class variable, shared var
+    _year = 2020        # public class attribute. For convention is internal.
+    __password = None   # private class attribute
+
+    # Decorator, shortcut to wrapper function. how_many = classmethod(how_many)
+    @classmethod        # do something before or after the inner function),
+    def how_many(cls):
+        """Prints the current population."""        #docstring for the method
+        print("We have {:d} dogs.".format(cls.population))
+
+    def __init__(self, name="", hei=0, wei=0):  #Three external user parameter
+        """Initializes the data."""
+        self.name = name    # public instance attribute, object variable, owned
+        Dog.population += 1 #Using class variable
+
+    def bark(self):         #Method
+        """I am barking."""
+        print("{} dog bark".format(self.name))
+
+def func():
+    func.counter = getattr(func, "counter", 0) + 1
+
+def main():
+    Dog().bark()            # Prints  dog bark
+
+    Dog('Swaroop').bark()   # Prints Swaroop dog bark
+
+    spot = Dog("Spot", 30, 40)
+    spot.bark()             # Prints Spot dog bark
+
+    bowser = Dog()
+    bowser.name = "Bowser"
+    bowser.bark()           # Prints Bowser dog bark
+
+    #Class variables
+    Dog.population += 1     # Modify. For all instances of Class Dog
+    print(Dog.population)   # Prints 5. Us of global for all instances of Dog
+    # try to access spot.population, Python checks first, if "population" is a
+    # key of spot.__dict__ If it is not, Python checks, if is a key of the
+    # Dog.__dict__  If so, the value can be retrieved.
+    spot.population +=2     # Modify. Only for sport instance of Class Dog
+    print(spot.population)  # Prints 7. Incorrect use of global variable.
+
+    #Object variable
+    spot.name = "sport"     # Modify. Just for spot instance
+    print(spot.name)        # Print sport. Use of instance attribute.
+
+    #print(Dog.__password)  # Error. __password is private.
+    Dog._year = 2019        # Internal use variable modification
+    print(Dog._year)        # Prints 2019
+
+    Dog.how_many()          # Prints We have 5 dogs.
+
+    print(Dog.__doc__)              # Class documentation (docstrings)
+    print(Dog.how_many.__doc__)     # Method documentation (docstrings)
+    help(Dog)                       # Full description
+
+    spot.owner = "Bob"      # dynamically create arbitrary new attributes
+    print(spot.__dict__)    # Prints dictionary existing instances of a class
+
+    print(getattr(spot, 'age', 2))  # Prints 2. third argument is default value
+
+    #func.counter = 0       # Bind attribute to function
+    func()                  # Have an attribute that works as static variable
+    print(func.counter)     # Prints 1
+    func()
+    print(func.counter)     # Prints 2
+
+
+main()
+
+
+
+
+
+
+
+
