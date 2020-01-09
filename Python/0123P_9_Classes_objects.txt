@@ -10,5 +10,9 @@ https://www.youtube.com/watch?v=1AGyBuVCTeE&
 *******************************************************************************
 
 Class			--> a template
-Fields	/ Variables 	--> Attributes
+Fields	/ Variables 	--> Attributes.
+			can belong to instance/object --> instance variables
+			can belong to the class itself --> class variables
 Methods / Functions	--> Capabilities
+
+__self__		--> My ...
