@@ -58,9 +58,49 @@ Class C, instance x of C, method m of C, the following are equivalent:
     C.m(x, ...)
     x.m(...)
 
+*********************** doc, repr, str methods ********************************
+
+https://docs.python.org/3/reference/datamodel.html
+
 """Descriptions of class or method."""		//use docstrings.
 	class_name.__doc__ 			//access the class docstring at runtime
 	class_name.method.__doc__	//access the method docstring 
+
+...     def __repr__(self):
+...         return "Test()"
+...     def __str__(self):
+...         return "member of Test"
+The __str__ method is what happens when you print it, and the __repr__ method is what happens when you use the repr() function (or when you look at it with the interactive prompt). If this isn't the most Pythonic method, I apologize, because I'm still learning too - but it works.
+
+If no __str__ method is given, Python will print the result of __repr__ instead. If you define __str__ but not __repr__, Python will use what you see above as the __repr__, but still use __str__ for printing.
+
+
+object.__repr__(self)
+
+    Called by the repr() built-in function to compute the “official” string representation of an object. If at all possible, this should look like a valid Python expression that could be used to recreate an object with the same value (given an appropriate environment). If this is not possible, a string of the form <...some useful description...> should be returned. The return value must be a string object. If a class defines __repr__() but not __str__(), then __repr__() is also used when an “informal” string representation of instances of that class is required.
+
+    This is typically used for debugging, so it is important that the representation is information-rich and unambiguous.
+
+object.__str__(self)
+
+    Called by str(object) and the built-in functions format() and print() to compute the “informal” or nicely printable string representation of an object. The return value must be a string object.
+
+    This method differs from object.__repr__() in that there is no expectation that __str__() return a valid Python expression: a more convenient or concise representation can be used.
+
+    The default implementation defined by the built-in type object calls object.__repr__().
+
+
+****************** “rich comparison” methods **********************************
+
+https://docs.python.org/3/reference/datamodel.html
+
+object.__lt__(self, other)      x<y calls x.__lt__(y)
+object.__le__(self, other)      x<=y calls x.__le__(y)
+object.__eq__(self, other)      x==y calls x.__eq__(y)
+object.__ne__(self, other)      x!=y calls x.__ne__(y)
+object.__gt__(self, other)      x>y calls x.__gt__(y)
+object.__ge__(self, other)      and x>=y calls x.__ge__(y).
+
 
 https://www.python-course.eu/python3_properties.php
 https://www.tutorialsteacher.com/python/property-function
@@ -91,6 +131,19 @@ class Dog:              #Class name (definition)
     def bark(self):         #Method
         """I am barking."""
         print("{} dog bark".format(self.name))
+
+    @property               # Property wrap
+    def x(self):            # getter method 
+        return self.__x
+
+    @x.setter               # setter wrap for x property
+    def x(self, x):         # setter method
+        if x < 0:
+            self.__x = 0
+        elif x > 1000:
+            self.__x = 1000
+        else:
+            self.__x = x
 
 def func():
     func.counter = getattr(func, "counter", 0) + 1
