@@ -115,7 +115,9 @@ class Dog:              #Class name (definition)
     """Represents a dog, with a name."""            #docstring for the class
     population = 0      # public class attribute, class variable, shared var
     _year = 2020        # public class attribute. For convention is internal.
+    year_ = 2021        # public class attribute. Avoid conflicts with keywords
     __password = None   # private class attribute
+    __word__ = None     # Magic object of python, don't modify.
 
     # Decorator, shortcut to wrapper function. how_many = classmethod(how_many)
     @classmethod        # do something before or after the inner function),
