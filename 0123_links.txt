@@ -31,6 +31,7 @@ https://emscripten.org/		//toolchain for compiling to asm.js and WebAssembly, bu
 https://publish.buffer.com/profile/5dd04c5899bd9561a435b923/tab/queue		//Buffer for social media publications
 
 Good articles
+    https://www.facebook.com/ConfiaEnMiSoyIngeniero     //jokes
 	https://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer/
 	https://www.joelonsoftware.com/2006/09/06/finding-great-developers-2/
 	https://start.askwonder.com/#pricing
@@ -46,6 +47,19 @@ Good articles
 	https://www.24x7wpsupport.com/blog/top-15-best-code-editors-for-programming-codi
 	https://ryxcommar.com/2019/11/02/making-good-code-great
 	https://www.xataka.com/historia-tecnologica/16-ejemplos-de-como-se-veia-el-futuro-en-el-pasado
+    https://elpais.com/elpais/2019/01/15/eps/1547557079_800501.html         
+    https://elpais.com/elpais/2019/08/07/ciencia/1565183288_585495.html     //Teorìa de la sensibilidad
+    https://verne.elpais.com/verne/2014/11/17/articulo/1416205830_000028.html
+    ted.com
+    https://elpais.com/elpais/2015/03/18/icon/1426674571_023860.html
+    https://verne.elpais.com/verne/2015/11/13/articulo/1447413460_147289.html
+    http://juan7am.co/micromba1/        //Marketing, https://www.duenio.co/
+    programming
+    greedy technic
+    knapsack problem
+    http://web.eecs.utk.edu/~jplank/plank/classes/cs360/360/notes/Syscall-Intro/lecture.html
+    http://www.it.uu.se/education/course/homepage/os/vt18/module-2/process-management/      fork()
+    https://www.portafolio.co/mis-finanzas/vivienda/asi-puede-comprar-casa-los-jovenes-53687
 	hacking
 	recurse.com/blog/7-understanding-c-by-learning-assembly
 	hybridivy.wordpress.com/2016/03/22/dont-hate-the-hacker-hate-the-code-part-2
@@ -99,6 +113,7 @@ Empresas
 	Sestra Consulting sestra.co
 	mattermost.com/careers
 	engineerhere.ca
+    https://www.meetup.com/es/CaliSharpCO/    https://twitter.com/calisharpco
 	www.qt.io/careers
 	www.toptal.com/hire-software-developers
 	digitaljobs.la/		freelancer.com		upwork.com	fiverr.com
