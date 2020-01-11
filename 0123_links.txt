@@ -48,6 +48,7 @@ Software:
 	SteamOS 		//store.steampowered.com. OS for media and video games	
 	pycharm			//	https://www.jetbrains.com/es-es/pycharm/
 	mingw			//	http://www.mingw.org/	 Minimalist GNU for Windows
+    httrack         //  http://www.httrack.com  apt-get install webhttrack 
 
 C compilers
 	sudo apt install mingw-w64	//to compile native Windows binaries on Linux
