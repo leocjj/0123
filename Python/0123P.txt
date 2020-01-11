@@ -3,6 +3,10 @@ https://docs.python.org/3/tutorial/index.html
 https://docs.python.org/3/library/index.html
 https://docs.python.org/3/reference/index.html
 
+https://yungnickyoung.github.io/Python-3-Cheatsheet/
+https://www.w3schools.com/python/
+https://greenteapress.com/wp/think-python-2e/
+https://www.youtube.com/watch?v=Zs9u8TAv4_k
 
 ************************** PYTHON STYLE ***************************************
 sudo apt-get install python3-pep8

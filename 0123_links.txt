@@ -1,6 +1,9 @@
 https://www.youtube.com/watch?v=-oQ3Zt3gC_A
 
+students-support.hbtn.io	//Holberton information blogs
+
 Cursos
+	openlibra.com	//books... books... book...
 	http://linuxcommand.org/lc3_lts0080.php
 	https://www.datasciencecentral.com/profiles/blogs/large-collection-of-neural-networks-ml-numpy-pandas-matplotlib-sc
 	https://riptutorial.com/
@@ -21,6 +24,7 @@ https://trello.com/b/zPPxLrK2/mapa-del-emprendimiento-en-colombia
 https://stackoverflow.com/questions/174942/how-should-strace-be-used/1223848
 https://www.hackerrank.com/
 https://research.hackerrank.com/developer-skills/2019#skills1
+codewars.com,	freecodecamp.org
 
 https://emscripten.org/		//toolchain for compiling to asm.js and WebAssembly, built using LLVM, that lets you run C and C++ on the web at near-native speed without plugins.
 
@@ -37,8 +41,15 @@ Good articles
 	http://www.doc.ic.ac.uk/~svb/oslab/Minix/usr/include/sys/types.h
 	https://www.sonarsource.com/
 	https://elementary.io/		//Alternative OS
+	batocera.org			//OS for retrogaming 
 	https://stackedit.io/		//In-browser Markdown editor. Twitter, github
 	https://www.24x7wpsupport.com/blog/top-15-best-code-editors-for-programming-codi
+	https://ryxcommar.com/2019/11/02/making-good-code-great
+	https://www.xataka.com/historia-tecnologica/16-ejemplos-de-como-se-veia-el-futuro-en-el-pasado
+	hacking
+	recurse.com/blog/7-understanding-c-by-learning-assembly
+	hybridivy.wordpress.com/2016/03/22/dont-hate-the-hacker-hate-the-code-part-2
+	azeria-labs.com
 
 Software:
 	Codeblocks.org		//C compiler.	sudo apt install codeblocks
@@ -80,14 +91,21 @@ Empresas
 	Siesa
 	Carvajal tecnologia
 	Green SQA
+	peaku.co/trabajos
+	torre.co/es/jobs
 	Felipe Arcos
 	Banco de occidente (Vero) https://elempleo.com/sitios-empresariales/colombia/banco-occidente/
 	Remotas canadá
 	Sestra Consulting sestra.co
-	https://digitaljobs.la/		freelancer.com		upwork.com	fiverr.com
+	mattermost.com/careers
+	engineerhere.ca
+	www.qt.io/careers
+	www.toptal.com/hire-software-developers
+	digitaljobs.la/		freelancer.com		upwork.com	fiverr.com
 	Accenture labs, nano lab, paiky, calidev on slack, darient.com, https://hireremote.io/, DB System ltda
 	mongodb
 	Netflix
+	linkedin.com/jobs
 	yovana.jimenez@ixerv.com, Maria Alejandra Rodas Sanchez (HR PSL en Linkedin)
 	Comfandi: www.elempleo.com, botón de base empresarial, logo Comfandi, opción Enviar hoja de vida, digita tu número de identificación.
 	
