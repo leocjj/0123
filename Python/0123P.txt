@@ -348,7 +348,7 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python range()
     Python repr()
     Python reversed()
-    Python round()
+    Python round()      //round(number, ndigits), returns a floating-point
     Python set()		
     Python setattr()
     Python slice()
