@@ -40,6 +40,7 @@ Good articles
 
 Software:
 	Codeblocks.org		//C compiler.	sudo apt install codeblocks
+	Visual Studio		// https://visualstudio.microsoft.com
 	Visual Studio Code	//IDE for C, Python,...
 	Rufus  	      		//To create ISO image for install SO
 	libsdl.org/		//sudo apt install codeblocks. Simple DirectMedia Layer library
