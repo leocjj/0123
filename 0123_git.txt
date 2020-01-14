@@ -58,8 +58,32 @@ git config --global credential.helper cache --45000	//To avoid put pass and user
 
 git config --list      //To verify, ~/.gitconfig
 
+git config --global user.name "leocjj"
+git config --global user.email "leocj@hotmail.com"
 
------------------------ SCRIPT TO UPLOAD A FILE
+
+----------------------- SUBMODULES --------------------------------------------
+https://github.blog/2016-02-01-working-with-submodules/#adding-a-submodule
+Allows to have the repository code, available int forder_name proyect
+
+git submodule add url_repository folder_name
+
+git submodule update --init --recursive	//if forlder_name isn't sincronized
+
+git status
+	.gitmodules
+	folder_name
+
+git add .				//to add .gitmodules and folder_name
+git commint -m "submodules"
+git push origin master
+
+git clone --recursive <project url>	//For clone all including submodules
+
+git pull				//Inside folder_name to update files
+
+
+----------------------- SCRIPT TO UPLOAD A FILE -------------------------------
 #!/bin/bash
 #./g 'File_to_push' 'Commit message'
 git add $1

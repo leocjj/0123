@@ -1,6 +1,7 @@
 https://elementary.io/
 https://sourceforge.net/projects/elementaryos/?source=navbar
 https://dev.to/awwsmm/101-bash-commands-and-tips-for-beginners-to-experts-30je
+http:/man7.org/index.html
 
 https://askubuntu.com/questions/16728/hide-current-working-directory-in-terminal
 export PS1='> '		//not to show path in command line

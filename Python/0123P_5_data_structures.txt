@@ -7,17 +7,27 @@ https://www.python-course.eu/python3_lambda.php
 *******************************************************************************
 ***************************** 5.1. More on Lists ******************************
 
-list.append(x)    Add an item to the end of the list. Equivalent to a[len(a):] = [x].
-list.extend(L)    Extend the list by appending all the items in the given list. Equivalent to a[len(a):] = L.
-list.insert(i, x)    Insert an item at a given position. The first argument is the index of the element before which to insert, so a.insert(0, x) inserts at the front of the list, and a.insert(len(a), x) is equivalent to a.append(x).
-list.remove(x)    Remove the first item from the list whose value is x. It is an error if there is no such item.
-list.pop([i])    Remove the item at the given position in the list, and return it. If no index is specified, a.pop() removes and returns the last item in the list. (The square brackets around the i in the method signature denote that the parameter is optional)
+list.append(x)	a[len(a):] = [x]  Add an item to the end of the list.
+list.extend(L)	a[len(a):] = L   Extend the list by appending all the items in the given list.
+list.insert(i, x) Insert an item at a given position. The first argument is the
+		index of the element before which to insert
+		a.insert(0, x)	inserts at the front of the list
+		a.insert(len(a), x)  is equivalent to a.append(x).
+list.remove(x)	Remove the first item from the list whose value is x.
+		It is an error if there is no such item.
+		
+list.pop([i])	Remove the item at the given position in the list and return it
+		If no index is specified, a.pop() removes and returns the last
+		item in the list. (The square brackets around the i in the
+		method signature denote that the parameter is optional).
+		list[n:n+1] = []. Delete item at posición n.
 list.clear()    Remove all items from the list. Equivalent to del a[:].
-list.index(x)    Return the index in the list of the first item whose value is x. It is an error if there is no such item.
-list.count(x)    Return the number of times x appears in the list.
-list.sort()    Sort the items of the list in place.
-list.reverse()    Reverse the elements of the list in place. a[::-1]
-list.copy()    Return a shallow copy of the list. Equivalent to a[:].
+list.index(x)	Return the index in the list of the first item whose value is x
+		It is an error if there is no such item.
+list.count(x)	Return the number of times x appears in the list.
+list.sort()	Sort the items of the list in place.
+list.reverse()  a[::-1]. Reverse the elements of the list in place. 
+list.copy()	a[:]. Return a shallow copy of the list.
 
 methods like insert, remove or sort that only modify the list return the default None. 
 
@@ -389,15 +399,18 @@ Iterable				Yes		Yes						Yes
 Unique values		No		No		No		No		Yes
 Slicing			Yes		Yes		Yes		No		
 
-Define empty		a=''		a=[]		a=()		a={}		a=set()									
+Define empty		a=''		a=[]		a=()		a={}  		a=set()
 Define 1 item		a='c'		a=['H']		a=(1,)		a={'key': 1}	a={1}
 Define general		a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
 
 Index item		a[i]		a[i]		a[i]		a['key']	N/P
 			a[i:j] slice	a[i:j] slice					N/P
-Add item		a+=b		a=['H']		a+=(2,)		a['key']='val'	a |= {2}
+Add item		a+=b		a+=['H']	a+=(2,)		a['key']='val'	a |= {2}
 Item assignment		N/P		a[i]='H'	N/P		a['key']='val'	N/P
 Delete item		N/P		del a[i]	N/P		del a['key']	a -= {2}
+
+Length
+Merge two								a.update(dic2)
 
 Deep copy (ref.)	b=a  *P/U	b=a		b=a  *P/U	b=a		b=a	
 Shallow copy (w/o ref)	b=a[:]		b=a[:]		b=a[:]		N/P		N/P	
@@ -434,7 +447,7 @@ r = map(func, seq)
 def fahrenheit(T):
     return ((float(9)/5)*T + 32)
 temperatures = (36.5, 37, 37.5, 38, 39)
-temperatures_in_Fahrenheit = list(map(fahrenheit, temperatures))
+temperatures_in_Fahrenheit = list( map(fahrenheit, temperatures) )
 
 
 

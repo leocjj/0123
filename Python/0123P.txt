@@ -3,8 +3,12 @@ https://docs.python.org/3/tutorial/index.html
 https://docs.python.org/3/library/index.html
 https://docs.python.org/3/reference/index.html
 
+https://yungnickyoung.github.io/Python-3-Cheatsheet/
+https://www.w3schools.com/python/
+https://greenteapress.com/wp/think-python-2e/
+https://www.youtube.com/watch?v=Zs9u8TAv4_k
 
-************************** PYTHON STYLE **********************
+************************** PYTHON STYLE ***************************************
 sudo apt-get install python3-pep8
 	or
 sudo apt-get install python3-pip
@@ -13,8 +17,8 @@ sudo pip3 install pep8
 Make sure you have the right version
 $ pep8 --version
 1.7
-$
-If it's not the case, it means PEP8 is installed but not linked in your PATH. You should look at these folders to find where it has been installed:
+If it's not the case, it means PEP8 is installed but not linked in your PATH.
+You should look at these folders to find where it has been installed:
 
 /usr/local/lib/python3*/dist-packages/pep8.py
 /usr/lib/python3*/dist-packages/pep8.py
@@ -24,12 +28,13 @@ sudo cp /usr/lib/python3*/dist-packages/pep8.py /usr/bin/pep8
 sudo chmod u+x /usr/bin/pep8
 sudo pep8 --version
 sudo pip3 install pep8 --upgrade	//To upgrade version
-Finally, if you can't make it work, please use the 'container-on-demand' tool to 'PEP8' your files in a pre-configured container.
+Finally, if you can't make it work, please use the 'container-on-demand' tool
+to 'PEP8' your files in a pre-configured container.
 
 sudo apt-get --purge remove pep8	//Uninstall
 pip3 uninstall pep8
 
-************************* PYTHON INSTALL *************************
+************************* PYTHON INSTALL **************************************
 python3 -V
 sudo apt-get install idle-python3.4
 sudo apt-get install python3
@@ -38,30 +43,43 @@ sudo apt-get install python3
 set path=%path%;C:\python34	//To set path in Windows
 
 
-************************* PYTHON TUTORIAL *************************
+************************* PYTHON TUTORIAL *************************************
 https://docs.python.org/3.4/tutorial/index.html
-https://docs.python.org/3.4/library/index.html#library-index		//Standar library
-https://docs.python.org/3.4/reference/index.html#reference-index	//Language reference
-https://docs.python.org/3.4/extending/index.html#extending-index	//To write extensions in C
-https://docs.python.org/3.4/c-api/index.html#c-api-index		//API
+https://docs.python.org/3.4/library/index.html#library-index
+https://docs.python.org/3.4/reference/index.html#reference-index
+https://docs.python.org/3.4/extending/index.html#extending-index //C extensions
+https://docs.python.org/3.4/c-api/index.html#c-api-index
 
 
-************************* RUN PYTHON ******************************
+************************* RUN PYTHON ******************************************
 >python3			//Run python shell, interpreter
 >>> quit(), exit(), ctrl + D	//To exit
 
-Interactively: 		when called with standard input connected to a tty device, it reads and executes commands.
-Non-Interactively:	when called with a file name argument or with a file as standard input, it reads and executes a script from that file.
-			to run the script and enter interactive mode afterwards. This can be done by passing -i before the script.
+Interactively: when called with standard input connected to a tty device,
+	it reads and executes commands.
+Non-Interactively: when called with a file name argument or with a file as
+	standard input, it reads and executes a script from that file. To run
+	the script and enter interactive mode afterwards. This can be done by
+	passing -i before the script.
 
-python -c 'command' [arg] ..., 	which executes the statement(s) in command, analogous to the shell's -c option.
-python -m  module [arg] ..., 	which executes the source file for module as if you had spelled out its full name on the command line.
+python -c 'command' [arg] ..., 	which executes the statement(s) in command,
+				analogous to the shell's -c option.
+python -m  module [arg] ..., 	which executes the source file for module as
+	if you had spelled out its full name on the command line.
+
+Command line options:
+https://docs.python.org/3.4/using/cmdline.html#using-on-general
 
 
-Command line options: https://docs.python.org/3.4/using/cmdline.html#using-on-general
+************************ PYTHON IDE *******************************************
 
+Download https://www.jetbrains.com/es-es/pycharm/download/#section=linux
+tar -xzf pycharm-2019.3.1.tar.gz
+./bin/pycharm.sh
+or in Ubuntu >= 16
+sudo snap install [pycharm-professional|pycharm-community] --classic
 
-************************** SCRIPTS *******************************
+************************** SCRIPTS ********************************************
 python myscript.py
 
 PYTHON SCRIPT			//main.py 	EXECUTABLE!!!!!!!!
@@ -80,34 +98,36 @@ SHELL SCRIPT			//Shell script that runs Python code.
 zYxWvUtSrQpOnMlKjIhGfEdCbA>
 
 
-*************************** OPERATORS ********************************
+*************************** OPERATORS *****************************************
 
 + - * /, // (integer division), % remainder, ** powers, ()
-A//b división entera, y % funcionan con enteros y flotantes
-==, !=, >, < (Funcionan tambien para cadenas)
+A//b floor division. // and % works with integers and floats.
+==, !=, >, < (works also with strings)
 special class: decimal, fractions
 numeric types: integers, floating point numbers, and complex numbers.
 Booleans are a subtype of integers. Integers have unlimited precision.
 
 
-*************************** STRINGS **********************************
+*************************** STRINGS *******************************************
 
-Python strings cannot be changed — they are immutable. you should create a new one
+Python strings cannot be changed — they are immutable. Should create a new one
 'asdf' or "asdf", \ to scape quotes or special char: \n
 print('C:\some\name')	--> C:\some\
 print(r'C:\some\name')  --> C:\some\name   //RAW STRING
 
-span multiple lines. Using triple-quotes: """...""" or '''...'''.
-End of lines are automatically included in the string, to prevent this, add a \ at the end of the line.
+Span multiple lines. Using triple-quotes: """...""" or '''...'''.
+End of lines are automatically included in the string, to prevent this, add a \
+at the end of the line.
 print("""\
-Usage: thingy [OPTIONS]
-     -h                        Display this usage message
-     -H hostname               Hostname to connect to
+	Usage: thingy [OPTIONS]
+	-h                        Display this usage message
+	-H hostname               Hostname to connect to
 """)
 concatenate + or 'Py' 'thon', 3*'un' to repeat
 
 word = 'Python'	>>> word[0] --> 'P' 	//Strings can be indexed7
-		>>> word[-1] --> 'n'	//To start counting from the right, negative indices start from -1.
+		>>> word[-1] --> 'n'	//To start counting from the right,
+						negative indices start from -1.
 
 SLICING
 class slice(start, stop[, step]), return a slice object representing the set of
@@ -118,38 +138,66 @@ word[[init_index:] final_index [:step] ]
 	//if index missing, takes to the start/end.
 	//if index negative, takes counting in reverse.
 
-
 +---+---+---+---+---+---+
  | P | y | t | h | o | n |
  +---+---+---+---+---+---+
- 0   1   2   3   4   5   6
--7  -6  -5  -4  -3  -2  -1
+   0   1   2   3   4   5
+  -6  -5  -4  -3  -2  -1
+
+print('{index_of_format[:format]}...'.format(var1,...), end=' ')  //end char
+a = "Python is cool"
+print(a[7:-5])					//print is
+
+https://pyformat.info/#number
+https://docs.python.org/3/library/string.html
+print("...".format(...))			//print format
+print('{} {}'.format('one', 'two'))		'%s %s' % ('one', 'two')
+print('{0} {1}'.format('one', 'two'))
+print('{1} {0}'.format('one', 'two'))
+print('{} {}'.format(1, 2))			'%d %d' % (1, 2)
+print('{:d}'.format(42))			'%d' % (42)
+print('{:f}'.format(3.141592653589793))		'%f' % (3.141592653589793,)
+print('{:06.2f}'.format(3.141592653589793))	'%06.2f' % (3.141592653589793,)
+						6 padding, .2 precision
+print('{:.5}'.format('xylophone'))		'%.5s' % ('xylophone',)
+Truncate {:c}	'{:c}'.format(int unicode)			character
+
+
+import sys
+print("Hello, world!", file=sys.stderr)     // print to standar error
+sys.stderr.write("spam\n")
+os.write(2, b"spam\n")
 
 ********************************************************************************
 ****************************** ITERABLE & SECUENCES ****************************
 
-a = (x for x in [1,2,3])	//Iterable, once uses, returns one bye one each
+a = (x for x in [1,2,3])	//Iterable, one use, returns one bye one each
 				//element and then is empty.
 Object capable of returning its members one at a time.
-Examples: all sequence types (such as list, str, and tuple) and some non-sequence
+
+Example: all sequence types (such as list, str and tuple) and some non-sequence
 types like dict, file objects, and objects of any classes you define with an
-__iter__() or __getitem__() method. Iterables can be used in a for loop and in
-many other places where a sequence is needed (zip(), map(), ...). When an
-iterable object is passed as an argument to the built-in function iter(), it
-returns an iterator for the object. This iterator is good for one pass over
-the set of values. When using iterables, it is usually not necessary to call
-iter() or deal with iterator objects yourself. The for statement does that
-automatically for you, creating a temporary unnamed variable to hold the
-iterator for the duration of the loop. See also iterator, sequence, and generator.
+__iter__() or __getitem__() method.
+
+Iterables can be used in a for loop and in many other places where a sequence
+is needed (zip(), map(), ...).
+
+When an iterable object is passed as an argument to the built-in function
+iter(), it returns an iterator for the object. This iterator is good for one
+pass over the set of values. When using iterables, it is usually not necessary
+to call iter() or deal with iterator objects yourself.
+
+The for statement does that automatically for you, creating a temporary unnamed
+variable to hold the iterator for the duration of the loop. See also iterator,
+sequence, and generator.
  
 An iterable (object capable of returning its members one at a time.) which
 supports efficient element access using integer indices via the __getitem__()
 special method and defines a __len__() method that returns the length of the
-sequence.
+sequence. Types: list, str, tuple, and bytes. dict also supports __getitem__()
+ and __len__(), is considered a mapping rather than a sequence because the
+lookups use arbitrary immutable keys, no integers.
 
-Types: list, str, tuple, and bytes.
-dict also supports __getitem__() and __len__(), is considered a mapping rather
-than a sequence because the lookups use arbitrary immutable keys, no integers.
 
 ****************************** LIST *******************************************
 comma-separated values (items) in square brackets. can be indexed and sliced
@@ -183,24 +231,6 @@ array[:5]
 a = "Python is cool"
 array[init_index[:final_index]]		//if index missing, takes to the start/end.
 					//if index negative, takes counting in reverse.
-
-print('{index[:format]}...'.format(var1,...), end=' ')	//end specify end character
-a = "Python is cool"
-print(a[7:-5])					//print is
-
-https://pyformat.info/#number
-https://docs.python.org/3/library/string.html
-print("...".format(...))			//print format
-print('{} {}'.format('one', 'two'))		'%s %s' % ('one', 'two')
-print('{0} {1}'.format('one', 'two'))
-print('{1} {0}'.format('one', 'two'))
-print('{} {}'.format(1, 2))			'%d %d' % (1, 2)
-print('{:d}'.format(42))			'%d' % (42)
-print('{:f}'.format(3.141592653589793))		'%f' % (3.141592653589793,)
-print('{:06.2f}'.format(3.141592653589793))	'%06.2f' % (3.141592653589793,)		6 padding, .2 precision
-print('{:.5}'.format('xylophone'))		'%.5s' % ('xylophone',)		Truncate {:c}	'{:c}'.format(int unicode)			character
-
-
 
 ********************************************************************************
 ************************* CONTROL FLOW *****************************************
@@ -243,7 +273,8 @@ while i <=5:      		//break, continue
 To iterate over a sequence of numbers, generates arithmetic progression.
 It is an object which returns the successive items of the desired sequence when
 you iterate over it, but it doesn’t really make the list, thus saving space.
-The given end point is never part of the generated sequence
+
+** The given end point is never part of the generated sequence **
 
 for i in range(5): 		//Iterates from 0 through 4
 range(5, 10)			//5 through 9
@@ -317,8 +348,8 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python range()
     Python repr()
     Python reversed()
-    Python round()
-    Python set()
+    Python round()      //round(number, ndigits), returns a floating-point
+    Python set()		
     Python setattr()
     Python slice()
     Python sorted()

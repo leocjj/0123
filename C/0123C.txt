@@ -1,6 +1,31 @@
 
 https://github.com/holbertonschool/Betty/wiki
 
+*********************************** C COMPILER ********************************
+
+https://askubuntu.com/questions/923337/installing-an-older-gcc-version3-4-3-on-ubuntu-14-04-currently-4-8-installed
+
+Done. Following the github.com/kael1706 link, now we can use the right compiler in Ubuntu 18:
+
+sudo apt-get update
+sudo apt-get install gcc-4.8
+
+//To find the name of the files
+whereis gcc   //In our case: /usr/bin
+cd /usr/bin
+ls *gcc*      //In our case: gcc-7, gcc-4.8
+
+//update-alternatives --install <link> <name> <path> <priority>
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 40
+Now, by default, the gcc command will use the gcc-4.8 file. To change wich compiler to use, we run the following command once:
+sudo update-alternatives --config gcc
+And choose wich version to use :blush:.
+
+Using this option, we don't need to use virtual machine / vagrant in Ubuntu any more.
+
 ******************************************** VARIABLES ***************************************
 
 char		1 byte		%c		-128 to 127
