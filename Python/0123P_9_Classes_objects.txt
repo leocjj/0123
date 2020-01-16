@@ -70,6 +70,7 @@ https://docs.python.org/3/reference/datamodel.html
 ...         return "Test()"
 ...     def __str__(self):
 ...         return "member of Test"
+
 The __str__ method is what happens when you print it, and the __repr__ method is what happens when you use the repr() function (or when you look at it with the interactive prompt). If this isn't the most Pythonic method, I apologize, because I'm still learning too - but it works.
 
 If no __str__ method is given, Python will print the result of __repr__ instead. If you define __str__ but not __repr__, Python will use what you see above as the __repr__, but still use __str__ for printing.
@@ -113,27 +114,67 @@ http://www.few.vu.nl/~nsilvis/PPL/2007/index.html
 
 class Dog:              #Class name (definition)
     """Represents a dog, with a name."""            #docstring for the class
-    population = 0      # public class attribute, class variable, shared var
-    _year = 2020        # public class attribute. For convention is internal.
-    year_ = 2021        # public class attribute. Avoid conflicts with keywords
-    __password = None   # private class attribute
+
+    population = 0      # public CLASS attribute, class variable, shared var
+    _year = 2020        # public CLASS attribute. For convention is internal.
+    year_ = 2021        # public CLASS attribute. Avoid conflicts with keywords
+    __password = None   # private CLASS attribute.
     __word__ = None     # Magic object of python, don't modify.
+
+
+    # @ are DECORATORS, shortcut to wrapper function. For example @classmethod
+    # is equivalent to how_many = classmethod(how_many)
+    # do something before or after the inner function),
+
+                    # INSTANCE method called.
+                        # Can modify object instance state.
+                        # Can modify class state. 
+                        # obj = Dog(); obj.method()         --> Ok
+                        # Dog.method()                      --> TypeError
+    def method(self):   # Can use self, object itself.
+        """Prints population."""                    #docstring for the method
+        print("We have {:d} dogs.".format(self.population))
+
+                    # CLASS method called
+                        # Can't modify object instance state.
+                        # Can modify class state.
+                        # obj = Dog(); obj.classmethod()    --> OK
+                        # Dog.classmethod()                 --> OK
+    @classmethod        # Can use cls, the class itself.
+    def classmethod(cls):
+        """Prints population."""                    #docstring for the method
+        print("We have {:d} dogs.".format(cls.population))
+
+                    # STATIC metod called.
+                        # Can't modify object instance state.
+                        # Can't modify class state. 
+                        # obj = Dog(); obj.staticmethod()   --> OK
+                        # Dog.staticmethod()                --> OK
+    @staticmethod       # Can't use cls, self
+    def staticmethod():
+        """Prints something."""                     #docstring for the method
+        print("We have dogs.")
+
 
     # Decorator, shortcut to wrapper function. how_many = classmethod(how_many)
     @classmethod        # do something before or after the inner function),
     def how_many(cls):
         """Prints the current population."""        #docstring for the method
         print("We have {:d} dogs.".format(cls.population))
+    
 
     def __init__(self, name="", hei=0, wei=0):  #Three external user parameter
         """Initializes the data."""
-        self.name = name    # public instance attribute, object variable, owned
-        Dog.population += 1 #Using class variable
+        self.name = name    # public INSTANCE attribute, object variable, owned
+        Dog.population += 1 # Using class variable
 
-    def bark(self):         #Method
+
+    def bark(self):         # Instance method
         """I am barking."""
         print("{} dog bark".format(self.name))
 
+    ### getter and setter for private variable. From outside looks like public
+        using this property methods.
     @property               # Property wrap
     def x(self):            # getter method 
         return self.__x
@@ -146,6 +187,13 @@ class Dog:              #Class name (definition)
             self.__x = 1000
         else:
             self.__x = x
+
+                            # Destructor method.
+                            # Custom destructor marks item as uncollectable.
+                            # called when object is deleted, using del obj.
+    def __del__(self):      # called when the program finish.
+        # body of destructor
+
 
 def func():
     func.counter = getattr(func, "counter", 0) + 1
@@ -162,18 +210,24 @@ def main():
     bowser.name = "Bowser"
     bowser.bark()           # Prints Bowser dog bark
 
-    #Class variables
+
+    #### Class variables ####
     Dog.population += 1     # Modify. For all instances of Class Dog
     print(Dog.population)   # Prints 5. Us of global for all instances of Dog
     # try to access spot.population, Python checks first, if "population" is a
     # key of spot.__dict__ If it is not, Python checks, if is a key of the
     # Dog.__dict__  If so, the value can be retrieved.
+    print(spot.population)  # Prints 5. Same value of the Dog class
     spot.population +=2     # Modify. Only for sport instance of Class Dog
+                            # If Dog.population is modified, spot.population no
     print(spot.population)  # Prints 7. Incorrect use of global variable.
+    print(Dog.population)   # Prints 5. Us of global for all instances of Dog
 
-    #Object variable
+
+    #### Object variable ####
     spot.name = "sport"     # Modify. Just for spot instance
     print(spot.name)        # Print sport. Use of instance attribute.
+
 
     #print(Dog.__password)  # Error. __password is private.
     Dog._year = 2019        # Internal use variable modification

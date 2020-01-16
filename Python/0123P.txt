@@ -313,7 +313,7 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python enumerate()
     Python staticmethod()
     Python filter()
-    Python eval()
+    Python eval()       // eval(expression, globals=None, locals=None)runs expresion
     Python float()
     Python format()
     Python frozenset()
@@ -326,7 +326,15 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python hash()
     Python input()
     Python id()
-    Python isinstance()
+    Python isinstance() // isinstance(object, classinfo)
+                        // check if object or variable is an instance of the specified
+                            // class type or data type. isinstance(object, classinfo)
+                        // Check the type of a Python variable is of a given type.
+                        // Verify whether a variable is a number or string.
+                        // Check if an object is an instance of a specified class.
+                        // Check if variable or object is dict, list, set, tuple type.
+                        // isinstance(secondNumber, (int, float)), check if int or float.
+                        // if object is None, returns False.
     Python int()
     Python issubclass()
     Python iter()
@@ -356,7 +364,8 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python str()		//returns the "informal" or nicely printable representation of a given object.
     Python sum()		//adds the items of an iterable and returns the sum.
     Python tuple() Function
-    Python type()
+    Python type()       //returns class type of the argument(object). See isinstance()
+                        //type([]) is list  --> True
     Python vars()
     Python zip()
     Python __import__()
