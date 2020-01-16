@@ -405,7 +405,8 @@ Define general		a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
 
 Index item		a[i]		a[i]		a[i]		a['key']	N/P
 			a[i:j] slice	a[i:j] slice					N/P
-Add item		a+=b		a+=['H']	a+=(2,)		a['key']='val'	a |= {2}
+Append item		a+=b		a+=['H']	a+=(2,)		a['key']='val'	a |= {2}
+					a.append(H)			N/P
 Item assignment		N/P		a[i]='H'	N/P		a['key']='val'	N/P
 Delete item		N/P		del a[i]	N/P		del a['key']	a -= {2}
 
@@ -414,8 +415,8 @@ Merge two								a.update(dic2)
 
 Deep copy (ref.)	b=a  *P/U	b=a		b=a  *P/U	b=a		b=a	
 Shallow copy (w/o ref)	b=a[:]		b=a[:]		b=a[:]		N/P		N/P	
-			N/P		b=a.copy()	N/P		b=a.copy()	b=a.copy()
-
+	means clone	N/P		b=a.copy()	N/P		b=a.copy()	b=a.copy()
+					b=a + []
 Special			a		a+='Hi'						| Union
 					>>> ['H','i']					- Substration
 											& Intersection
