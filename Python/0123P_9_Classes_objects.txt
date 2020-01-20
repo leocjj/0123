@@ -330,13 +330,21 @@ Derived classes may override methods of their base classes.
 
 An overriding method in a derived class may in fact want to extend rather than simply replace the base class method of the same name. There is a simple way to call the base class method directly: just call BaseClassName.methodname(self, arguments). This is occasionally useful to clients as well. (Note that this only works if the base class is accessible as BaseClassName in the global scope.)
 
+
 built-in for inheritance:
 
-isinstance() to check an instance’s type
-isinstance(o, int) -> True only if o.__class__ is int or is derived from int.
+type(o) == int -> True if o is exactly of class int	IS SAME CLASS
 
-issubclass() to check class inheritance
+isinstance() to check an instance’s type, 		IS KIND OF CLASS
+isinstance(o, int) -> True only if o.__class__ is int or is derived from int.
+isinstance(o, type), type is a type or a class, or a tuple of types/classes
+isinstance("Hello", (float, int, str, list, dict, tuple)) 
+
+issubclass() to check class inheritance.		INHERITS FROM
+issubclass(object, subclass)  True if the specified object is a subclass of the
+specified object, otherwise False. Subclass is class object, or a tuple.
 issubclass(bool, int) is True since bool is a subclass of int.
+
 
 ********************* 9.5.1. Multiple Inheritance *****************************
 

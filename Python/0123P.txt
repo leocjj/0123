@@ -8,6 +8,8 @@ https://www.w3schools.com/python/
 https://greenteapress.com/wp/think-python-2e/
 https://www.youtube.com/watch?v=Zs9u8TAv4_k
 
+https://www.w3schools.com/python/python_ref_functions.asp
+
 ************************** PYTHON STYLE ***************************************
 sudo apt-get install python3-pep8
 	or
@@ -336,7 +338,10 @@ https://www.programiz.com/python-programming/methods/built-in/abs
                         // isinstance(secondNumber, (int, float)), check if int or float.
                         // if object is None, returns False.
     Python int()
-    Python issubclass()
+    Python issubclass()	// issubclass(object, subclass) 
+			// Check if the class myObj is a subclass of myAge:
+			// returns True if the specified object is a subclass
+			// of the specified object, otherwise False.
     Python iter()
     Python list() Function
     Python locals()
@@ -360,9 +365,11 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python set()		
     Python setattr()
     Python slice()
-    Python sorted()
-    Python str()		//returns the "informal" or nicely printable representation of a given object.
-    Python sum()		//adds the items of an iterable and returns the sum.
+    Python sorted()	//sorted(iterable, key=key, reverse=reverse)
+			//returns sorted list of the specified iterable object
+			//You cannot sort a list with BOTH string AND numeric
+    Python str()	//returns the "informal" or nicely printable representation of a given object.
+    Python sum()	//adds the items of an iterable and returns the sum.
     Python tuple() Function
     Python type()       //returns class type of the argument(object). See isinstance()
                         //type([]) is list  --> True
