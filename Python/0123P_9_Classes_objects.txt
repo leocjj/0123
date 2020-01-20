@@ -62,8 +62,8 @@ Class C, instance x of C, method m of C, the following are equivalent:
 
 https://docs.python.org/3/reference/datamodel.html
 
-"""Descriptions of class or method."""		//use docstrings.
-	class_name.__doc__ 			//access the class docstring at runtime
+"""Descriptions of class or method."""	//use docstrings.
+	class_name.__doc__ 		//access the class docstring at runtime
 	class_name.method.__doc__	//access the method docstring 
 
 ...     def __repr__(self):
@@ -71,24 +71,22 @@ https://docs.python.org/3/reference/datamodel.html
 ...     def __str__(self):
 ...         return "member of Test"
 
-The __str__ method is what happens when you print it, and the __repr__ method is what happens when you use the repr() function (or when you look at it with the interactive prompt). If this isn't the most Pythonic method, I apologize, because I'm still learning too - but it works.
+__str__ when you print it. If no __str__ method, will print __repr__ instead.
+__repr__ when you use the repr() function.
+If you define __str__ but not __repr__, Python will use what you see above as
+the __repr__, but still use __str__ for printing.
 
-If no __str__ method is given, Python will print the result of __repr__ instead. If you define __str__ but not __repr__, Python will use what you see above as the __repr__, but still use __str__ for printing.
+object.__repr__(self). Called by the repr() built-in function to compute the
+	“official” string representation of an object.
+If at all possible, this should look like a valid Python expression that could be used to recreate an object with the same value (given an appropriate environment). If this is not possible, a string of the form <...some useful description...> should be returned. The return value must be a string object. If a class defines __repr__() but not __str__(), then __repr__() is also used when an “informal” string representation of instances of that class is required. This is typically used for debugging, so it is important that the representation is information-rich and unambiguous.
 
-
-object.__repr__(self)
-
-    Called by the repr() built-in function to compute the “official” string representation of an object. If at all possible, this should look like a valid Python expression that could be used to recreate an object with the same value (given an appropriate environment). If this is not possible, a string of the form <...some useful description...> should be returned. The return value must be a string object. If a class defines __repr__() but not __str__(), then __repr__() is also used when an “informal” string representation of instances of that class is required.
-
-    This is typically used for debugging, so it is important that the representation is information-rich and unambiguous.
-
-object.__str__(self)
-
-    Called by str(object) and the built-in functions format() and print() to compute the “informal” or nicely printable string representation of an object. The return value must be a string object.
-
-    This method differs from object.__repr__() in that there is no expectation that __str__() return a valid Python expression: a more convenient or concise representation can be used.
-
-    The default implementation defined by the built-in type object calls object.__repr__().
+object.__str__(self). Called by str(object) and the built-in functions format()
+	and print() to compute the “informal” or nicely printable string
+	representatio, the return value must be a string object.
+	This method differs from object.__repr__() in that there is no
+	expectation that __str__() return a valid Python expression: a more
+	convenient or concise representation can be used. The default
+	implementation defined by the built-in type object calls object.__repr__().
 
 
 ****************** “rich comparison” methods **********************************
@@ -102,13 +100,11 @@ object.__ne__(self, other)      x!=y calls x.__ne__(y)
 object.__gt__(self, other)      x>y calls x.__gt__(y)
 object.__ge__(self, other)      and x>=y calls x.__ge__(y).
 
-
 https://www.python-course.eu/python3_properties.php
 https://www.tutorialsteacher.com/python/property-function
 https://www.python-course.eu/python3_object_oriented_programming.php //Data abstraction
 http://www.newthinktank.com/2016/07/learn-program-9/
 http://www.few.vu.nl/~nsilvis/PPL/2007/index.html
-
 
 ###############################################################################
 
@@ -205,6 +201,7 @@ def main():
 
     spot = Dog("Spot", 30, 40)
     spot.bark()             # Prints Spot dog bark
+                            # x.f() is exactly equivalent to MyClass.f(x)
 
     bowser = Dog()
     bowser.name = "Bowser"
@@ -252,6 +249,287 @@ def main():
 
 
 main()
+
+*******************************************************************************
+*******************************************************************************
+
+Possible conventions
+    Capitalizing method names
+    Prefixing data attribute names with a small unique string (i.e. underscore)
+    Verbs for methods and nouns for data attributes.
+
+Methods may reference global names in the same way as ordinary functions.
+Global scope associated with a method is the module containing its definition.
+A class is never used as a global scope.
+
+Each value is an object, and therefore has a class (also called its type).
+It is stored as object.__class__.
+
+
+*******************************************************************************
+                            9.5. Inheritance
+*******************************************************************************
+https://docs.python.org/3.4/tutorial/classes.html#inheritance
+
+class DerivedClassName(BaseClassName):      # derived class definition 
+    <statements>
+
+BaseClassName must be defined in scope containing the derived class definition.
+In place of a base class name, other arbitrary expressions are also allowed,
+for example, when the base class is defined in another module:
+    class DerivedClassName(modname.BaseClassName):
+
+Execution of a derived class definition proceeds the same as for a base class.
+When the class object is constructed, the base class is remembered.
+This is used for resolving attribute references:
+    if a requested attribute is not found in the class,
+    the search proceeds to look in the base class.
+    This rule is applied recursively if the base class itself is derived.
+
+DerivedClassName() creates a new instance of the class.
+Method references are resolved as follows:
+    the corresponding class attribute is searched, 
+    descending down the chain of base classes if necessary
+    and the method reference is valid if this yields a function object.
+
+Derived classes may override methods of their base classes.
+    Because methods have no special privileges when calling other methods of
+    the same object, a method of a base class that calls another method defined in the same base class may end up calling a method of a derived class that overrides it. (For C++ programmers: all methods in Python are effectively virtual.)
+
+An overriding method in a derived class may in fact want to extend rather than simply replace the base class method of the same name. There is a simple way to call the base class method directly: just call BaseClassName.methodname(self, arguments). This is occasionally useful to clients as well. (Note that this only works if the base class is accessible as BaseClassName in the global scope.)
+
+Python has two built-in functions that work with inheritance:
+
+    Use isinstance() to check an instance’s type: isinstance(obj, int) will be True only if obj.__class__ is int or some class derived from int.
+    Use issubclass() to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int. However, issubclass(float, int) is False since float is not a subclass of int.
+
+9.5.1. Multiple Inheritance
+
+Python supports a form of multiple inheritance as well. A class definition with multiple base classes looks like this:
+
+class DerivedClassName(Base1, Base2, Base3):
+    <statement-1>
+    .
+    .
+    .
+    <statement-N>
+
+For most purposes, in the simplest cases, you can think of the search for attributes inherited from a parent class as depth-first, left-to-right, not searching twice in the same class where there is an overlap in the hierarchy. Thus, if an attribute is not found in DerivedClassName, it is searched for in Base1, then (recursively) in the base classes of Base1, and if it was not found there, it was searched for in Base2, and so on.
+
+In fact, it is slightly more complex than that; the method resolution order changes dynamically to support cooperative calls to super(). This approach is known in some other multiple-inheritance languages as call-next-method and is more powerful than the super call found in single-inheritance languages.
+
+Dynamic ordering is necessary because all cases of multiple inheritance exhibit one or more diamond relationships (where at least one of the parent classes can be accessed through multiple paths from the bottommost class). For example, all classes inherit from object, so any case of multiple inheritance provides more than one path to reach object. To keep the base classes from being accessed more than once, the dynamic algorithm linearizes the search order in a way that preserves the left-to-right ordering specified in each class, that calls each parent only once, and that is monotonic (meaning that a class can be subclassed without affecting the precedence order of its parents). Taken together, these properties make it possible to design reliable and extensible classes with multiple inheritance. For more detail, see https://www.python.org/download/releases/2.3/mro/.
+
+
+9.6. Private Variables
+
+“Private” instance variables that cannot be accessed except from inside an object don’t exist in Python. However, there is a convention that is followed by most Python code: a name prefixed with an underscore (e.g. _spam) should be treated as a non-public part of the API (whether it is a function, a method or a data member). It should be considered an implementation detail and subject to change without notice.
+
+Since there is a valid use-case for class-private members (namely to avoid name clashes of names with names defined by subclasses), there is limited support for such a mechanism, called name mangling. Any identifier of the form __spam (at least two leading underscores, at most one trailing underscore) is textually replaced with _classname__spam, where classname is the current class name with leading underscore(s) stripped. This mangling is done without regard to the syntactic position of the identifier, as long as it occurs within the definition of a class.
+
+Name mangling is helpful for letting subclasses override methods without breaking intraclass method calls. For example:
+
+class Mapping:
+    def __init__(self, iterable):
+        self.items_list = []
+        self.__update(iterable)
+
+    def update(self, iterable):
+        for item in iterable:
+            self.items_list.append(item)
+
+    __update = update   # private copy of original update() method
+
+class MappingSubclass(Mapping):
+
+    def update(self, keys, values):
+        # provides new signature for update()
+        # but does not break __init__()
+        for item in zip(keys, values):
+            self.items_list.append(item)
+
+Note that the mangling rules are designed mostly to avoid accidents; it still is possible to access or modify a variable that is considered private. This can even be useful in special circumstances, such as in the debugger.
+
+Notice that code passed to exec() or eval() does not consider the classname of the invoking class to be the current class; this is similar to the effect of the global statement, the effect of which is likewise restricted to code that is byte-compiled together. The same restriction applies to getattr(), setattr() and delattr(), as well as when referencing __dict__ directly.
+9.7. Odds and Ends
+
+Sometimes it is useful to have a data type similar to the Pascal “record” or C “struct”, bundling together a few named data items. An empty class definition will do nicely:
+
+class Employee:
+    pass
+
+john = Employee() # Create an empty employee record
+
+# Fill the fields of the record
+john.name = 'John Doe'
+john.dept = 'computer lab'
+john.salary = 1000
+
+A piece of Python code that expects a particular abstract data type can often be passed a class that emulates the methods of that data type instead. For instance, if you have a function that formats some data from a file object, you can define a class with methods read() and readline() that get the data from a string buffer instead, and pass it as an argument.
+
+Instance method objects have attributes, too: m.__self__ is the instance object with the method m(), and m.__func__ is the function object corresponding to the method.
+9.8. Exceptions Are Classes Too
+
+User-defined exceptions are identified by classes as well. Using this mechanism it is possible to create extensible hierarchies of exceptions.
+
+There are two new valid (semantic) forms for the raise statement:
+
+raise Class
+
+raise Instance
+
+In the first form, Class must be an instance of type or of a class derived from it. The first form is a shorthand for:
+
+raise Class()
+
+A class in an except clause is compatible with an exception if it is the same class or a base class thereof (but not the other way around — an except clause listing a derived class is not compatible with a base class). For example, the following code will print B, C, D in that order:
+
+class B(Exception):
+    pass
+class C(B):
+    pass
+class D(C):
+    pass
+
+for cls in [B, C, D]:
+    try:
+        raise cls()
+    except D:
+        print("D")
+    except C:
+        print("C")
+    except B:
+        print("B")
+
+Note that if the except clauses were reversed (with except B first), it would have printed B, B, B — the first matching except clause is triggered.
+
+When an error message is printed for an unhandled exception, the exception’s class name is printed, then a colon and a space, and finally the instance converted to a string using the built-in function str().
+9.9. Iterators
+
+By now you have probably noticed that most container objects can be looped over using a for statement:
+
+for element in [1, 2, 3]:
+    print(element)
+for element in (1, 2, 3):
+    print(element)
+for key in {'one':1, 'two':2}:
+    print(key)
+for char in "123":
+    print(char)
+for line in open("myfile.txt"):
+    print(line, end='')
+
+This style of access is clear, concise, and convenient. The use of iterators pervades and unifies Python. Behind the scenes, the for statement calls iter() on the container object. The function returns an iterator object that defines the method __next__() which accesses elements in the container one at a time. When there are no more elements, __next__() raises a StopIteration exception which tells the for loop to terminate. You can call the __next__() method using the next() built-in function; this example shows how it all works:
+>>>
+
+>>> s = 'abc'
+>>> it = iter(s)
+>>> it
+<iterator object at 0x00A1DB50>
+>>> next(it)
+'a'
+>>> next(it)
+'b'
+>>> next(it)
+'c'
+>>> next(it)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+    next(it)
+StopIteration
+
+Having seen the mechanics behind the iterator protocol, it is easy to add iterator behavior to your classes. Define an __iter__() method which returns an object with a __next__() method. If the class defines __next__(), then __iter__() can just return self:
+
+class Reverse:
+    """Iterator for looping over a sequence backwards."""
+    def __init__(self, data):
+        self.data = data
+        self.index = len(data)
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self.index == 0:
+            raise StopIteration
+        self.index = self.index - 1
+        return self.data[self.index]
+
+>>>
+
+>>> rev = Reverse('spam')
+>>> iter(rev)
+<__main__.Reverse object at 0x00A1DB50>
+>>> for char in rev:
+...     print(char)
+...
+m
+a
+p
+s
+
+9.10. Generators
+
+Generators are a simple and powerful tool for creating iterators. They are written like regular functions but use the yield statement whenever they want to return data. Each time next() is called on it, the generator resumes where it left off (it remembers all the data values and which statement was last executed). An example shows that generators can be trivially easy to create:
+
+def reverse(data):
+    for index in range(len(data)-1, -1, -1):
+        yield data[index]
+
+>>>
+
+>>> for char in reverse('golf'):
+...     print(char)
+...
+f
+l
+o
+g
+
+Anything that can be done with generators can also be done with class-based iterators as described in the previous section. What makes generators so compact is that the __iter__() and __next__() methods are created automatically.
+
+Another key feature is that the local variables and execution state are automatically saved between calls. This made the function easier to write and much more clear than an approach using instance variables like self.index and self.data.
+
+In addition to automatic method creation and saving program state, when generators terminate, they automatically raise StopIteration. In combination, these features make it easy to create iterators with no more effort than writing a regular function.
+9.11. Generator Expressions
+
+Some simple generators can be coded succinctly as expressions using a syntax similar to list comprehensions but with parentheses instead of brackets. These expressions are designed for situations where the generator is used right away by an enclosing function. Generator expressions are more compact but less versatile than full generator definitions and tend to be more memory friendly than equivalent list comprehensions.
+
+Examples:
+>>>
+
+>>> sum(i*i for i in range(10))                 # sum of squares
+285
+
+>>> xvec = [10, 20, 30]
+>>> yvec = [7, 5, 3]
+>>> sum(x*y for x,y in zip(xvec, yvec))         # dot product
+260
+
+>>> from math import pi, sin
+>>> sine_table = {x: sin(x*pi/180) for x in range(0, 91)}
+
+>>> unique_words = set(word  for line in page  for word in line.split())
+
+>>> valedictorian = max((student.gpa, student.name) for student in graduates)
+
+>>> data = 'golf'
+>>> list(data[i] for i in range(len(data)-1, -1, -1))
+['f', 'l', 'o', 'g']
+
+Footnotes
+[1]	Except for one thing. Module objects have a secret read-only attribute called __dict__ which returns the dictionary used to implement the module’s namespace; the name __dict__ is an attribute but not a global name. Obviously, using this violates the abstraction of namespace implementation, and should be restricted to things like post-mortem debuggers.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
