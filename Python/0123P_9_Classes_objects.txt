@@ -66,6 +66,8 @@ https://docs.python.org/3/reference/datamodel.html
 	class_name.__doc__ 		//access the class docstring at runtime
 	class_name.method.__doc__	//access the method docstring 
 
+print dir(obj)		//list of available attributes and methods of an object
+
 ...     def __repr__(self):
 ...         return "Test()"
 ...     def __str__(self):
@@ -99,6 +101,12 @@ object.__eq__(self, other)      x==y calls x.__eq__(y)
 object.__ne__(self, other)      x!=y calls x.__ne__(y)
 object.__gt__(self, other)      x>y calls x.__gt__(y)
 object.__ge__(self, other)      and x>=y calls x.__ge__(y).
+
+object.__add__(self, other)      x>y calls x.__gt__(y)
+object.__sub__(self, other)      x>y calls x.__gt__(y)
+object.__mul__(self, other)      x>y calls x.__gt__(y)
+object.__div__(self, other)      x>y calls x.__gt__(y)
+object.__mod__(self, other)      x>y calls x.__gt__(y)
 
 https://www.python-course.eu/python3_properties.php
 https://www.tutorialsteacher.com/python/property-function
@@ -169,6 +177,7 @@ class Dog:              #Class name (definition)
         """I am barking."""
         print("{} dog bark".format(self.name))
 
+
     ### getter and setter for private variable. From outside looks like public
         using this property methods.
     @property               # Property wrap
@@ -184,11 +193,18 @@ class Dog:              #Class name (definition)
         else:
             self.__x = x
 
+    def sumAll(self, *args):    # Undefined number of arguments for a method.
+        sum = 0
+        for i in args:
+            sum += 1
+        return sum
+
                             # Destructor method.
                             # Custom destructor marks item as uncollectable.
                             # called when object is deleted, using del obj.
     def __del__(self):      # called when the program finish.
         # body of destructor
+
 
 
 def func():
@@ -274,6 +290,22 @@ https://docs.python.org/3.4/tutorial/classes.html#inheritance
 class DerivedClassName(BaseClassName):      # derived class definition 
     <statements>
 
+OVERRIDE: replacing a method of the superclass with a new method (with the same
+	name) in the subclass. Subclass’s newly created method is automatically
+	called instead of the superclass’s method
+		class Friend(Contact):
+			def __init__(self, name, email, phone):
+				self.name = name
+				self.email = email
+				self.phone = phone
+
+SUPER: returns the object as an instance of the parent class, allowing us to
+	call the parent method directly:
+		class Friend(Contact):
+			def __init__(self, name, email, phone):
+				super().__init__(name, email)
+				self.phone = phone
+
 BaseClassName must be defined in scope containing the derived class definition.
 In place of a base class name, other arbitrary expressions are also allowed,
 for example, when the base class is defined in another module:
@@ -298,30 +330,57 @@ Derived classes may override methods of their base classes.
 
 An overriding method in a derived class may in fact want to extend rather than simply replace the base class method of the same name. There is a simple way to call the base class method directly: just call BaseClassName.methodname(self, arguments). This is occasionally useful to clients as well. (Note that this only works if the base class is accessible as BaseClassName in the global scope.)
 
-Python has two built-in functions that work with inheritance:
+built-in for inheritance:
 
-    Use isinstance() to check an instance’s type: isinstance(obj, int) will be True only if obj.__class__ is int or some class derived from int.
-    Use issubclass() to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int. However, issubclass(float, int) is False since float is not a subclass of int.
+isinstance() to check an instance’s type
+isinstance(o, int) -> True only if o.__class__ is int or is derived from int.
 
-9.5.1. Multiple Inheritance
+issubclass() to check class inheritance
+issubclass(bool, int) is True since bool is a subclass of int.
 
-Python supports a form of multiple inheritance as well. A class definition with multiple base classes looks like this:
+********************* 9.5.1. Multiple Inheritance *****************************
+
+Class definition with multiple base classes looks like this:
 
 class DerivedClassName(Base1, Base2, Base3):
-    <statement-1>
-    .
-    .
-    .
-    <statement-N>
+    <statements>
 
-For most purposes, in the simplest cases, you can think of the search for attributes inherited from a parent class as depth-first, left-to-right, not searching twice in the same class where there is an overlap in the hierarchy. Thus, if an attribute is not found in DerivedClassName, it is searched for in Base1, then (recursively) in the base classes of Base1, and if it was not found there, it was searched for in Base2, and so on.
+If an attribute is not found in DerivedClassName, it is searched for in Base1,
+then (recursively) in the base classes of Base1, and if it was not found there,
+it was searched for in Base2, and so on.
 
-In fact, it is slightly more complex than that; the method resolution order changes dynamically to support cooperative calls to super(). This approach is known in some other multiple-inheritance languages as call-next-method and is more powerful than the super call found in single-inheritance languages.
+It is slightly more complex than that; the method resolution order changes
+dynamically to support cooperative calls to super().
 
-Dynamic ordering is necessary because all cases of multiple inheritance exhibit one or more diamond relationships (where at least one of the parent classes can be accessed through multiple paths from the bottommost class). For example, all classes inherit from object, so any case of multiple inheritance provides more than one path to reach object. To keep the base classes from being accessed more than once, the dynamic algorithm linearizes the search order in a way that preserves the left-to-right ordering specified in each class, that calls each parent only once, and that is monotonic (meaning that a class can be subclassed without affecting the precedence order of its parents). Taken together, these properties make it possible to design reliable and extensible classes with multiple inheritance. For more detail, see https://www.python.org/download/releases/2.3/mro/.
+Dynamic ordering is necessary because all cases of multiple inheritance exhibit
+one or more diamond relationships (where at least one of the parent classes can
+be accessed through multiple paths from the bottommost class).
+
+For example, all classes inherit from object, so any case of multiple
+inheritance provides more than one path to reach object.
+To keep the base classes from being accessed more than once, the dynamic
+algorithm linearizes the search order in a way that preserves the left-to-right
+ordering specified in each class, that calls each parent only once, and that is
+monotonic (meaning that a class can be subclassed without affecting the
+precedence order of its parents).
+
+Taken together, these properties make it possible to design reliable and
+extensible classes with multiple inheritance.
+https://www.python.org/download/releases/2.3/mro/.
+
+Felix qui potuit rerum cognoscere causas
+
+>>> class A(int):
+...     pass
+>>> A.mro
+<built-in method mro of type object at 0x21922d8>
+>>> A.mro()
+[<class '__main__.A'>, <class 'int'>, <class 'object'>]
 
 
-9.6. Private Variables
+*******************************************************************************
+			9.6. Private Variables
+*******************************************************************************
 
 “Private” instance variables that cannot be accessed except from inside an object don’t exist in Python. However, there is a convention that is followed by most Python code: a name prefixed with an underscore (e.g. _spam) should be treated as a non-public part of the API (whether it is a function, a method or a data member). It should be considered an implementation detail and subject to change without notice.
 
