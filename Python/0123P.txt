@@ -304,8 +304,9 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python bytearray()
     Python callable()
     Python bytes()
-    Python chr()
-	    Python compile()
+    Python chr()        // chr(97) returns the string 'a'
+                        // range 0 through 1,114,111 (0x10FFFF)
+    Python compile()
     Python classmethod()
     Python complex()
     Python delattr()
@@ -353,10 +354,11 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python memoryview()
     Python object()
     Python oct()
-    Python ord()
+    Python ord()        // gives a string representing one Unicode character
+                        // ord('a') returns the integer 97. This is the inverse of chr().
     Python open()
     Python pow()
-    Python print()
+    Python print()      // print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)
     Python property()
     Python range()
     Python repr()
@@ -365,11 +367,13 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python set()		
     Python setattr()
     Python slice()
-    Python sorted()	//sorted(iterable, key=key, reverse=reverse)
-			//returns sorted list of the specified iterable object
-			//You cannot sort a list with BOTH string AND numeric
-    Python str()	//returns the "informal" or nicely printable representation of a given object.
-    Python sum()	//adds the items of an iterable and returns the sum.
+    Python sorted()	// sorted(iterable, key=key, reverse=reverse)
+                    // returns sorted list of the specified iterable object
+                    // You cannot sort a list with BOTH string AND numeric
+    Python str()	// returns the "informal" or nicely printable representation of a given object.
+                    // str(object, encoding=encoding, errors=errors)
+                    // converts the specified value into a string.
+    Python sum()    // adds the items of an iterable and returns the sum.
     Python tuple() Function
     Python type()       //returns class type of the argument(object). See isinstance()
                         //type([]) is list  --> True
