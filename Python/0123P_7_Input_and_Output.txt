@@ -1,0 +1,385 @@
+https://docs.python.org/3.4/tutorial/inputoutput.html
+https://automatetheboringstuff.com/
+
+*******************************************************************************
+			7. Input and Output
+*******************************************************************************
+
+7.1. Fancier Output Formatting
+
+two ways of writing values: expression statements and the print() function.
+Third way is using the write() method of file objects;
+the standard output file can be referenced as sys.stdout.
+
+Format your output
+    String handling, using slicing and concatenation, string type methods.
+    To use the str.format() method.
+    String module, Template class, a way to substitute values into strings.
+
+To convert values to strings: pass it to the repr() or str() functions.
+
+str(): to return representations of values which are fairly human-readable
+repr(): to generate representations which can be read by the interpreter
+    (or will force a SyntaxError if there is no equivalent syntax).
+    For objects which don’t have a  human representation, str() will return
+    the same value as repr().Many values, have the same representation.
+
+
+Some examples:
+>>>
+
+>>> s = 'Hello, world.'
+>>> str(s)
+'Hello, world.'
+>>> repr(s)
+"'Hello, world.'"
+>>> str(1/7)
+'0.14285714285714285'
+>>> x = 10 * 3.25
+>>> y = 200 * 200
+>>> s = 'The value of x is ' + repr(x) + ', and y is ' + repr(y) + '...'
+>>> print(s)
+The value of x is 32.5, and y is 40000...
+>>> # The repr() of a string adds string quotes and backslashes:
+... hello = 'hello, world\n'
+>>> hellos = repr(hello)
+>>> print(hellos)
+'hello, world\n'
+>>> # The argument to repr() may be any Python object:
+... repr((x, y, ('spam', 'eggs')))
+"(32.5, 40000, ('spam', 'eggs'))"
+
+Here are two ways to write a table of squares and cubes:
+>>>
+
+>>> for x in range(1, 11):
+...     print(repr(x).rjust(2), repr(x*x).rjust(3), end=' ')
+...     # Note use of 'end' on previous line
+...     print(repr(x*x*x).rjust(4))
+...
+ 1   1    1
+ 2   4    8
+ 3   9   27
+ 4  16   64
+ 5  25  125
+ 6  36  216
+ 7  49  343
+ 8  64  512
+ 9  81  729
+10 100 1000
+
+>>> for x in range(1, 11):
+...     print('{0:2d} {1:3d} {2:4d}'.format(x, x*x, x*x*x))
+...
+ 1   1    1
+ 2   4    8
+ 3   9   27
+ 4  16   64
+ 5  25  125
+ 6  36  216
+ 7  49  343
+ 8  64  512
+ 9  81  729
+10 100 1000
+
+(Note that in the first example, one space between each column was added by the way print() works: it always adds spaces between its arguments.)
+
+This example demonstrates the str.rjust() method of string objects, which right-justifies a string in a field of a given width by padding it with spaces on the left. There are similar methods str.ljust() and str.center(). These methods do not write anything, they just return a new string. If the input string is too long, they don’t truncate it, but return it unchanged; this will mess up your column lay-out but that’s usually better than the alternative, which would be lying about a value. (If you really want truncation you can always add a slice operation, as in x.ljust(n)[:n].)
+
+There is another method, str.zfill(), which pads a numeric string on the left with zeros. It understands about plus and minus signs:
+>>>
+
+>>> '12'.zfill(5)
+'00012'
+>>> '-3.14'.zfill(7)
+'-003.14'
+>>> '3.14159265359'.zfill(5)
+'3.14159265359'
+
+Basic usage of the str.format() method looks like this:
+>>>
+
+>>> print('We are the {} who say "{}!"'.format('knights', 'Ni'))
+We are the knights who say "Ni!"
+
+The brackets and characters within them (called format fields) are replaced with the objects passed into the str.format() method. A number in the brackets can be used to refer to the position of the object passed into the str.format() method.
+>>>
+
+>>> print('{0} and {1}'.format('spam', 'eggs'))
+spam and eggs
+>>> print('{1} and {0}'.format('spam', 'eggs'))
+eggs and spam
+
+If keyword arguments are used in the str.format() method, their values are referred to by using the name of the argument.
+>>>
+
+>>> print('This {food} is {adjective}.'.format(
+...       food='spam', adjective='absolutely horrible'))
+This spam is absolutely horrible.
+
+Positional and keyword arguments can be arbitrarily combined:
+>>>
+
+>>> print('The story of {0}, {1}, and {other}.'.format('Bill', 'Manfred',
+                                                       other='Georg'))
+The story of Bill, Manfred, and Georg.
+
+'!a' (apply ascii()), '!s' (apply str()) and '!r' (apply repr()) can be used to convert the value before it is formatted:
+>>>
+
+>>> import math
+>>> print('The value of PI is approximately {}.'.format(math.pi))
+The value of PI is approximately 3.14159265359.
+>>> print('The value of PI is approximately {!r}.'.format(math.pi))
+The value of PI is approximately 3.141592653589793.
+
+An optional ':' and format specifier can follow the field name. This allows greater control over how the value is formatted. The following example rounds Pi to three places after the decimal.
+>>>
+
+>>> import math
+>>> print('The value of PI is approximately {0:.3f}.'.format(math.pi))
+The value of PI is approximately 3.142.
+
+Passing an integer after the ':' will cause that field to be a minimum number of characters wide. This is useful for making tables pretty.
+>>>
+
+>>> table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 7678}
+>>> for name, phone in table.items():
+...     print('{0:10} ==> {1:10d}'.format(name, phone))
+...
+Jack       ==>       4098
+Dcab       ==>       7678
+Sjoerd     ==>       4127
+
+If you have a really long format string that you don’t want to split up, it would be nice if you could reference the variables to be formatted by name instead of by position. This can be done by simply passing the dict and using square brackets '[]' to access the keys
+>>>
+
+>>> table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 8637678}
+>>> print('Jack: {0[Jack]:d}; Sjoerd: {0[Sjoerd]:d}; '
+...       'Dcab: {0[Dcab]:d}'.format(table))
+Jack: 4098; Sjoerd: 4127; Dcab: 8637678
+
+This could also be done by passing the table as keyword arguments with the ‘**’ notation.
+>>>
+
+>>> table = {'Sjoerd': 4127, 'Jack': 4098, 'Dcab': 8637678}
+>>> print('Jack: {Jack:d}; Sjoerd: {Sjoerd:d}; Dcab: {Dcab:d}'.format(**table))
+Jack: 4098; Sjoerd: 4127; Dcab: 8637678
+
+This is particularly useful in combination with the built-in function vars(), which returns a dictionary containing all local variables.
+
+For a complete overview of string formatting with str.format(), see Format String Syntax.
+7.1.1. Old string formatting
+
+The % operator can also be used for string formatting. It interprets the left argument much like a sprintf()-style format string to be applied to the right argument, and returns the string resulting from this formatting operation. For example:
+>>>
+
+>>> import math
+>>> print('The value of PI is approximately %5.3f.' % math.pi)
+The value of PI is approximately 3.142.
+
+More information can be found in the printf-style String Formatting section.
+
+
+*******************************************************************************
+                7.2. Reading and Writing Files
+*******************************************************************************
+
+open(filename, mode), returns a file object. If cannot be opened, OSError.
+
+open('test.log',   mode='w',   encoding='utf-8')
+open(file,   mode='r',   buffering=-1,   encoding=None,   errors=None,
+    newline=None,  closefd=True,   opener=None)
+
+>>> f = open('workfile', 'w')
+
+filename: string containing the filename and pathname or an integer file
+            descriptor of the file to be wrapped.
+mode: string, the way in which the file will be used.
+
+    'r'     when the file will only be read (default). synonym of 'rt'
+    'w'     for only writing, existing file with the same name will be erased.
+    'a' 	open for writing, appending to the end of the file if it exists
+    'r+'    opens the file for both reading and writing.
+    'x' 	open for exclusive creation, failing if the file already exists
+
+    'b' 	binary mode. return contents as bytes objects without any decoding.
+    't' 	text mode (default). the contents are returned as str, the bytes
+            having been first decoded using a platform-dependent encoding or
+            using the specified encoding if given.
+
+    '+' 	open a disk file for updating (reading and writing)
+    'w+b'   binary read-write access, opens and truncates the file to 0 bytes.
+    'r+b'   opens the file without truncation.
+
+In text mode, the default when reading is to convert platform-specific line
+endings (\n on Unix, \r\n on Windows) to just \n.
+
+When writing in text mode, the default is to convert occurrences of \n back to
+platform-specific line endings.
+
+This behind-the-scenes modification to file data is fine for text files, but
+will corrupt binary data like that in JPEG or EXE files. Be very careful to use
+binary mode when reading and writing such files.
+
+
+***************** 7.2.1. Methods of File Objects ******************************
+
+***************
+f.read(size)    To read size data from a file’s and returns string or bytes
+        Size is optional, if omitted or negative entire contents will be read
+        Otherwise, at most size bytes are read and returned.
+        If the end of the file has been reached, f.read() will return an empty string ('').
+>>> f.read()
+'This is the entire file.\n'
+>>> f.read()
+''
+
+data = an_image.read()  // len of the file
+len(data)
+
+***************
+The read() method reads bytes, the seek() and tell() methods track the number
+of bytes read. For binary files they’ll always agree, for text not always.
+
+***************
+f.readline()    Reads a single line from the file; a newline character (\n) is
+                left at the end of the string, and is only omitted on the last
+                line of the file if the file doesn’t end in a newline.
+                end of the file reached  --> returns an empty string
+                blank line  -->  '\n'
+
+>>> f.readline()
+'This is the first line of the file.\n'
+>>> f.readline()
+'Second line of the file\n'
+>>> f.readline()
+''
+
+>>> for a_line in f:
+...     print(a_line, end='')
+...
+This is the first line of the file.
+Second line of the file
+
+If you want to read all the lines of a file in a list you can also use list(f) or f.readlines().
+
+
+***************
+f.readlines( sizehint )
+reads until EOF using readline() and returns a list containing the lines.
+
+
+***************
+f.write(string)     writes the contents of string to the file
+                    returning the number of characters written.
+
+>>> f.write('This is a test\n')
+15
+
+Convert ot a string befor write something
+
+>>> value = ('the answer', 42)
+>>> s = str(value)
+>>> f.write(s)
+18
+
+
+***************
+f.tell()        file current position, number of bytes from the beginning when
+                in binary mode and an opaque number when in text mode.
+
+
+***************
+f.seek(offset, from_what)   To change the file position computed from adding
+                            offset to a reference point (from_what).
+    offset      positive goes forward, negative goes backward.
+    from_what   0 measures from the beginning of the file (default
+                1 uses the current file position
+                2 uses the end of the file as the reference point
+
+>>> f = open('workfile', 'rb+')
+>>> f.write(b'0123456789abcdef')
+16
+>>> f.seek(5)     # Go to the 6th byte in the file
+5
+>>> f.read(1)
+b'5'
+>>> f.seek(-3, 2) # Go to the 3rd byte before the end
+13
+>>> f.read(1)
+b'd'
+
+Text files only seeks relative to the beginning of the file are allowed
+(exception is seek the end with seek(0, 2)) and the only valid offset values
+are those returned from the f.tell() or zero. Other offset, undefined behaviour
+
+***************
+f.close()       to close it and free up resources.
+
+>>> f.close()
+>>> f.read()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in ?
+ValueError: I/O operation on closed file
+
+***************
+with            keyword when dealing with file objects.
+                File is properly closed after its suite finishes, even if an
+                exception is raised on the way. Shorter than try-finally blocks
+
+>>> with open('workfile', 'r') as f:
+...     read_data = f.read()
+>>> f.closed
+True
+
+
+Some additional methods: isatty() and truncate()
+
+
+************* 7.2.2. Saving structured data with json *************************
+
+Strings can easily be written to and read from a file.
+Numbers take a bit more effort, since the read() method only returns strings
+Parsing and serializing by hand becomes complicated.
+
+Use the popular data interchange format called JSON JavaScript Object Notation
+json module can take Python data hierarchies, and convert them to string,
+serializing process.
+
+Reconstructing the data from the string representation is called deserializing.
+
+JSON format is commonly used by modern applications to allow for data exchange.
+
+>>> json.dumps([1, 'simple', 'list'])   JSON string representation of object
+'[1, "simple", "list"]'
+
+json.dump(x, f)     simple serializes object to a text file. f is a text file.
+
+x = json.load(f)    To decode the object again, f is a text file.
+
+This simple serialization technique can handle lists and dictionaries
+
+Serializing arbitrary class instances in JSON requires a bit of extra effort.
+The reference for the json module contains an explanation of this.
+https://docs.python.org/3.4/library/json.html#module-json
+
+See also
+pickle - is a protocol which allows serialization of arbitrarily complex Python
+objects. It is specific to Python and cannot be used with others. Is insecure.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
