@@ -246,6 +246,7 @@ of bytes read. For binary files they’ll always agree, for text not always.
 f.readline()    Reads a single line from the file; a newline character (\n) is
                 left at the end of the string, and is only omitted on the last
                 line of the file if the file doesn’t end in a newline.
+
                 end of the file reached  --> returns an empty string
                 blank line  -->  '\n'
 
@@ -351,14 +352,24 @@ Reconstructing the data from the string representation is called deserializing.
 
 JSON format is commonly used by modern applications to allow for data exchange.
 
+
+***********
 >>> json.dumps([1, 'simple', 'list'])   JSON string representation of object
 '[1, "simple", "list"]'
 
+x = json.loads(f)    To decode the string again.
+
+
+***********
 json.dump(x, f)     simple serializes object to a text file. f is a text file.
+
+json.dump(obj, fp, skipkeys=False, ensure_ascii=True, check_circular=True,
+        allow_nan=True, cls=None, indent=None, separators=None, default=None,
+        sort_keys=False, **kw)
 
 x = json.load(f)    To decode the object again, f is a text file.
 
-This simple serialization technique can handle lists and dictionaries
+This simple serialization technique can handle lists and dictionaries, not sets
 
 Serializing arbitrary class instances in JSON requires a bit of extra effort.
 The reference for the json module contains an explanation of this.
