@@ -193,6 +193,12 @@ class Dog:              #Class name (definition)
         else:
             self.__x = x
 
+    @name.deleter
+    def name(self):
+        print('Deleting name')
+        del self._name
+
+
     def sumAll(self, *args):    # Undefined number of arguments for a method.
         sum = 0
         for i in args:
