@@ -23,6 +23,7 @@ SELECT CHECK OPTION OF THIRD PARTS
     Codeblocks      Ubuntu software app
     Terminator      sudo apt-get install terminator
     Pycharm         Ubuntu software app
+                    sudo snap install pycharm-community --classic
     Emacs           sudo apt-get install terminator
     git             sudo apt-get install
     betty
