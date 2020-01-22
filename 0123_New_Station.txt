@@ -1,0 +1,183 @@
+Run 'partitions' program in windows
+shrink 100GB of memory.
+Take pictures of new partitions for future reference.
+Create an USB memory with ISO image of ubuntu:
+    Download ISO and then:
+    Windows, use Rufus to create new ISO USB memory
+    Ubuntu, Insert USB, select ‘Do nothing' if prompted
+            Look for and run Startup Disk Creator
+    Startup Disk Creator will look for the ISO files in your Downloads folder.
+            as well as any attached USB storage it can write to.
+    Locate your ISO file and select the exact USB device you want to use.
+    Click Make Startup Disk to start the process.
+Reiniciar con la usb con iso de ubuntu
+Hit enter at beginning (to enter startup setup)
+Enter, F12 to choose a temp... , select usb,
+Install Ubuntu with windows
+SELECT CHECK OPTION OF THIRD PARTS
+
+
+**************** Install the following software *******************************
+    Slack           https://slack.com/intl/en-co/downloads/linux
+    Github Desktop  https://github.com/shiftkey/desktop/releases/   //for Linux
+    Codeblocks      Ubuntu software app
+    Terminator      sudo apt-get install terminator
+    Pycharm         Ubuntu software app
+    Emacs           sudo apt-get install terminator
+    git             sudo apt-get install
+    betty
+    pep8
+
+*****************************  wifi *******************************************
+Zonamerica-Students	09092019@Cali
+Guestcali1  		Hola.2018Za
+
+
+******************************* git *******************************************
+
+git config --list      //To verify, ~/.gitconfig
+git config --global user.name "leocjj"
+git config --global user.email "leocj@hotmail.com"
+git config --global credential.helper 'cache --timeout=99999999'   //To avoid put pass and user for every git push
+
+
+************************** shell configurations *******************************
+/etc/profile		//holds shell environment and program startup settings, 
+/etc/bash.bashrc	//bashrc file contains system-wide definitions for shell functions and aliases. Edit ~/.bash_aliases or ~/.bashrc file.
+
+3.1.2.1. ~/.bash_profile and others	//http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_01.html
+
+alias pl='pwd; ls'		//Multiple commands or even other aliases
+alias rm="rm -i"		//To increase safety
+/etc/bashrc			//System-wide aliases can be put in the file.
+.bashrc				//File in home directory, for user aliases. Need restart.
+
+
+************************* general installation ********************************
+sudo apt-get update
+[sudo apt-get install xz-utils]		//for .xs files
+
+	Download the file 
+		wget http://...FILE
+	Extract the .tar.gz or (.tar.bz2) file
+		tar xvf program.tar.xz
+		tar xvzf PACKAGENAME.tar.gz
+		tar xvjf PACKAGENAME.tar.bz2
+		tar -xf  PACKAGENAME.tar.xz
+	Navigate to the extracted folder
+		cd PACKAGENAME
+	Now run the following command to install the tarball
+		./configure
+		make
+		sudo make install
+		[sudo reboot]
+
+sudo apt install ./codeblocks_17.12-1_amd64.deb
+
+https://github.com/holbertonschool/Betty/wiki
+
+
+*********************************** C COMPILER ********************************
+
+https://askubuntu.com/questions/923337/installing-an-older-gcc-version3-4-3-on-ubuntu-14-04-currently-4-8-installed
+
+Done. Following the github.com/kael1706 link, now we can use the right compiler in Ubuntu 18:
+
+sudo apt-get update
+sudo apt-get install gcc-4.8
+
+//To find the name of the files
+whereis gcc   //In our case: /usr/bin
+cd /usr/bin
+ls *gcc*      //In our case: gcc-7, gcc-4.8
+
+//update-alternatives --install <link> <name> <path> <priority>
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 60
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 40
+Now, by default, the gcc command will use the gcc-4.8 file. To change wich compiler to use, we run the following command once:
+sudo update-alternatives --config gcc
+And choose wich version to use :blush:.
+
+Using this option, we don't need to use virtual machine / vagrant in Ubuntu any more.
+
+
+
+**********************************BETTY STYLE *************************************+++
+
+git clone https://github.com/holbertonschool/Betty.git
+./install.sh
+betty-style file1 [file2 [file3 [...]]]
+betty-doc file1 [file2 [file3 [...]]]
+
+betty script copied to /bin/ to be executed everywhere. use betty filename
+=========================================================================
+#!/bin/bash
+# Simply a wrapper script to keep you from having to use betty-style
+# and betty-doc separately on every item.
+# Originally by Tim Britton (@wintermanc3r), multiargument added by
+# Larry Madeo (@hillmonkey)
+
+BIN_PATH="/usr/local/bin"
+BETTY_STYLE="betty-style"
+BETTY_DOC="betty-doc"
+
+if [ "$#" = "0" ]; then
+    echo "No arguments passed."
+    exit 1
+fi
+
+for argument in "$@" ; do
+    echo -e "\n========== $argument =========="
+    ${BIN_PATH}/${BETTY_STYLE} "$argument"
+    ${BIN_PATH}/${BETTY_DOC} "$argument"
+done
+=========================================================================
+
+add this to your ~/.emacs file to use 8 character tabs an 80 characters per line
+
+(setq c-default-style "bsd"
+      c-basic-offset 8
+      tab-width 8
+      indent-tabs-mode t)
+(require 'whitespace)
+(setq whitespace-style '(face empty lines-tail trailing))
+(global-whitespace-mode t)
+
+
+************************** PYTHON STYLE ***************************************
+sudo apt-get install python3-pep8
+	or
+sudo apt-get install python3-pip
+sudo pip3 install pep8
+
+Make sure you have the right version
+$ pep8 --version
+1.7
+If it's not the case, it means PEP8 is installed but not linked in your PATH.
+You should look at these folders to find where it has been installed:
+
+/usr/local/lib/python3*/dist-packages/pep8.py
+/usr/lib/python3*/dist-packages/pep8.py
+Don't hesitate to delete /usr/bin/pep8 and replace by one of those pep8.py:
+
+sudo cp /usr/lib/python3*/dist-packages/pep8.py /usr/bin/pep8
+sudo chmod u+x /usr/bin/pep8
+sudo pep8 --version
+sudo pip3 install pep8 --upgrade	//To upgrade version
+Finally, if you can't make it work, please use the 'container-on-demand' tool
+to 'PEP8' your files in a pre-configured container.
+
+sudo apt-get --purge remove pep8	//Uninstall
+pip3 uninstall pep8
+
+************************* PYTHON INSTALL **************************************
+python3 -V
+sudo apt-get install idle-python3.4
+sudo apt-get install python3
+
+/usr/local/bin/python3.4	//Installation dir, put it in path
+set path=%path%;C:\python34	//To set path in Windows
+
+
