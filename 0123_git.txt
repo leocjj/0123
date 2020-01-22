@@ -14,7 +14,7 @@ $ git add .   # will add all of the modified files to the index at once
 $ git commit -m "Other meaningful commit message"   # will commit all of those files together  
 $ git push origin master   # send all commit to the remote server
 
-In a non-Git directory in local computer, to turn it into a Git repository, it’s that easy:
+In a non-Git directory in local computer, to turn it into a Git repository, it's that easy:
 First, create a repository in github.com
 echo "Readme" >> README.md
 $ git init   					# You're done!
@@ -44,7 +44,7 @@ $ git push origin my_feature   # Notice: we're not pushing master anymore, you j
 $ git checkout my_feature   # Just making sure you're currently on the right branch!  
 $ git pull origin my_feature   # Pulling what your coworkers have done so far.  
 
-And when you’re done with the whole feature and want to merge it to master:
+And when you're done with the whole feature and want to merge it to master:
 $ git checkout master  
 $ git merge my_feature  
 
