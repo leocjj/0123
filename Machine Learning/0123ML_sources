@@ -1,0 +1,13 @@
+https://www.digitalocean.com/community/tutorials/an-introduction-to-machine-learning
+
+
+***************************** MACHINE LEARNING ********************************
+Learning methods: supervised, unsupervised
+
+Approaches: statistics, correlation, regresion
+    k-nearest neighbor:
+    Decision Tree Learning: (map observations about data to conclusions about
+        the data’s target value, to create a model that will predict the value
+        of a target based on input variables).
+    Deep Learning: neural networks. supervised and serve to classify data, or
+        unsupervised and perform pattern analysis. 

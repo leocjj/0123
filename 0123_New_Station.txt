@@ -10,11 +10,15 @@ Create an USB memory with ISO image of ubuntu:
             as well as any attached USB storage it can write to.
     Locate your ISO file and select the exact USB device you want to use.
     Click Make Startup Disk to start the process.
-Reiniciar con la usb con iso de ubuntu
-Hit enter at beginning (to enter startup setup)
-Enter, F12 to choose a temp... , select usb,
-Install Ubuntu with windows
+    Reboot computer with USB inserted
+Run ISO installer from USB. In thinkpad:
+    Hit enter at beginning (to enter startup setup)
+    F12 to choose a tempporary startup device
+    Select usb, press enter.
+Install Ubuntu
 SELECT CHECK OPTION OF THIRD PARTS
+Select install alongside Windows boot manager
+
 
 
 **************** Install the following software *******************************
