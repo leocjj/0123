@@ -30,8 +30,6 @@ Select install alongside Windows boot manager
                     sudo snap install pycharm-community --classic
     Emacs           sudo apt-get install emacs
     git             sudo apt-get install
-    betty
-    pep8
 
 *****************************  wifi *******************************************
 Zonamerica-Students	09092019@Cali
@@ -48,10 +46,12 @@ git config --global credential.helper 'cache --timeout=99999999'   //To avoid pu
 
 ************************** shell configurations *******************************
 /etc/profile		//holds shell environment and program startup settings, 
-/etc/bash.bashrc	//bashrc file contains system-wide definitions for shell functions and aliases. Edit ~/.bash_aliases or ~/.bashrc file.
+/etc/bash.bashrc	//bashrc file contains system-wide definitions for shell functions and aliases.
+Edit ~/.bash_aliases or ~/.bashrc file.
 
 3.1.2.1. ~/.bash_profile and others	//http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_01.html
 
+alias l='clear;ls -l'
 alias pl='pwd; ls'		//Multiple commands or even other aliases
 alias rm="rm -i"		//To increase safety
 /etc/bashrc			//System-wide aliases can be put in the file.
