@@ -1,7 +1,44 @@
+[1] An Introduction to Machine Learning
 https://www.digitalocean.com/community/tutorials/an-introduction-to-machine-learning
 
+[2] How To Build a Machine Learning Classifier in Python with Scikit-learn
+https://www.digitalocean.com/community/tutorials/how-to-build-a-machine-learning-classifier-in-python-with-scikit-learn
 
+[3] Basic classification example explained: Classify images of clothing
+https://www.tensorflow.org/tutorials/keras/classification
+
+https://www.fidelitylabs.com/2017/06/14/combating-machine-learning-bias/
+
+[4] https://www.digitalocean.com/community/tags/data-analysis/tutorials
+
+https://scikit-learn.org/stable/
+Simple and efficient tools for predictive data analysis Accessible to everybody, and reusable in various contexts Built on NumPy, SciPy, and matplotlib Open source, commercially usable - BSD license
+
+https://www.tensorflow.org/
+TensorFlow is an end-to-end open source platform for machine learning. It has a comprehensive, flexible ecosystem of tools, libraries and community resources that lets researchers push the state-of-the-art in ML and developers easily build and deploy ML powered applications.
+
+https://pytorch.org/
+An open source machine learning framework that accelerates the path from research prototyping to production deployment.
+
+https://keras.io/
+Keras is a high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano. It was developed with a focus on enabling fast experimentation. Being able to go from idea to result with the least possible delay is key to doing good research.
+
+https://www.digitalocean.com/community/tutorials/how-to-plot-data-in-python-3-using-matplotlib
+https://www.digitalocean.com/community/tutorials/how-to-set-up-jupyter-notebook-with-python-3-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-tensorflow-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04
 ***************************** MACHINE LEARNING ********************************
+
+***
+Machine learning is a research field in computer science, artificial intelligence, and statistics. [1]
+
+Train algorithms to learn patterns and make predictions from data.
+It lets us use computers to automate decision-making processes.
+Apps Netflix and Amazon, Banks, healthcare companies. 
+
+***
+Data analysis investigate the structure of data and use it to identify patterns and possible solutions to problems. Within this domain, data science draws on methodologies from statistics, mathematics, and computer science to both analyze events using data and predict possible outcomes. One important trend within data science is machine learning, which uses algorithmic data inputs and statistical analysis to train computers to output values within a certain range. In this way, machine learning enables practices such as automated decision-making. [4]
+
 Learning methods: supervised, unsupervised
 
 Approaches: statistics, correlation, regresion
@@ -11,3 +48,96 @@ Approaches: statistics, correlation, regresion
         of a target based on input variables).
     Deep Learning: neural networks. supervised and serve to classify data, or
         unsupervised and perform pattern analysis. 
+
+Lenguages (python, Java, R, C++)
+    Python  Frameworks: TensorFlow, PyTorch, Keras
+            scikit-learn ML library, built on top NumPy, SciPy, Matplotlib
+    Java, enterprise level for network security.
+            ML libraries Deeplearning4j, MALLET, Weka
+    R, statistical computing. Acadamia and has risen in industrial aplications
+            Packages  caret, randomForest, e1071.
+    C++, ML and IA in game and robot applications
+            Libraries:  mlpack, Dlib, Shark.
+
+    Julia?? Rush? Haskell, and Ruby.
+
+Human Biases --> data, algorithms, programs with human-like biases, including business. So diverse people working, testing, reviewing is a need.
+
+
+Images
+Examples [3]
+Technologies
+
+***
+Applicationson text, including natural language processing, topic modeling, document classification, and clustering, data mining.
+
+Machine learning is a field that is continuously being innovated
+
+
+************************** PRACTICAL EXAMPLO OF ML [2] ************************
+With python3 installed
+
+sudo apt-get install python3-pip
+pip3 install scikit-learn[alldeps]
+
+CODE THIS IN A FILE WIHT EXTENSION test.py
+CHANGE PERMISIONS FOR THE FILE: chmod u+x text.py
+RUN THE FILE: ./text.py
+
+#!/usr/bin/python3
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+
+# Load dataset
+data = load_breast_cancer()
+
+# Organize our data
+label_names = data['target_names']
+labels = data['target']
+feature_names = data['feature_names']
+features = data['data']
+
+# Look at our data
+print(label_names)
+print('Class label = ', labels[0])
+print(feature_names)
+print(features[0])
+
+# Split our data
+train, test, train_labels, test_labels = train_test_split(features, labels, test_size=0.33, random_state=42)
+
+# Initialize our classifier
+gnb = GaussianNB()
+
+# Train our classifier
+model = gnb.fit(train, train_labels)
+
+# Make predictions
+preds = gnb.predict(test)
+print(preds)
+
+# Evaluate accuracy
+print(accuracy_score(test_labels, preds))
+
+*******************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
