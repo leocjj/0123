@@ -49,6 +49,15 @@ Approaches: statistics, correlation, regresion
     Deep Learning: neural networks. supervised and serve to classify data, or
         unsupervised and perform pattern analysis. 
 
+    Linear Regression
+    Logistic Regression
+    Decision Trees
+    Support Vector Machines
+    K-Nearest Neighbors
+    Random Forests
+    K-Means Clustering
+    Principal Components Analysis
+
 Lenguages (python, Java, R, C++)
     Python  Frameworks: TensorFlow, PyTorch, Keras
             scikit-learn ML library, built on top NumPy, SciPy, Matplotlib
@@ -123,6 +132,9 @@ print(accuracy_score(test_labels, preds))
 
 *******************************************************************************
 
+[5] https://medium.com/free-code-camp/the-hitchhikers-guide-to-machine-learning-algorithms-in-python-bfad66adb378
+
+[6] https://trends.google.com/trends/explore?date=2005-01-01%202019-12-31&q=machine%20learning
 
 
 
