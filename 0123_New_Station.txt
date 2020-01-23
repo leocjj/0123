@@ -116,7 +116,7 @@ git clone https://github.com/holbertonschool/Betty.git
 betty-style file1 [file2 [file3 [...]]]
 betty-doc file1 [file2 [file3 [...]]]
 
-betty script copied to /bin/ to be executed everywhere. use betty filename
+copy betty.sh to /bin/ to be executed everywhere. use betty filename
 =========================================================================
 #!/bin/bash
 # Simply a wrapper script to keep you from having to use betty-style
