@@ -74,7 +74,8 @@ Software:
 	SteamOS 		//store.steampowered.com. OS for media and video games	
 	pycharm			//	https://www.jetbrains.com/es-es/pycharm/
 	mingw			//	http://www.mingw.org/	 Minimalist GNU for Windows
-    httrack         //  http://www.httrack.com  apt-get install webhttrack 
+	httrack         //  http://www.httrack.com  apt-get install webhttrack 
+	Jupiter notebook	//https://www.digitalocean.com/community/tutorials/how-to-set-up-jupyter-notebook-for-python-3
 
 C compilers
 	sudo apt install mingw-w64	//to compile native Windows binaries on Linux
