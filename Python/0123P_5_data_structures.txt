@@ -395,7 +395,7 @@ Footnotes
 			String		List		Tupla 		dict		Set		Map
 
 Mutable			No		Yes		No		Yes		Yes
-Iterable				Yes		Yes						Yes
+Iterable				Yes		Yes		Yes				Yes
 Unique values		No		No		No		No		Yes
 Slicing			Yes		Yes		Yes		No		
 
@@ -405,6 +405,7 @@ Define general		a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
 
 Index item		a[i]		a[i]		a[i]		a['key']	N/P
 			a[i:j] slice	a[i:j] slice					N/P
+Iterable                                                                a.items()
 Append item		a+=b		a+=['H']	a+=(2,)		a['key']='val'	a |= {2}
 					a.append(H)			N/P
 Item assignment		N/P		a[i]='H'	N/P		a['key']='val'	N/P
