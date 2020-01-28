@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Test — pysheeet</title>
+    <link rel="stylesheet" href="Test%20%E2%80%94%20pysheeet_files/alabaster.css" type="text/css">
+    <link rel="stylesheet" href="Test%20%E2%80%94%20pysheeet_files/pygments.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="Test%20%E2%80%94%20pysheeet_files/style.css">
+    <link rel="stylesheet" type="text/css" href="Test%20%E2%80%94%20pysheeet_files/carbonad.css">
+    <script type="text/javascript" async="" src="Test%20%E2%80%94%20pysheeet_files/analytics.js"></script><script type="text/javascript" id="documentation_options" data-url_root="../" src="Test%20%E2%80%94%20pysheeet_files/documentation_options.js"></script>
+    <script type="text/javascript" src="Test%20%E2%80%94%20pysheeet_files/jquery.js"></script>
+    <script type="text/javascript" src="Test%20%E2%80%94%20pysheeet_files/underscore.js"></script>
+    <script type="text/javascript" src="Test%20%E2%80%94%20pysheeet_files/doctools.js"></script>
+    <script type="text/javascript" src="Test%20%E2%80%94%20pysheeet_files/language_data.js"></script>
+    <link rel="shortcut icon" href="https://www.pythonsheets.com/_static/favicon.ico">
+    <link rel="index" title="Index" href="https://www.pythonsheets.com/genindex.html">
+    <link rel="search" title="Search" href="https://www.pythonsheets.com/search.html">
+    <link rel="next" title="C Extensions" href="https://www.pythonsheets.com/notes/python-c-extensions.html">
+    <link rel="prev" title="Boto3" href="https://www.pythonsheets.com/notes/python-aws.html">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://www.pythonsheets.com/notes/python-tests.html">
+<meta property="og:url" content="https://www.pythonsheets.com/notes/python-tests.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Test — pysheeet">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="Test%20%E2%80%94%20pysheeet_files/js.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-127044388-1');
+</script>
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="test">
+<h1>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#test" id="id1">Test</a></p>
+<ul>
+<li><p><a class="reference internal" href="#a-simple-python-unittest" id="id2">A simple Python unittest</a></p></li>
+<li><p><a class="reference internal" href="#python-unittest-setup-teardown-hierarchy" id="id3">Python unittest setup &amp; teardown hierarchy</a></p></li>
+<li><p><a class="reference internal" href="#different-module-of-setup-teardown-hierarchy" id="id4">Different module of setUp &amp; tearDown hierarchy</a></p></li>
+<li><p><a class="reference internal" href="#run-tests-via-unittest-texttestrunner" id="id5">Run tests via unittest.TextTestRunner</a></p></li>
+<li><p><a class="reference internal" href="#test-raise-exception" id="id6">Test raise exception</a></p></li>
+<li><p><a class="reference internal" href="#pass-arguments-into-a-testcase" id="id7">Pass arguments into a TestCase</a></p></li>
+<li><p><a class="reference internal" href="#group-multiple-testcases-into-a-suite" id="id8">Group multiple testcases into a suite</a></p></li>
+<li><p><a class="reference internal" href="#group-multiple-tests-from-different-testcase" id="id9">Group multiple tests from different TestCase</a></p></li>
+<li><p><a class="reference internal" href="#skip-some-tests-in-the-testcase" id="id10">Skip some tests in the TestCase</a></p></li>
+<li><p><a class="reference internal" href="#monolithic-test" id="id11">Monolithic Test</a></p></li>
+<li><p><a class="reference internal" href="#cross-module-variables-to-test-files" id="id12">Cross-module variables to Test files</a></p></li>
+<li><p><a class="reference internal" href="#skip-setup-teardown-when-the-test-is-skipped" id="id13">skip setup &amp; teardown when the test is skipped</a></p></li>
+<li><p><a class="reference internal" href="#re-using-old-test-code" id="id14">Re-using old test code</a></p></li>
+<li><p><a class="reference internal" href="#testing-your-document-is-right" id="id15">Testing your document is right</a></p></li>
+<li><p><a class="reference internal" href="#re-using-doctest-to-unittest" id="id16">Re-using doctest to unittest</a></p></li>
+<li><p><a class="reference internal" href="#customize-test-report" id="id17">Customize test report</a></p></li>
+<li><p><a class="reference internal" href="#mock-using-patch-substitute-original-method" id="id18">Mock - using <code class="docutils literal notranslate"><span class="pre">@patch</span></code> substitute original method</a></p></li>
+<li><p><a class="reference internal" href="#what-with-unittest-mock-patch-do" id="id19">What <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">unittest.mock.patch</span></code> do?</a></p></li>
+<li><p><a class="reference internal" href="#mock-substitute-open" id="id20">Mock - substitute <code class="docutils literal notranslate"><span class="pre">open</span></code></a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="a-simple-python-unittest">
+<h2>A simple Python unittest<a class="headerlink" href="#a-simple-python-unittest" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># python unittests only run the function with prefix "test"</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">unittest</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">TestFoo</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>             <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">fun_not_run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>             <span class="k">print</span><span class="p">(</span><span class="s2">"no run"</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+<span class="o">.</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">1</span> <span class="n">test</span> <span class="ow">in</span> <span class="mf">0.000</span><span class="n">s</span>
+
+<span class="n">OK</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">unittest</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">TestFail</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">test_false</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>             <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+<span class="n">F</span>
+<span class="o">======================================================================</span>
+<span class="n">FAIL</span><span class="p">:</span> <span class="n">test_false</span> <span class="p">(</span><span class="n">__main__</span><span class="o">.</span><span class="n">TestFail</span><span class="p">)</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">"&lt;stdin&gt;"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">3</span><span class="p">,</span> <span class="ow">in</span> <span class="n">test_false</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="bp">False</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">true</span>
+
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">1</span> <span class="n">test</span> <span class="ow">in</span> <span class="mf">0.000</span><span class="n">s</span>
+
+<span class="n">FAILED</span> <span class="p">(</span><span class="n">failures</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-unittest-setup-teardown-hierarchy">
+<h2>Python unittest setup &amp; teardown hierarchy<a class="headerlink" href="#python-unittest-setup-teardown-hierarchy" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">n</span><span class="o">&lt;=</span><span class="mi">2</span> <span class="k">else</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">setUpModule</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"setup module"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">tearDownModule</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"teardown module"</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TestFib</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"setUp"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"tearDown"</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"setUpClass"</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"tearDownClass"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_fib_assert_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="mi">55</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_fib_assert_true</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="mi">55</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python test.py
+<span class="go">setup module</span>
+<span class="go">setUpClass</span>
+<span class="go">setUp</span>
+<span class="go">tearDown</span>
+<span class="go">.setUp</span>
+<span class="go">tearDown</span>
+<span class="go">.tearDownClass</span>
+<span class="go">teardown module</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 2 tests in 0.000s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="different-module-of-setup-teardown-hierarchy">
+<h2>Different module of setUp &amp; tearDown hierarchy<a class="headerlink" href="#different-module-of-setup-teardown-hierarchy" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># test_module.py</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">class</span> <span class="nc">TestFoo</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">setUpClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"foo setUpClass"</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">tearDownClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"foo tearDownClass"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"foo setUp"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"foo tearDown"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TestBar</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"bar setUp"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">"bar tearDown"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># test.py</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">test_module</span> <span class="kn">import</span> <span class="n">TestFoo</span>
+<span class="kn">from</span> <span class="nn">test_module</span> <span class="kn">import</span> <span class="n">TestBar</span>
+<span class="kn">import</span> <span class="nn">test_module</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">def</span> <span class="nf">setUpModule</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"setUpModule"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tearDownModule</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"tearDownModule"</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">test_module</span><span class="o">.</span><span class="n">setUpModule</span> <span class="o">=</span> <span class="n">setUpModule</span>
+    <span class="n">test_module</span><span class="o">.</span><span class="n">tearDownModule</span> <span class="o">=</span> <span class="n">tearDownModule</span>
+    <span class="n">suite1</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestFoo</span><span class="p">)</span>
+    <span class="n">suite2</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestBar</span><span class="p">)</span>
+    <span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">([</span><span class="n">suite1</span><span class="p">,</span><span class="n">suite2</span><span class="p">])</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python test.py
+<span class="go">setUpModule</span>
+<span class="go">foo setUpClass</span>
+<span class="go">foo setUp</span>
+<span class="go">foo tearDown</span>
+<span class="go">.foo tearDownClass</span>
+<span class="go">bar setUp</span>
+<span class="go">bar tearDown</span>
+<span class="go">.tearDownModule</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 2 tests in 0.000s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-tests-via-unittest-texttestrunner">
+<h2>Run tests via unittest.TextTestRunner<a class="headerlink" href="#run-tests-via-unittest-texttestrunner" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestFoo</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestFoo</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">test_bar (__main__.TestFoo) ... ok</span>
+<span class="go">test_foo (__main__.TestFoo) ... ok</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 2 tests in 0.000s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-raise-exception">
+<h2>Test raise exception<a class="headerlink" href="#test-raise-exception" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestRaiseException</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_raise_except</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">SystemError</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">raise</span> <span class="ne">SystemError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite_loader</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">suite_loader</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestRaiseException</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">.</span>
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 1 test in 0.000s</span>
+
+<span class="go">OK</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestRaiseFail</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_raise_fail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">assertRaises</span><span class="p">(</span><span class="ne">SystemError</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">pass</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestRaiseFail</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">test_raise_fail (__main__.TestRaiseFail) ... FAIL</span>
+
+<span class="go">======================================================================</span>
+<span class="go">FAIL: test_raise_fail (__main__.TestRaiseFail)</span>
+<span class="go">----------------------------------------------------------------------</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">"&lt;stdin&gt;"</span>, line <span class="m">4</span>, in <span class="n">test_raise_fail</span>
+<span class="gr">AssertionError</span>: <span class="n">SystemError not raised</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 1 test in 0.000s</span>
+
+<span class="go">FAILED (failures=1)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pass-arguments-into-a-testcase">
+<h2>Pass arguments into a TestCase<a class="headerlink" href="#pass-arguments-into-a-testcase" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestArg</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">testname</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">super</span><span class="p">(</span><span class="n">TestArg</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">testname</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">_arg</span> <span class="o">=</span> <span class="n">arg</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"setUp:"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_arg</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"test_arg:"</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_arg</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">TestArg</span><span class="p">(</span><span class="s1">'test_arg'</span><span class="p">,</span> <span class="s1">'foo'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">test_arg (__main__.TestArg) ... setUp: foo</span>
+<span class="go">test_arg: foo</span>
+<span class="go">ok</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 1 test in 0.000s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="group-multiple-testcases-into-a-suite">
+<h2>Group multiple testcases into a suite<a class="headerlink" href="#group-multiple-testcases-into-a-suite" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestFooBar</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestHelloWorld</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">,</span> <span class="s2">"Hello"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_world</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="s2">"World"</span><span class="p">,</span> <span class="s2">"World"</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite_loader</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite1</span> <span class="o">=</span> <span class="n">suite_loader</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestFooBar</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite2</span> <span class="o">=</span> <span class="n">suite_loader</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestHelloWorld</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">([</span><span class="n">suite1</span><span class="p">,</span> <span class="n">suite2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">test_bar (__main__.TestFooBar) ... ok</span>
+<span class="go">test_foo (__main__.TestFooBar) ... ok</span>
+<span class="go">test_hello (__main__.TestHelloWorld) ... ok</span>
+<span class="go">test_world (__main__.TestHelloWorld) ... ok</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 4 tests in 0.000s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="group-multiple-tests-from-different-testcase">
+<h2>Group multiple tests from different TestCase<a class="headerlink" href="#group-multiple-tests-from-different-testcase" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestFoo</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">assert</span> <span class="s2">"foo"</span> <span class="o">==</span> <span class="s2">"foo"</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestBar</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">assert</span> <span class="s2">"bar"</span> <span class="o">==</span> <span class="s2">"bar"</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">TestFoo</span><span class="p">(</span><span class="s1">'test_foo'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span><span class="o">.</span><span class="n">addTest</span><span class="p">(</span><span class="n">TestBar</span><span class="p">(</span><span class="s1">'test_bar'</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">test_foo (__main__.TestFoo) ... ok</span>
+<span class="go">test_bar (__main__.TestBar) ... ok</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 2 tests in 0.001s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="skip-some-tests-in-the-testcase">
+<h2>Skip some tests in the TestCase<a class="headerlink" href="#skip-some-tests-in-the-testcase" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RUN_FOO</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DONT_RUN_BAR</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestSkip</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_always_run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nd">@unittest.skip</span><span class="p">(</span><span class="s2">"always skip this test"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_always_skip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">raise</span> <span class="ne">RuntimeError</span>
+<span class="gp">... </span>    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">RUN_FOO</span> <span class="o">==</span> <span class="bp">False</span><span class="p">,</span> <span class="s2">"demo skipIf"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_skipif</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">raise</span> <span class="ne">RuntimeError</span>
+<span class="gp">... </span>    <span class="nd">@unittest.skipUnless</span><span class="p">(</span><span class="n">DONT_RUN_BAR</span> <span class="o">==</span> <span class="bp">True</span><span class="p">,</span> <span class="s2">"demo skipUnless"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_skipunless</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">raise</span> <span class="ne">RuntimeError</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestSkip</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">test_always_run (__main__.TestSkip) ... ok</span>
+<span class="go">test_always_skip (__main__.TestSkip) ... skipped 'always skip this test'</span>
+<span class="go">test_skipif (__main__.TestSkip) ... skipped 'demo skipIf'</span>
+<span class="go">test_skipunless (__main__.TestSkip) ... skipped 'demo skipUnless'</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 4 tests in 0.000s</span>
+
+<span class="go">OK (skipped=3)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="monolithic-test">
+<h2>Monolithic Test<a class="headerlink" href="#monolithic-test" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Monolithic</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">step1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s1">'step1'</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">step2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s1">'step2'</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">step3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s1">'step3'</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+<span class="gp">... </span>            <span class="k">if</span> <span class="ow">not</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'step'</span><span class="p">):</span>
+<span class="gp">... </span>                <span class="k">continue</span>
+<span class="gp">... </span>            <span class="k">yield</span> <span class="n">attr</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="n">_s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steps</span><span class="p">():</span>
+<span class="gp">... </span>            <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_s</span><span class="p">)()</span>
+<span class="gp">... </span>            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>                <span class="bp">self</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s1">'{} failed({})'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">Monolithic</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">step1</span>
+<span class="go">step2</span>
+<span class="go">step3</span>
+<span class="go">.</span>
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 1 test in 0.000s</span>
+
+<span class="go">OK</span>
+<span class="go">&lt;unittest.runner.TextTestResult run=1 errors=0 failures=0&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cross-module-variables-to-test-files">
+<h2>Cross-module variables to Test files<a class="headerlink" href="#cross-module-variables-to-test-files" title="Permalink to this headline">¶</a></h2>
+<p>test_foo.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TestFoo</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+
+    <span class="nd">@unittest.skipIf</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">isskip</span><span class="o">==</span><span class="bp">True</span><span class="p">,</span> <span class="s2">"skip test"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_skip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span>
+</pre></div>
+</div>
+<p>test_bar.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">__builtin__</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">'TestConf'</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="p">{})</span>
+    <span class="n">conf</span><span class="o">.</span><span class="n">isskip</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="c1"># make a cross-module variable</span>
+    <span class="n">__builtin__</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="n">conf</span>
+    <span class="n">module</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="s1">'test_foo'</span><span class="p">)</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span>
+    <span class="n">suite</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">TestFoo</span><span class="p">)</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python test_bar.py
+<span class="go">&lt;class '__main__.TestConf'&gt;</span>
+<span class="go">test_foo (test_foo.TestFoo) ... &lt;class '__main__.TestConf'&gt;</span>
+<span class="go">ok</span>
+<span class="go">test_skip (test_foo.TestFoo) ... skipped 'skip test'</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 2 tests in 0.000s</span>
+
+<span class="go">OK (skipped=1)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="skip-setup-teardown-when-the-test-is-skipped">
+<h2>skip setup &amp; teardown when the test is skipped<a class="headerlink" href="#skip-setup-teardown-when-the-test-is-skipped" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">TestSkip</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"setUp"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s2">"tearDown"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nd">@unittest.skip</span><span class="p">(</span><span class="s2">"skip this test"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_skip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="k">raise</span> <span class="ne">RuntimeError</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">test_not_skip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestSkip</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">test_not_skip (__main__.TestSkip) ... setUp</span>
+<span class="go">tearDown</span>
+<span class="go">ok</span>
+<span class="go">test_skip (__main__.TestSkip) ... skipped 'skip this test'</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 2 tests in 0.000s</span>
+
+<span class="go">OK (skipped=1)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="re-using-old-test-code">
+<h2>Re-using old test code<a class="headerlink" href="#re-using-old-test-code" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">old_func_test</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">assert</span> <span class="s2">"Hello"</span> <span class="o">==</span> <span class="s2">"Hello"</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">old_func_setup</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s2">"setup"</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">old_func_teardown</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s2">"teardown"</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">testcase</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">FunctionTestCase</span><span class="p">(</span><span class="n">old_func_test</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">setUp</span><span class="o">=</span><span class="n">old_func_setup</span><span class="p">,</span>
+<span class="gp">... </span>                                     <span class="n">tearDown</span><span class="o">=</span><span class="n">old_func_teardown</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">suite</span> <span class="o">=</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestSuite</span><span class="p">([</span><span class="n">testcase</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+<span class="go">setup</span>
+<span class="go">teardown</span>
+<span class="go">.</span>
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 1 test in 0.000s</span>
+
+<span class="go">OK</span>
+<span class="go">&lt;unittest.runner.TextTestResult run=1 errors=0 failures=0&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing-your-document-is-right">
+<h2>Testing your document is right<a class="headerlink" href="#testing-your-document-is-right" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">"""</span>
+<span class="sd">This is an example of doctest</span>
+
+<span class="sd">&gt;&gt;&gt; fib(10)</span>
+<span class="sd">55</span>
+<span class="sd">"""</span>
+
+<span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="sd">""" This function calculate fib number.</span>
+
+<span class="sd">Example:</span>
+
+<span class="sd">    &gt;&gt;&gt; fib(10)</span>
+<span class="sd">    55</span>
+<span class="sd">    &gt;&gt;&gt; fib(-1)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    ...</span>
+<span class="sd">    ValueError</span>
+<span class="sd">"""</span>
+<span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
+<span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">n</span><span class="o">&lt;=</span><span class="mi">2</span> <span class="k">else</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python demo_doctest.py -v
+<span class="go">Trying:</span>
+<span class="go">fib(10)</span>
+<span class="go">Expecting:</span>
+<span class="go">55</span>
+<span class="go">ok</span>
+<span class="go">Trying:</span>
+<span class="go">fib(10)</span>
+<span class="go">Expecting:</span>
+<span class="go">55</span>
+<span class="go">ok</span>
+<span class="go">Trying:</span>
+<span class="go">fib(-1)</span>
+<span class="go">Expecting:</span>
+<span class="go">Traceback (most recent call last):</span>
+<span class="go">...</span>
+<span class="go">ValueError</span>
+<span class="go">ok</span>
+<span class="go">2 items passed all tests:</span>
+<span class="go">1 tests in __main__</span>
+<span class="go">2 tests in __main__.fib</span>
+<span class="go">3 tests in 2 items.</span>
+<span class="go">3 passed and 0 failed.</span>
+<span class="go">Test passed.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="re-using-doctest-to-unittest">
+<h2>Re-using doctest to unittest<a class="headerlink" href="#re-using-doctest-to-unittest" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">doctest</span>
+
+<span class="sd">"""</span>
+<span class="sd">This is an example of doctest</span>
+
+<span class="sd">&gt;&gt;&gt; fib(10)</span>
+<span class="sd">55</span>
+<span class="sd">"""</span>
+
+<span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sd">""" This function calculate fib number.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; fib(10)</span>
+<span class="sd">        55</span>
+<span class="sd">        &gt;&gt;&gt; fib(-1)</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">            ...</span>
+<span class="sd">        ValueError</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">n</span><span class="o">&lt;=</span><span class="mi">2</span> <span class="k">else</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
+    <span class="n">finder</span> <span class="o">=</span> <span class="n">doctest</span><span class="o">.</span><span class="n">DocTestFinder</span><span class="p">()</span>
+    <span class="n">suite</span> <span class="o">=</span> <span class="n">doctest</span><span class="o">.</span><span class="n">DocTestSuite</span><span class="p">(</span><span class="n">test_finder</span><span class="o">=</span><span class="n">finder</span><span class="p">)</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">TextTestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">fib (__main__)</span>
+<span class="go">Doctest: __main__.fib ... ok</span>
+
+<span class="go">----------------------------------------------------------------------</span>
+<span class="go">Ran 1 test in 0.023s</span>
+
+<span class="go">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="customize-test-report">
+<h2>Customize test report<a class="headerlink" href="#customize-test-report" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">TestCase</span><span class="p">,</span>
+        <span class="n">TestLoader</span><span class="p">,</span>
+        <span class="n">TextTestResult</span><span class="p">,</span>
+        <span class="n">TextTestRunner</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">OK</span> <span class="o">=</span> <span class="s1">'ok'</span>
+<span class="n">FAIL</span> <span class="o">=</span> <span class="s1">'fail'</span>
+<span class="n">ERROR</span> <span class="o">=</span> <span class="s1">'error'</span>
+<span class="n">SKIP</span> <span class="o">=</span> <span class="s1">'skip'</span>
+
+<span class="k">class</span> <span class="nc">JsonTestResult</span><span class="p">(</span><span class="n">TextTestResult</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">descriptions</span><span class="p">,</span> <span class="n">verbosity</span><span class="p">):</span>
+        <span class="n">super_class</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">JsonTestResult</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">super_class</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">descriptions</span><span class="p">,</span> <span class="n">verbosity</span><span class="p">)</span>
+
+        <span class="c1"># TextTestResult has no successes attr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">successes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">addSuccess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
+        <span class="c1"># addSuccess do nothing, so we need to overwrite it.</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">JsonTestResult</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">addSuccess</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">successes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">json_append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
+        <span class="n">suite</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="n">suite</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">out</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">suite</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">OK</span><span class="p">:</span> <span class="p">[],</span> <span class="n">FAIL</span><span class="p">:</span> <span class="p">[],</span> <span class="n">ERROR</span><span class="p">:[],</span> <span class="n">SKIP</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">OK</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">suite</span><span class="p">][</span><span class="n">OK</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">_testMethodName</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">FAIL</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">suite</span><span class="p">][</span><span class="n">FAIL</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">_testMethodName</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">ERROR</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">suite</span><span class="p">][</span><span class="n">ERROR</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">_testMethodName</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">SKIP</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">suite</span><span class="p">][</span><span class="n">SKIP</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">_testMethodName</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">"No such result: {}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span> <span class="nf">jsonify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">json_out</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">successes</span><span class="p">:</span>
+            <span class="n">json_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_append</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">OK</span><span class="p">,</span> <span class="n">json_out</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">failures</span><span class="p">:</span>
+            <span class="n">json_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_append</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">FAIL</span><span class="p">,</span> <span class="n">json_out</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+            <span class="n">json_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_append</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">json_out</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">skipped</span><span class="p">:</span>
+            <span class="n">json_out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_append</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">SKIP</span><span class="p">,</span> <span class="n">json_out</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">json_out</span>
+
+<span class="k">class</span> <span class="nc">TestSimple</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">test_ok_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">foo</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_ok_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bar</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_fail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">baz</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">baz</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test_raise</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span>
+
+    <span class="nd">@unittest.skip</span><span class="p">(</span><span class="s2">"Test skip"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_skip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'__main__'</span><span class="p">:</span>
+    <span class="c1"># redirector default output of unittest to /dev/null</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">null_stream</span><span class="p">:</span>
+        <span class="c1"># new a runner and overwrite resultclass of runner</span>
+        <span class="n">runner</span> <span class="o">=</span> <span class="n">TextTestRunner</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">null_stream</span><span class="p">)</span>
+        <span class="n">runner</span><span class="o">.</span><span class="n">resultclass</span> <span class="o">=</span> <span class="n">JsonTestResult</span>
+
+        <span class="c1"># create a testsuite</span>
+        <span class="n">suite</span> <span class="o">=</span> <span class="n">TestLoader</span><span class="p">()</span><span class="o">.</span><span class="n">loadTestsFromTestCase</span><span class="p">(</span><span class="n">TestSimple</span><span class="p">)</span>
+
+        <span class="c1"># run the testsuite</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">suite</span><span class="p">)</span>
+
+        <span class="c1"># print json output</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">jsonify</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python test.py
+<span class="o">{</span><span class="s1">'TestSimple'</span>: <span class="o">{</span><span class="s1">'error'</span>: <span class="o">[</span><span class="s1">'test_raise'</span><span class="o">]</span>,
+                <span class="s1">'fail'</span>: <span class="o">[</span><span class="s1">'test_fail'</span><span class="o">]</span>,
+                <span class="s1">'ok'</span>: <span class="o">[</span><span class="s1">'test_ok_1'</span>, <span class="s1">'test_ok_2'</span><span class="o">]</span>,
+                <span class="s1">'skip'</span>: <span class="o">[</span><span class="s1">'test_skip'</span><span class="o">]}}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mock-using-patch-substitute-original-method">
+<h2>Mock - using <code class="docutils literal notranslate"><span class="pre">@patch</span></code> substitute original method<a class="headerlink" href="#mock-using-patch-substitute-original-method" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># python-3.3 or above</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">patch</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">fake_remove</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s2">"remove done"</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nd">@patch</span><span class="p">(</span><span class="s1">'os.remove'</span><span class="p">,</span> <span class="n">fake_remove</span><span class="p">)</span>
+<span class="o">...</span> <span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+<span class="o">...</span>     <span class="k">try</span><span class="p">:</span>
+<span class="o">...</span>         <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">'%$!?&amp;*'</span><span class="p">)</span> <span class="c1"># fake os.remove</span>
+<span class="o">...</span>     <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="o">...</span>         <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="o">...</span>     <span class="k">else</span><span class="p">:</span>
+<span class="o">...</span>         <span class="k">print</span><span class="p">(</span><span class="s1">'test success'</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">test</span><span class="p">()</span>
+<span class="n">remove</span> <span class="n">done</span>
+<span class="n">test</span> <span class="n">success</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Without mock, above test will always fail.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">'%$!?&amp;*'</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s1">'test success'</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test</span><span class="p">()</span>
+<span class="go">[Errno 2] No such file or directory: '%$!?&amp;*'</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-with-unittest-mock-patch-do">
+<h2>What <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">unittest.mock.patch</span></code> do?<a class="headerlink" href="#what-with-unittest-mock-patch-do" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">patch</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">PATH</span> <span class="o">=</span> <span class="s1">'$@!%?&amp;'</span>
+
+<span class="k">def</span> <span class="nf">fake_remove</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"Fake remove"</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SimplePatch</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_new</span> <span class="o">=</span> <span class="n">new</span>
+
+    <span class="k">def</span> <span class="nf">get_target</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="n">target</span><span class="p">,</span> <span class="n">attr</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">'.'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">getter</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">getter</span><span class="p">,</span> <span class="n">attr</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">orig</span><span class="p">,</span> <span class="n">attr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_target</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr</span> <span class="o">=</span> <span class="n">orig</span><span class="p">,</span> <span class="n">attr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">orig_attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">exc_info</span><span class="p">):</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">orig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_attr</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">orig_attr</span>
+
+
+<span class="k">print</span><span class="p">(</span><span class="s1">'---&gt; inside unittest.mock.patch scope'</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">'os.remove'</span><span class="p">,</span> <span class="n">fake_remove</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">'---&gt; inside simple patch scope'</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">SimplePatch</span><span class="p">(</span><span class="s1">'os.remove'</span><span class="p">,</span> <span class="n">fake_remove</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">'---&gt; outside patch scope'</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">PATH</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python3 simple_patch.py
+---&gt; inside unittest.mock.patch scope
+Fake remove
+---&gt; inside simple patch scope
+Fake remove
+---&gt; outside patch scope
+<span class="o">[</span>Errno <span class="m">2</span><span class="o">]</span> No such file or directory: <span class="s1">'$@!%?&amp;'</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mock-substitute-open">
+<h2>Mock - substitute <code class="docutils literal notranslate"><span class="pre">open</span></code><a class="headerlink" href="#mock-substitute-open" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">urllib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">patch</span><span class="p">,</span> <span class="n">mock_open</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">send_req</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+<span class="gp">... </span>            <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">raise</span> <span class="n">urllib</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">URLError</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fake_html</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">'&lt;html&gt;&lt;h1&gt;Mock Content&lt;/h1&gt;&lt;/html&gt;'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mock_urlopen</span> <span class="o">=</span> <span class="n">mock_open</span><span class="p">(</span><span class="n">read_data</span><span class="o">=</span><span class="n">fake_html</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ret</span> <span class="o">=</span> <span class="n">mock_urlopen</span><span class="o">.</span><span class="n">return_value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ret</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@patch</span><span class="p">(</span><span class="s1">'urllib.request.urlopen'</span><span class="p">,</span> <span class="n">mock_urlopen</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">test_send_req_success</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">ret</span> <span class="o">=</span> <span class="n">send_req</span><span class="p">(</span><span class="s1">'http://www.mockurl.com'</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">assert</span> <span class="n">ret</span> <span class="o">==</span> <span class="n">fake_html</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">else</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s1">'test send_req success'</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_send_req_success</span><span class="p">()</span>
+<span class="go">test send_req success</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ret</span> <span class="o">=</span> <span class="n">mock_urlopen</span><span class="o">.</span><span class="n">return_value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ret</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="mi">404</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@patch</span><span class="p">(</span><span class="s1">'urllib.request.urlopen'</span><span class="p">,</span> <span class="n">mock_urlopen</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">test_send_req_fail</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">try</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">ret</span> <span class="o">=</span> <span class="n">send_req</span><span class="p">(</span><span class="s1">'http://www.mockurl.com'</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="k">assert</span> <span class="n">ret</span> <span class="o">==</span> <span class="n">fake_html</span>
+<span class="gp">... </span>    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="k">print</span><span class="p">(</span><span class="s1">'test fail success'</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">test_send_req_fail</span><span class="p">()</span>
+<span class="go">test fail success</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="https://www.pythonsheets.com/index.html">
+    <img class="logo" src="Test%20%E2%80%94%20pysheeet_files/logo.svg" alt="Logo">
+    
+  </a>
+</p>
+
+
+
+
+
+
+<p>
+<iframe src="Test%20%E2%80%94%20pysheeet_files/github-btn.html" allowtransparency="true" scrolling="0" width="200px" height="35px" frameborder="0"></iframe>
+</p>
+
+
+
+
+
+<p>This project tries to provide many snippets of Python code that make life easier.</p><h3>Useful Links</h3>
+<ul>
+  <li><a href="https://www.pythonsheets.com/">pysheeet website</a></li>
+  <li><a href="https://github.com/crazyguitar/pysheeet">pysheeet @ GitHub</a></li>
+  <li><a href="https://github.com/crazyguitar/pysheeet/issues">Issue Tracker</a></li>
+  <li><a href="https://media.readthedocs.org/pdf/pysheeet/latest/pysheeet.pdf">pysheeet as a PDF</a></li>
+</ul><script async="" type="text/javascript" src="Test%20%E2%80%94%20pysheeet_files/carbon.js" id="_carbonads_js"></script>
+  <h3><a href="https://www.pythonsheets.com/index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Test</a><ul>
+<li><a class="reference internal" href="#a-simple-python-unittest">A simple Python unittest</a></li>
+<li><a class="reference internal" href="#python-unittest-setup-teardown-hierarchy">Python unittest setup &amp; teardown hierarchy</a></li>
+<li><a class="reference internal" href="#different-module-of-setup-teardown-hierarchy">Different module of setUp &amp; tearDown hierarchy</a></li>
+<li><a class="reference internal" href="#run-tests-via-unittest-texttestrunner">Run tests via unittest.TextTestRunner</a></li>
+<li><a class="reference internal" href="#test-raise-exception">Test raise exception</a></li>
+<li><a class="reference internal" href="#pass-arguments-into-a-testcase">Pass arguments into a TestCase</a></li>
+<li><a class="reference internal" href="#group-multiple-testcases-into-a-suite">Group multiple testcases into a suite</a></li>
+<li><a class="reference internal" href="#group-multiple-tests-from-different-testcase">Group multiple tests from different TestCase</a></li>
+<li><a class="reference internal" href="#skip-some-tests-in-the-testcase">Skip some tests in the TestCase</a></li>
+<li><a class="reference internal" href="#monolithic-test">Monolithic Test</a></li>
+<li><a class="reference internal" href="#cross-module-variables-to-test-files">Cross-module variables to Test files</a></li>
+<li><a class="reference internal" href="#skip-setup-teardown-when-the-test-is-skipped">skip setup &amp; teardown when the test is skipped</a></li>
+<li><a class="reference internal" href="#re-using-old-test-code">Re-using old test code</a></li>
+<li><a class="reference internal" href="#testing-your-document-is-right">Testing your document is right</a></li>
+<li><a class="reference internal" href="#re-using-doctest-to-unittest">Re-using doctest to unittest</a></li>
+<li><a class="reference internal" href="#customize-test-report">Customize test report</a></li>
+<li><a class="reference internal" href="#mock-using-patch-substitute-original-method">Mock - using <code class="docutils literal notranslate"><span class="pre">@patch</span></code> substitute original method</a></li>
+<li><a class="reference internal" href="#what-with-unittest-mock-patch-do">What <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">unittest.mock.patch</span></code> do?</a></li>
+<li><a class="reference internal" href="#mock-substitute-open">Mock - substitute <code class="docutils literal notranslate"><span class="pre">open</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel">
+      <input type="submit" value="Go">
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      ©2016-2020, crazyguitar.
+      
+      |
+      <a href="https://www.pythonsheets.com/_sources/notes/python-tests.rst.txt" rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/crazyguitar/pysheeet" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="Test%20%E2%80%94%20pysheeet_files/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" class="github">
+    </a>
+    
+
+    
+  
+</body></html>
