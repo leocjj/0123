@@ -1,0 +1,74 @@
+USE TAB WIDTH = 8
+
+https://www.campusmvp.es/recursos/post/Rendimiento-de-algoritmos-y-notacion-Big-O.aspx
+https://big-o.io/
+https://visualgo.net/en
+https://justin.abrah.ms/computer-science/big-o-notation-explained.html
+
+O(1).	
+This means, the algorithm will spent a constant time to perform a task...
+
+The time spent can be 1 second, 100 seconds, but is always the same for the same task. In other words, time spent is independent of the parameter given to the function.
+
+
+tendiendo a su complejidad, las notaciones Big-O más comunes para todo tipo de algoritmos y funciones son las que se muestran en esta lista:
+
+    O(1): constante. La operación no depende del tamaño de los datos. Es el caso ideal, pero a la vez probablemente el menos frecuente. No se ve en la gráfica de más abajo porque la logarítmica le pasa justo por encima y la tapa.
+    O(n): lineal. El tiempo de ejecución es directamente proporcional al tamaño de los datos. Crece en una línea recta.
+    O(log n): logarítmica. por regla general se asocia con algoritmos que "trocean" el problema para abordarlo, como por ejemplo una búsqueda binaria.
+    O(nlogn): en este caso se trata de funciones similares a las anteriores, pero que rompen el problema en varios trozos por cada elemento, volviendo a recomponer información tras la ejecución de cada "trozo". Por ejemplo, el algoritmo de búsqueda Quicksort.
+    O(n2): cuadrática. Es típico de algoritmos que necesitan realizar una iteración por todos los elementos en cada uno de los elementos a procesar. Por ejemplo el algoritmo de ordenación de burbuja. Si tuviese que hacer la iteración más de una vez serían de complejidad O(n3), O(n4), etc... pero se trata de casos muy raros y poco optimizados.
+    O(2n): exponencial. Se trata de funciones que duplican su complejidad con cada elemento añadido al procesamiento. Son algoritmos muy raros pues en condiciones normales no debería ser necesario hacer algo así. Un ejemplo sería, por ejemplo, el cálculo recursivo de la serie de Fibonacci, que es muy poco eficiente (se calcula llamándose a sí misma la función con los dos números anteriores: F(n)=F(n-1)+F(n-2)).
+    O(n!); explosión combinatoria. Un algoritmo que siga esta complejidad es un algoritmo totalmente fallido. Una explosión combinatoria se dispara de tal manera que cuando el conjunto crece un poco, lo normal es que se considere computacionalmente inviable. Solo se suele dar en algoritmos que tratan de resolver algo por la mera fuerza bruta. No deberías verlo nunca en un software "real".
+
+O(1) < O(logn) < O(n) < O(nlogn) < O(n^2) < O(2^n) < O(n!)
+++++++++++++++========------------------------------------
+
+https://www.bigocheatsheet.com/
+
+*******************************************************************************
+                       Common Data Structure Operations
+*******************************************************************************
+
+Data Structure 	Time Complexity 	Space Complexity
+		Average 			Worst 				Worst
+		Access 	Search 	Insert 	Del 	Access 	Search 	Insert 	Del 	
+Array 		Θ(1) 	Θ(n) 	Θ(n) 	Θ(n) 	O(1) 	O(n) 	O(n) 	O(n) 	O(n)
+Stack 		Θ(n) 	Θ(n) 	Θ(1) 	Θ(1) 	O(n) 	O(n) 	O(1) 	O(1) 	O(n)
+Queue 		Θ(n) 	Θ(n) 	Θ(1) 	Θ(1) 	O(n) 	O(n) 	O(1) 	O(1) 	O(n)
+Singly-L List 	Θ(n) 	Θ(n) 	Θ(1) 	Θ(1) 	O(n) 	O(n) 	O(1) 	O(1) 	O(n)
+Doubly-L List 	Θ(n) 	Θ(n) 	Θ(1) 	Θ(1) 	O(n) 	O(n) 	O(1) 	O(1) 	O(n)
+Skip List 	Θ(logn) Θ(logn) Θ(logn)	Θ(logn) O(n) 	O(n) 	O(n) 	O(n) 	O(n log(n))
+Hash Table 	N/A 	Θ(1) 	Θ(1) 	Θ(1) 	N/A 	O(n) 	O(n) 	O(n) 	O(n)
+B. Search Tree 	Θ(logn) Θ(logn) Θ(logn) Θ(logn) O(n) 	O(n) 	O(n) 	O(n) 	O(n)
+Cartesian Tree 	N/A 	Θ(logn)	Θ(logn)	Θ(logn)	N/A 	O(n) 	O(n) 	O(n) 	O(n)
+B-Tree 		Θ(logn)	Θ(logn) Θ(logn)	Θ(logn) O(logn)	O(logn) O(logn)	O(logn)	O(n)
+Red-Black Tree 	Θ(logn)	Θ(logn) Θ(logn)	Θ(logn) O(logn)	O(logn) O(logn)	O(logn)	O(n)
+Splay Tree 	N/A	Θ(logn) Θ(logn)	Θ(logn) N/A	O(logn) O(logn)	O(logn)	O(n)
+AVL Tree 	Θ(logn)	Θ(logn) Θ(logn)	Θ(logn) O(logn)	O(logn) O(logn)	O(logn)	O(n)
+KD Tree 	Θ(logn)	Θ(logn) Θ(logn) Θ(logn) O(n) 	O(n) 	O(n) 	O(n) 	O(n)
+
+
+*******************************************************************************
+                       Array Sorting Algorithms
+*******************************************************************************
+Algorithm 	Time Complexity 				Space Complexity
+		Best 		Average 	Worst 		Worst
+Quicksort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n^2) 		O(log(n))
+Mergesort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(n)
+Timsort 	Ω(n) 		Θ(n log(n)) 	O(n log(n)) 	O(n)
+Heapsort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(1)
+Bubble Sort 	Ω(n) 		Θ(n^2) 		O(n^2) 		O(1)
+Insertion Sort 	Ω(n) 		Θ(n^2) 		O(n^2) 		O(1)
+Selection Sort 	Ω(n^2) 		Θ(n^2) 		O(n^2) 		O(1)
+Tree Sort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n^2) 		O(n)
+Shell Sort 	Ω(n log(n)) 	Θ(n(log(n))^2) 	O(n(log(n))^2) 	O(1)
+Bucket Sort 	Ω(n+k) 		Θ(n+k) 		O(n^2) 		O(n)
+Radix Sort 	Ω(nk) 		Θ(nk) 		O(nk) 		O(n+k)
+Counting Sort 	Ω(n+k) 		Θ(n+k) 		O(n+k) 		O(k)
+Cubesort 	Ω(n) 		Θ(n log(n)) 	O(n log(n)) 	O(n)
+
+
+
+
+
