@@ -1,0 +1,34 @@
+Math origins:
+Calculation: Aritmetics --> Algebra --> Calulus
+Measure: Geometry --> trigonometry
+
+Numbers: N, Z, Q, I(2^0.5), Trascendental(pi,e..) R, C
+Equations --> Functions
+
+Scalars
+Vectors
+Matrices (tensors)
+
+Geogebra (2D)
+
+Algebra
+	properties
+	(+)			(x)
+		Conmutative
+		Associative
+		Distributive
+	Ident(0)		Ident(1)
+	Inverse			Inverse
+		Zero
+
+	Power properties
+	
+Logics
+Sets 
+
+
+Dot product
+Crux product
+Projections
+Matrix mult.
+
