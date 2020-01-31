@@ -1,3 +1,5 @@
+
+
 USE TAB WIDTH = 8
 
 https://www.campusmvp.es/recursos/post/Rendimiento-de-algoritmos-y-notacion-Big-O.aspx
@@ -52,21 +54,38 @@ KD Tree 	Θ(logn)	Θ(logn) Θ(logn) Θ(logn) O(n) 	O(n) 	O(n) 	O(n) 	O(n)
 *******************************************************************************
                        Array Sorting Algorithms
 *******************************************************************************
-Algorithm 	Time Complexity 				Space Complexity
-		Best 		Average 	Worst 		Worst
-Quicksort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n^2) 		O(log(n))
-Mergesort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(n)
-Timsort 	Ω(n) 		Θ(n log(n)) 	O(n log(n)) 	O(n)
-Heapsort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(1)
-Bubble Sort 	Ω(n) 		Θ(n^2) 		O(n^2) 		O(1)
-Insertion Sort 	Ω(n) 		Θ(n^2) 		O(n^2) 		O(1)
-Selection Sort 	Ω(n^2) 		Θ(n^2) 		O(n^2) 		O(1)
-Tree Sort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n^2) 		O(n)
-Shell Sort 	Ω(n log(n)) 	Θ(n(log(n))^2) 	O(n(log(n))^2) 	O(1)
-Bucket Sort 	Ω(n+k) 		Θ(n+k) 		O(n^2) 		O(n)
-Radix Sort 	Ω(nk) 		Θ(nk) 		O(nk) 		O(n+k)
-Counting Sort 	Ω(n+k) 		Θ(n+k) 		O(n+k) 		O(k)
-Cubesort 	Ω(n) 		Θ(n log(n)) 	O(n log(n)) 	O(n)
+
+COMPARISON SORTS: cannot perform better than O(n log n).
+Algorithm	Time Complexity 				Space Complexity
+		Best 		Average 	Worst 		Worst           Stable
+Bubble Sort 	Ω(n) 		Θ(n^2) 		O(n^2) 		O(1)            Yes
+
+Insertion Sort 	Ω(n) 		Θ(n^2) 		O(n^2) 		O(1)            Yes
+Selection Sort 	Ω(n^2) 		Θ(n^2) 		O(n^2) 		O(1)            No
+Quicksort Lomuto partition scheme
+		Ω(n log(n)) 	Θ(n log(n)) 	O(n^2) 		O(log(n))       No typicaly
+Shell Sort 	Ω(n log(n)) 	Θ(n(log(n))^2) 	O(n(log(n))^2) 	O(1)            No
+Cocktail sort	Ω(n)		Θ(n^2)		O(n^2)		O(1)		Yes
+Merge sort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(n)            Yes
+Heap sort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(1)            No
+
+Bitonic sort	Ω(log^2(n))	Θ(log^2(n))	O(log^2(n))	O(nlog^2(n))	No
+Quick Sort - Hoare Partition scheme
+
+Timsort 	Ω(n) 		Θ(n log(n)) 	O(n log(n)) 	O(n)            Yes
+Tree Sort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n^2) 		O(n)            Yes
+Cubesort 	Ω(n) 		Θ(n log(n)) 	O(n log(n)) 	O(n)            Yes
+
+Non-COMPARISON SORTS: they are not limited to Ω(n log n)
+n items to be sorted with
+k size of keys
+d digit size
+r the range of numbers to be sorted
+
+Counting Sort 	Ω(n+k) 		Θ(n+k) 		O(n+k) 		O(k)		Yes
+Radix Sort 	Ω(nk) 		Θ(nk) 		O(nk) 		O(n+k)		
+
+Bucket Sort 	Ω(n+k) 		Θ(n+k) 		O(n^2) 		O(n)		Yes
 
 
 
