@@ -1,6 +1,21 @@
+(PL) Programming language
+(FW) Framework
 
-Python, R
+MACHINE LEARNING
+Python(PL), R(PL), TensosFlow (FW), Pandas(FW), Torch/PyTorch(FW), Flask(FW), Django(FW)
+
+BIG DATA
+Scala (PL), Apache Spark (FW), Hadoop (FW)
+
+IDEs
 Visual Studio Code, IPython/Jupyter, PyCharm, and RStudio.
+
+SKILLS
+Math, Statistics, data visualization, communication, critical thinking, Excel, Business understanding, ETL-Data preparation, Scikit-learn
+
+OTHERS
+Deep learning, NLP-Text Processing, Unstructured Data, Other Big Data Tools, No-SQL, Kaggle, XGBoost, Software Engineering, Matlab, SAS, Java, Julia
+
 Docker or Open Container Initiative
 ¡?elixir, go, julia, rust, kotlin, webassembly
 
@@ -8,5 +23,3 @@ R is a language and environment for statistical computing and graphics. differen
 
 https://www.rust-lang.org/	
 https://www.genbeta.com/desarrollo/que-rust-lenguaje-amado-muchos-programadores-gran-desconocido
-
-https://ionicframework.com/
