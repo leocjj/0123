@@ -101,7 +101,10 @@ Employable software engineer
 	Technical skills
 
 Empresas
+	Slack -> calidev
+	Avantica.net, monica.rojas @avantica.net, (51) 934 473 203, linkedin.com/in/monicarojasr
 	PSL -Software development (linkedin)
+	https://www.directrixanalytics.com/
 	Open (Albarracín)
 	Compunet
 	Siesa
@@ -118,9 +121,16 @@ Empresas
     https://www.meetup.com/es/CaliSharpCO/    https://twitter.com/calisharpco
 	www.qt.io/careers
 	www.toptal.com/hire-software-developers
-	digitaljobs.la/		freelancer.com		upwork.com	fiverr.com
+	digitaljobs.la/		freelancer.com		upwork.com	fiverr.com	peaku.co
 	Accenture labs, nano lab, paiky, calidev on slack, darient.com, https://hireremote.io/, DB System ltda
 	mongodb
+	https://data360.com.co/
+	data360.in
+	www.hypeideas.co
+	www.personalsoft.com.co
+	dataknow.co
+	deeplearning.ai
+	www.etairos.co
 	Netflix
 	linkedin.com/jobs
     sas.com/careers
