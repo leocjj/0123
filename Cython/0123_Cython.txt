@@ -1,0 +1,16 @@
+
+https://cython.org/
+Cython is an optimising static compiler for both the Python programming language and the extended Cython programming language (based on Pyrex). It makes writing C extensions for Python as easy as Python itself.
+https://pypi.org/project/Cython/	--> pip install Cython
+
+http://pypy.org/
+PyPy is a fast, compliant alternative implementation of the Python language
+(2.7.13 and 3.6.9). It has several advantages and distinct features:
+    Speed: thanks to its Just-in-Time compiler, Python programs often run faster on PyPy. (What is a JIT compiler?)
+    “If you want your code to run faster, you should probably just use PyPy.” — Guido van Rossum (creator of Python)
+    Memory usage: memory-hungry Python programs (several hundreds of MBs or more) might end up taking less space than they do in CPython.
+    Compatibility: PyPy is highly compatible with existing python code. It supports cffi and can run popular python libraries like twisted and django.
+    Stackless: PyPy comes by default with support for stackless mode, providing micro-threads for massive concurrency.
+
+https://recursospython.com/guias-y-manuales/obtener-lista-numeros-primos/
+
