@@ -1,0 +1,492 @@
+
+			Bash Guide for Beginners
+			Chapter 9. Repetitive tasks
+
+http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_01.html
+
+
+********************************************************************************
+********************************** SSH KEY *************************************
+https://askubuntu.com/questions/61557/how-do-i-set-up-ssh-authentication-keys
+
+ssh-keygen -t rsa
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEjl82acqEJk0zUWsHL4Bn2QvuyRbDST/yuA5jJSZDbRvbyddfw9/K+cPJFBF7uarXVHr4h6JEKFD4k6IwmptITVIAukoFmwqdOh3VNNwzITkKgYOzf1bZFdfOh7IyolxyYoZ06CUK0tpA3Fex7e9HDXds2HKMhDRcYdZeRr47hZ9Tg2TYZhyxJsAmFAvs20Di0C276wqucIfr6ls2RwjRrI1EybDNu8xqAfZ28x7l53MuUSs7L4ZmegjO+RvCMP2Dzo8AKUmtIa8bSZ8NR80CApyY3PlvhfOGG+Ya3L7fzPZVm4SKEwze0fk9RbtgiyDV5TmGJ046onaslSB4C45f vagrant@vagrant-ubuntu-trusty-64
+
+********************************************************************************
+********************** SHELL SCRITPS STYLE *************************************
+
+sudo apt-get install shellcheck
+
+http://www.skybert.net/emacs/bash-linting-in-emacs/	//In emacs
+https://github.com/koalaman/shellcheck
+https://www.shellcheck.net/
+
+$ shellcheck FILENAME
+
+
+********************************************************************************
+***************************** SHEBANG ******************************************
+
+#!/bin/sh		// Default if no shebang in script file.
+#!/bin/bash		// Absolute path to the Bash interpreter.
+#!/usr/bin/perl		//
+#!/usr/bin/python3	// #!/usr/bin/env python3 to make it portable 
+
+#!/usr/bin/env bash
+Run a program in a modified environment. It makes scripts portable.
+Advantage: it will use whatever bash executable appears first in the running
+	user's $PATH variable. 
+
+
+********************************************************************************
+************************ SCRIPT COMMANDS ***************************************
+
+
+********************************************************************************
+*********************** 7.1. Test Constructs ***********************************
+
+http://tldp.org/LDP/abs/html/testconstructs.html
+
+
+*********************** comparison expressions *********************************
+test and [ operator
+considers its arguments as comparison expressions or file tests and returns an
+exit status corresponding to the result of the comparison (0 true, 1 false)
+
+[[ ... ]] extended test command
+[[ $a -lt $b ]] as a single element, which returns an exit status.
+&&, ||, <, and > operators work within a [[ ]] test, error within a [ ]
+
+---
+if [ 0 ]	0 is true.
+if [ 1 ]	1 is true.
+if [ -1 ]	-1 is true.
+if [ ]		NULL is false.
+if [ xyz ]	Random string is true.
+if [ $xyz ]	Uninitialized variable is false.
+xyz=
+if [ -n "$xyz" ]Null variable is false.
+if [ "false" ]	"false" is true.
+
+---
+decimal=15
+octal=017   # = 15 (decimal)
+
+if [ "$decimal" -eq "$octal" ]	# Doesn't evaluate within [ single brackets ]
+if [[ "$decimal" -eq "$octal" ]]	# True
+
+
+*********************** arithmetic evaluation***********************************
+let and ((double parentheses))
+Expands and evaluates and tests arithmetic expression .
+a=$(( 5 + 3 ))		(( a = 23 ))		(( a++ ))
+let a=11		let a++			let "t = a<7?7:11"   # True
+
+(( 0 ))
+echo "Exit status of \"(( 0 ))\" is $?."         # 1
+(( 1 ))
+echo "Exit status of \"(( 1 ))\" is $?."         # 0
+
+
+*************************** if then else fi ***********************************
+
+word=Linux
+letter_sequence=inu
+if echo "$word" | grep -q "$letter_sequence"
+# The "-q" option to grep suppresses output.
+then
+  echo "$letter_sequence found in $word"
+else
+  echo "$letter_sequence not found in $word"
+fi
+
+---
+var1=5
+var2=4
+if (( var1 > var2 ))
+then #^      ^      Note: Not $var1, $var2. Why?
+  echo "$var1 is greater than $var2"
+fi     # 5 is greater than 4
+
+---
+if [ -x "$filename" ]; then
+Keywords (or commands) begin statements, and before a new statement on the same
+line begins, the old one must terminate. So use semicolon terminate one first.
+
+---
+if [ condition1 ]
+then
+   command1
+   command2
+   command3
+elif [ condition2 ]
+# Same as else if
+then
+   command4
+   command5
+else
+   default-command
+fi
+
+
+***************************** variables in scripts *****************************
+decimal=15
+octal=017   # = 15 (decimal)
+hex=0x0f    # = 15 (decimal)
+
+
+*********************** read variable from user input **************************
+echo -n "Enter your choice, or 0 for exit: "
+read choice
+echo
+
+********************************************************************************
+*********************** 7.2. File test operators *******************************
+
+http://tldp.org/LDP/abs/html/fto.html
+Returns true if...
+
+-e    file exists
+-a    file exists. This is identical in effect to -e. It has been "deprecated,".
+-f    file is a regular file (not a directory or device file)
+-s    file is not zero size
+-d    file is a directory
+-r    file has read permission (for the user running the test)
+-w    file has write permission (for the user running the test)
+-x    file has execute permission (for the user running the test)
+
+if [ -d $directory ]
+	then linkchk $directory
+	else 
+	    echo "$directory is not a directory"
+	    echo "Usage: $0 dir1 dir2 ..."
+    fi
+
+********************************************************************************
+*********************** 7.3. Other Comparison Operators ************************
+
+http://tldp.org/LDP/abs/html/comparison-ops.html
+
+-eq	is equal to    			if [ "$a" -eq "$b" ]
+-ne    is not equal to    		if [ "$a" -ne "$b" ]
+-gt    is greater than    		if [ "$a" -gt "$b" ]
+-ge    is greater than or equal to    	if [ "$a" -ge "$b" ]
+-lt    is less than			if [ "$a" -lt "$b" ]
+-le    is less than or equal to		if [ "$a" -le "$b" ]
+<	is less than (within double parentheses)    (("$a" < "$b"))
+<=	is less than or equal to (within double parentheses)  (("$a" <= "$b"))
+>	is greater than (within double parentheses)    (("$a" > "$b"))
+>=	is greater than or equal to (within double parentheses) (("$a" >= "$b"))
+
+
+# Argument check
+ARGS=2
+E_BADARGS=85
+if [ $# -ne "$ARGS" ]		#if [ "$#" == "0" ]
+then
+  echo "Usage: `basename $0` first-number second-number"
+  exit $E_BADARGS
+fi
+
+
+string comparison
+
+=    is equal to    if [ "$a" = "$b" ]
+    Caution	    Note the whitespace framing the =.
+    if [ "$a"="$b" ] is not equivalent to the above.
+==	is equal to    if [ "$a" == "$b" ]
+    This is a synonym for =.
+    Note	The == comparison operator behaves differently within a double-brackets test than within single brackets.
+
+    [[ $a == z* ]]   # True if $a starts with an "z" (pattern matching).
+    [[ $a == "z*" ]] # True if $a is equal to z* (literal matching).
+
+    [ $a == z* ]     # File globbing and word splitting take place.
+    [ "$a" == "z*" ] # True if $a is equal to z* (literal matching).
+
+!=    is not equal to    if [ "$a" != "$b" ]
+    This operator uses pattern matching within a [[ ... ]] construct.
+<    is less than, in ASCII alphabetical order
+    if [[ "$a" < "$b" ]]
+    if [ "$a" \< "$b" ]
+    Note that the "<" needs to be escaped within a [ ] construct.
+>    is greater than, in ASCII alphabetical order
+    if [[ "$a" > "$b" ]]
+    if [ "$a" \> "$b" ]
+    Note that the ">" needs to be escaped within a [ ] construct.
+-z    string is null, that is, has zero length
+     String=''   # Zero-length ("null") string variable.
+    if [ -z "$String" ]
+    then
+      echo "\$String is null."
+    else
+      echo "\$String is NOT null."
+    fi     # $String is null.
+
+-n    string is not null.
+    Caution	The -n test requires that the string be quoted within the test brackets. Using an unquoted string with ! -z, or even just the unquoted string alone within test brackets (see Example 7-6) normally works, however, this is an unsafe practice. Always quote a tested string. [1] 
+
+
+-a    logical and    exp1 -a exp2 returns true if both exp1 and exp2 are true.
+-o    logical or    exp1 -o exp2 returns true if either exp1 or exp2 is true.
+These are similar to the Bash comparison operators && and ||, used within double brackets. 
+The -o and -a operators work with the test command or occur within single test brackets. 
+
+---
+To do this safely [ -n "$string" -o "$a" = "$b" ] append an extra character to
+possibly empty variables, [ "x$string" != x -o "x$a" = "x$b" ]
+
+
+********************************************************************************
+******************************* 9.1. LOOPS *************************************
+
+break, continue also works.
+
+for NAME [in LIST ]; do COMMANDS; done 
+
+	If [in LIST] is not present -> replaced with $@ and
+		the for executes the COMMANDS once for each positional parameter
+	Return status: exit status of the last command or zero.
+	NAME can be any variable name, although i is used very often.
+	LIST can be any list of words, strings or numbers, which can be literal 
+		or generated by any command.
+	COMMANDS to execute can also be any operating system commands, script,
+		program or shell statement.
+	First loop, NAME is set to the first item in LIST.
+	Second loop, its value is set to the second item in the list, and so on.
+	Loop terminates when NAME has taken on each of the values from LIST and
+		no items are left in LIST.
+
+while CONTROL-COMMAND; do CONSEQUENT-COMMANDS; done 
+until TEST-COMMAND; do CONSEQUENT-COMMANDS; done
+select WORD [in LIST]; do RESPECTIVE-COMMANDS; done 
+
+>>for i in `cat list`; do cp "$i" "$i".bak ; done
+
+
+	for i in {1..10}
+	do
+		echo "Holberton School"
+	done
+
+
+	i=0
+	while [ "$i" -lt "10" ]
+	do
+		echo "Holberton School"
+		((i++))
+	done
+
+
+#!/bin/bash
+# specific conversion script for my html files to php
+LIST="$(ls *.html)"
+for i in "$LIST"; do
+     NEWNAME=$(ls "$i" | sed -e 's/html/php/')
+     cat beginfile > "$NEWNAME"
+     cat "$i" | sed -e '1,25d' | tac | sed -e '1,21d'| tac >> "$NEWNAME"
+     cat endfile >> "$NEWNAME"
+done
+
+if list file names containing spaces and other irregular characters.
+shell's globbing feature
+for i in $PATHNAME/*; do
+	commands
+done
+
+printf "%s %s \n" $Message1 $Message2
+
+
+select FILENAME in *;
+do
+  case $FILENAME in
+        "$QUIT")
+          echo "Exiting."
+          break
+          ;;
+        *)
+          echo "You picked $FILENAME ($REPLY)"
+          chmod go-rwx "$FILENAME"
+          ;;
+  esac
+done
+
+
+# This script opens 4 terminal windows.
+i="0"
+while [ $i -lt 4 ]
+do
+xterm &
+i=$[$i+1]
+done
+
+# This script copies files from my homedirectory into the webserver directory.
+# (use scp and SSH keys for a remote directory)
+# A new directory is created every hour.
+PICSDIR=/home/carol/pics
+WEBDIR=/var/www/carol/webcam
+while true; do 
+	DATE=`date +%Y%m%d`
+	HOUR=`date +%H`
+	mkdir $WEBDIR/"$DATE"
+	
+	while [ $HOUR -ne "00" ]; do 
+		DESTDIR=$WEBDIR/"$DATE"/"$HOUR"
+		mkdir "$DESTDIR"
+		mv $PICDIR/*.jpg "$DESTDIR"/
+		sleep 3600
+		HOUR=`date +%H`
+	done
+done
+
+
+gcd ()
+{
+  dividend=$1             #  Arbitrary assignment.
+  divisor=$2              #! It doesn't matter which of the two is larger.
+                          #  Why not?
+  remainder=1             #  If an uninitialized variable is used inside
+                          #+ test brackets, an error message results.
+  until [ "$remainder" -eq 0 ]
+  do    #  ^^^^^^^^^^  Must be previously initialized!
+    let "remainder = $dividend % $divisor"
+    dividend=$divisor     # Now repeat with 2 smallest numbers.
+    divisor=$remainder
+  done                    # Euclid's algorithm
+
+}                         # Last $dividend is the gcd.
+
+gcd $1 $2
+echo; echo "GCD of $1 and $2 = $dividend"; echo
+
+
+********************************************************************************
+************************** 3.2. VARIABLES **************************************
+
+env or printenv commands can be used to display environment variables.
+
+VARNAME="value"		Local variable, only available to the current shell.
+
+echo $VARNAME		CONTENT OF A VARIABLE WITH $$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+export VARNAME="value"	environment variables, to pass variables to a subshell
+
+Reserved Bourne shell variable names
+CDPATH	colon-separated list of directories as a search path for cd command.
+HOME	The current user's home directory;
+	The value of this variable is also used by tilde expansion.
+IFS	A list of characters that separate fields;
+	used when the shell splits words as part of expansion.
+MAIL	If this parameter is set to a file name and the MAILPATH variable is not
+	set, Bash informs the user of the arrival of mail in the specified file.
+MAILPATH A colon-separated list of file names, shell checks for new mail.
+OPTARG	The value of the last option argument processed by the getopts built-in.
+OPTIND	The index of the last option argument processed by the getopts built-in.
+PATH	A colon-separated list of directories in which the shell looks for commands.
+PS1	The primary prompt string. The default value is "'\s-\v\$ '".
+PS2	The secondary prompt string. The default value is "'> '".
+
+Others... Table 3-2. Reserved Bash variables
+
+******************************** env  ******************************************
+
+run a program in a modified environment
+
+env [OPTION]... [-] [NAME=VALUE]... [COMMAND [ARG]...]
+-i, --ignore-environment              start with an empty environment
+-0, --null		end each output line with 0 byte rather than newline
+-u, --unset=NAME	remove variable from the environment
+
+
+
+********************************************************************************
+************************** UNIX COMMANDS ***************************************
+
+awk 	# pattern scanning and processing language
+basename# strip directory and suffix from filenames
+bg 	# resumes suspended jobs without bringing them to the foreground
+cat	# print files
+cd 	# change the shell working directory.
+chmod 	# change file mode
+chown 	# change file owner and group
+crontab	# maintain crontab files
+curl 	# transfer a URL
+cut 	# remove sections from each line of files
+date 	# display or set date and time
+dig 	# DNS lookup utility
+df 	# report file system disk space usage
+diff 	# compare files line by line
+du 	# estimate file space usage
+echo 	# display a line of text
+find 	# search for files in a directory hierarchy
+fg 	# resumes suspended jobs and bring them to the foreground
+grep 	# print lines matching a pattern
+kill 	# send a signal to a process
+less 	# read file with pagination
+ln 	# create links
+ls 	# list directory contents
+lsb_release # print distribution-specific information
+lsof 	# list open files
+mkdir 	# create
+mv 	# move files
+nc 	# arbitrary TCP and UDP connections and listens
+netstat	# print network connections, routing tables, interface statistics...
+nice 	# execute a utility with an altered scheduling priority
+nproc 	# print the number of processing units available
+passwd	# change user password
+pgrep 	# look up processes based on name and other attributes
+pkill 	# send signal to processes based on name and other attributes
+printenv# print all or part of environment
+pwd 	# print name of current/working directory
+top 	# display Linux processes
+tr 	# translate or delete characters
+ps 	# report a snapshot of the current processes
+rm 	# remove files or directories
+rmdir 	# remove directories
+rsync 	# remote file copy
+scp 	# secure copy (remote file copy program)
+sed 	# stream editor for filtering and transforming text
+sleep 	# suspend execution for an interval of time
+sort 	# sort lines of text file
+ssh 	# OpenSSH SSH client (remote login program)
+ssh-keygen # SSH key generation, management and conversion
+su 	# substitute user identity
+sudo 	# execute a command as another user
+tail 	# output the last part of files
+tar 	# manipulate archives files
+tr 	# translate or delete characters
+uname 	# Print operating system name
+uniq 	# report or omit repeated lines
+uptime 	# show how long system has been running
+w 	# Show who is logged on and what they are doing
+whereis	# locate the binary, source, and manual page files for a command
+which 	# locate a command
+wc 	# print newline, word, and byte counts for each file
+xargs 	# build and execute command lines from standard input
+| 	# redirect standard output to another command
+> 	# redirect standard output
+< 	# redirect standard input
+& 	# send process to background
+
+
+CTRL+A # go to beginning of line
+CTRL+B # moves backward one character
+CTRL+C # stops the current command
+CTRL+D # deletes one character backward or logs out of current session
+CTRL+E # go to end of line
+CTRL+F # moves forward one character
+CTRL+G # aborts the current editing command and ring the terminal bell
+CTRL+K # deletes (kill) forward to end of line
+CTRL+L # clears screen and redisplay the line
+CTRL+N # next line in command history
+CTRL+R # searches in your command history
+CTRL+T # transposes two characters
+CTRL+U # kills backward to the beginning of line
+CTRL+W # kills the word behind the cursor
+CTRL+Y # retrieves last deleted string
+CTRL+Z # stops the current command, resume with fg in the foreground or bg in the background
+
+
+
+
