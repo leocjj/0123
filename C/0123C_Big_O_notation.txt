@@ -23,7 +23,11 @@ tendiendo a su complejidad, las notaciones Big-O más comunes para todo tipo de 
     O(2n): exponencial. Se trata de funciones que duplican su complejidad con cada elemento añadido al procesamiento. Son algoritmos muy raros pues en condiciones normales no debería ser necesario hacer algo así. Un ejemplo sería, por ejemplo, el cálculo recursivo de la serie de Fibonacci, que es muy poco eficiente (se calcula llamándose a sí misma la función con los dos números anteriores: F(n)=F(n-1)+F(n-2)).
     O(n!); explosión combinatoria. Un algoritmo que siga esta complejidad es un algoritmo totalmente fallido. Una explosión combinatoria se dispara de tal manera que cuando el conjunto crece un poco, lo normal es que se considere computacionalmente inviable. Solo se suele dar en algoritmos que tratan de resolver algo por la mera fuerza bruta. No deberías verlo nunca en un software "real".
 
+
+++++++++++++++========------------------------------------
+
 O(1) < O(logn) < O(n) < O(nlogn) < O(n^2) < O(2^n) < O(n!)
+
 ++++++++++++++========------------------------------------
 
 https://www.bigocheatsheet.com/
