@@ -1,0 +1,32 @@
+ellipsis        ...
+semicolo        ;
+
+()
+[]
+{}
+^
+|
+!  exclamation point
+"  double quotes
+'  single quotes
+´
+`
+~
+$
+% 
+#  shebang, number sign
+&
+/
+=
+?
+¡
+¿
+-  hyphen
+_  underscore 
+:
+
+<
+>
+>=
+<=
+@

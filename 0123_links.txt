@@ -12,6 +12,7 @@ Cursos
 	https://openwebinars.net/cursos/metodologias-agiles/
 	https://openlibra.com/en/book/lies-damned-lies-or-statistics-how-to-tell-the-truth-with-statistics
 	http://immersivemath.com/ila/index.html
+	https://www.youtube.com/playlist?list=PL_c9BZzLwBRKKqOc9TJz1pP0ASrxLMtp2&feature=share	Tutorial de C
 
 deeplearningbook.org		//
 https://onlinejudge.org/
