@@ -698,16 +698,24 @@ Table 3-2. Reserved Bash variables	http://tldp.org/LDP/Bash-Beginners-Guide/html
 ********************************************************************************
 ************************ 3.2.5. Special parameters *****************************
 
-The shell treats several parameters specially. These parameters may only be referenced; assignment to them is not allowed.
-$*	Expands to the positional parameters, starting from one. When the expansion occurs within double quotes, it expands to a single word with the value of each parameter separated by the first character of the IFS special variable.
-$@	Expands to the positional parameters, starting from one. When the expansion occurs within double quotes, each parameter expands to a separate word.
-$#	Expands to the number of positional parameters in decimal.
-$?	Expands to the exit status of the most recently executed foreground pipeline.
-$-	A hyphen expands to the current option flags as specified upon invocation, by the set built-in command, or those set by the shell itself (such as the -i).
+These parameters may only be referenced; assignment to them is not allowed.
+Expands to the:
+$*	Positional parameters, starting from one. When the expansion occurs
+	within double quotes, it expands to a single word with the value of each
+	parameter separated by the first character of the IFS special variable.
+$@	Positional parameters, starting from one. When the
+	expansion occurs within double quotes, each parameter expands to a
+	separate word. More securte than $*.
+$#	Number of total positional parameters in decimal.
+$?	Exit status of the most recently executed foreground pipeline.
+$-	Current option flags as specified upon invocation, by the set built-in
+	command, or those set by the shell itself (such as the -i).
 $$	Expands to the process ID of the shell.
-$!	Expands to the process ID of the most recently executed background (asynchronous) command.
+$!	Expands to the process ID of the most recently executed background
+	(asynchronous) command.
 $0	Expands to the name of the shell or shell script.
-$_	The underscore variable is set at shell startup and contains the absolute file name of the shell or script being executed as passed in the argument list.
+$_	is set at shell startup and contains the absolute file name of the shell
+	or script being executed as passed in the argument list.
 
 POSPAR1="$1"
 echo "$1 is the first positional parameter, \$1."
