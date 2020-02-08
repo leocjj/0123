@@ -278,6 +278,32 @@ select WORD [in LIST]; do RESPECTIVE-COMMANDS; done
 		((i++))
 	done
 
+			i=0
+			while ((i <= 12))
+			do
+			    echo "Hour: $i"
+			    j=1
+			    while ((j <= 59))
+			    do
+			        echo "$j"
+			        ((j++))
+			    done
+			    ((i++))
+			done
+
+	case EXPRESSION in
+	  PATTERN_1)
+	    STATEMENTS
+	    ;;
+	  PATTERN_N)
+	    STATEMENTS
+	    ;;
+	  *)
+	    STATEMENTS
+	    ;;
+	esac
+
+
 
 #!/bin/bash
 # specific conversion script for my html files to php
