@@ -14,21 +14,22 @@ The maximum number of processes is only limited by the amount of physical memory
 
 COMMANDS
 
-ps	// The PIDs for the processes currently on the system 
+ps		// The PIDs for the processes currently on the system 
 pstree 	// Shows the process names and PIDs in a tree diagram
 
 top	// PIDs of currently running processes along with other information
-	// it continuously updates the information.
+		// it continuously updates the information.
 
 pidof	// command provides the PID of a program whose name is passed to it as an argument (i.e., input).
 
-kill 	// makes it possible to end a program that cannot otherwise be stopped except by rebooting
+kill 		// makes it possible to end a program that cannot otherwise be stopped except by rebooting
 kill "$(pgrep -f "4-to_infinity_and_beyond")"
+https://www.thegeekstuff.com/2009/12/4-ways-to-kill-a-process-kill-killall-pkill-xkill/
 
 ls /proc | less		// current processes, kernel data that changes in real time.
-			// There is a numbered directory in /proc corresponding to each PID 
+					// There is a numbered directory in /proc corresponding to each PID 
 cat /proc/1716/cmdline 	// name of the command (along with any options and arguments) that the process was started with
-cat /proc/1/status	// More extensive information 
+cat /proc/1/status		// More extensive information 
 
 It will be necessary to use the root by using the su (i.e., substitute user) command, to read files in the /proc directory.
 
@@ -41,9 +42,9 @@ echo $$	// Display own PID
 
 pgrep, pkill - look up or signal processes based on name and other attributes
 pgrep [options] pattern		// looks through the currently running processes and lists the process IDs
-				// which match the selection criteria to stdout.
+								// which match the selection criteria to stdout.
 pkill [options] pattern		// pkill  will  send  the  specified  signal  (by default SIGTERM)
-				// to each process instead of listing them on stdout.
+								// to each process instead of listing them on stdout.
 When no signal is included in the pkill command-line syntax, the default signal that is used is –15 (SIGTERM). Using the –9 signal (SIGKILL) with the pkill command ensures that the process terminates promptly. However, the –9 signal should not be used to kill certain processes, such as a database process, or an LDAP server process. The result is that data might be lost.
 
 https://www.thegeekstuff.com/2012/03/linux-processes-environment/
@@ -53,8 +54,9 @@ https://www.thegeekstuff.com/2012/03/linux-processes-environment/
 ************** SIGNALS
 
 https://linux.die.net/Bash-Beginners-Guide/sect_12_01.html
-
-
+https://www.thegeekstuff.com/2012/03/linux-signals-fundamentals/
+https://www.thegeekstuff.com/2012/03/catch-signals-sample-c-code/
+https://www.thegeekstuff.com/2012/03/linux-processes-environment/
 
 
 
