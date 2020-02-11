@@ -23,13 +23,15 @@ Select install alongside Windows boot manager
 
 **************** Install the following software *******************************
     Github Desktop  https://github.com/shiftkey/desktop/releases/   //for Linux
-    Slack           https://slack.com/intl/en-co/downloads/linux
-    Codeblocks      Ubuntu software app
-    Terminator      sudo apt-get install terminator
-    Pycharm         Ubuntu software app
-                    sudo snap install pycharm-community --classic
-    Emacs           sudo apt-get install emacs
-    git             sudo apt-get install
+					git apt install ./file_downloaded.deb
+    Slack           		https://slack.com/intl/en-co/downloads/linux
+    Codeblocks		Ubuntu software app
+    Terminator		sudo apt-get install terminator
+    Pycharm			Ubuntu software app
+                    			sudo snap install pycharm-community --classic
+    Emacs			sudo apt-get install emacs
+    git				sudo apt-get install git
+    VS code			https://code.visualstudio.com/
 
 *****************************  wifi *******************************************
 Zonamerica-Students	09092019@Cali
