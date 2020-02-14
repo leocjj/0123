@@ -45,7 +45,10 @@ pgrep [options] pattern		// looks through the currently running processes and li
 								// which match the selection criteria to stdout.
 pkill [options] pattern		// pkill  will  send  the  specified  signal  (by default SIGTERM)
 								// to each process instead of listing them on stdout.
-When no signal is included in the pkill command-line syntax, the default signal that is used is –15 (SIGTERM). Using the –9 signal (SIGKILL) with the pkill command ensures that the process terminates promptly. However, the –9 signal should not be used to kill certain processes, such as a database process, or an LDAP server process. The result is that data might be lost.
+sudo pkill -f 100-process_and_pid_file
+When no signal is included in the pkill command-line syntax, the default signal that is used is –15 (SIGTERM).
+Using the –9 signal (SIGKILL) with the pkill command ensures that the process terminates promptly.
+However, the –9 signal should not be used to kill certain processes, such as a database process, or an LDAP server process. The result is that data might be lost.
 
 https://www.thegeekstuff.com/2012/03/linux-processes-environment/
 
