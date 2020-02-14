@@ -322,7 +322,8 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python frozenset()
     Python getattr()
     Python globals()
-    Python exec()
+    Python exec()	// dynamic execution of Python program, can be a string or object code.
+					// If string,  is parsed as a suite of Python statements which is then executed
     Python hasattr()
     Python help()
     Python hex()		//converts an integer number to the corresponding hexadecimal string.
