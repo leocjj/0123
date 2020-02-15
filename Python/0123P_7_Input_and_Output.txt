@@ -1,6 +1,13 @@
 https://docs.python.org/3.4/tutorial/inputoutput.html
 https://automatetheboringstuff.com/
 
+
+*******************************************************************************
+string.split(separator, maxsplit)
+separator 	Optional. Specifies the separator to use when splitting the string. By default any whitespace is a separator
+maxsplit 	Optional. Specifies how many splits to do. Default value is -1, which is "all occurrences"
+
+
 *******************************************************************************
 			7. Input and Output
 *******************************************************************************
