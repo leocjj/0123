@@ -1,0 +1,149 @@
+
+
+********************************************************************************
+									Python packages
+********************************************************************************
+
+A Python file can be a module
+When this file is in a folder, we call this folder a package.	
+This means for Python: packages everywhere.
+Dotted module names == Path
+
+In C: 					In Python:					
+#include "abs.h"		import abs				from abs import my_abs
+						abs.my_abs(89)	or		my_abs(89)
+
+In C:								In Python:
+#include "my_math/abs.h"		from my_math.abs import my_abs
+									my_abs(89)
+								Or
+									import my_math.abs
+									my_math.abs.my_abs(89)
+
+my_script.py
+my_math/
+    abs.py
+How to use my function my_abs(a) from file abs.py in my_script.py?
+    import my_math/abs.py => NO
+    import my_math/abs => NO
+    import my_math.abs.py => NO
+    import my_math.abs => YES but, use: my_math.abs.my_abs(89) => not friendly
+    from my_math.abs import my_abs => YES!, use: my_abs(89)
+
+Must be the magic file __init__.py. Each folder must contain this file to be a package.
+This file should be empty except if you want to import all by using *.
+
+my_script.py		--> from my_math.functions.add import my_add
+my_math/
+    __init__.py
+    abs.py
+    functions/
+        __init__.py
+        add.py
+
+
+*************************** import * is dangerous *******************************
+
+Using import * is still considered bad practice in production code.
+In that case, __init__.py shouldn’t be empty, must contain the list of modules to load:
+
+$ cat my_math/functions/__init__.py
+__all__ = ["add", "mul"]
+
+*************************** Relative versus Absolute import **********************
+
+my_script.py
+my_math/
+    __init__.py
+    abs.py
+    positive.py
+
+positive.py contains one function def is_positive(n) and this function uses my_abs(n). How it’s possible?
+
+By importing: from my_math.abs import my_abs or from abs import my_abs
+    from abs import my_abs is using a relative path between your file who imports and the module to import
+    from my_math.abs import my_abs is using an absolute path between the file you execute and the module to import
+
+
+************************************* IMPORT MODULES ***********************************
+
+Module: contain executable statements (to initialize the module) as well as function definitions. 
+	Statements: executed only the first time is imported. Run if the file is executed as a script.
+	Has its own private symbol: can access with tablemodname.itemname
+
+__name__	//global variable, within a module, the module's name (as a string)
+fibo.__name__	//Result: 'fibo' 
+
+import fibo	//This does not enter the names of the functions defined in fibo directly in the current symbol table. it only enters the module name fibo there. Using the module name you can access the functions:
+fibo.fib(1000)	//To use a function in module
+fib = fibo.fib	//To create a variabla to te function and then use fib(500)
+
+Modules can import other modules. Imported module names are placed in the importing module's global symbol table.
+
+from fibo import fib, fib2	Imports names into the importing module's symbol table. doesn't introduce module name.
+fib(500)
+
+from fibo import *		This imports all names except those beginning with an underscore (_)
+
+if you change your modules, you must restart the interpreter  or,  use import imp; imp.reload(modulename).
+
+python fibo.py <arguments>	//Executing modules as scripts, the code in the module will be executed
+				//just as if you imported it, but with the __name__ set to "__main__".
+				//That means that by adding this code at the end of your module:
+	if __name__ == "__main__":
+	    import sys
+	    fib(int(sys.argv[1]))
+	you can make the file usable as a script as well as an importable module.
+	$ python fibo.py 50
+
+sys.path			//Module Search Path
+	    The directory containing the input script (or the current directory).
+	    PYTHONPATH (a list of directory names, as the shell variable PATH).
+	    The installation-dependent default.
+
+
+************************************** PACKAGES *********************************+
+structuring module namespace,module name A.B designates a submodule named B in a package named A.
+
+modules avoid to worry about each other's global variable names
+dotted module names: avoid to worry about each other's module names.
+
+sound/                  Top-level package
+      __init__.py       Initialize the sound package. can just be an empty file.
+			can also execute initialization code for the package or set the __all__ variable.
+      formats/                  Subpackage for file format conversions
+              __init__.py
+              wavread.py
+              ...
+      effects/                  Subpackage for sound effects
+              __init__.py
+              echo.py
+              ...
+import sound.effects.echo			//To import individual modules from the package
+sound.effects.echo.echofilter(input, output, delay=0.7, atten=4)	//loads the submodule sound.effects.echo.
+from sound.effects import echo			//To importing the submodule
+	echo.echofilter(input, output, delay=0.7, atten=4)
+from sound.effects.echo import echofilter	//to import the desired function or variable directly
+	echofilter(input, output, delay=0.7, atten=4)
+from sound.effects import *			//__init__.py code defines a list named __all__
+	__all__ = ["echo", "surround", "reverse"]	//Content of file sound/effects/__init__.py
+	//if not defined, only ensures that the package sound.effects has been imported
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
