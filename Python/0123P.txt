@@ -15,6 +15,9 @@ sudo apt-get install python3-pep8
 	or
 sudo apt-get install python3-pip
 sudo pip3 install pep8
+[sudo pip install --upgrade autopep8]
+In VSC, File/Preferences/Settings... Extensions / Pythons / Formating:
+	Autopep8 Path (info from whereis autopep8)
 
 Make sure you have the right version
 $ pep8 --version

@@ -4,6 +4,8 @@
 MACHINE LEARNING
 Python(PL), R(PL), Numpy, TensorFlow (FW), Pandas(FW), Torch/PyTorch(FW), Flask(FW), Django(FW)
 
+cpython, pypy.org
+
 BIG DATA
 Scala (PL), Apache Spark (FW), Hadoop (FW)
 

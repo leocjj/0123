@@ -13,9 +13,12 @@ Cursos
 	https://openlibra.com/en/book/lies-damned-lies-or-statistics-how-to-tell-the-truth-with-statistics
 	http://immersivemath.com/ila/index.html
 	https://www.youtube.com/playlist?list=PL_c9BZzLwBRKKqOc9TJz1pP0ASrxLMtp2&feature=share	Tutorial de C
+	majoledesma.github.io/react-apuntes/
+	pythontutor.com/	// GOOD TO VISUALIZE MEMORY MOVEMENTS.
 
 deeplearningbook.org		//
 https://onlinejudge.org/
+https://ourworldindata.org/
 
 http://inning.com.co/
 https://datapico.com/
@@ -102,8 +105,11 @@ Employable software engineer
 	Technical skills
 
 Empresas
-	Slack -> calidev
+	Jose Luis, de parte de Juan Carlos.
 	Avantica.net, monica.rojas @avantica.net, (51) 934 473 203, linkedin.com/in/monicarojasr
+	Slack -> calidev
+	optima.net.co
+	jobs.col@avantica.net
 	PSL -Software development (linkedin)
 	https://www.directrixanalytics.com/
 	Open (Albarracín)
@@ -119,6 +125,8 @@ Empresas
 	Sestra Consulting sestra.co
 	mattermost.com/careers
 	engineerhere.ca
+	ourworldindata.org/jobs
+	zonamerica.com/PostulantesZA/zajob.html
     https://www.meetup.com/es/CaliSharpCO/    https://twitter.com/calisharpco
 	www.qt.io/careers
 	www.toptal.com/hire-software-developers
@@ -135,6 +143,7 @@ Empresas
 	Netflix
 	linkedin.com/jobs
     sas.com/careers
+	https://www.sas.com/es_co/careers/faq.html
 	yovana.jimenez@ixerv.com, Maria Alejandra Rodas Sanchez (HR PSL en Linkedin)
 	Comfandi: www.elempleo.com, botón de base empresarial, logo Comfandi, opción Enviar hoja de vida, digita tu número de identificación.
 	
