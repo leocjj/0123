@@ -294,6 +294,11 @@ dict(sape=4139, guido=4127, jack=4098)
 --> {'sape': 4139, 'jack': 4098, 'guido': 4127}
 
 
+for key, value in storage.all().items():
+	if str(key) == args[0]:
+		a.append(str(value))
+
+
 *******************************************************************************
 **************************** 5.6. Looping Techniques **************************
 
