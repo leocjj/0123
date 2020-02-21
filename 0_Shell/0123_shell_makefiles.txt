@@ -1,0 +1,71 @@
+
+https://www.youtube.com/playlist?list=PLTd5ehIj0goOrqKZPvq1Np-8PUFcQSSm-
+Make by makigas in youtube channel.
+
+
+sudo apt install make	// To install make tool to create makefiles
+
+Makefile has rules to execute using the format:
+objective: [dependencies]
+<-- tab -->instructions
+
+objective is what we want to obtain.
+dependencies is what's needed to execute/compile instructions.
+instructions will be executed terminal commands to obtain the objective.
+
+**************************** makefile basic example ***************************
+all: program		// Which rules to run if none specified by command line
+
+# The following rule will compile the main program
+program: main.o salida.o calc.o
+	gcc -o program main.o output.o calc.o	// Link object code files
+
+main.o: main.c func.h
+	gcc -c		// Create object code, without linker
+
+output.o: output.c func.h
+	gcc -c output.c	// Create object code, without linker
+
+calc.o: calc.c func.h
+	gcc -c calc.c	// Create object code, without linker
+
+clean:
+	rm -f *.o	// Used to clean at the end
+*******************************************************************************
+
+* Allow us to run only the needed rules, in example, only compile modified file
+* If make detects that a dependency is another rule, will execute that rule too
+* make command try to find the file: 'makefile'
+
+make rule	// Run the specifiled rule. If the rule depends on others, will
+$ make program	// try to find rules to create that dependencies. In this case
+		// will execute main.o, output.o and calc.o rules in order to 
+		// obtain dependencies needed by program rule.
+
+$ make		// Run the first rule found or the default rule 'all'
+
+
+*******************************************************************************
+
+variable = main.o salida.o calculadora.o	// Variable definition
+
+x = hello
+y = @(x) world	// Recursive expansion variable.
+x = bye		// If we use @(y) after this, will print bye world.
+
+x = hello
+y := @(x) world	// Simple expansion variable.
+x = bye		// If we use @(y) after this, will print hello world.
+		// 'y0 will keep expanded the first time, ignoring the rest.
+
+clean:
+	rm -f $(variable)
+
+print:
+	echo $(x)	// Prints the command line instruction and the result
+	@echo $(x)	// ONLY prints the result
+
+
+
+
+
