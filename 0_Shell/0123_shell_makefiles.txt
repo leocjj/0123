@@ -1,17 +1,22 @@
 
+https://www.gnu.org/software/make/
 https://www.youtube.com/playlist?list=PLTd5ehIj0goOrqKZPvq1Np-8PUFcQSSm-
 Make by makigas in youtube channel.
 
 
+Make enables the end user to build and install your package without knowing
+the details of how that is done -- because these details are recorded in the
+makefile that you supply. 
+
 sudo apt install make	// To install make tool to create makefiles
 
 Makefile has rules to execute using the format:
-objective: [dependencies]
+target: [dependencies]
 <-- tab -->instructions
 
 objective is what we want to obtain.
 dependencies is what's needed to execute/compile instructions.
-instructions will be executed terminal commands to obtain the objective.
+instructions will execute shell commands to obtain the objective.
 
 **************************** makefile basic example ***************************
 all: program		// Which rules to run if none specified by command line
@@ -20,7 +25,7 @@ all: program		// Which rules to run if none specified by command line
 program: main.o salida.o calc.o
 	gcc -o program main.o output.o calc.o	// Link object code files
 
-main.o: main.c func.h
+main.o: main.c func.h	
 	gcc -c		// Create object code, without linker
 
 output.o: output.c func.h
@@ -34,18 +39,30 @@ clean:
 *******************************************************************************
 
 * Allow us to run only the needed rules, in example, only compile modified file
+* Verify if a file is modified using the date from files and dependencies.
 * If make detects that a dependency is another rule, will execute that rule too
 * make command try to find the file: 'makefile'
 
-make rule	// Run the specifiled rule. If the rule depends on others, will
+make rule	// Specify particular targets to update
+		// Run the specifiled rule. If the rule depends on others, will
 $ make program	// try to find rules to create that dependencies. In this case
 		// will execute main.o, output.o and calc.o rules in order to 
 		// obtain dependencies needed by program rule.
 
-$ make		// Run the first rule found or the default rule 'all'
+$ make		// Run the first rule found, normali a rule 'all', this can
+		// have as many calls to targets as we want.
+		// Only the first target will be executed, the default target,
+		// this must call other targets as needed. Can be overrided by
+.DEFAULT_GOAL := default_target
 
+.PHONY = all clean	// Defines phony targets
 
-*******************************************************************************
+include src/Makefile	// To upload others makefiles.
+
+OBJ = main.o salida.o calculadora.o main2.o salida2.o calculadora2.o main.o \
+salida.o calculadora.o	// To trim a big line
+
+************************ VARIABLES ********************************************
 
 variable = main.o salida.o calculadora.o	// Variable definition
 
@@ -63,7 +80,113 @@ clean:
 
 print:
 	echo $(x)	// Prints the command line instruction and the result
-	@echo $(x)	// ONLY prints the result
+	@echo $(x)	// ONLY PRINTS RESULT WITHOUT THE INSTRUCTION
+
+SRCS := $(wildcard *.c)	// Will store *.c files in variable SRCS
+BINS := $(SRCS:%.C=%)	// Will replace all *.c names with * names, fo.c to fo
+
+all: ${BINS}		// Calls values in ${BINS} as individual targets.
+
+TO LINK ALL *.O FILES
+%: %.o			// % will match any target name
+	@echo "Checking.."
+	${CC} ${LINKERFLAG} $< -O $@	//$< pattern prerequisites
+foo: foo.o				//$@ pattern target
+	@echo "Checking.."		// This rule will be called for every	
+	gcc -LM foo.o -O foo		// value in ${BINS}
+
+TO COMPILE ALL *.C FILES	
+%.o: %.c
+	@echo "Creating object.."
+	${CC} -c $<;
+
+
+*********************** BASIC EXAMPLE *****************************************
+
+$ make		// This will call the following makefile
+***
+	.PHONY: all say_hello generate clean
+
+	all: say_hello generate
+
+	say_hello:
+		@echo "Hello World"
+	generate:
+		@echo "Creating empty text files..."
+		touch file-{1..10}.txt
+	clean:
+		@echo "Cleaning up..."
+		rm *.txt
+***
+$ make clean	// Call clean 
+
+
+*********************** ADVANCED EXAMPLE ***********************************
+
+This makefile compile all C programs by using vars, patterns, and functions
+
+***
+	# Usage:
+	# make        # compile all binary
+	# make clean  # remove ALL binaries and objects
+
+	.PHONY = all clean
+
+	CC = gcc                        # compiler to use
+
+	LINKERFLAG = -lm
+
+	SRCS := $(wildcard *.c)
+	BINS := $(SRCS:%.c=%)
+
+	all: ${BINS}
+
+	%: %.o
+		@echo "Checking.."
+		${CC} ${LINKERFLAG} $< -o $@
+
+	%.o: %.c
+		@echo "Creating object.."
+		${CC} -c $<
+
+	clean:
+		@echo "Cleaning up..."
+		rm -rvf *.o ${BINS}
+***
+
+
+
+*********************** IMPLICIT RULES ****************************************
+
+
+
+*********************** AUTO TOOLS ********************************************
+
+https://opensource.com/article/19/7/introduction-gnu-autotools
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -61,6 +61,10 @@ alias rm="rm -i"		//To increase safety
 
 
 ************************* general installation ********************************
+
+Fedora uses dnf, OpenSUSE uses zypper, Debian and Ubuntu use apt, Slackware
+uses sbopkg, FreeBSD uses pkg_add, and Illumos-based OpenIndiana uses pkg. 
+
 sudo apt-get update
 [sudo apt-get install xz-utils]		//for .xs files
 
@@ -78,6 +82,17 @@ sudo apt-get update
 		make
 		sudo make install
 		[sudo reboot]
+
+    First, during the ./configure step, Autotools scans the host system (the
+computer it’s being run on) to discover the default settings. Default settings
+include where support libraries are located, and where new software should be
+placed on the system.
+    Next, during the make step, Autotools builds the application, usually by
+converting human-readable source code into machine language.
+    Finally, during the make install step, Autotools copies the files it built
+to the appropriate locations (as detected during the configure stage) on your
+computer.
+
 
 sudo apt install ./codeblocks_17.12-1_amd64.deb
 
