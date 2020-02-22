@@ -317,7 +317,14 @@ https://www.programiz.com/python-programming/methods/built-in/abs
     Python dict()
     Python dir()
     Python divmod()
-    Python enumerate()
+    Python enumerate()	//enumerate(iterable, start=0), returns list of tuples 
+			enumerate(thing), where thing is either an iterator 				or a sequence, returns a iterator that will return
+			(0, thing[0]), (1, thing[1]) ...
+		for i in range(len(L)):		for i, item in enumerate(L):
+			item = L[i]			...
+			...				L[i] = result
+			L[i] = result
+
     Python staticmethod()
     Python filter()
     Python eval()       // eval(expression, globals=None, locals=None)runs expresion
