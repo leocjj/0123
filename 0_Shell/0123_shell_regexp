@@ -1,4 +1,6 @@
 
+https://rubular.com/
+
 Regulas Expressions
 
 special text string for describing a search pattern (wildcards on steroids)
@@ -73,7 +75,20 @@ $		ah$			ah, ah in aah
 
 ^\d{10,10}$			Matches only 10 digits, for example phone number
 
+\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b
+^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$		email address
+\b[1-9][0-9]{3}\b to match a number between 1000 and 9999
+\b[1-9][0-9]{2,4}\b matches a number between 100 and 99999.
+<.+> matches <EM>first</EM>
+<.+?> matches <EM>
+<[^<>]+> to quickly match an HTML tag without regard to attributes.
 
+https://stackoverflow.com/questions/33988226/extract-text-between-two-tags-using-regex-in-ruby
+[from:Google] [to:+16474951758] [flags:-1:0:-1:0:-1]
+Google,+16474951758,-1:0:-1:0:-1
+(?<=from:)[\p{Alnum}-]+
+(?<=to:)[+?0-9A-Za-z]+
+(?<=flags:)[+-?{Alnum}-]+
 
 
 
