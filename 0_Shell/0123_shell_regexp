@@ -1,0 +1,102 @@
+
+Regulas Expressions
+
+special text string for describing a search pattern (wildcards on steroids)
+
+Characters with special meanings in regexp: 
+\ ^ $ . | ? * + ( ) [ {
+to use any of these as a literal, escape them with a backslash
+1+1=2, the correct regex is 1\+1=2
+
+Use __ match a
+\t  tab character (ASCII 0x09)
+\r  return (0x0D)
+\n  line feed (0x0A)
+\a (bell, 0x07)
+\e (escape, 0x1B)
+\f (form feed, 0x0C)
+\v (vertical tab, 0x0B)
+Windows text files use \r\n to terminate lines
+UNIX text files use \n.
+
+\uFFFF or \x{FFFF} to insert a Unicode character
+\u20AC or \x{20AC} matches the euro currency sign.
+
+\xFF  character by its hexadecimal index in the character set.
+\xA9 matches the copyright symbol in the Latin-1 character set.
+
+“character class”
+matches only ONE out of several characters.
+[ae] To match an a or an e
+gr[ae]y to match either gray or grey. matches only A SINGLE character. The order of the characters inside a character class does not matter.
+
+[0-9] Range of characters.
+matches a single digit between 0 and 9.
+[0-9a-fA-F] more than one range.  matches a single hexadecimal digit, case insensitively.
+[0-9a-fxA-FX] combine ranges and single characters. matches a hexadecimal digit or the letter X.
+
+q[^x] negates the character class. Matches qu in question.
+	Means “a q followed by a character that is not a u”, doesn't match in iraq
+
+\d matches a single character that is a digit
+\w matches a “word character” (alphanumeric characters plus underscore)
+\s matches a whitespace character (includes tabs and line breaks).
+In modern applications, they include non-English letters and numbers.
+
+.  matches a single character, except line break characters.
+“dot matches all” or “single line” mode makes dot match any including line breaks.
+
+gr.y matches gray, grey, gr%y, etc. Use the dot sparingly. Often, a character class or negated character class is faster and more precise.
+
+
+Code	Example		Matches (in ah, aah, aaah, aaaah, h, ha, aha
+{m, n}	a{1,3}h		ah, aah, aaah, aaah (in aaaah), ah (in aha)
+?		a?h			0 or 1 occurrence. Match: ah, h
++		a+h			1 or + occurrence. Match: ah, aah, aaah, aaaah..
+*		a*h			0 or + occurrence. Match: h, ah, aah, aaah, aaaah
+
+Code	Example		Matches in: ah, aah, ha, aha, ha<newline>ah
+^		^ah			at the start of line. Match:ah, ah in aha and after newline
+$		ah$			ah, ah in aah
+\A		\Aah		at the start of string
+\Z		ah\Z		at the end of string
+
+[a-zA-Z0-9]			ONE out of several characters
+[^a-zA-Z0-9]		any chars which is no one of those in the chars set
+[a-zA-Z0-9]			repeating characters. [0-9]+ matches 333, 222, 123
+[1st - [2nd]]		any one chars in first list but not in the second
+					[0-9-[02468]]+ matces 1357, 111, not matches 124
+\d					Any digit
+\s					Any whitespace. \s+$ matches \t, blank line with spaces.
+\w					any word char (letters, numbers). \w{1,5} matches foo_1
+\D, \S, \W			Opposite of the abode
+
+^\d{10,10}$			Matches only 10 digits, for example phone number
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
