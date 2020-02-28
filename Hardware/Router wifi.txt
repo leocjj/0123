@@ -11,19 +11,20 @@ If the other router has DHCP (Automatic IP), Disable DHCP server option, save.
 Change Network/LAN settings to assign an IP Address for the new router, must be
 	in the same range of the first one.
 	To know data of the other browser, access by wifi then properties or
-	conect by cable, cmd / ipconfig, look for puerta de enlace predeterminada.
+	connect by cable, cmd / ipconfig, look for puerta de enlace predetermi.
 	if the other is in range of 192.168.1.100 to 192.168.199,
-	asigng a new IP Address to 192.168.1.100
+		asigng a new IP Address to 192.168.1.100
 	if the other is in range of 192.168.1.0 to 192.168.99
-	asigng a new IP Address to 192.168.1.13
+		asigng a new IP Address to 192.168.1.13
 	save, reset and
-	reconect to this address in browser.
+	reconect to this NEW address in browser.
 Go to Wireless configuration:
 	Enable Wireless Router Radio, save
 	Enable SSID Broadcast, save
 	Enable WDS Bridging (to enable as a bridge)
 	Run Survey to look for the other router (wireless net) or fill fields
-	Channel must be the same as the other router, see configuration of the wireless net
+	CHANNEL must be the same as the other router, see configuration of the
+	wireless net.
 Reboot
 Now there is internet with wire in the new router
 

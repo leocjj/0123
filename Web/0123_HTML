@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--Validators https://jigsaw.w3.org/css-validator https://validator.w3.org-->
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />	<!-- MANDATORY < FIRST 512 BYTES ? -->
+		<title>
+			AirBnB Clone
+		</title>
+		<link rel="stylesheet" href="assets/stylesheets/main.css">
+	</head>
+	<body style="margin:0px; padding: 0px;">
+	</body>
+</html>
+
+
+******************* HTML5 structure based elements*****************************
+
+	<header>
+		<hgroup>
+			<h1>A history of Pop Will Eat Itself</h1>
+			<h2>Introducing the legendary Grebo Gurus!</h2>
+		</hgroup>
+	</header>
+---
+	<footer>
+		<h3 id="copyright">Copyright and attribution</h3>
+	</footer>
+---
+	<nav>
+		<h2>Contents</h2>
+			<ul>
+				<li><a href="#Intro">Introduction</a></li>
+				<li><a href="#History">History</a>
+			</ul>
+	</nav>
+---
+	<aside>
+		<table>
+			<!-- lots of quick facts inside here -->
+		</table>
+	</aside>
+---
+	<figure>
+		<img src="pwei.png" alt="Old poppies logo" />
+		<figcaption> The old poppies logo<br />
+			<a href="http://www...">picture on ...</a>, taken by ...
+		</figcaption>
+	</figure>
+---
+	<time datetime="1989-03-13T13:00Z-08:00"> clock </time>
+---
+	<section id="rock">
+		<h2>Rock bands</h2>
+		<article>
+			...
+		</article>
+	</section>
+	<div>
+---
+
+*******************************************************************************
+									CSS 
+*******************************************************************************
+
+Uses of CCS:
+	1) in a separate CSS file (with file extension .css)
+		<head>
+			<link rel="stylesheet" href="stylesheets/main.css">
+		</head>
+	2) in a <style> tag inside of the <head> tag
+		<HEAD>
+		<STYLE type="text/css">
+			H1 {border-width: 1; border: solid; text-align: center}
+		</STYLE>
+		</HEAD>
+	3) inside of an HTML tag, using the style attribute, “inline style”.
+		<body style="margin:0px; padding: 0px;">
+
+Asigning values to:
+	position	{margin {border {Padding (relleno){ content(width) }}}}
+
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+	--- 
+    padding:25px 50px 75px 100px;
+        padding superior es 25px
+        padding derecho es 50px
+        padding bajo es 75px
+        padding izquierdo es 100px
+	---
+    padding:25px 50px 75px;
+        padding superior es 25px
+        padding derecho y padding izquierdo son 50px
+        padding bajo es 75px
+	---
+    padding:25px 50px;
+        padding superior y padding bajo son 25px
+        padding derecho y padding izquierdo son 50px
+	---
+    padding:25px;
+        todos paddings son 25px
+
+	border-width (anchura de borde)
+	border-color (color de borde)
+	border-style (estilo de borde)
+
+	Margin: clean space around elements (outside of border), is transparent.
+
+
+************************* CSS STYLE declarations ******************************
+
+In the following example, we specify two alternate style sheets named "compact"
+If the user selects the "compact" style, the user agent must apply both
+external style sheets, as well as the persistent "common.css" style sheet.
+If the user selects the "big print" style, only the alternate style sheet
+"bigprint.css" and the persistent "common.css" will be applied.
+
+<LINK rel="alternate stylesheet" title="compact" href="small-base.css" type="text/css">
+<LINK rel="alternate stylesheet" title="compact" href="small-extras.css" type="text/css">
+<LINK rel="alternate stylesheet" title="big print" href="bigprint.css" type="text/css">
+<LINK rel="stylesheet" href="common.css" type="text/css">
+
+Here is a cascade example that involves both the LINK and STYLE elements.
+
+<LINK rel="stylesheet" href="corporate.css" type="text/css">
+<LINK rel="stylesheet" href="techreport.css" type="text/css">
+<STYLE type="text/css">
+    p.special { color: rgb(230, 100, 180) }
+</STYLE>
+
+
+********************************* SELECTORS ***********************************
+
+Puts a border around every H1 element in the document and centers it:
+		H1 {border-width: 1; border: solid; text-align: center}
+
+Only apply to H1 elements of a specific class:
+		H1.myclass {border-width: 1; border: solid; text-align: center}
+	<H1 class="myclass"> This H1 is affected by our style </H1>
+	<H1> This one is not affected by our style </H1>
+
+To limit the scope of the style to a single instance of H1
+		#myid {border-width: 1; border: solid; text-align: center}
+	<H1 class="myclass"> This H1 is not affected </H1>
+	<H1 id="myid"> This H1 is affected by style </H1>
+	<H1> This H1 is not affected </H1>
+
+
+/* comments */
+selector {
+	property: value;
+	property: value;
+}
+
+-------------------------------------------------------------------------------
+Selector	CCS					HTML
+-------------------------------------------------------------------------------
+type		div { ... }			<div>...</div>
+class		.awesome { ... }	<div class="awesome">...</div>
+ID			#shayhowe { ... }	<div id="shayhowe">...</div>
+
+Descendant	article h2 {...}	<article><p><h2>Selected</h2></p></article>
+			Applies for all h2 within an article element, no matter hierarchy.
+
+DirectChild	article > p {...}	<article><p>Selected</p></article>
+			Applies for direct children of a parent element.
+
+
+https://learn.shayhowe.com/advanced-html-css/complex-selectors/
+
+h2 ~ p 	General Sibling Selector
+Selects an element that follows anywhere after the prior element, in which both
+elements share the same parent
+
+h2 + p 	Adjacent Sibling Selector
+Selects an element that follows directly after the prior element, in which both
+elements share the same parent
+
+a[target] 	Attribute Present Selector
+Selects an element if the given attribute is present
+
+a[href="http://google.com/"] 	Attribute Equals Selector
+Selects an element if the given attribute value exactly matches the value stated
+
+a[href*="login"] 	Attribute Contains Selector
+Selects an element if the given attribute value contains at least once instance of the value stated
+
+a[href^="https://"] Attribute Begins With Selector
+Selects an element if the given attribute value begins with the value stated
+
+a[href$=".pdf"] 	Attribute Ends With Selector
+Selects an element if the given attribute value ends with the value stated
+
+a[rel~="tag"] 	Attribute Spaced Selector
+Selects an element if the given attribute value is whitespace-separated with
+one word being exactly as stated
+
+a[lang|="en"] 	Attribute Hyphenated Selector 	Selects an element if the given
+attribute value is hyphen-separated and begins with the word stated
+
+a:link 	Link Pseudo-class
+Selects a link that has not been visited by a user
+
+a:visited 	Link Pseudo-class
+Selects a link that has been visited by a user
+
+a:hover 	Action Pseudo-class
+Selects an element when a user has hovered their cursor over it
+
+a:active 	Action Pseudo-class
+Selects an element when a user has engaged it
+
+a:focus 	Action Pseudo-class
+Selects an element when a user has made it their focus point
+
+input:enabled 	State Pseudo-class
+Selects an element in the default enabled state
+input:disabled 	State Pseudo-class
+Selects an element in the disabled state, by way of the disabled attribute
+input:checked 	State Pseudo-class
+Selects a checkbox or radio button that has been checked
+input:indeterminate 	State Pseudo-class
+Selects a checkbox or radio button that neither been checked or unchecked, leaving it in an indeterminate state
+li:first-child 	Structural Pseudo-class
+Selects an element that is the first within a parent
+li:last-child 	Structural Pseudo-class 
+Selects an element that is the last within a parent
+div:only-child 	Structural Pseudo-class
+Selects an element that is the only element within a parent
+p:first-of-type 	Structural Pseudo-class
+Selects an element that is the first of its type within a parent
+p:last-of-type 	Structural Pseudo-class
+Selects an element that is the last of its type within a parent
+img:only-of-type 	Structural Pseudo-class
+Selects an element that is the only of its type within a parent
+li:nth-child(2n+3) 	Structural Pseudo-class
+Selects an element that matches the given number or expression, counting all elements from the beginning of the document tree
+li:nth-last-child(3n+2) 	Structural Pseudo-class
+Selects an element that matches the given number or expression, counting all elements from the end of the document tree
+p:nth-of-type(3n) 	Structural Pseudo-class
+Selects an element that matches the given number or expression, counting only elements of its type from the beginning of the document tree
+p:nth-last-of-type(2n+1) 	Structural Pseudo-class
+Selects an element that matches the given number or expression, counting only elements of its type from the end of the document tree
+section:target 	Target Pseudo-class
+Selects an element whose ID attribute value matches that of the URI fragment identifier
+div:empty 	Empty Pseudo-class 	Selects an element that does not contain any children or text nodes
+div:not(.awesome) 	Negation Pseudo-class
+Selects an element not represented by the stated argument
+
+.alpha:first-letter 	Textual Pseudo-elements
+Selects the first letter of text within an element
+
+.bravo:first-line 	Textual Pseudo-elements
+Selects the first line of text within an element
+
+div:before 	Generated Content
+Creates a pseudo-element inside the selected element at the beginning
+
+a:after 	Generated Content
+Creates a pseudo-element inside the selected element at the end
+
+::selection 	Fragment Pseudo-element
+Selects the part of a document which has been selected, or highlighted, by a
+users’ actions
+
+
+***************************** RESET WEB BROWSER STYLE VALUES *****************
+
+To reset default web browsers styles:
+	https://meyerweb.com/eric/tools/css/reset/
+	https://necolas.github.io/normalize.css/
+
+	/* http://meyerweb.com/eric/tools/css/reset/ 
+	   v2.0 | 20110126
+	   License: none (public domain)
+	*/
+
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline;
+	}
+	/* HTML5 display-role reset for older browsers */
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	body {
+		line-height: 1;
+	}
+	ol, ul {
+		list-style: none;
+	}
+	blockquote, q {
+		quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+
+
+*******************************************************************************
+							RESPONSIVE DESIGN
+*******************************************************************************
+https://learn.shayhowe.com/advanced-html-css/responsive-web-design/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
