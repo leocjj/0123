@@ -1,0 +1,107 @@
+
+
+GUI for MySQL: https://tableplus.com/linux
+
+
+********************************************************************************
+				INSTALATION
+********************************************************************************
+
+echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' | sudo tee -a /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install mysql-server-5.7
+mysql --version
+  mysql  Ver 14.14 Distrib 5.7.8-rc, for Linux (x86_64) using  EditLine wrapper
+
+default user:	root
+default pass:	pass_created_at_installation_of_mysql
+
+If password is missing
+	stop the server
+	sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking &
+	mysql -u root
+	FLUSH PRIVILEGES;
+	ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+
+sudo apt-get remove --purge mysql-server mysql-client mysql-common
+
+[service mysql start]		// in a container
+
+mysql -hlocalhost -uroot -p	//Connect to your MySQL server:
+
+
+********************************** NEW USER ************************************
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';	// provide the user with access
+// asterisks in this command refer to the database and table
+FLUSH PRIVILEGES;	// Reload all the privileges.
+
+
+********************************** PERMISSIONS *********************************
+common possible permissions that users can enjoy.
+
+    ALL PRIVILEGES- as we saw previously, this would allow a MySQL user full access to a designated database (or if no database is selected, global access across the system)
+    CREATE- allows them to create new tables or databases
+    DROP- allows them to them to delete tables or databases
+    DELETE- allows them to delete rows from tables
+    INSERT- allows them to insert rows into tables
+    SELECT- allows them to use the SELECT command to read through databases
+    UPDATE- allow them to update table rows
+    GRANT OPTION- allows them to grant or remove other users’ privileges
+
+GRANT permission_type ON database_name.table_name TO ‘username’@'localhost’;
+
+REVOKE permission_type ON database_name.table_name FROM ‘username’@‘localhost’;
+
+SHOW GRANTS username;	// review a user’s permissions
+
+DROP USER ‘username’@‘localhost’;	//	
+
+
+******************************* BASIC COMMANDS *********************************
+
+cat script.sql | mysql -uroot -p my_database		// RUN SQL SCRIPT
+cat script.sql | mysql -hlocalhost -uroot -p [data_base_name]
+
+USE database_name; 	// Changes context to the specified database
+SHOW DATABASES;
+CREATE DATABASE IF NOT EXISTS hbtn_0;
+DROP DATABASE IF EXISTS hbtn_0;
+SHOW TABLES;
+CREATE TABLE first_table(id INT, name VARCHAR(256));
+SHOW CREATE TABLE first_table;
+
+SELECT * FROM first_table;
+INSERT INTO `first_table` (`id`,`name`) VALUES (89, "Holberton School");
+
+SELECT * FROM first_table WHERE id=89;
+SELECT COUNT(*) FROM first_table WHERE id=89;
+SELECT score, name FROM second_table ORDER BY score DESC;
+SELECT score, name FROM second_table ORDER BY score ASC;
+SELECT score, name FROM second_table WHERE score >= 10 ORDER BY score DESC;
+
+UPDATE `second_table` SET `score` = 10 WHERE `name` = "Bob";
+DELETE FROM second_table WHERE score <= 5;
+
+SELECT AVG(score) AS average FROM second_table;
+SELECT score, COUNT(*) AS number FROM second_table GROUP BY score ORDER BY score DESC;
+SELECT score, name FROM second_table WHERE name IS NOT NULL ORDER BY score DESC;
+
+
+**************************** ADVANCED COMMANDS *********************************
+
+ALTER DATABASE hbtn_0c_0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+ALTER TABLE hbtn_0c_0.first_table CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+Display the average temperature by city ordered by temperature
+SELECT city, AVG(value) AS avg_temp FROM temperatures GROUP BY city ORDER BY avg_temp DESC;
+
+Display the top 3 cities with highest average temperature in July and August
+SELECT city, AVG(value) AS avg_temp FROM temperatures WHERE month IN (7, 8) GROUP BY city ORDER BY avg_temp DESC LIMIT 3;
+
+Display the max temperature in each state
+SELECT state, MAX(value) AS max_temp FROM temperatures GROUP BY state ORDER BY state;
+
+
+
+
