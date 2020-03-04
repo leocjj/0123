@@ -32,10 +32,14 @@ mysql -hlocalhost -uroot -p	//Connect to your MySQL server:
 
 ********************************** NEW USER ************************************
 CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';	// provide the user with access
-// asterisks in this command refer to the database and table
+GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';	// provide access
+					// asterisks to database and table
 FLUSH PRIVILEGES;	// Reload all the privileges.
 
+CREATE USER IF NOT EXISTS user_0d_1@localhost;
+SET PASSWORD FOR user_0d_1@localhost = 'user_0d_1_pwd';
+GRANT ALL PRIVILEGES ON database|* . table|* TO user_0d_1@localhost;
+FLUSH PRIVILEGES;
 
 ********************************** PERMISSIONS *********************************
 common possible permissions that users can enjoy.
@@ -53,22 +57,30 @@ GRANT permission_type ON database_name.table_name TO ‘username’@'localhost�
 
 REVOKE permission_type ON database_name.table_name FROM ‘username’@‘localhost’;
 
-SHOW GRANTS username;	// review a user’s permissions
+SHOW GRANTS FOR user_0@localhost;	// review a user’s permissions
 
 DROP USER ‘username’@‘localhost’;	//	
 
 
-******************************* BASIC COMMANDS *********************************
+*********************************** SCRIPTS ************************************
+
+-- comment line
 
 cat script.sql | mysql -uroot -p my_database		// RUN SQL SCRIPT
 cat script.sql | mysql -hlocalhost -uroot -p [data_base_name]
+
+echo "CREATE DATABASE hbtn_0d_tvshows;" | mysql -uroot -p
+curl "https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/274/hbtn_0d_tvshows.sql" -s | mysql -uroot -p hbtn_0d_tvshows
+
+******************************* BASIC COMMANDS *********************************
+
 
 USE database_name; 	// Changes context to the specified database
 SHOW DATABASES;
 CREATE DATABASE IF NOT EXISTS hbtn_0;
 DROP DATABASE IF EXISTS hbtn_0;
 SHOW TABLES;
-CREATE TABLE first_table(id INT, name VARCHAR(256));
+CREATE TABLE IF NOT EXISTS first_table(id INT, name VARCHAR(256) NOT NULL);
 SHOW CREATE TABLE first_table;
 
 SELECT * FROM first_table;
