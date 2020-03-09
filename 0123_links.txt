@@ -105,11 +105,11 @@ Employable software engineer
 	Technical skills
 
 Empresas
-	Jose Luis, de parte de Juan Carlos.
+	Felipe Arcos
+	Jose Luis, de parte de Juan Carlos. 	jobs.col@avantica.net
 	Avantica.net, monica.rojas @avantica.net, (51) 934 473 203, linkedin.com/in/monicarojasr
 	Slack -> calidev
 	optima.net.co
-	jobs.col@avantica.net
 	PSL -Software development (linkedin)
 	https://www.directrixanalytics.com/
 	Open (Albarracín)
@@ -119,7 +119,7 @@ Empresas
 	Green SQA
 	peaku.co/trabajos
 	torre.co/es/jobs
-	Felipe Arcos
+	https://manar.com.co/
 	Banco de occidente (Vero) https://elempleo.com/sitios-empresariales/colombia/banco-occidente/
 	Remotas canadá
 	Sestra Consulting sestra.co

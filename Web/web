@@ -1,0 +1,274 @@
+
+
+https://www.youtube.com/channel/UCJQJ4GjTiq5lmn8czf8oo0Q
+https://www.thegeekstuff.com/2011/11/tcp-ip-fundamentals/
+
+TCP (Transmision Control Protocol)
+defines how applications can create channels of communication across a network.
+manages how a message is assembled into smaller packets before they are then transmitted over the internet and reassembled in the right order at the destination address. divides the data(coming from the application layer) into proper sized chunks and then passes these chunks onto the network.
+
+UDP provides a comparatively simpler but unreliable service by sending packets from one host to another. UDP does not take any extra measures to ensure that the data sent is received by the target host or not. The term ‘unreliable connection’ are used where loss of some information does not hamper the task being fulfilled through this connection.
+
+TCP is used where a reliable connection is required while UDP is used in case of unreliable connections. The term ‘reliable connection’ is used where it is not desired to loose any information that is being transferred over the network through this connection. 
+
+IP (Internet Protocol)
+defines how to address and route each packet to make sure it reaches the right destination.
+Each gateway computer on the network checks this IP address to determine where to forward the message.
+
+TCP/IP suite of protocols is classified as stateless, which means each client request is considered new because it is unrelated to previous requests. Being stateless frees up network paths so they can be used continuously.
+
+DNS (Domain Name System)
+Database, translate domain names into IP addressess
+
+NAS (NEtwork Attached Storage)
+File storage for multiple users
+
+Firewall
+access/deny rules for incoming trafic to network.
+based on IP, Domain, Protocol, Program, Ports, key words.
+	Host-based: installed on a computer. Antivirus FW, Zone Alarm, Windows.
+	Network-based: protects access to a network.
+		Stand-alone firewall (hardware).
+		Routers buitl-in firewall.
+		Cloud firewall.
+
+Proxy server (middleman)
++ Hide IP, cached web page, save bandwidth, activity logging and control
+- No encription
+
+VPN (virtual private network)
++ Hide IP, Encripts data. Secure tunel. p.e.: nordvpn.com
+
+Server
+HW or SW that provides functionality for other programs or devices (clients).
+Types: Application, Catalog, Communications, Computing, Database, Fax, File,
+Game, Mail, Media, Print, Sound, Proxy, Virtual, Web
+
+Web server
+physical machine or virtual computer (VM-Virtual Machine or container).
+Can satisfy client requests on the World Wide Web.
+Can contain one or more websites. Processes incoming network requests over HTTP
+and several other related protocols. 
+Web servers: Nginx, Apache, IIS Microsoft, LiteSpeed Web Server, sun, GWS google
+
+Deamons
+programs in background in a web server
+
+Monitor
+software monitoring will watch computer metrics, record them, and emit an alert if something is unusual or that could make the computer not work properly happens. NewRelic, DataDog, Uptime Robot, Nagios, WaveFront
+
+single point of failure (SPOF)
+is a part of a system that, if it fails, will stop the entire system from working. SPOFs are undesirable
+
+
+
+
+
+********************************************************************************
+
+Modem
+(De)Modulates signals between PC and ISP. Cable (coaxial), DSL(db9), etc.
+Can conect ONE device to internet. Can have a router built-in.
+
+Router
+Routes data from one network to another based on ther IP address.
+Passes internet conection to other devices
+Can have a switch with multiple ports and fucntions as a wireless access
+
+Switch
+Connect all network devices together on an internal network.
+Directs data only to intended port.
+Switch table: port / Device (detected) / mac address.
+
+Hub
+Connect all network devices together on an internal network. Broadcast the
+data received to all connected devices.
+Hub table: port / Device (detected).
+
+
+********************************************************************************
+TCP/IP Layer	OSI Layer	Protocols
+
+Aplication:	Aplication	http, ftp, pop3, smtp-Simple Mail Transfer Prot. 
+standardized	Presentation	snmp-Simple Network Management Protocol.
+data exchange	Session
+
+Transportation	Transport	TCP, UDP-User Datagram Protocol.
+end to end			(stateful - connection remains)
+communication
+
+Network		Network		IP, ICMP-Internet Control Message Protocol
+				IGMP
+package manages, connects networks to transportation layer.
+organize or handle the movement of data on network.
+
+Physical	Data link	Ethernet for LANs, ARP-Address Resolution Prot.
+connects nodes			PPP(Point to point protocol).
+or host in the network.
+Device drivers in the OS and the network interface card attached to the system.
+
+The advantages of using the TCP/IP model include the following:
+    helps establish a connection between different types of computers;
+    works independently of the operating system;
+    supports many routing protocols;
+    has client-server architecture that is highly scalable;
+    can be operated independently;
+    supports several routing protocols; and
+    is lightweight and doesn't place unnecessary strain on a network or computer.
+
+The disadvantages of TCP/IP include the following:
+    complicated to set up and manage;
+    transport layer doesn't guarantee delivery of packets;
+    not easy to replace protocols in TCP/IP;
+    doesn't clearly separate the concepts of services, interfaces and protocols
+    so not good for describing new technologies in new networks; and
+    especially vulnerable to a SYN (synchronization) attack, which is a type of
+    denial-of-service attack in which a bad actor uses TCP/IP protocol.
+
+
+********************************************************************************
+
+
+********************************************************************************
+
+https://www.thegeekstuff.com/2016/01/load-balancer-intro/
+
+
+Load Balancer
+distribute the work-load of a system to multiple individual systems
+
+			Software Load Balancers
+		implements one or more scheduling algorithms.
+
+1. Weighted Scheduling Algorithm
+Work is assigned to the server according to the weight assigned to the server.
+This weight is determined by the administrators wisely by considering the
+hardware capabilities of each server.
+USED: when there is a considerable difference between the servers.
+Can be of two types: hardware load balancer and software load balancer.
+
+2. Round Robin Scheduling
+Requests are served by the server sequentially one after another.
+After sending the request to the last server, it starts from the first server.
+USED: when servers are of equal specification
+	and there not much persistentconnections.
+
+2.1 Weighted Round Robin (called Ratio on the BIG-IP):
+	the number of connections that each machine receives over time is
+	proportionate to a (fixed) ratio weight you define for each machine. 
+
+2.2 Dynamic Round Robin (Called Dynamic Ratio on the BIG-IP)
+	weights are based on continuous monitoring of the servers and are
+	therefore continually changing.
+
+3. Fastest
+Passes a new connection based on the fastest response time of all servers.
+USED: in environments where servers are distributed across different logical
+networks. On the BIG-IP, only servers that are active will be selected.
+
+	Variants of a generalized algorithm: Long Term Resource Monitoring
+Best choice if you have a significant number of persistent connections
+
+4. Least Connection First Scheduling
+Requests are served first to the server which is currently handling least 
+	number of persistent connections.
+USED: 	when servers have similar capabilities.
+	when we have large number of persistent connections in the traffic
+	unevenly distributed between the servers.
+	It is often coupled with Sticky Session or Session aware load balancing.
+	In this, all the request related to a session is sent to the same server
+	to maintain the session state and syncronization.
+This approach is used when we have session aware write operations in sync with
+client and the server so that it avoids any inconsistency.
+
+5. Observed: The Observed method uses a combination of the logic used in the Least Connections and Fastest algorithms to load balance connections to servers being load-balanced. With this method, servers are ranked based on a combination of the number of current connections and the response time. Servers that have a better balance of fewest connections and fastest response time receive a greater proportion of the connections. This Application Delivery Controller method is rarely available in a simple load balancer. 
+
+6. Predictive: The Predictive method uses the ranking method used by the Observed method, however, with the Predictive method, the system analyzes the trend of the ranking over time, determining whether a servers performance is currently improving or declining. The servers in the specified pool with better performance rankings that are currently improving, rather than declining, receive a higher proportion of the connections. The Predictive methods work well in any environment. This Application Delivery Controller method is rarely available in a simple load balancer. 
+
+Software Load Balancer Examples
+    HAProxy – A TCP load balancer.
+    NGINX – A http load balancer with SSL termination support. (install Nginx on Linux)
+    mod_athena – Apache based http load balancer.
+    Varnish – A reverse proxy based load balancer.
+    Balance – Open source TCP load balancer.
+    LVS – Linux virtual server offering layer 4 load balancing
+
+
+			Hardware Load Balancers
+
+Specialized routers, switches or dedicated system between servers and clients...
+It can also be a in between the the client and the server to balance the load.
+Implemented on Layer4 (Transport) and Layer7 (Application). L4-L7 routers.
+
+1. Layer4 Hardware Load Balancing: use TCP packages.
+make use of TCP, UDP and SCTP transport layer protocol details to make decision
+on which server the data is to be sent.
+Are mostly the network address translators (NATs) which shares load to the
+different servers getting translated to by these loadbalancer.
+These routers hide multiple servers behind.
+
+DNS load balancing: In DNS based load balancing method the Domain Name Servers
+are configured to return different ipaddress for different systems.
+This approach creates a load balancing effect whenever there is a dns lookup.
+
+Direct routing: This is a yet another configuration of hardware load balancing
+where the routers are aware of the server mac addresses and server may be
+ARP( Address resolution Protocol) disabled.
+In direct routing, it is direct in the sense that all the income traffic is
+routed by the load balancer however all the outgoing traffic direct reaches the
+client which makes it super fast load balancing configuration.
+
+Tunnel (IP tunneling): often looks like Direct routing where response is
+directly sent to client however the traffic between the router and the server
+can be routed. In this, client sends the request to the virtual IP of load
+balancer which further encapsulates the IP packets, keeps a hast table and
+distributes it to the different servers as per the configured load balancing
+technique. When the server is getting back the response, it decapsulates it and
+send back to the client directly according to the hash table which it has stored.
+This record is eventually removed from hash table when the connection is closed
+or there is a timeout.
+
+2. Layer7 Hardware Load Balancing
+makes the decision according to the actual content of the message (URLs, cookies,
+scripts) since HTTP exists on the layer7.
+These layer7 hardware actually form a ADN (Application delivery network) and they
+pass-on request to the servers as per the type of the content.
+For example, the request for image will go to an image server, request for PHP
+scripts may to another server, HTML, js and css like static content may go to
+another one and request to any media content may go to yet another server.
+distributing load according to the type to content requested.
+
+Layer 7 load balancing uses the following three techniques:
+    URL parsing: From this they come to know about different type of contents.
+    Cookie sniffing: This helps them for a session aware routing.
+    HTTP reading: This method looks for http header information.
+
+Hardware Load Balancer Examples
+    F5 BIG-IP load balancer (Setup HTTPS load balance on F5)
+    CISCO system catalyst
+    Barracuda load balancer
+    Coytepoint load balancer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
