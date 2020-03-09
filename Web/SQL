@@ -7,7 +7,8 @@ GUI for MySQL: https://tableplus.com/linux
 				INSTALATION
 ********************************************************************************
 
-echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' | sudo tee -a /etc/apt/sources.list
+echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' |
+	sudo tee -a /etc/apt/sources.list
 sudo apt-get update
 sudo apt-get install mysql-server-5.7
 mysql --version
@@ -16,6 +17,13 @@ mysql --version
 default user:	root
 default pass:	pass_created_at_installation_of_mysql
 
+
+************************ ROOT PASSWORD RESET ***********************************
+
+https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for
+-user-rootlocalhost
+
+***
 If password is missing
 	stop the server
 	sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking &
@@ -23,11 +31,21 @@ If password is missing
 	FLUSH PRIVILEGES;
 	ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
 
+***
 sudo apt-get remove --purge mysql-server mysql-client mysql-common
 
-[service mysql start]		// in a container
+***
+[service mysql start]			// in a container
 
-mysql -hlocalhost -uroot -p	//Connect to your MySQL server:
+***
+$ sudo mysql -u root # I had to use "sudo" since is new installation
+	mysql> USE mysql;
+	mysql> UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+	mysql> FLUSH PRIVILEGES;
+	mysql> exit;
+$ service mysql restart
+
+mysql -hlocalhost -uroot -p		//Connect to your MySQL server:
 
 
 ********************************** NEW USER ************************************
@@ -44,7 +62,8 @@ FLUSH PRIVILEGES;
 ********************************** PERMISSIONS *********************************
 common possible permissions that users can enjoy.
 
-    ALL PRIVILEGES- as we saw previously, this would allow a MySQL user full access to a designated database (or if no database is selected, global access across the system)
+    ALL PRIVILEGES- allow a MySQL user full access to a designated database
+		(or if no database is selected, global access across the system)
     CREATE- allows them to create new tables or databases
     DROP- allows them to them to delete tables or databases
     DELETE- allows them to delete rows from tables
