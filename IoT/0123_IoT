@@ -1,0 +1,55 @@
+
+http://www.steves-internet-guide.com/internet-of-things/
+https://www.dinero.com/empresas/articulo/telefonica-movistar-lanza-la-primera-red-exclusiva-para-el-internet-de-las-cosas/276980
+
+De acuerdo con el CEO de Telefónica Movistar Colombia, Fabián Hernández, esta estará habilitada en el 50% del territorio nacional en la red NB IoT (Narrowband Internet of Things) y LTE - M (Conectividad de la red de baja potencia y largo alcance).
+
+WAN –Range Up to 50km
+Existing 3G and 4G networks and the newer 5G will be used
+Low powered alternatives that are being developed by he mobile carrier networks.
+    LTE-MTC also called LTE-M and LTE Cat M1
+    Narrow band IOT. –NB-IOT
+    https://www.link-labs.com/blog/lte-iot-technologies
+
+Protocols
+    HTTP
+    MQTT– (Message Queuing Telemetry Transport) Uses TCP/IP.
+    	Main IOT messaging protocol because it is lightweight and easy to use.
+	Publish subscribe model (P/S) requires a message broker (switch).
+    AMQP -( Advanced Message Queuing Protocol) Uses TCP/IP.
+	Publish subscribe model and Point to Point .
+    COAP-(Constrained Application Protocol)
+	Uses UDP designed specifically for IOT uses request response model
+	like HTTP. RFC 7252
+    DDS– (Data Distribution Service) –
+    XMPP for instant messaging (IM) to connect people to other people via text messages 
+
+Protocol Support by Platform
+    Microsooft Azure -MQTT,AMQP,HTTP and HTTPS
+    AWS -MQTT,HTTPS,MQTT over websockets
+    IBM Bluemix – MQTT,HTTPS,MQTT
+    Thingwrox -MQTT,HTTPS,MQTT,AMQP
+
+MQTT
+CONNECT, PUBLISH, SUBSCRIBE, UNSUBSCRIBE and DISCONNECT types 
+
+A hub-and-spoke architecture is natural for MQTT.
+All the devices connect to a data concentrator server, like IBM’s new
+MessageSight appliance. Works on top of TCP, which provides a simple, reliable stream. Since the IT infrastructure uses the data, the entire system is
+designed to easily transport data into enterprise technologies like ActiveMQ
+and enterprise service buses (ESBs).
+
+https://www.linkedin.com/pulse/iot-communication-protocols-james-stansberry/
+
+http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
+
+https://www.hivemq.com/blog/mqtt-essentials-wrap-up/
+
+http://www.prismtech.com/sites/default/files/documents/MessagingComparsionNov2013USROW_vfinal.pdf
+
+http://www.steves-internet-guide.com/mqtt/
+
+http://www.steves-internet-guide.com/iot-messaging-protocols/
+
+
+
