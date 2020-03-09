@@ -1,5 +1,5 @@
 
-
+https://www.draw.io/
 https://www.youtube.com/channel/UCJQJ4GjTiq5lmn8czf8oo0Q
 https://www.thegeekstuff.com/2011/11/tcp-ip-fundamentals/
 
@@ -60,6 +60,10 @@ software monitoring will watch computer metrics, record them, and emit an alert 
 single point of failure (SPOF)
 is a part of a system that, if it fails, will stop the entire system from working. SPOFs are undesirable
 
+QPS (Query per second)
+
+HTTPS
+HTTPS pages typically use one of two secure protocols to encrypt communications - SSL (Secure Sockets Layer) or TLS (Transport Layer Security). Both the TLS and SSL protocols use what is known as an 'asymmetric' Public Key Infrastructure (PKI) system. An asymmetric system uses two 'keys' to encrypt communications, a 'public' key and a 'private' key. Anything encrypted with the public key can only be decrypted by the private key and vice-versa.
 
 
 
