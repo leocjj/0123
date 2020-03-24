@@ -1,0 +1,339 @@
+
+https://www.digitalocean.com/community/tutorials/an-introduction-to-configuration-management
+https://www.digitalocean.com/community/tutorials/configuration-management-101-writing-puppet-manifests
+
+*******************************************************************************
+
+configuration management (CM) refers to the process of systematically handling
+changes to a system in a way that it maintains integrity over time.
+Broadly used to refer to server configuration management.
+
+Tools: Puppet, Ansible, Chef and SalT
+purpose: to make sure the system’s state matches the state described by your
+provisioning scripts. 
+
+*******************************************************************************
+https://puppet.com/docs/puppet/6.4/system_requirements.html#concept-6629
+
+Master - Agent node model
+Use a custom DSL (domain specific language) that is based on Ruby.
+Ensure your systems are compatible with infrastructure and agent requirements.
+DECLARATIVE LANGUAGE
+Puppet masters must run on some variant of *nix, can't run on Windows.
+In the agent-master architecture, your master must allow incoming connections
+on port 8140 and agent nodes must be able to connect to the master on that port
+
+    Puppet Master: the master server that controls configuration on the nodes
+    Puppet Agent Node: a node controlled by a Puppet Master
+    Manifest: a file that contains a set of instructions to be executed
+    Resource: a portion of code that declares an element of the system and how
+		its state should be changed. For instance, to install a package we need
+		to define a package resource and ensure its state is set to “installed”
+    Module: a collection of manifests and other related files organized in a
+		pre-defined way to facilitate sharing and reusing parts of a provisioning
+    Class: just like with regular programming languages, to better organize the
+		provisioning and make it easier to reuse portions of the code
+    Facts: global variables containing information about the system, like
+		network interfaces and operating system
+    Services: used to trigger service status changes, like restarting or
+		stopping a service
+
+
+**************************** PUPPET STYLE *************************************
+http://puppet-lint.com/
+
+Install puppet-lint
+$ apt-get install -y ruby
+$ gem install puppet-lint -v 2.1.1
+$ puppet-lint --version
+
+Install It!
+package { 'puppet-lint':
+  ensure   => '1.1.0',
+  provider => 'gem',
+}
+
+Or, if you really must:
+$ gem install puppet-lint
+
+Run It!
+$ puppet-lint /etc/puppet/modules
+foo/manifests/bar.pp - ERROR: trailing whitespace found on line 1
+apache/manifests/server.pp - WARNING: variable not enclosed in {} on line 56
+...
+Fix Them!
+$ puppet-lint --fix /etc/puppet/modules
+foo/manifests/bar.pp - FIXED: trailing whitespace found on line 1
+apache/manifests/server.pp - FIXED: variable not enclosed in {} on line 56
+...
+
+
+**************************** PUPPET RUNNING ***********************************
+
+sudo apt-get install -y ruby		# To install puppet-lint dependency
+gem install puppet-lint -v 2.1.1	# To install puppet-lint
+puppet-lint --version				# Must show version, i.e. puppet-lint 2.1.1
+
+sudo apt-get install puppet			# To install puppet
+puppet --version					# Must show actual versión, i.e. 5.4.0
+
+puppet-lint file.pp					# To verify style
+puppet-lint --fix file.pp			# Tu fix style issues
+
+sudo puppet apply file.pp			# To run .PP file
+
+
+*******************************************************************************
+https://www.digitalocean.com/community/tutorials/configuration-management-101-writing-puppet-manifests
+
+*** Resources
+Tasks or steps are defined by declaring resources.
+Can represent: packages, files, services, users, and commands.
+Might have a state, which will trigger a system change in case the state of a
+	declared resource is different from what is currently on the system.
+	A package resource set to installed in your manifest will trigger a package
+	installation on the system if the package was not previously installed.
+
+	package { 'nginx':
+		ensure  => 'installed'
+	}
+
+
+*** Arbitrary command: exec resource
+	exec { 'apt-get update':	# Comment to explain this line is an identifier
+		command => '/usr/bin/apt-get update'
+	}
+
+****** Resources must explicitly define dependency between each other ******
+
+
+*** Dependency
+Execute a command, but you need to make sure a dependency is installed first:
+	package { 'python-software-properties':
+		ensure => 'installed'
+	}
+	exec { 'add-repository':
+		command => '/usr/bin/add-apt-repository ppa:ondrej/php5 -y'
+		require => Package['python-software-properties']
+	}
+require: receives as parameter a reference to another resource.
+For declaring resources: use exec, package ... (with lowercase)
+When referring to previously defined resources: Exec, Package ... (capitalized)
+
+
+*** Precedence
+A task is executed before another. Use the 'before' option instead:
+	package { 'curl':
+		ensure => 'installed'
+		before => Exec['install script']
+	}
+	exec { 'install script':
+		command => '/usr/bin/curl http://example.com/some-script.sh'
+	}
+
+
+*** Manifest Format
+Collection of resource declarations, extension .pp.
+Example of a simple playbook that performs two tasks:
+	updates the apt cache and installs vim afterwards:
+	exec { 'apt-get update':
+		command => '/usr/bin/apt-get update'
+	}
+	package { 'vim':
+		ensure => 'installed'
+		require => Exec['apt-get update']
+	}
+
+
+*** Variables
+Can be defined at any point in a manifest.
+The most common types of variables are strings and arrays of strings
+	other types are booleans and hashes.
+Example defines a string variable that is later used inside a resource:
+	$package = "vim"
+	package { $package:
+	   ensure => "installed"
+	}
+
+
+*** Loops
+single task and use a loop to repeat it with different packages to install.
+	$packages = ['vim', 'git', 'curl']
+	package { $packages:
+	   ensure => "installed"
+	}
+version 4, using the each iterator.
+	$packages.each |String $package| {
+	  package { $package:
+		ensure => "installed"
+	  }
+	}
+
+
+*** Conditionals
+Based on a variable:
+	if $osfamily != 'Debian' {
+	 warning('This manifest is not supported on this OS.')
+	}
+	else {
+	 notify { 'Good to go!': }
+	}
+
+Based on an output from a command: will only be executed when the output from
+/bin/which php is successful, that is, the command exits with status 0:
+	exec { "Test":
+	 command => "/bin/echo PHP is installed here > /tmp/test.txt",
+	 onlyif => "/bin/which php"
+	}
+
+'unless' will execute the command all times, except when the command under
+unless exits successfully:
+	exec { "Test":
+	 command => "/bin/echo PHP is NOT installed here > /tmp/test.txt",
+	 unless => "/bin/which php"
+	}
+
+
+*** Templates
+Used to set up configuration files, allowing for the use of variables and other
+features intended to make these files more versatile and reusable.
+Two different formats for templates:
+	Embedded Puppet (EPP): works starting from version 4.0
+	Embedded Ruby (ERB). 
+
+Below is an example of an ERB template for setting up an Apache virtual host, using a variable for setting up the document root for this host:
+	<VirtualHost *:80>
+		ServerAdmin webmaster@localhost
+		DocumentRoot <%= @doc_root %>
+
+		<Directory <%= @doc_root %>>
+		    AllowOverride All
+		    Require all granted
+		</Directory>
+	</VirtualHost>
+
+In order to apply the template, we need to create a file resource that renders the template content with the template method. This is how you would apply this template to replace the default Apache virtual host:
+	file { "/etc/apache2/sites-available/000-default.conf":
+		ensure => "present",
+		content => template("apache/vhost.erb") 
+	}    
+
+Puppet makes a few assumptions when dealing with local files, in order to enforce organization and modularity. In this case, Puppet would look for a vhost.erb template file inside a folder apache/templates, inside your modules directory. 
+
+
+*** Defining and Triggering Services
+
+Service resources are used to make sure services are initialized and enabled. They are also used to trigger service restarts.
+
+Let’s take into consideration our previous template usage example, where we set up an Apache virtual host. If you want to make sure Apache is restarted after a virtual host change, you first need to create a service resource for the Apache service. This is how such resource is defined in Puppet:
+	service { 'apache2':
+		ensure => running,
+		enable => true
+	}
+
+Now, when defining the resource, you need to include a notify option in order to trigger a restart:
+	file { "/etc/apache2/sites-available/000-default.conf":
+		ensure => "present",
+		content => template("vhost.erb"),
+		notify => Service['apache2'] 
+	} 
+
+
+*******************************************************************************
+						FULL EXAMPLE APACHE SERVER
+*******************************************************************************
+https://github.com/erikaheidi/cfmgmt
+	$doc_root = "/var/www/example"			# variable definition for later use
+
+	exec { 'apt-get update':				# executes apt-get update
+	  command => '/usr/bin/apt-get update'
+	}
+
+	package { 'apache2':				# install Apache after 'apt-get update'
+	  ensure  => "installed",
+	  require => Exec['apt-get update']
+	}
+
+	file { $doc_root:						# create doc root directory
+	  ensure => "directory",
+	  owner => "www-data",
+	  group => "www-data",
+	  mode => "644"
+	}
+
+	file { "$doc_root/index.html":			#copy index html file
+		ensure => "present",
+		source => "puppet:///modules/main/index.html",
+		require => File[$doc_root]
+	}
+											#set vhost template
+	file { "/etc/apache2/sites-available/000-default.conf":
+		ensure => "present",
+		content => template("main/vhost.erb"),
+		notify => Service['apache2'],
+		require => Package['apache2']
+	}
+
+	service { 'apache2':					#define the Apache service
+		ensure => running,
+		enable => true
+	}
+
+
+*******************************************************************************
+							Resource Type: file
+*******************************************************************************
+https://puppet.com/docs/puppet/3.8/types/file.html
+
+file { 'resource title':
+  path			=> # (namevar) The path to the file to manage.
+							   Must be fully. defaults to the resource’s title.
+  ensure		=> # Whether the file should exist, and if so what...
+					present, absent, file, directory, and link. OR VER. '2.1.1'
+					no content unless content or source att. is used
+					avoids destroying directories unless force att. is true
+  backup		=> # Whether (and how) file content should be backed...
+  checksum		=> # The checksum type to use when determining...
+  content		=> # The desired contents of a file, as a string...
+					Is mutually exclusive with source and target.
+  ctime			=> # A read-only state to check the file ctime. On...
+  force			=> # Perform the file operation even if it will...
+  group			=> # Which group should own the file.  Argument can...
+  ignore		=> # A parameter which omits action on files matching 
+  links			=> # How to handle links during file actions.  During 
+  mode			=> # The desired permissions mode for the file, in...
+					<setuid/setgid/sticky><owner><group><other> (e.g. 0644)
+					read = 4, write = 2, and execute/search = 1
+					mode => 'ugoa+rwxugotsX'
+  mtime			=> # A read-only state to check the file mtime. On...
+  owner			=> # The user to whom the file should belong....
+  provider		=> # The specific backend to use for this `file...
+  purge			=> # Whether unmanaged files should be purged. This...
+  recurse		=> # Whether to recursively manage the _contents_ of...
+					only used when ensure => directory is set.
+  recurselimit            => # How far Puppet should descend into...
+  replace                 => # Whether to replace a file or symlink that...
+  selinux_ignore_defaults => # If this is set then Puppet will not ask SELinux...
+  selrange                => # What the SELinux range component of the context...
+  selrole                 => # What the SELinux role component of the context...
+  seltype                 => # What the SELinux type component of the context...
+  seluser                 => # What the SELinux user component of the context...
+  show_diff               => # Whether to display differences when the file...
+  source                  => # A source file, which will be copied into place...
+							 file, which will be copied into place on the local system
+  source_permissions      => # Whether (and how) Puppet should copy owner...
+  sourceselect            => # Whether to copy all valid sources, or just the...
+  target                  => # The target for creating a link.  Currently...
+  type                    => # A read-only state to check the file...
+  validate_cmd            => # A command for validating the file's syntax...
+  validate_replacement    => # The replacement string in a `validate_cmd` that...
+  # ...plus any applicable metaparameters.
+}
+
+
+
+
+
+
+
+
