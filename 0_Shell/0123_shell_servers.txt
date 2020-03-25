@@ -238,9 +238,13 @@ fg %2		// bring any of the tasks to the foreground
 Changing Port Forwarding Options on an Existing SSH Connection
 
 
+*******************************************************************************
+			stdlib for Pupet modules
+*******************************************************************************
 
-
-
+file_line	//Ensures that a given line is contained within a file. 
+https://forge.puppet.com/puppetlabs/stdlib/5.2.0
+https://forge.puppet.com/puppetlabs/stdlib
 
 
 
