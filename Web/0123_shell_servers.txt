@@ -20,8 +20,77 @@ Servers
 	Apache server, web server
 	Linux server (ubuntu)
 
+The lean/agile methodology (See: Twelve Principles of Agile Software) is now widely used by the industry and one of its key principles is to iterate as fast as possible. If you apply this to software engineering, it means that you should:
 
-********************** SECURE SHELL - SSH *************************************
+    code
+    ship your code
+    measure the impact
+    learn from it
+    fix or improve it
+    start over
+
+As fast as possible and with small iterations in days or even hours.
+
+CI/CD (Continuous Integration/Continuous Deployment)
+	A principle that allows to have a lean/agile way of working.
+ -> Plan -> Code -> build -> test ->
+	release -> deploy -> operate -> monitor ->
+
+This means “shipping pipeline”, built with multiple tools such as:
+
+    Shipping the code:
+        Capistrano, Fabric
+    Encapsulating the code
+        Docker, Packer
+    Testing the code
+        Jenkins, CircleCi, Travis
+    Measuring the code
+        Datadog, Newrelic, Wavefront
+
+
+*******************************************************************************
+									DNS
+*******************************************************************************
+
+  Path for a web address:
+	Web browser (cache) -> OS (cache) -> resolver server (IPS) -> root ->
+  Domain register: reserves the name + communicates ns servers to TLD
+	.COM-TLD (Top-level domain server) ICANN coordinates ->
+  whois tool or website: tells ns servers for an specific domain
+	ns[1-4].webpage.com (authoritative name servers) + IP for ns server
+	-> IP address for webpage -> OS (cache) -> web browser (cache)
+  Now browser looks for webpage directly, calling IP address server	
+
+	https://ipinfo.info/html/ip_checker.php
+
+  dig A www.domain.com	// DNS lookup utility
+	A(ddress) record
+		maps a domain name to the IP address (Version 4) of the computer
+		hosting the domain. Is used to find the IP address of a computer
+		connected to the internet from a name.
+
+  dig CNAME www.domain.com	// DNS lookup utility
+	CNAME record (Canonical Name record)
+		for www.example.com pointing to example.com
+
+	MX mail exchanger record (MX record)
+		specifies the mail server responsible for accepting email messages on
+		behalf of a domain name. It is a resource record in the Domain Name
+		System (DNS). It is possible to configure several MX records,
+		typically pointing to an array of mail servers for load balancing and
+		redundancy. 
+
+	TXT record
+	(short for text record) is a type of resource record in the Domain Name
+	System (DNS) used to provide the ability to associate arbitrary text with
+	a host or other name, such as human readable information about a server,
+	network, data center, or other accounting information.
+
+
+*******************************************************************************
+				SECURE SHELL - SSH
+*******************************************************************************
+
 https://www.digitalocean.com/community/tutorials/
 	ssh-essentials-working-with-ssh-servers-clients-and-keys
 https://www.ssh.com/ssh/config
