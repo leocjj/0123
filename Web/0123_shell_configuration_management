@@ -80,7 +80,7 @@ puppet --version					# Must show actual versión, i.e. 5.4.0
 puppet-lint file.pp					# To verify style
 puppet-lint --fix file.pp			# Tu fix style issues
 
-sudo puppet apply file.pp			# To run .PP file
+sudo puppet apply file.pp			# To run .PP file.  MUST BE EXECUTABLE
 
 
 *******************************************************************************
