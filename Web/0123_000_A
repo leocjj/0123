@@ -1,0 +1,253 @@
+
+Pagina web	+ ISO 9001
+QA + App movil
+Registro patentes
+IoT
+
+Canvas: ppt compartido -> app movil
+
+
+*******************************************************************************
+				Domain name
+*******************************************************************************
+
+leocjj.tech
+https://get.tech/cpanel-login
+http://controlpanel.tech/linkhandler/servlet/ViewOrderServlet?orderid=90732183&type=dottech&role=customer
+http://controlpanel.tech/whois?
+http://controlpanel.tech/customer Tel: 21372634.9375
+Technical Support: Email Address: support@get.tech
+Sales Contact: Email Address: sales@get.tech Tel No.: +1.4152404171
+Billing Contact: Email Address: billing@get.tech Tel No.: +1.4152404171
+
+
+*******************************************************************************
+				Holberton server
+*******************************************************************************
+
+ssh -i ~/.ssh/holberton ubuntu@196.104.66.20		// To connect a server
+ssh d8d9f57a0503@19.hbtn-cod.io						// To connect a container
+
+scp -i ~/.ssh/holberton README.md ubuntu@196.104.66.20:~/README.md	//copy file
+
+scp -i ~/.ssh/holberton -r files ubuntu@196.104.66.20:~/README.md	//copy dir
+
+ssh -i ~/.ssh/holberton ubuntu@196.104.66.20 'ls ~/'// Remote command execution
+
+	-i options, specify local private key to connect
+
+./0-transfer_file page.html 196.104.66.20 ubuntu ~/.ssh/holberton
+	scp -i ~/.ssh/holberton page.html ubuntu@196.104.66.20:~/
+
+------------------------------------------------------------------
+
+
+
+*******************************************************************************
+				nginx server
+*******************************************************************************
+
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-in-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04
+
+
+*** Instalation ***
+
+	apt-get -y install 	// Automatic yes to prompts;
+	
+sudo apt-get -y update
+	sudo apt-get -y install nginx
+	[sudo apt-get -y install ufw]		# sudo ufw app list
+	sudo ufw allow 'Nginx HTTP'			# sudo ufw status
+
+	sudo systemctl status nginx			# To check
+
+
+*** check own IP ***
+
+	ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+
+	sudo apt-get install curl		# 
+	curl -4 icanhazip.com
+
+	http://server_domain_or_IP
+
+
+*** start/stop/restart ***
+
+	sudo systemctl stop nginx		# To stop
+	sudo systemctl start nginx		# To start
+	sudo systemctl reload nginx		# To reload without dropping connections.
+
+	sudo systemctl disable nginx	# Disable start automatically when the server boots.
+	sudo systemctl enable nginx
+
+
+*** directories ***
+
+Content
+
+/var/www/html
+	The actual web content, which by default only consists of the default Nginx
+	page you saw earlier, is served out of the /var/www/html directory.
+	This can be changed by altering Nginx configuration files.
+
+Server Configuration
+
+	/etc/nginx					//The Nginx configuration directory.
+
+	/etc/nginx/nginx.conf		// Nginx global configuration.
+
+	/usr/share/nginx/html/index.html	// Shared files, default index, 404,...
+
+/etc/nginx/sites-available/	// where per-site “server blocks” can be stored.
+	Nginx will not use the configuration files found in this directory unless
+	they are linked to the sites-enabled directory (see below).
+	Typically, all server block configuration is done in this directory,
+	and then enabled by linking to the other directory.
+
+/etc/nginx/sites-enabled/
+	The directory where enabled per-site “server blocks” are stored.
+	Typically, these are created by linking to configuration files found in
+	the sites-available directory.
+
+/etc/nginx/snippets
+	This directory contains configuration fragments that can be included
+	elsewhere in the Nginx configuration. Potentially repeatable configuration
+	segments are good candidates for refactoring into snippets.
+
+Server Logs
+
+/var/log/nginx/access.log
+	Every request to your web server is recorded in this log file unless Nginx is configured to do otherwise.
+
+/var/log/nginx/error.log
+	Any Nginx errors will be recorded in this log.
+
+
+*** Grant access to directories ***
+
+	sudo chown -R $USER:$USER /var/www/html
+	sudo chmod -R 755 /var/www
+
+
+*** Create Server Block File ***
+
+copying over the default file:
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/leocjj.tech
+
+	server {
+		listen 80 default_server;
+		listen [::]:80 default_server;
+
+		root /var/www/html;
+		# Add index.php if you are using
+		index index.html index.htm index.nginx-debian.html;
+
+		server_name _;			# -> server_name example.com www.example.com;
+
+		location / {
+			try_files $uri $uri/ =404;
+		}
+	}
+
+Check that the default_server option is only enabled in a single active file:
+	grep -R default_server /etc/nginx/sites-enabled/
+
+
+*** Enable your Server Blocks and Restart Nginx ***
+
+sudo ln -s /etc/nginx/sites-available/leocjj.tech /etc/nginx/sites-enabled/
+
+Three server blocks enabled, which are configured to respond based on their
+listen directive and the server_name
+https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-location-block-selection-algorithms
+
+  leocjj.tech: Will respond to requests for leocjj.tech and www.leocjj.tech
+  default: Will respond to any requests on port 80 that do not match the other.
+
+
+*** to avoid a possible hash bucket memory problem that can arise from
+	adding additional server names ***
+
+	sudo nano /etc/nginx/nginx.conf
+		server_names_hash_bucket_size 64;	# uncomment this line
+	sudo nginx -t							# To check for sintax errors
+	sudo systemctl restart nginx
+
+
+*** Modify Your Local Hosts File for Testing(Optional) ***
+
+This will intercept any requests for leocjj.tech and send them to your server,
+	if we don’t actually own the domains that we are using.
+
+In local machine (not the server)
+	sudo nano /etc/hosts
+ 		127.0.0.1   localhost
+		. . .
+		196.104.66.20 leocjj.tech www.leocjj.tech
+
+
+*** Test ***
+
+http://example.com
+
+
+*** Redirection ***
+
+sed -i "/listen 80 default_server/a rewrite ^/redirect_me https://www.youtube.com/watch?v=dQw4w9WgXcQ permanent;" /etc/nginx/sites-available/default
+# Restart server to apply changes
+sudo service nginx restart
+
+
+*** To create files without root user ***
+
+sudo nano custom_404.html
+
+
+*** 404 Not found page ***
+
+https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-to-use-custom-error-pages-on-ubuntu-14-04
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
+sudo sed -i "/listen 80 default_server/a error_page 404 /custom_404.html;\n \t location = /custom_404.html {\n \t\t root /usr/share/nginx/html;\n \t\t internal;\n \t}" /etc/nginx/sites-available/default
+sudo service nginx restart
+
+
+*******************************************************************************
+				Domain
+*******************************************************************************
+
+*** VERIFY DOMAIN ***
+
+sudo apt install curl
+curl http://196.104.66.20/		// Returns content
+curl -sI http://196.104.66.20/	// Returns domain info
+
+dig leocjj.tech					// dig - DNS lookup utility
+
+https://intranet.hbtn.io/rltoken/s8vsjayVUHJza59GXtuzpw
+
+*** Create DNS records ***
+
+	Name 	leocjj.tech		www.leocjj.tech
+	Class 	IN				IN
+	Type 	A				CNAME
+	Status 	Active			Active
+	Value 	196.104.66.20	leocjj.tech
+	TTL 	28800			28800
+
+
+
+
+
+
+
+
+
+
+
+
+
+

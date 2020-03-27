@@ -1,0 +1,332 @@
+
+https://www.youtube.com/watch?v=B1ANfsDyjeA
+
+Types of services provided by servers
+	Directory services, i.e, MS Active directory
+	Dinamic Name Service: translate domain name ot ip address
+	File server: repository
+	Index/Search service: inventories all files on a serveror network
+	Proxy server (hw/sw): intermediary
+	Web server: hosting and managing websines.
+	Database service: 
+	Email service: from web browsers or email clients.
+	Management server: tools to monitor, performance, stability.
+	Firewall: rules, monitor and bloks inappropriate traffic.
+	Print service: administer more than one printer
+	Virtualization service: allows multiple instances of a server application
+
+Servers
+	Microsoft Server, general server, 75% of the marker
+	Apache server, web server
+	Linux server (ubuntu)
+
+The lean/agile methodology (See: Twelve Principles of Agile Software) is now widely used by the industry and one of its key principles is to iterate as fast as possible. If you apply this to software engineering, it means that you should:
+
+    code
+    ship your code
+    measure the impact
+    learn from it
+    fix or improve it
+    start over
+
+As fast as possible and with small iterations in days or even hours.
+
+CI/CD (Continuous Integration/Continuous Deployment)
+	A principle that allows to have a lean/agile way of working.
+ -> Plan -> Code -> build -> test ->
+	release -> deploy -> operate -> monitor ->
+
+This means “shipping pipeline”, built with multiple tools such as:
+
+    Shipping the code:
+        Capistrano, Fabric
+    Encapsulating the code
+        Docker, Packer
+    Testing the code
+        Jenkins, CircleCi, Travis
+    Measuring the code
+        Datadog, Newrelic, Wavefront
+
+
+*******************************************************************************
+									DNS
+*******************************************************************************
+
+  Path for a web address:
+	Web browser (cache) -> OS (cache) -> resolver server (IPS) -> root ->
+  Domain register: reserves the name + communicates ns servers to TLD
+	.COM-TLD (Top-level domain server) ICANN coordinates ->
+  whois tool or website: tells ns servers for an specific domain
+	ns[1-4].webpage.com (authoritative name servers) + IP for ns server
+	-> IP address for webpage -> OS (cache) -> web browser (cache)
+  Now browser looks for webpage directly, calling IP address server	
+
+	https://ipinfo.info/html/ip_checker.php
+
+  dig A www.domain.com	// DNS lookup utility
+	A(ddress) record
+		maps a domain name to the IP address (Version 4) of the computer
+		hosting the domain. Is used to find the IP address of a computer
+		connected to the internet from a name.
+
+  dig CNAME www.domain.com	// DNS lookup utility
+	CNAME record (Canonical Name record)
+		for www.example.com pointing to example.com
+
+	MX mail exchanger record (MX record)
+		specifies the mail server responsible for accepting email messages on
+		behalf of a domain name. It is a resource record in the Domain Name
+		System (DNS). It is possible to configure several MX records,
+		typically pointing to an array of mail servers for load balancing and
+		redundancy. 
+
+	TXT record
+	(short for text record) is a type of resource record in the Domain Name
+	System (DNS) used to provide the ability to associate arbitrary text with
+	a host or other name, such as human readable information about a server,
+	network, data center, or other accounting information.
+
+
+*******************************************************************************
+				SECURE SHELL - SSH
+*******************************************************************************
+
+https://www.digitalocean.com/community/tutorials/
+	ssh-essentials-working-with-ssh-servers-clients-and-keys
+https://www.ssh.com/ssh/config
+
+You log in using an account that exists on the remote server
+Dropped into a shell session. client-server model.
+Commands are sent through an encrypted SSH tunnel and executed on your server.
+Remote machine must be running a piece of software called an SSH daemon,
+ listens for connections on a specific port, authenticates connection requests,
+ and spawns the appropriate environment if the user provides credentials.
+User’s computer must have an SSH client to communicate using the SSH protocol.
+
+Clients authenticatión: passwords (not recommended) or SSH keys (very secure).
+
+*** SSH keys
+Matching set of cryptographic keys which can be used for authentication.
+Public key: can be shared freely without concern
+Private key: must be vigilantly guarded and never exposed to anyone.
+
+*** To authenticate
+A user must have an SSH key pair on their local computer.
+On the remote server: public key in file ~/.ssh/authorized_keys.
+	List of authorized public keys, one-per-line, to log into this account.
+
+*** To connect to the host
+1) Client will inform the server and will tell which public key to use.
+2) Server then check its authorized_keys file for the public key
+3) Generate a random string and encrypts it using the public key.
+4) Encrypted message can only be decrypted with the associated private key.
+5) Server will send encrypted message to client to test if it has private key.
+6) Client will decrypt it using the private key
+7) Combine the random string revealed with a previously negotiated session ID.
+8) Generates an MD5 hash of this value and transmits it back to the server.
+9) The server already had the original message and the session ID, so it can
+	compare an MD5 hash generated by those values and determine that the client
+	must have the private key.
+
+
+*******************************************************************************
+				Generating and Working with SSH Keys
+*******************************************************************************
+
+ssh-keygen				// To generate an RSA key pair. 2048 bits by default.
+sudo ssh-keygen -b 4096 -N betty -f 'holberton'
+
+default location -> .ssh hidden directory in user’s home directory,
+	will allow your SSH client to find the keys automatically.
+
+passphrase of an arbitrary length for encrypting private key, enter passphrase
+	every time you use the private key, as an additional security measure.
+
+ssh-keygen -b 4096		// To generate a 4096 bits RSA key pair.
+
+ssh-keygen -p			// To change or remove the passphrase.
+
+ssh-keygen -l			// To find out the fingerprint of an SSH key.
+bit-length, the fingerprint, account and host it was created for and algorithm
+
+
+
+*******************************************************************************
+				Copying your Public SSH Key to a Server
+*******************************************************************************
+
+********* Copying your Public SSH Key to a Server with SSH-Copy-ID*************
+
+ssh-copy-id username@remote_host
+ssh-copy-id -i ~/.ssh/tatu-key-ecdsa user@host
+This will prompt you for the user account’s password on the remote system
+After typing in the password, the contents of your ~/.ssh/id_rsa.pub key
+will be appended to the end of the user account’s ~/.ssh/authorized_keys file:
+
+ssh username@remote_host	// log into that account without a password
+
+
+********* Copying your Public SSH Key to a Server without SSH-Copy-ID *********
+
+ensure that the ~/.ssh directory exists, and then append the piped contents
+into the ~/.ssh/authorized_keys file:
+cat ~/.ssh/id_rsa.pub |
+	ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+After entering password, your key will be copied, allowing you to log in.
+
+
+************* Copying your Public SSH Key to a Server Manually ****************
+
+cat ~/.ssh/id_rsa.pub
+Manually append the content to ~/.ssh/authorized_keys in the server side
+echo public_key_string >> ~/.ssh/authorized_keys
+
+
+*******************************************************************************
+				Basic Connection Instructions
+*******************************************************************************
+
+ssh username@remote_host					// Connecting to a Remote Server
+sudo ssh -i ~/.ssh/holberton ubuntu@100.26.42.84	// Using specific private key
+sudo ssh -i ~/.ssh/holberton ubuntu@35.196.121.183
+
+ssh username@remote_host command_to_run		// Running Command on a Server
+
+Default SSH daemon on a server runs on port 22, if not:
+ssh -p port_num username@remote_host		// 
+
+Adding your SSH Keys to an SSH Agent to Avoid Typing the Passphrase
+
+Forwarding your SSH Credentials to Use on a Server
+
+
+*******************************************************************************
+				Server-Side Configuration Options
+*******************************************************************************
+https://www.ssh.com/ssh/sshd
+
+The sshd_config file specifies locations of one or more host key files
+	(mandatory) and the location of authorized_keys files for users.
+
+sudo nano /etc/ssh/sshd_config	// Edit this file to include/modify the follow:
+
+
+***
+Disabling Password Authentication for SSH. SSH key is working properly.
+PasswordAuthentication no
+
+***
+Changing the Port that the SSH Daemon Runs On
+Port 4444
+
+***
+Limiting the Users Who can Connect Through SSH
+AllowUsers user1 user2			// Specify each user
+
+AllowGroups sshmembers			// Specify users groups
+sudo groupadd -r sshmembers
+sudo usermod -a -G sshmembers user1
+
+***
+PermitRootLogin no				// Disabling Root Login
+PermitRootLogin prohibit-password	To disable passwords for root, but still
+	allow key-based access without forced command
+
+
+***
+Allowing Root Access for Specific Commands
+Add the key from your local computer that you wish to use for this process
+	(create a new key for each automatic process) to the root user’s
+	authorized_keys file on the server.
+sudo nano /root/.ssh/authorized_keys
+	command="/path/to/command arg1 arg2" ssh-rsa ...
+sudo nano /etc/ssh/sshd_config
+	PermitRootLogin forced-commands-only
+
+***
+Forwarding X Application Displays to the Client. Automatically forward the
+	display of X applications on the server to the client machine.
+	X11Forwarding yes
+To connect to the server and forward an application’s display
+	ssh -X username@remote_host
+
+***
+Banner /etc/banner		// File will be printed to the client before login.
+
+***
+Save and close the file. Restart the daemon to implement your changes.
+sudo service ssh restart		// On Ubuntu/Debian
+sudo service sshd restart		// On CentOS/Fedora
+
+
+*******************************************************************************
+				Client-Side Configuration Options
+*******************************************************************************
+https://www.ssh.com/ssh/putty
+
+Command-line options take precedence over configuration files.
+~/.ssh/config		// The user-specific configuration file, is used next.
+/etc/ssh/ssh_config	// The global file is used Finally
+The first obtained value for each configuration parameter will be used.
+
+nano ~/.ssh/config				// Edit this file to include/modify the follow:
+
+
+IdentityFile ~/.ssh/holberton
+
+***
+Defining Server-Specific Connection Information. Any from man ssh_config
+Host testhost
+    HostName example.com
+    Port 4444
+    User demo
+ssh testhost					// To use the def
+
+***
+Keeping Connections Alive to Avoid Timeout
+Host *
+    ServerAliveInterval 120		// send a packet to the server every so often
+
+***
+Multiplexing SSH Over a Single TCP Connection
+***
+Configuring Local Tunneling to a Server / Remote Tunneling to a Server
+Configuring Dynamic Tunneling to a Remote Server
+
+
+*******************************************************************************
+			Using SSH Escape Codes to Control Connections
+*******************************************************************************
+
+~.			// To close a connection from the client
+~[CTRL-z]	// To put an SSH session into the background. fg to re-activate
+
+jobs		// multiple backgrounded tasks
+fg %2		// bring any of the tasks to the foreground
+
+Changing Port Forwarding Options on an Existing SSH Connection
+
+
+*******************************************************************************
+			stdlib for Pupet modules
+*******************************************************************************
+
+file_line	//Ensures that a given line is contained within a file. 
+https://forge.puppet.com/puppetlabs/stdlib/5.2.0
+https://forge.puppet.com/puppetlabs/stdlib
+
+
+
+
+
+
+
+
+
+
+						
+
+
+
+
+
