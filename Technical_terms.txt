@@ -8,9 +8,9 @@ semicolo        ;
 |
 !  exclamation point
 "  double quotes
-'  single quotes
+'  single quotes(apostrophes)
 ´
-`
+`  backticks
 ~
 $
 % 

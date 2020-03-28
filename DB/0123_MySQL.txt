@@ -1,7 +1,12 @@
 
+ssh c9054ac4e8b0@19.hbtn-cod.io	93c94e9b1f530aa4cfdc 
+
+
+*******************************************************************************
 
 GUI for MySQL: https://tableplus.com/linux
 
+https://dev.mysql.com/doc/refman/5.7/en/sql-statements.html
 
 ********************************************************************************
 				INSTALATION
@@ -10,12 +15,28 @@ GUI for MySQL: https://tableplus.com/linux
 echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' |
 	sudo tee -a /etc/apt/sources.list
 sudo apt-get update
-sudo apt-get install mysql-server-5.7
+
+sudo apt-get install mysql-server-5.7		// Specific version in Ubuntu
+sudo apt-get install mysql-server			// Last version in Ubuntu
+sudo yum install mysql-server				// In centos
+/etc/init.d/mysqld start
+
+systemctl restart sshd.service				// On CentOS7/RHEL7
+service sshd restart						// on CentOS5/6/RHEL5/6/ :
+
+
 mysql --version
   mysql  Ver 14.14 Distrib 5.7.8-rc, for Linux (x86_64) using  EditLine wrapper
 
 default user:	root
 default pass:	pass_created_at_installation_of_mysql
+
+mysql -u root -p							// Access MySQL Shell, ask for pass
+mysql -uroot -proot							// The same
+mysql --user=root --password=root
+
+
+sudo apt-get remove --purge mysql-server mysql-client mysql-common
 
 
 ************************ ROOT PASSWORD RESET ***********************************
@@ -49,7 +70,10 @@ mysql -hlocalhost -uroot -p		//Connect to your MySQL server:
 
 
 ********************************** NEW USER ************************************
-CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+
+SHOW GRANTS FOR user_0d_1@localhost;
+
+	CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';	// provide access
 					// asterisks to database and table
 FLUSH PRIVILEGES;	// Reload all the privileges.
@@ -58,6 +82,9 @@ CREATE USER IF NOT EXISTS user_0d_1@localhost;
 SET PASSWORD FOR user_0d_1@localhost = 'user_0d_1_pwd';
 GRANT ALL PRIVILEGES ON database|* . table|* TO user_0d_1@localhost;
 FLUSH PRIVILEGES;
+
+GRANT select, insert ON customers TO webuser;
+
 
 ********************************** PERMISSIONS *********************************
 common possible permissions that users can enjoy.
@@ -93,26 +120,41 @@ curl "https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-le
 
 ******************************* BASIC COMMANDS *********************************
 
-
-USE database_name; 	// Changes context to the specified database
 SHOW DATABASES;
 CREATE DATABASE IF NOT EXISTS hbtn_0;
 DROP DATABASE IF EXISTS hbtn_0;
+USE database_name;					// Changes context to the specified database
+
 SHOW TABLES;
 CREATE TABLE IF NOT EXISTS first_table(id INT, name VARCHAR(256) NOT NULL);
-SHOW CREATE TABLE first_table;
+CREATE TABLE IF NOT EXISTS id_not_null(id INT DEFAULT 1, name VARCHAR(256));
+CREATE TABLE potluck (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+	name VARCHAR(20),
+	confirmed CHAR(1),
+	signup_date DATE);
+SHOW CREATE TABLE first_table;		// Show table, code to create.
+DESCRIBE first_table;				// NICE DESCRIPTIONS OF A TABLE
 
 SELECT * FROM first_table;
-INSERT INTO `first_table` (`id`,`name`) VALUES (89, "Holberton School");
+INSERT INTO `first_table` (id, name) VALUES (89, "Holberton School");
 
 SELECT * FROM first_table WHERE id=89;
-SELECT COUNT(*) FROM first_table WHERE id=89;
+SELECT COUNT(*) FROM first_table WHERE id=89;	// How many rows are.
 SELECT score, name FROM second_table ORDER BY score DESC;
-SELECT score, name FROM second_table ORDER BY score ASC;
+SELECT score, name FROM second_table ORDER BY score ASC, name DESC;
 SELECT score, name FROM second_table WHERE score >= 10 ORDER BY score DESC;
 
+*** rows/registers ***
 UPDATE `second_table` SET `score` = 10 WHERE `name` = "Bob";
-DELETE FROM second_table WHERE score <= 5;
+UPDATE t SET name="Leo", code=4566 WHERE id=3;
+DELETE from t WHERE [column name]=[field text];
+DELETE FROM t WHERE score <= 5;
+DELETE FROM t WHERE code IS NULL;
+
+*** add/drop columns/fields ***
+ALTER TABLE t ADD email VARCHAR(40);			// Add column at the end.
+ALTER TABLE t ADD email VARCHAR(40) AFTER name; // Add column after name col.
+ALTER TABLE t DROP email;
 
 SELECT AVG(score) AS average FROM second_table;
 SELECT score, COUNT(*) AS number FROM second_table GROUP BY score ORDER BY score DESC;
@@ -132,6 +174,56 @@ SELECT city, AVG(value) AS avg_temp FROM temperatures WHERE month IN (7, 8) GROU
 
 Display the max temperature in each state
 SELECT state, MAX(value) AS max_temp FROM temperatures GROUP BY state ORDER BY state;
+
+
+*******************************************************************************
+					List of all MySQL commands:
+*******************************************************************************
+
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+edit      (\e) Edit command with $EDITOR.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+nopager   (\n) Disable pager, print to stdout.
+notee     (\t) Don't write into outfile.
+pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+
+For server side help, type 'help contents'
+
+
+
+*******************************************************************************
+					:
+*******************************************************************************
+
+https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/queries.php
+https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/join.php
+https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/multijoin.php
+https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/jointypes.php
+https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/functions.php
+https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/subqueries.php
+https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/setops.php
+https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/views.php
+
 
 
 

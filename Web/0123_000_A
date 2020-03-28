@@ -25,6 +25,8 @@ Billing Contact: Email Address: billing@get.tech Tel No.: +1.4152404171
 				Holberton server
 *******************************************************************************
 
+lsb_release -a
+
 ssh -i ~/.ssh/holberton ubuntu@196.104.66.20		// To connect a server
 ssh d8d9f57a0503@19.hbtn-cod.io						// To connect a container
 
@@ -240,13 +242,30 @@ https://intranet.hbtn.io/rltoken/s8vsjayVUHJza59GXtuzpw
 
 
 
+*******************************************************************************
+				VS Code as a web service
+*******************************************************************************
 
+#!/usr/bin/env bash
+# Installs VS Code server into your path
+wget https://github.com/cdr/code-server/releases/download/2.1698/code-server2.1698-vsc1.41.1-linux-x86_64.tar.gz
+tar -xvzf code-server2.1698-vsc1.41.1-linux-x86_64.tar.gz
+mv code-server2.1698-vsc1.41.1-linux-x86_64/code-server /bin/
+rm -Rf code-server2.1698-vsc1.41.1-linux-x86_64.tar.gz code-server2.1698-vsc1.41.1-linux-x86_64
 
+After the installation has completed all you have to do to use it is to type the command as follows:
 
+	code-server <path to directory you want the server to execute in>
 
+This will start the code server in your port 8080 and in order to access the
+server you have to type in a browser your_ip:8080, when starting the script
+you'll notice it'll give you a password. This password is needed to connect
+to the server.
 
+However if you want to disable the password and start the server on a custom
+port you can run the server as follows.
 
-
+	code-server <path to directory you want the script to execute in> --auth none --port <desired port>
 
 
 
