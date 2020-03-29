@@ -203,7 +203,64 @@ python3
 >>> sqlalchemy.__version__ 
 '1.2.5'
 
+*******************************************************************************
 
+engine = create_engine('dialect+driver://username:password@host:port/database')
+Base.metadata.create_all(engine)
+
+
+https://docs.sqlalchemy.org/en/11/core/engines.html
+
+PostgreSQL dialect uses psycopg2 as the default DBAPI. pg8000 is also available
+as a pure-Python substitute:
+	# default
+	engine = create_engine('postgresql://scott:tiger@localhost/mydatabase')
+	# psycopg2
+	engine = create_engine('postgresql+psycopg2://scott:tiger@localhost/mydatabase')
+	# pg8000
+	engine = create_engine('postgresql+pg8000://scott:tiger@localhost/mydatabase')
+
+MySQL dialect uses mysql-python as the default DBAPI. There are many MySQL
+DBAPIs available, including MySQL-connector-python and OurSQL:
+	# default
+	engine = create_engine('mysql://scott:tiger@localhost/foo')
+	# mysqlclient (a maintained fork of MySQL-Python)
+	engine = create_engine('mysql+mysqldb://scott:tiger@localhost/foo')
+	# PyMySQL
+	engine = create_engine('mysql+pymysql://scott:tiger@localhost/foo')
+
+SQLite connects to file-based databases,
+using the Python built-in module sqlite3 by default.
+As SQLite connects to local files, the URL format is slightly different.
+The “file” portion of the URL is the filename of the database.
+For a relative file path, this requires three slashes:
+	# sqlite://<nohostname>/<path>
+	# where <path> is relative:
+		engine = create_engine('sqlite:///foo.db')
+
+And for an absolute file path, three slashes are followed by the absolute path:
+	# Unix/Mac - 4 initial slashes in total
+		engine = create_engine('sqlite:////absolute/path/to/foo.db')
+	# Windows
+		engine = create_engine('sqlite:///C:\\path\\to\\foo.db')
+	# Windows alternative using raw string
+		engine = create_engine(r'sqlite:///C:\path\to\foo.db')
+
+To use a SQLite :memory: database, specify an empty URL:
+	engine = create_engine('sqlite://')
+
+
+*******************************************************************************
+
+Classes mapped using the Declarative system are defined in terms of a base
+class which maintains a catalog of classes and tables relative to that base -
+this is known as the declarative base class. Our application will usually have
+just one instance of this base in a commonly imported module. We create the
+base class using the declarative_base() function, as follows:
+
+>>> from sqlalchemy.ext.declarative import declarative_base
+
+>>> Base = declarative_base()
 
 
 
