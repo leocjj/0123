@@ -1,0 +1,102 @@
+
+https://www.fullstackpython.com/databases.html
+s
+SQLite is a database that is stored in a single file on disk.
+PostgreSQL and MySQL are two of the most common open source databases
+
+
+*******************************************************************************
+						DBs
+*******************************************************************************
+
+Libraries for relational databases:
+    psycopg2 for PostgreSQL.
+		https://github.com/psycopg/psycopg2		https://www.psycopg.org/
+    MySQLdb (MySQL-python) for MySQL. Development is mostly frozen. (2014)
+		https://github.com/farcepest/MySQLdb1
+    cx_Oracle for Oracle Database (source code).
+		https://github.com/oracle/python-cx_Oracle
+	SQLite is built into Python. import sqlite3
+
+Object-relational mappers (ORMs)
+	https://www.fullstackpython.com/object-relational-mappers-orms.html
+
+Database third-party services: database servers as a hosted service.
+    Amazon Relational Database Service (RDS)
+		pre-configured MySQL and PostgreSQL instances.
+		http://aws.amazon.com/rds/
+    Google Cloud SQL. MySQL instances.
+		https://developers.google.com/cloud-sql/
+    BitCan provides both MySQL and MongoDB hosted databases
+		http://www.gobitcan.com/
+    ElephantSQL is a software-as-a-service, hosts PostgreSQL, on top of AWS.
+		https://www.elephantsql.com/
+
+Databases learning checklist
+
+    Install PostgreSQL on your server. sudo apt-get install postgresql.
+    Make sure the psycopg2 library is in your application's dependencies.
+		http://initd.org/psycopg/
+    Configure your web application to connect to the PostgreSQL instance.
+    Create models in your ORM,
+		either with Django's built-in ORM
+			https://docs.djangoproject.com/en/dev/topics/db/
+		or SQLAlchemy with Flask.
+			http://www.sqlalchemy.org/
+    Build your database tables or sync the ORM models with the PostgreSQL
+		instance, if you're using an ORM.
+    Start creating, reading, updating and deleting data in the database from
+		your web application.
+
+
+*******************************************************************************
+						ORM
+*******************************************************************************
+
+https://www.fullstackpython.com/object-relational-mappers-orms.html
+
+https://www.sqlalchemy.org/
+	The Python SQL Toolkit and Object Relational Mapper
+https://flask-sqlalchemy.palletsprojects.com/en/2.x/
+
+Web framework	None				Flask			Flask			Django
+				_______________________________________________	
+ORM				| SQLAlchemy		SQLAlchemy		SQLAlchemy |	Django ORM
+				|_____________________________________[+ ORM]__|
+DB CONNECTOR	(builtin stdlib)	MySQL-python	psycopg			psycopg
+relational DB	SQLite				MySQL			PostgreSQL		PostgreSQL
+
+
+Python ORM Implementations:
+	SQLAlchemy		https://www.fullstackpython.com/sqlalchemy.html
+    Peewee			https://www.fullstackpython.com/peewee.html
+    The Django ORM	https://www.fullstackpython.com/django-orm.html
+    PonyORM			https://www.fullstackpython.com/pony-orm.html
+    SQLObject		http://sqlobject.org/
+    Tortoise ORM (source code)	 https://tortoise-orm.readthedocs.io/en/latest/
+
+
+
+https://www.fullstackpython.com/sqlalchemy.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
