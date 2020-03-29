@@ -77,18 +77,131 @@ Python ORM Implementations:
 
 
 
-https://www.fullstackpython.com/sqlalchemy.html
+*******************************************************************************
+						MySQLdb
+*******************************************************************************
+
+https://pypi.org/project/MySQL-python/
+
+[sudo apt-get install python3-dev]
+sudo apt-get install libmysqlclient-dev
+sudo apt-get install zlib1g-dev
+sudo pip3 install mysqlclient==1.3.10
+...
+python3
+>>> import MySQLdb
+>>> MySQLdb.__version__ 
+'1.3.10'
 
 
+*******************************************************************************
+
+import MySQLdb
+db=MySQLdb.connect(passwd="moonpie",db="thangs")
+
+c = db.cursor()			""" To perform a query, you first need a cursor"""
+
+These cursor classes store their results on the server and feed them to your
+program as you request them. You have to retreive all of the results and close
+the cursor before you can execute additional queries. 
+
+max_price = 5
+c.execute("""SELECT spam, eggs, sausage FROM breakfast
+          WHERE price < %s""", (max_price,))
+
+>>> c.fetchone()	# The result. returns a single tuple, which is the row
+(3L, 2L, 0L)		# returns None when there are no more rows to fetch.
+
+c.fetchall(). 		# return a sequence of rows.
+
+c.fetchmany(n)		# return a sequence of rows.
+	the n is optional and defaults to c.arraysize, normally 1.
+
+If you use a weird cursor class, the rows themselves might not be tuples.
+
+c.executemany(
+      """INSERT INTO breakfast (name, spam, eggs, sausage, price)
+      VALUES (%s, %s, %s, %s, %s)""",
+      [
+      ("Spam and Sausage Lover's Plate", 5, 1, 8, 7.95 ),
+      ("Not So Much Spam Plate", 3, 2, 0, 3.95 ),
+      ("Don't Wany ANY SPAM! Plate", 0, 4, 3, 5.95 )
+      ] )
 
 
+*******************************************************************************
+
+***
+
+https://mysqlclient.readthedocs.io/user_guide.html#mysqldb
+
+db = MySQLdb.connect(host="localhost", port=3306, user=argv[1],
+                         passwd=argv[2], db=argv[3], charset="utf8")
+cur = db.cursor()
+
+numrows = cur.execute("SELECT * FROM song")
+print "Selected %s rows" % numrows      
+print "Selected %s rows" % cur.rowcount				// PREFERED WAY, USING CUR
+
+cur.execute("SELECT * FROM song WHERE id = %s or id = %s", (1,2))
+
+cur.execute("INSERT INTO song (title) VALUES (%s)", song)
+
+***
+
+# Print results in comma delimited format
+cur.execute("SELECT * FROM song")
+rows = cur.fetchall()
+for row in rows:
+    for col in row:
+        print "%s," % col
+    print "\n"
+
+***
+
+cur.execute("SELECT * FROM song WHERE id = 1")
+print "Id: %s -- Title: %s" % cur.fetchone()
+
+***
+
+# Get data from database
+try:
+    cur.execute("SELECT * FROM song")
+    rows = cur.fetchall()
+except MySQLdb.Error, e:
+    try:
+        print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+    except IndexError:
+        print "MySQL Error: %s" % str(e)
+# Print results in comma delimited format
+for row in rows:
+    for col in row:
+        print "%s," % col
+    print "\n"
+
+***
+
+# Close all cursors
+cur.close()
+# Close all databases
+db.close()
+
+***
 
 
+*******************************************************************************
 
 
+*******************************************************************************
+						SQLAlchemy
+*******************************************************************************
 
-
-
+pip3 install SQLAlchemy==1.2.5
+...
+python3
+>>> import sqlalchemy
+>>> sqlalchemy.__version__ 
+'1.2.5'
 
 
 
