@@ -1,5 +1,5 @@
 
-ssh c9054ac4e8b0@19.hbtn-cod.io	93c94e9b1f530aa4cfdc 
+ssh c9054ac4e8b0@19.hbtn-cod.io	93c94e9b1f530aa4cfdc
 
 
 *******************************************************************************
@@ -24,6 +24,7 @@ sudo yum install mysql-server				// In centos
 systemctl restart sshd.service				// On CentOS7/RHEL7
 service sshd restart						// on CentOS5/6/RHEL5/6/ :
 
+service mysql start
 
 mysql --version
   mysql  Ver 14.14 Distrib 5.7.8-rc, for Linux (x86_64) using  EditLine wrapper
@@ -34,7 +35,7 @@ default pass:	pass_created_at_installation_of_mysql
 mysql -u root -p							// Access MySQL Shell, ask for pass
 mysql -uroot -proot							// The same
 mysql --user=root --password=root
-
+mysql -hlocalhost -uroot -p
 
 sudo apt-get remove --purge mysql-server mysql-client mysql-common
 
@@ -45,9 +46,11 @@ https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for
 -user-rootlocalhost
 
 ***
-If password is missing
-	stop the server
-	sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking &
+If password is missing		IT WORKS!!!!
+	service mysql stop
+	sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking
+	sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking
+	service mysql start
 	mysql -u root
 	FLUSH PRIVILEGES;
 	ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
@@ -59,7 +62,7 @@ sudo apt-get remove --purge mysql-server mysql-client mysql-common
 [service mysql start]			// in a container
 
 ***
-$ sudo mysql -u root # I had to use "sudo" since is new installation
+$ sudo mysql -u root 	# I had to use "sudo" since is new installation
 	mysql> USE mysql;
 	mysql> UPDATE user SET plugin='mysql_native_password' WHERE User='root';
 	mysql> FLUSH PRIVILEGES;
@@ -160,6 +163,17 @@ SELECT AVG(score) AS average FROM second_table;
 SELECT score, COUNT(*) AS number FROM second_table GROUP BY score ORDER BY score DESC;
 SELECT score, name FROM second_table WHERE name IS NOT NULL ORDER BY score DESC;
 
+select id
+     , firstname
+     , lastname
+     , phone
+     , location
+  from Directory
+ WHERE lastname LIKE BINARY 'M%'		// BINARY for case
+ order
+    by lastname
+     , firstname
+
 
 **************************** ADVANCED COMMANDS *********************************
 
@@ -230,6 +244,9 @@ https://www.sohamkamani.com/blog/2016/07/07/a-beginners-guide-to-sql/
 https://blog.jooq.org/2017/01/12/a-probably-incomplete-comprehensive-guide-to-the-many-different-ways-to-join-tables-in-sql/
 https://www.dataquest.io/blog/sql-intermediate/
 
+
+SELECT [* / tabla.col, tabla.col,...] FROM tabla JOIN tabla ON columns_to_match
+SELECT cities.id, cities.name, states.name FROM cities JOIN states ON cities.state_id = states.id
 
 
 
