@@ -224,6 +224,12 @@ https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/subquerie
 https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/setops.php
 https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/views.php
 
+https://selectstarsql.com/
+https://sqlzoo.net/
+https://www.sohamkamani.com/blog/2016/07/07/a-beginners-guide-to-sql/
+https://blog.jooq.org/2017/01/12/a-probably-incomplete-comprehensive-guide-to-the-many-different-ways-to-join-tables-in-sql/
+https://www.dataquest.io/blog/sql-intermediate/
+
 
 
 
