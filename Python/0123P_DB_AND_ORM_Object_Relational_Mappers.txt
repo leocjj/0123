@@ -55,6 +55,8 @@ Databases learning checklist
 
 https://www.fullstackpython.com/object-relational-mappers-orms.html
 
+https://docs.sqlalchemy.org/en/13/orm/tutorial.html
+
 https://www.sqlalchemy.org/
 	The Python SQL Toolkit and Object Relational Mapper
 https://flask-sqlalchemy.palletsprojects.com/en/2.x/
@@ -205,11 +207,14 @@ python3
 
 *******************************************************************************
 
+https://docs.sqlalchemy.org/en/11/core/engines.html
+
+https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/
+
+
 engine = create_engine('dialect+driver://username:password@host:port/database')
 Base.metadata.create_all(engine)
 
-
-https://docs.sqlalchemy.org/en/11/core/engines.html
 
 PostgreSQL dialect uses psycopg2 as the default DBAPI. pg8000 is also available
 as a pure-Python substitute:
@@ -252,15 +257,117 @@ To use a SQLite :memory: database, specify an empty URL:
 
 *******************************************************************************
 
+https://docs.sqlalchemy.org/en/13/orm/extensions/declarative/basic_use.html
+
 Classes mapped using the Declarative system are defined in terms of a base
 class which maintains a catalog of classes and tables relative to that base -
 this is known as the declarative base class. Our application will usually have
 just one instance of this base in a commonly imported module. We create the
 base class using the declarative_base() function, as follows:
 
->>> from sqlalchemy.ext.declarative import declarative_base
 
->>> Base = declarative_base()
+
+if __name__ == "__main__":
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+
+    from sys import argv
+	from datetime import date
+	from base_model import Base, Stuntman
+
+    engine = create_engine(				# 1 - Create engine to communicate DB
+        'mysql+mysqldb://{}:{}@localhost/{}'.format(argv[1], argv[2],
+		argv[3]), pool_pre_ping=True)
+	Base.metadata.create_all(engine)	# 2 - generate database schema
+    Session = sessionmaker(bind=engine)	# 3 - SQLAlchemy ORM session factory bound to this engine
+	session = Session()					# 4 - create a new session
+
+	wahl = Actor("Mark Wahlberg", date(1971, 6, 5))			# 5 - instances
+	mark = Stuntman("Richard Roe", True, wahl)
+    louisiana = State(name='Louisiana')
+
+    states = session.query(State).order_by(State.id).all()	# 6 - Query
+
+    for state in states:				# 7 - Use query results
+		print("{}: {}".format(state.id, state.name))
+
+	session.add(mark_stuntman)				# 8 - persists data	
+	session.commit()						# 9 - commit session
+
+	two = session.query(State).filter_by(id=2).first()		# UPDATE
+	two.name = 'New Mexico'
+	session.commit()
+
+	session.close()							# 10 - close session
+
+****
+Stuntmand.py class
+
+from sqlalchemy import Column, String, Integer, Boolean, ForeignKey
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
+
+class Stuntman(Base):
+    __tablename__ = 'stuntmen'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    active = Column(Boolean)
+    actor_id = Column(Integer, ForeignKey('actors.id'))
+    actor = relationship("Actor", backref=backref("stuntman", uselist=False))
+
+    def __init__(self, name, active, actor):
+        self.name = name
+        self.active = active
+        self.actor = actor
+***
+
+*******************************************************************************
+					Queries with SQLAlcheny
+*******************************************************************************
+https://docs.sqlalchemy.org/en/13/orm/query.html
+
+Query API for Querys
+
+				Returns
+	all():		List of objects
+    count(): 	Total number of rows of a query.
+    filter(): 	Filters the query by applying a criteria.
+    delete(): 	Removes from the database the rows matched by a query.
+    distinct(): Applies a distinct statement to a query.
+    exists(): 	Adds an exists operator to a subquery.
+    first():	Object, the first row in a query.
+    get(): 		row referenced by the primary key parameter passed as argument.
+    join(): Creates a SQL join in a query.
+    limit(): Limits the number of rows returned by a query.
+    order_by(): Sets an order in the rows returned by a query.
+
+session.query(Movie) \
+    .filter(Movie.release_date > date(2015, 1, 1)) \
+    .all()
+
+session.query(Movie) \
+    .join(Actor, Movie.actors) \
+    .filter(Actor.name == 'Dwayne Johnson') \
+    .all()
+
+session.query(Actor) \
+    .join(ContactDetails) \
+    .filter(ContactDetails.address.ilike('%glendale%')) \
+    .all()
+
+
+
+
+
+
+
+
+
+
+
 
 
 
