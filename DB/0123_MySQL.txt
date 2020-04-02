@@ -43,7 +43,7 @@ sudo apt-get remove --purge mysql-server mysql-client mysql-common
 ************************ ROOT PASSWORD RESET ***********************************
 
 https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for
--user-rootlocalhost
+	-user-rootlocalhost
 
 ***
 If password is missing		IT WORKS!!!!
@@ -174,6 +174,7 @@ select id
     by lastname
      , firstname
 
+https://dev.mysql.com/doc/refman/5.7/en/cast-functions.html#operator_binary
 
 **************************** ADVANCED COMMANDS *********************************
 
