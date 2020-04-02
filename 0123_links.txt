@@ -142,7 +142,10 @@ Empresas
 	www.etairos.co
 	Netflix
 	linkedin.com/jobs
+	https://github.com/Hellnar/openings
     sas.com/careers
+	https://job.garden/remote/tagged/Engineering
+	https://automattic.com/work-with-us/
 	https://www.sas.com/es_co/careers/faq.html
 	yovana.jimenez@ixerv.com, Maria Alejandra Rodas Sanchez (HR PSL en Linkedin)
 	Comfandi: www.elempleo.com, botón de base empresarial, logo Comfandi, opción Enviar hoja de vida, digita tu número de identificación.
