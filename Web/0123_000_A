@@ -41,7 +41,38 @@ ssh -i ~/.ssh/holberton ubuntu@196.104.66.20 'ls ~/'// Remote command execution
 ./0-transfer_file page.html 196.104.66.20 ubuntu ~/.ssh/holberton
 	scp -i ~/.ssh/holberton page.html ubuntu@196.104.66.20:~/
 
+
 ------------------------------------------------------------------
+
+
+curl -sI 44.hbtn-cod.io:<puerto al que esta mapeado el 80>
+https://linuxize.com/post/docker-run-command/
+
+sudo vim /etc/cloud/cloud/Cloud.cfg* y buscar preserve_hostname y cambiar el valor de false a true
+
+
+https://sed.js.org/index.html	
+
+/etc/host*
+
+echo $HOSTNAME
+/etc/nginx/sites-available/default
+
+https://aws.amazon.com/premiumsupport/knowledge-center/linux-static-hostname/
+sed -i "/listen 80 default_server/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
+
+curl -sI 104.196.66.20 | grep X-Served-By
+curl -sI 3.80.113.159 | grep X-Served-By
+
+
+Name			Username 	IP				State 	
+1195-web-01		ubuntu		196.104.66.20	running
+1195-web-02		ubuntu		80.3.113.159	running
+1195-lb-01		ubuntu		221.54.161.113	running
+
+
+/etc/nginx/sites-available/default
+           sites-enabled
 
 
 
@@ -176,8 +207,12 @@ https://www.digitalocean.com/community/tutorials/understanding-nginx-server-and-
 
 	sudo nano /etc/nginx/nginx.conf
 		server_names_hash_bucket_size 64;	# uncomment this line
+
 	sudo nginx -t							# To check for sintax errors
+
 	sudo systemctl restart nginx
+	
+	service nginx restart
 
 
 *** Modify Your Local Hosts File for Testing(Optional) ***

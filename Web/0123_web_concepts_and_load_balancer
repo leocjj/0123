@@ -155,7 +155,7 @@ Can be of two types: hardware load balancer and software load balancer.
 Requests are served by the server sequentially one after another.
 After sending the request to the last server, it starts from the first server.
 USED: when servers are of equal specification
-	and there not much persistentconnections.
+	and there not much persistent connections.
 
 2.1 Weighted Round Robin (called Ratio on the BIG-IP):
 	the number of connections that each machine receives over time is
@@ -182,8 +182,8 @@ USED: 	when servers have similar capabilities.
 	It is often coupled with Sticky Session or Session aware load balancing.
 	In this, all the request related to a session is sent to the same server
 	to maintain the session state and syncronization.
-This approach is used when we have session aware write operations in sync with
-client and the server so that it avoids any inconsistency.
+	This approach is used when we have session aware write operations in sync
+	with client and the server so that it avoids any inconsistency.
 
 5. Observed: The Observed method uses a combination of the logic used in the Least Connections and Fastest algorithms to load balance connections to servers being load-balanced. With this method, servers are ranked based on a combination of the number of current connections and the response time. Servers that have a better balance of fewest connections and fastest response time receive a greater proportion of the connections. This Application Delivery Controller method is rarely available in a simple load balancer. 
 
@@ -255,13 +255,27 @@ Hardware Load Balancer Examples
 
 
 
+*******************************************************************************
+				HAProxy
+*******************************************************************************
+
+https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts
+
+http://www.haproxy.org/
+https://haproxy.debian.net/
+
+apt-get -y install software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-1.8
+
+apt-get update
+apt-get -y install haproxy=1.8.\*
 
 
+High Availability Proxy
+open source software TCP/HTTP Load Balancer and proxying solution
+can be run on Linux, Solaris, and FreeBSD.
 
-
-
-
-
+ACL: Access Control List.
 
 
 
