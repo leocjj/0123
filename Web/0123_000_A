@@ -11,7 +11,7 @@ Canvas: ppt compartido -> app movil
 				Domain name
 *******************************************************************************
 
-leocjj.tech
+leocjj.tech	
 https://get.tech/cpanel-login
 http://controlpanel.tech/linkhandler/servlet/ViewOrderServlet?orderid=90732183&type=dottech&role=customer
 http://controlpanel.tech/whois?
@@ -41,6 +41,7 @@ ssh -i ~/.ssh/holberton ubuntu@196.104.66.20 'ls ~/'// Remote command execution
 ./0-transfer_file page.html 196.104.66.20 ubuntu ~/.ssh/holberton
 	scp -i ~/.ssh/holberton page.html ubuntu@196.104.66.20:~/
 
+ssh -i ~/.ssh/holberton ubuntu@web-01.leocjj.tech 'sudo ufw status'
 
 ------------------------------------------------------------------
 
@@ -264,7 +265,9 @@ curl -sI http://196.104.66.20/	// Returns domain info
 
 dig leocjj.tech					// dig - DNS lookup utility
 
-https://intranet.hbtn.io/rltoken/s8vsjayVUHJza59GXtuzpw
+https://dnschecker.org/
+
+https://whois.whoisxmlapi.com/
 
 *** Create DNS records ***
 
@@ -301,6 +304,51 @@ However if you want to disable the password and start the server on a custom
 port you can run the server as follows.
 
 	code-server <path to directory you want the script to execute in> --auth none --port <desired port>
+
+
+*******************************************************************************
+					SSL / TSL
+*******************************************************************************
+
+SSL (Secure Sockets Layer) or TLS (Transport Layer Security)
+use what is known as an 'asymmetric' Public Key Infrastructure (PKI) system
+https://www.sslshopper.com/choosing-the-right-certificate-authority.html
+
+https://certbot.eff.org/		// Free SSL certificate
+
+    sudo apt-get update
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository universe
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt-get update
+
+	sudo apt-get install certbot
+
+	a) My web server is not currently running on this machine.
+		Stop your webserver, then run this command to get a certificate. 			Certbot will temporarily spin up a webserver on your machine.
+			sudo certbot certonly --standalone
+
+	b) No, I need to keep my web server running. Already using port 80 and
+		don't want to stop it while Certbot runs.
+			sudo certbot certonly --webroot
+
+--> /etc/letsencrypt/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

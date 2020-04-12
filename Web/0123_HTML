@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 
 <!DOCTYPE html>
 <!--Validators https://jigsaw.w3.org/css-validator https://validator.w3.org-->
@@ -13,7 +13,6 @@
 	<body style="margin:0px; padding: 0px;">
 	</body>
 </html>
-
 
 ******************* HTML5 structure based elements*****************************
 
@@ -61,281 +60,382 @@
 ---
 
 *******************************************************************************
-									CSS 
-*******************************************************************************
-
-Uses of CCS:
-	1) in a separate CSS file (with file extension .css)
-		<head>
-			<link rel="stylesheet" href="stylesheets/main.css">
-		</head>
-	2) in a <style> tag inside of the <head> tag
-		<HEAD>
-		<STYLE type="text/css">
-			H1 {border-width: 1; border: solid; text-align: center}
-		</STYLE>
-		</HEAD>
-	3) inside of an HTML tag, using the style attribute, “inline style”.
-		<body style="margin:0px; padding: 0px;">
-
-Asigning values to:
-	position	{margin {border {Padding (relleno){ content(width) }}}}
-
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-	--- 
-    padding:25px 50px 75px 100px;
-        padding superior es 25px
-        padding derecho es 50px
-        padding bajo es 75px
-        padding izquierdo es 100px
-	---
-    padding:25px 50px 75px;
-        padding superior es 25px
-        padding derecho y padding izquierdo son 50px
-        padding bajo es 75px
-	---
-    padding:25px 50px;
-        padding superior y padding bajo son 25px
-        padding derecho y padding izquierdo son 50px
-	---
-    padding:25px;
-        todos paddings son 25px
-
-	border-width (anchura de borde)
-	border-color (color de borde)
-	border-style (estilo de borde)
-
-	Margin: clean space around elements (outside of border), is transparent.
-
-
-************************* CSS STYLE declarations ******************************
-
-In the following example, we specify two alternate style sheets named "compact"
-If the user selects the "compact" style, the user agent must apply both
-external style sheets, as well as the persistent "common.css" style sheet.
-If the user selects the "big print" style, only the alternate style sheet
-"bigprint.css" and the persistent "common.css" will be applied.
-
-<LINK rel="alternate stylesheet" title="compact" href="small-base.css" type="text/css">
-<LINK rel="alternate stylesheet" title="compact" href="small-extras.css" type="text/css">
-<LINK rel="alternate stylesheet" title="big print" href="bigprint.css" type="text/css">
-<LINK rel="stylesheet" href="common.css" type="text/css">
-
-Here is a cascade example that involves both the LINK and STYLE elements.
-
-<LINK rel="stylesheet" href="corporate.css" type="text/css">
-<LINK rel="stylesheet" href="techreport.css" type="text/css">
-<STYLE type="text/css">
-    p.special { color: rgb(230, 100, 180) }
-</STYLE>
-
-
-********************************* SELECTORS ***********************************
-
-Puts a border around every H1 element in the document and centers it:
-		H1 {border-width: 1; border: solid; text-align: center}
-
-Only apply to H1 elements of a specific class:
-		H1.myclass {border-width: 1; border: solid; text-align: center}
-	<H1 class="myclass"> This H1 is affected by our style </H1>
-	<H1> This one is not affected by our style </H1>
-
-To limit the scope of the style to a single instance of H1
-		#myid {border-width: 1; border: solid; text-align: center}
-	<H1 class="myclass"> This H1 is not affected </H1>
-	<H1 id="myid"> This H1 is affected by style </H1>
-	<H1> This H1 is not affected </H1>
-
-
-/* comments */
-selector {
-	property: value;
-	property: value;
-}
-
--------------------------------------------------------------------------------
-Selector	CCS					HTML
--------------------------------------------------------------------------------
-type		div { ... }			<div>...</div>
-class		.awesome { ... }	<div class="awesome">...</div>
-ID			#shayhowe { ... }	<div id="shayhowe">...</div>
-
-Descendant	article h2 {...}	<article><p><h2>Selected</h2></p></article>
-			Applies for all h2 within an article element, no matter hierarchy.
-
-DirectChild	article > p {...}	<article><p>Selected</p></article>
-			Applies for direct children of a parent element.
-
-
-https://learn.shayhowe.com/advanced-html-css/complex-selectors/
-
-h2 ~ p 	General Sibling Selector
-Selects an element that follows anywhere after the prior element, in which both
-elements share the same parent
-
-h2 + p 	Adjacent Sibling Selector
-Selects an element that follows directly after the prior element, in which both
-elements share the same parent
-
-a[target] 	Attribute Present Selector
-Selects an element if the given attribute is present
-
-a[href="http://google.com/"] 	Attribute Equals Selector
-Selects an element if the given attribute value exactly matches the value stated
-
-a[href*="login"] 	Attribute Contains Selector
-Selects an element if the given attribute value contains at least once instance of the value stated
-
-a[href^="https://"] Attribute Begins With Selector
-Selects an element if the given attribute value begins with the value stated
-
-a[href$=".pdf"] 	Attribute Ends With Selector
-Selects an element if the given attribute value ends with the value stated
-
-a[rel~="tag"] 	Attribute Spaced Selector
-Selects an element if the given attribute value is whitespace-separated with
-one word being exactly as stated
-
-a[lang|="en"] 	Attribute Hyphenated Selector 	Selects an element if the given
-attribute value is hyphen-separated and begins with the word stated
-
-a:link 	Link Pseudo-class
-Selects a link that has not been visited by a user
-
-a:visited 	Link Pseudo-class
-Selects a link that has been visited by a user
-
-a:hover 	Action Pseudo-class
-Selects an element when a user has hovered their cursor over it
-
-a:active 	Action Pseudo-class
-Selects an element when a user has engaged it
-
-a:focus 	Action Pseudo-class
-Selects an element when a user has made it their focus point
-
-input:enabled 	State Pseudo-class
-Selects an element in the default enabled state
-input:disabled 	State Pseudo-class
-Selects an element in the disabled state, by way of the disabled attribute
-input:checked 	State Pseudo-class
-Selects a checkbox or radio button that has been checked
-input:indeterminate 	State Pseudo-class
-Selects a checkbox or radio button that neither been checked or unchecked, leaving it in an indeterminate state
-li:first-child 	Structural Pseudo-class
-Selects an element that is the first within a parent
-li:last-child 	Structural Pseudo-class 
-Selects an element that is the last within a parent
-div:only-child 	Structural Pseudo-class
-Selects an element that is the only element within a parent
-p:first-of-type 	Structural Pseudo-class
-Selects an element that is the first of its type within a parent
-p:last-of-type 	Structural Pseudo-class
-Selects an element that is the last of its type within a parent
-img:only-of-type 	Structural Pseudo-class
-Selects an element that is the only of its type within a parent
-li:nth-child(2n+3) 	Structural Pseudo-class
-Selects an element that matches the given number or expression, counting all elements from the beginning of the document tree
-li:nth-last-child(3n+2) 	Structural Pseudo-class
-Selects an element that matches the given number or expression, counting all elements from the end of the document tree
-p:nth-of-type(3n) 	Structural Pseudo-class
-Selects an element that matches the given number or expression, counting only elements of its type from the beginning of the document tree
-p:nth-last-of-type(2n+1) 	Structural Pseudo-class
-Selects an element that matches the given number or expression, counting only elements of its type from the end of the document tree
-section:target 	Target Pseudo-class
-Selects an element whose ID attribute value matches that of the URI fragment identifier
-div:empty 	Empty Pseudo-class 	Selects an element that does not contain any children or text nodes
-div:not(.awesome) 	Negation Pseudo-class
-Selects an element not represented by the stated argument
-
-.alpha:first-letter 	Textual Pseudo-elements
-Selects the first letter of text within an element
-
-.bravo:first-line 	Textual Pseudo-elements
-Selects the first line of text within an element
-
-div:before 	Generated Content
-Creates a pseudo-element inside the selected element at the beginning
-
-a:after 	Generated Content
-Creates a pseudo-element inside the selected element at the end
-
-::selection 	Fragment Pseudo-element
-Selects the part of a document which has been selected, or highlighted, by a
-users’ actions
-
-
-***************************** RESET WEB BROWSER STYLE VALUES *****************
-
-To reset default web browsers styles:
-	https://meyerweb.com/eric/tools/css/reset/
-	https://necolas.github.io/normalize.css/
-
-	/* http://meyerweb.com/eric/tools/css/reset/ 
-	   v2.0 | 20110126
-	   License: none (public domain)
-	*/
-
-	html, body, div, span, applet, object, iframe,
-	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-	a, abbr, acronym, address, big, cite, code,
-	del, dfn, em, img, ins, kbd, q, s, samp,
-	small, strike, strong, sub, sup, tt, var,
-	b, u, i, center,
-	dl, dt, dd, ol, ul, li,
-	fieldset, form, label, legend,
-	table, caption, tbody, tfoot, thead, tr, th, td,
-	article, aside, canvas, details, embed, 
-	figure, figcaption, footer, header, hgroup, 
-	menu, nav, output, ruby, section, summary,
-	time, mark, audio, video {
-		margin: 0;
-		padding: 0;
-		border: 0;
-		font-size: 100%;
-		font: inherit;
-		vertical-align: baseline;
-	}
-	/* HTML5 display-role reset for older browsers */
-	article, aside, details, figcaption, figure, 
-	footer, header, hgroup, menu, nav, section {
-		display: block;
-	}
-	body {
-		line-height: 1;
-	}
-	ol, ul {
-		list-style: none;
-	}
-	blockquote, q {
-		quotes: none;
-	}
-	blockquote:before, blockquote:after,
-	q:before, q:after {
-		content: '';
-		content: none;
-	}
-	table {
-		border-collapse: collapse;
-		border-spacing: 0;
-	}
-
-
-
-*******************************************************************************
 				RESPONSIVE DESIGN
 *******************************************************************************
 https://learn.shayhowe.com/advanced-html-css/responsive-web-design/
 
 
+*******************************************************************************
+				PROTOCOLS
+*******************************************************************************
+
+https://www.ntu.edu.sg/home/ehchua/programming/webprogramming/http_basics.html
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+
+           userinfo          host        port
+        ┌───────┴───────┐ ┌────┴────────┐ ┌┴┐
+ http://john.doe:password@www.example.com:123/forum/questions/?tag=networking&order=newest#top
+ └─┬─┘ └───────────┬────────────────────────┘└─┬─────────────┘└────────┬──────────────────┘└┬─┘
+ scheme         authority                      path                  query             fragment
+
+
+HyperText Transfer Protocol (HTTP)
+	Symmetric request-response client-server protocol (pull protocol)
+	Client pulls info from server (instead of server pushes info to client).
+	Stateless. Current request does not know what has been done previously.
+	Permits negotiating of data type and representation
+
+Browser			Internet (over TCP/IP)			Server (@host:port)
+
+url input	-->	request message				-->	maps URL to a file/program
+				(GET URL HTTP 1.1,
+				 IP/hostname:port)
+
+Display		<--	response message			<-- returns file requested/
+response		(HTTP 1.1 200 OK)				execute program, return output/
+												returns error message
+
+
+
+URL (Uniform Resource Locator)
+	to uniquely identify a resource over the web.
+		protocol://hostname:port/path-and-file-name
+
+    Protocol: application-layer protocol HTTP, FTP, mailto, news, telnet...
+    Hostname: The DNS domain name or IP address of the server.
+    Port: TCP port number that the server is listening (default is 80 for HTTP)
+    Path-and-file-name: /name/location of requested resource
+
+Encoded URL
+	Special characters are encoded, in the form of %xx,ASCII hex code.
+	'~'  %7e; '+' is encoded as %2b; blank %20 or '+'. 
+
+URI (Uniform Resource Identifier)
+	More general than URL,can even locate a fragment within a resource.
+		http://host:port/path?request-parameters#nameAnchor
+	Request parameters (query string): name=value pairs, separated from the
+		URL by a '?'. The name=value pairs are separated by a '&'.
+	The #nameAnchor identifies a fragment within the HTML document,
+		defined via the anchor tag <a name="anchorName">...</a>.
+    URL rewriting for session management, e.g., "...;sessionID=xxxxxx".
+
+
+HTTP Request Message
+	request-method-name request-URI HTTP-version	// Request line (mandatory)
+		request-method-name: GET, POST, HEAD, and OPTIONS.
+		request-URI: specifies the resource requested.
+		HTTP-version: HTTP/1.0 and HTTP/1.1.
+		GET /test.html HTTP/1.1		HEAD /query.html HTTP/1.0
+	[request headers]								// OPTIONAL
+		request-header-name: request-header-value1, request-header-value2, ...
+		Host: www.xyz.com
+		Connection: Keep-Alive
+		Accept: image/gif, image/jpeg, */*
+		Accept-Language: us-en, fr, cn
+	(blank line)
+	[request message body]							// OPTIONAL
+
+	Browser translate URL http://www.nowhere123.com/doc/index.html into:
+		GET /docs/index.html HTTP/1.1
+		Host: www.nowhere123.com
+		Accept: image/gif, image/jpeg, */*
+		Accept-Language: en-us
+		Accept-Encoding: gzip, deflate
+		User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)
+		(blank line)
+		bookId=1234&author=CJ+Leo
+
+HTTP Response Message
+	HTTP-version status-code reason-phrase			// Status line (mandatory)
+		HTTP-version: HTTP/1.0 or HTTP/1.1.
+		status-code: 3-digits, to reflect the outcome of the request.
+		reason-phrase: short explanation of status
+		"200 OK", "404 Not Found", "403 Forbidden", "500 Internal Server Error"
+	[response headers]								// OPTIONAL
+		response-header-name: response-header-value1, response-header-value2...
+		Content-Type: text/html
+		Content-Length: 35
+		Connection: Keep-Alive
+		Keep-Alive: timeout=15, max=100
+	(blank line)
+	[response message body]							// OPTIONAL
+
+	HTTP/1.1 200 OK
+	Date: Sun, 18 Oct 2009 08:56:53 GMT
+	Server: Apache/2.2.14 (Win32)
+	Last-Modified: Sat, 20 Nov 2004 07:16:26 GMT
+	ETag: "10000000565a5-2c-3e94b66c2e680"
+	Accept-Ranges: bytes
+	Content-Length: 44
+	Connection: close
+	Content-Type: text/html	-->	//"text/plain", "text/html", "image/gif", 
+	X-Pad: avoid browser bug	//"image/jpeg", "audio/mpeg", "video/mpeg", 								//"application/msword", and "application/pdf"
+	<html><body><h1>It works!</h1></body></html>
+
+HTTP Specifications
+	W3C (World-wide Web Consortium) http://www.w3.org/standards/techs/http.
+	HTTP/0.9 (1991) simple protocol for transferring raw data
+	HTTP/1.0 (1996) (RFC 1945) allow MIME-like messages.
+	HTTP/1.1 (1999) (defined in RFC 2616). proxies, caching, persistent
+		connection, virtual hosts, and range download.
+
+Apache HTTP Server or Apache Tomcat Server
+	Apache HTTP server is a popular industrial-strength production server
+		www.apache.org		httpd.apache.org		Open-source, is free.
+		https://www.ntu.edu.sg/home/ehchua/programming/howto/
+			Apache_HowToInstall.html
+	Apache Tomcat is a Java-capable HTTP server
+		which could execute "Java Servlet" and "Java Server Pages (JSP)".
+		http://tomcat.apache.org
+		Tomcat 9 2018: Servlet 4.0, JSP 2.3, EL 3.0, WebSocket 1.0, JASPIC 1.1.
+		https://www.ntu.edu.sg/home/ehchua/programming/howto/Tomcat_HowTo.html
+
+Webapp: runs over the Internet
+	A multi-tier client-server database application:
+	HTTP Server:
+		Apache HTTP Server, Apache Tomcat Server, IIS, nginx,
+		Google Web Server (GWS), and others.
+	HTTP Client (or Web Browser):
+		IE, FireFox, Chrome, Safari, and others.
+	Database:
+		Open-source: MySQL, PostgreSQL, Apache Derby, mSQL, SQLite, OpenOffice
+		Commercial: Oracle, IBM DB2, SAP SyBase, MS SQL Server, MS Access
+    Client-Side Programs: HTML Form, JavaScript...
+    Server-Side Programs: Java Servlet/JSP, ASP, PHP, Perl, Python, JS...
+
+
+	1) An HTTP client issues a URL request to an HTTP server to start a webapp.
+	2) HTTP server returns HTML form (client-side program), which is loaded 		and rendered in the clients browser.
+	3) User fills up the query criteria inside the form and submits the form.
+	4) The client-side program sends the data to a server-side program.
+	5) The server-side program receives the query parameters,
+		queries the database based on these parameters
+		and returns the query result to the client-side program.
+	6) The client-side program receives the result and displays on the browser.
+	The process repeats for the next request-response.
+
+
+HTTP Request Methods
+	Client use one request methods to send a request message to	an HTTP server.
+
+	GET: to get a web resource from the server.
+		GET request-URI HTTP-version
+		(optional request headers)
+		(blank line)
+		(optional request body)
+	HEAD: to get the header that a GET request would have obtained.
+		Since the header contains the last-modified date of the data,
+		this can be used to check against the local cache copy.
+	POST: to post data up to the web server.
+	PUT / PATCH: ask the server to store the data.
+    DELETE: ask the server to delete the data (mainly used for an RestAPI) 
+    TRACE: ask the server to return a diagnostic trace of the actions it takes.
+    OPTIONS: ask the server to return the list of request methods it supports.
+    CONNECT: used to tell a proxy to make a connection to another host and
+		simply reply the content, without attempting to parse or cache it.
+		This is often used to make SSL connection through the proxy.
+    Other extension methods.
+
+	POST: to "post" additional data up to the server
+		(e.g., submitting HTML form data or uploading a file).
+		Issuing an HTTP URL from the browser always triggers a GET request.
+		To trigger a POST request, use HTML form with attribute method="post"
+			or write your own network program.
+		For submitting HTML form data, POST request is the same as the GET
+			request except that the URL-encoded query string is sent in the
+			request body, rather than appended behind the request-URI.
+		The POST request takes the following syntax:
+			POST request-URI HTTP-version
+			Content-Type: mime-type
+			Content-Length: number-of-bytes
+			[other optional request headers]
+			  
+			(URL-encoded query string)
+
+
+Request Headers
+
+	Syntax: words with initial-cap joined using dash (-)
+
+	Host: domain-name - HTTP/1.1 supports virtual hosts. Multiple DNS names (e.g., www.nowhere123.com and www.nowhere456.com) can reside on the same physical server, with their own document root directories. Host header is mandatory in HTTP/1.1 to select one of the hosts.
+
+	The following headers can be used for content negotiation by the client to ask the server to deliver the preferred type of the document (in terms of the media type, e.g. JPEG vs. GIF, or language used e.g. English vs. French) if the server maintain multiple versions for the same document.
+
+	Accept: mime-type-1, mime-type-2, ... - The client can use the Accept header to tell the server the MIME types it can handle and it prefers. If the server has multiple versions of the document requested (e.g., an image in GIF and PNG, or a document in TXT and PDF), it can check this header to decide which version to deliver to the client. (E.g., PNG is more advanced more GIF, but not all browser supports PNG.) This process is called content-type negotiation.
+
+	Accept-Language: language-1, language-2, ... - The client can use the Accept-Language header to tell the server what languages it can handle or it prefers. If the server has multiple versions of the requested document (e.g., in English, Chinese, French), it can check this header to decide which version to return. This process is called language negotiation.
+
+	Accept-Charset: Charset-1, Charset-2, ... - For character set negotiation, the client can use this header to tell the server which character sets it can handle or it prefers. Examples of character sets are ISO-8859-1, ISO-8859-2, ISO-8859-5, BIG5, UCS2, UCS4, UTF8.
+
+	Accept-Encoding: encoding-method-1, encoding-method-2, ... - The client can use this header to tell the server the type of encoding it supports. If the server has encoded (or compressed) version of the document requested, it can return an encoded version supported by the client. The server can also choose to encode the document before returning to the client to reduce the transmission time. The server must set the response header "Content-Encoding" to inform the client that the returned document is encoded. The common encoding methods are "x-gzip (.gz, .tgz)" and "x-compress (.Z)".
+
+	Connection: Close|Keep-Alive - The client can use this header to tell the server whether to close the connection after this request, or to keep the connection alive for another request. HTTP/1.1 uses persistent (keep-alive) connection by default. HTTP/1.0 closes the connection by default.
+
+	Referer: referer-URL - The client can use this header to indicate the referrer of this request. If you click a link from web page 1 to visit web page 2, web page 1 is the referrer for request to web page 2. All major browsers set this header, which can be used to track where the request comes from (for web advertising, or content customization). Nonetheless, this header is not reliable and can be easily spoofed. Note that Referrer is misspelled as "Referer" (unfortunately, you have to follow too).
+
+	User-Agent: browser-type - Identify the type of browser used to make the request. Server can use this information to return different document depending on the type of browsers.
+
+	Content-Length: number-of-bytes - Used by POST request, to inform the server the length of the request body.
+
+	Content-Type: mime-type - Used by POST request, to inform the server the media type of the request body.
+
+	Cache-Control: no-cache|... - The client can use this header to specify how the pages are to be cached by proxy server. "no-cache" requires proxy to obtain a fresh copy from the original server, even though a local cached copy is available. (HTTP/1.0 server does not recognize "Cache-Control: no-cache". Instead, it uses "Pragma: no-cache". Included both request headers if you are not sure about the server’s version.)
+
+	Authorization: Used by the client to supply its credential (username/password) to access protected resources. (This header will be described in later chapter on authentication.)
+
+	Cookie: cookie-name-1=cookie-value-1, cookie-name-2=cookie-value-2, ... - The client uses this header to return the cookie(s) back to the server, which was set by this server earlier for state management. (This header will be discussed in later chapter on state management.)
+
+	If-Modified-Since: date - Tell the server to send the page only if it has been modified after the specific date.
+
+Response Status Code
+	Is in he first line of the response message (i.e., the status line).
+    1xx (Informational): Request received, server is continuing the process.
+    2xx (Success): request received, understood, accepted and serviced.
+    3xx (Redirection): further action must be taken to complete the request.
+    4xx (Client Error): request contains bad syntax or cannot be understood.
+    5xx (Server Error): server failed to fulfill an apparently valid request.
+
+    100 Continue: server received the request and in the process of giving the response.
+    200 OK: The request is fulfilled.
+    301 Move Permanently: The resource requested for has been permanently moved to a new location. The URL of the new location is given in the response header called Location. The client should issue a new request to the new location. Application should update all references to this new location.
+    302 Found & Redirect (or Move Temporarily): Same as 301, but the new location is temporarily in nature. The client should issue a new request, but applications need not update the references.
+    304 Not Modified: In response to the If-Modified-Since conditional GET request, the server notifies that the resource requested has not been modified.
+    400 Bad Request: Server could not interpret or understand the request, probably syntax error in the request message.
+    401 Authentication Required: The requested resource is protected, and require client’s credential (username/password). The client should re-submit the request with his credential (username/password).
+    403 Forbidden: Server refuses to supply the resource, regardless of identity of client.
+    404 Not Found: The requested resource cannot be found in the server.
+    405 Method Not Allowed: The request method used, e.g., POST, PUT, DELETE, is a valid method. However, the server does not allow that method for the resource requested.
+    408 Request Timeout:
+    414 Request URI too Large:
+    500 Internal Server Error: Server is confused, often caused by an error in the server-side program responding to the request.
+    501 Method Not Implemented: The request method used is invalid (could be caused by a typing error, e.g., "GET" misspell as "Get").
+    502 Bad Gateway: Proxy or Gateway indicates that it receives a bad response from the upstream server.
+    503 Service Unavailable: Server cannot response due to overloading or maintenance. The client can try again later.
+    504 Gateway Timeout: Proxy or Gateway indicates that it receives a timeout from an upstream server.
+
+
+GET Request for Directory
+
+Suppose that a directory called "testdir" is present in the document base directory "htdocs".
+
+If a client issues a GET request to "/testdir/" (i.e., at the directory).
+
+    The server will return "/testdir/index.html" if the directory contains a "index.html" file.
+    Otherwise, the server returns the directory listing, if directory listing is enabled in the server configuration.
+    Otherwise, the server returns "404 Page Not Found".
+
+It is interesting to take note that if a client issue a GET request to "/testdir" (without specifying the directory path "/"), the server returns a "301 Move Permanently" with a new "Location" of "/testdir/", as follows.
+
+
+https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
+
+These are the common header fields:
+
+User-Agent: from the client to the server for describing the client. Ex: Chrome used as User-Agent: “Mozilla/5.0 (Macintosh; Intel Mac OS X 10116) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36”
+Origin: from the client to the server for giving information of where come from the request to the server
+Content-Type: define how the body can be read. Ex: “http://swapi.co/api/planets/1/” => “Content-Type: application/json” because the response body is a JSON
+Content-Length: size in Bytes of the request/response body
+
+1) Host
+
+    Host: host [ ":" port ]
+
+The host request-field contains information about the site being requested together with the optional port number. If port number is not mentioned it is assumed to be 80.
+2) User-Agent
+
+    User-Agent: product | comment
+
+The user agent request header contains information about the user agent originating the request. This can be used for a number of reasons like statistical purposes, detecting protocol violations, and tailoring different responses for different user-agents.
+3) Accept
+
+    Accept: type/subtype [q=qvalue]
+
+The Accept request-header field can be used to specify certain media types which are acceptable for the response.
+Example: Accept: audio/*; q=0.2, audio/basic → I prefer audio/basic, but send me any audio type if it is the best available after an 80% mark-down in quality.
+4) Accept-Language
+
+    Accept-Language: language [q=qvalue]
+
+This request header specifies the language the response is expected to be in. Multiple languages can be listed separated by commas and the optional qvalue represents an acceptable quality level for non preferred languages on a scale of 0 to 1.
+5) Accept-Encoding
+
+    Accept-Encoding: encoding types
+
+The Accept-Encoding request-header field is similar to Accept, but restricts the content-codings that are acceptable in the response.
+6) Accept-Charset
+
+    Accept-Charset: character_set [q=qvalue]
+
+The Accept-Charset request-header field can be used to indicate what character sets are acceptable for the response. Multiple values can be inserted in it separated by a comma.
+7) Connection
+
+    Connection : “Connection”
+
+The Connection general-header field allows the sender to specify options that are desired for that particular connection and MUST NOT be communicated by proxies over further connections. HTTP/1.1 applications that do not support persistent connections MUST include the “close” connection option in every message.
+8) Cookie
+
+    Cookie: name1=value1;name2=value2;name3=value3
+
+The Cookie request-header field value contains a name/value pair of information stored for that URL. These are session cookies that are used to store data. No new Pragma directives will be defined in the future.
+9) Pragma
+
+    Pragma: no-cache
+
+The Pragma general-header field is used to include implementation specific directives that might apply to any recipient along the request/response chain.
+10) Cache-Control
+
+    Cache-Control : cache-request-directive|cache-response-directive
+
+The Cache-Control general-header field is used to specify directives that MUST be obeyed by all the caching system. An HTTP client or server can use the Cache-control general header to specify parameters for the cache or to request certain kinds of documents from the cache.
+11) Referer
+
+    Referer : absoluteURI | relativeURI
+
+The Referer request-header field allows the client to specify the address (URI) of the resource from which the URL has been requested.
+12) Transfer-Encoding
+
+    Transfer-Encoding = “Transfer-Encoding”
+
+The Transfer-Encoding general-header field indicates what (if any) type of transformation has been applied to the message body in order to safely transfer it between the sender and the recipient. If multiple encodings have been applied to an entity, the transfer- codings MUST be listed in the order in which they were applied.
+13) Expires
+
+    Expires : HTTP-date
+
+The Expires entity-header field gives the date/time after which the response is considered stale.
+14) Content-Type
+
+    Content-Type : media-type
+
+The Content-Type entity-header field indicates the media type of the entity-body sent to the recipient or, in the case of the HEAD method, the media type that would have been sent, had the request been a GET.
+15) Vary
+
+    Vary : field-name
+
+The Vary response-header field specifies that the entity has multiple sources and may therefore vary according to the specified list of request header(s)
 
 
 
 
+GET
+    The GET method requests a representation of the specified resource. Requests using GET should only retrieve data and should have no other effect. (This is also true of some other HTTP methods.)[1] The W3C has published guidance principles on this distinction, saying, "Web application design should be informed by the above principles, but also by the relevant limitations."[24] See safe methods below.
+HEAD
+    The HEAD method asks for a response identical to that of a GET request, but without the response body. This is useful for retrieving meta-information written in response headers, without having to transport the entire content.
+POST
+    The POST method requests that the server accept the entity enclosed in the request as a new subordinate of the web resource identified by the URI. The data POSTed might be, for example, an annotation for existing resources; a message for a bulletin board, newsgroup, mailing list, or comment thread; a block of data that is the result of submitting a web form to a data-handling process; or an item to add to a database.[25]
+PUT
+    The PUT method requests that the enclosed entity be stored under the supplied URI. If the URI refers to an already existing resource, it is modified; if the URI does not point to an existing resource, then the server can create the resource with that URI.[26]
+DELETE
+    The DELETE method deletes the specified resource.
+TRACE
+    The TRACE method echoes the received request so that a client can see what (if any) changes or additions have been made by intermediate servers.
+OPTIONS
+    The OPTIONS method returns the HTTP methods that the server supports for the specified URL. This can be used to check the functionality of a web server by requesting '*' instead of a specific resource.
+CONNECT
+    [27] The CONNECT method converts the request connection to a transparent TCP/IP tunnel, usually to facilitate SSL-encrypted communication (HTTPS) through an unencrypted HTTP proxy.[28][29] See HTTP CONNECT method.
+PATCH
+    The PATCH method applies partial modifications to a resource.[30]
 
+All general-purpose HTTP servers are required to implement at least the GET and HEAD methods, and all other methods are considered optional by the specification.[31] 
 
 
 

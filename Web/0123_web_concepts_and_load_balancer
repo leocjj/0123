@@ -131,8 +131,7 @@ The disadvantages of TCP/IP include the following:
 
 
 ********************************************************************************
-
-
+						LOAD BALANCER
 ********************************************************************************
 
 https://www.thegeekstuff.com/2016/01/load-balancer-intro/
@@ -262,6 +261,7 @@ Hardware Load Balancer Examples
 https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts
 
 http://www.haproxy.org/
+http://www.haproxy.org/#docs
 https://haproxy.debian.net/
 
 apt-get -y install software-properties-common
@@ -270,12 +270,185 @@ add-apt-repository -y ppa:vbernat/haproxy-1.8
 apt-get update
 apt-get -y install haproxy=1.8.\*
 
+haproxy -v
 
 High Availability Proxy
 open source software TCP/HTTP Load Balancer and proxying solution
 can be run on Linux, Solaris, and FreeBSD.
 
 ACL: Access Control List.
+
+/etc/default/haproxy
+/etc/haproxy
+/etc/init.d
+/etc/logrotate.d/haproxy
+/run/haproxy
+/usr/sbin
+/usr/share/lintian/overrides/haproxy
+/var/lib/haproxy
+
+/etc/haproxy/haproxy.cfg			// Main configuration file.
+	sudo service haproxy restart	// In case of something changes
+
+***
+
+global
+        log /dev/log    local0
+        log /dev/log    local1 notice
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
+
+        # Default SSL material locations
+        ca-base /etc/ssl/certs
+        crt-base /etc/ssl/private
+
+        # Default ciphers to use on SSL-enabled listening sockets.
+        # For more information, see ciphers(1SSL). This list is from:
+        # https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+        ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS
+        ssl-default-bind-options no-sslv3
+
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+        errorfile 400 /etc/haproxy/errors/400.http
+        errorfile 403 /etc/haproxy/errors/403.http
+        errorfile 408 /etc/haproxy/errors/408.http
+        errorfile 500 /etc/haproxy/errors/500.http
+        errorfile 502 /etc/haproxy/errors/502.http
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
+
+	
+frontend firstbalance
+        bind *:80			// means any IP address configured on this machine
+        option forwardfor
+        default_backend webservers
+
+backend webservers
+        balance roundrobin
+        server webserver1 Your-Webserver1-IP:80 check
+        server webserver2 Your-Webserver2-IP:80 check
+        option httpchk
+***
+
+haproxy -f /etc/haproxy/haproxy.cfg -c	// To check the file.
+
+haproxy -f /etc/haproxy/haproxy.cfg -d	// To monitor live traffic (debugging).
+
+sudo service haproxy restart
+
+***
+listen firstbalance				// Replace frontend and backend
+        bind *:80
+        balance roundrobin
+        option forwardfor
+        option httpchk
+        server webserver1 Your-Webserver1-IP:80 check
+        server webserver2 Your-Webserver2-IP:80 check
+***
+
+# Config load balancer for two web servers
+echo "backend web-backend
+balance roundrobin
+server 1195-web-01 104.196.66.20:80 check
+server 1195-web-02 3.80.113.159:80 check
+frontend http
+bind *:80
+mode http
+default_backend web-backend
+" >> /etc/haproxy/haproxy.cfg
+
+
+*******************************************************************************
+
+# Custom header, send Hostname to know wich server is serving
+sed -i "/listen 80 default_server/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
+# Restart server to apply changes
+sudo service nginx restart
+
+curl -sI 54.221.161.113 | grep X-Served-By
+	-> X-Served-By: 1195-web-02
+
+
+
+*******************************************************************************
+					SSL / TSL
+*******************************************************************************
+
+SSL (Secure Sockets Layer) or TLS (Transport Layer Security)
+use what is known as an 'asymmetric' Public Key Infrastructure (PKI) system
+https://www.sslshopper.com/choosing-the-right-certificate-authority.html
+
+https://certbot.eff.org/		// Free SSL certificate
+https://certbot.eff.org/lets-encrypt/ubuntuxenial-haproxy
+https://www.digitalocean.com/community/tutorials/how-to-secure-haproxy-with-let-s-encrypt-on-ubuntu-14-04
+https://skarlso.github.io/2017/02/15/how-to-https-with-hugo-letsencrypt-haproxy/
+https://code.greenhost.net/open/letsencrypt-haproxy
+
+    sudo apt-get update
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository universe
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt-get update
+
+	sudo apt-get install certbot
+
+OK	a) My web server is not currently running on this machine.
+		Stop your webserver, then run this command to get a certificate.
+		Certbot will temporarily spin up a webserver on your machine.
+			sudo certbot certonly --standalone
+
+			--> /etc/letsencrypt/
+
+			Congratulations! Your certificate and chain have been saved at:
+			   /etc/letsencrypt/live/www.leocjj.tech/fullchain.pem
+			   Your key file has been saved at:
+			   /etc/letsencrypt/live/www.leocjj.tech/privkey.pem
+
+BAD	b) No, I need to keep my web server running. Already using port 80 and
+		don't want to stop it while Certbot runs.
+			sudo certbot certonly --webroot
+
+### combine privkey.pem and fullchain.pem
+	DOMAIN='www.leocjj.tech' sudo -E bash -c 
+		'cat	/etc/letsencrypt/live/$DOMAIN/fullchain.pem
+				/etc/letsencrypt/live/$DOMAIN/privkey.pem 
+			  > /etc/haproxy/certs/$DOMAIN.pem'
+
+/etc/haproxy/haproxy.cfg
+	backend web-backend
+		    balance roundrobin
+		    redirect scheme https if !{ ssl_fc }
+		    server 800-web-01 35.196.121.183:80 check
+		    server 800-web-02 35.196.239.45:80 check
+	frontend http
+        bind *:80
+        reqadd X-Forwarded-Proto:\ http
+        default_backend web-backend
+	### OPEN PORT 443 FOR SSL AND (FULLCHAIN+PRIVKEY).PEM
+	frontend https
+		bind *:443 ssl crt /etc/haproxy/ssl/www.leocjj.tech.pem
+		reqadd X-Forwarded-Proto:\ https
+		default_backend web-backend
+
+
+haproxy -f /etc/haproxy/haproxy.cfg -c		// To check config file
+sudo service haproxy restart				// Restart haproxy
+sudo service haproxy status					// Check status
+curl -sI https://www.leocjj.tech
+curl https://www.leocjj.tech
+
+https://www.ssllabs.com/ssltest/			// TEST
 
 
 

@@ -32,22 +32,26 @@ if you installed a web server and it isn’t serving a page when browsing the IP
 Connect to a server/machine/computer/container, then:
 
 	lsb_release -a
+	ps auxff | grep ngin[x]
+	nc -z 0 8080 ; echo $?
+	netstat -na | grep ':80.*LISTEN'
+	less /etc/services
 
-w
-    shows server uptime which is the time during which the server has been continuously running
-    shows which users ARE connected to the server (IN THIS MOMENT)
-    load average will give you a good sense of the server health
+	w
+    	shows server uptime (continuously running)
+		shows which users ARE connected to the server (IN THIS MOMENT)
+		load average will give you a good sense of the server health
 		https://scoutapm.com/blog/understanding-load-averages
 		http://www.brendangregg.com/blog/2017-08-08/linux-load-averages.html
 
-history
-	commands previously run by the curren user
+	history
+		commands previously run by the curren user
 
-top
-    shows what is currently running on this server
+	top
+		shows what is currently running on this server
 
-df
-    shows disk utilization
+	df
+		shows disk utilization
 
 netstat [-lpn]
     what port and IP your server is listening on, processes are using sockets
@@ -65,25 +69,111 @@ There are often 3 ways of solving the issue:
     distributing the resource usage to other machines
 
 Network issue
-    Does the server have the expected network interfaces and IPs up and running? ifconfig
-    Does the server listen on the sockets that it is supposed to? netstat (netstat -lpd or netstat -lpn)
-    Can you connect from the location you want to connect from, to the socket
-		you want to connect to? telnet to the IP + PORT (telnet 8.8.8.8 80)
-    Does the server have the correct firewall rules? iptables, ufw:
-        iptables -L
-        sudo ufw status
+	ifconfig
+		Expected network interfaces and IPs up and running?
+    netstat -lpd
+	netstat -lpn
+		Listening on the sockets that it is supposed to? netstat
+	telnet 8.8.8.8 80
+		Can you connect from the location you want to connect from,
+		to the socket you want to connect to?
+	iptables -L
+	sudo ufw status
+		Does the server have the correct firewall rules?
+        
 
 Process issue
-	If a piece of Software isn’t behaving as expected, it can obviously be
-	because of above reasons… but the good news is that there is more to look
-	into (there is ALWAYS more to look into actually).
-
+	If Software isn’t behaving as expected:
     Is the software started? init, init.d:
         service NAME_OF_THE_SERVICE status
         /etc/init.d/NAME_OF_THE_SERVICE status
     Is the software process running? pgrep, ps:
         pgrep -lf NAME_OF_THE_PROCESS
         ps auxf
-    Is there anything interesting in the logs? look for log files in /var/log/ and tail -f is your friend
+    Is there anything interesting in the logs?
+		look for log files in /var/log/ and tail -f is your friend
+
+Always...
+    Re-start server (and Check console for Error Messages)!!!
+    Re-start your browser!!!
+    Refresh browser: Cntl-F5 to get a fresh copy (instead of F5, cache).
+    Check your spelling! Always assume case-sensitive.
+	Don't type, copy and paste if possible!
+	Find the ERROR MESSAGE!!! 
+
+curl
+	-vvv will print all headers and transfer state of a request/response
+	-o redirect the response body of a request to a file
+	-H will set your parameter in the Header part.
+	-X define which HTTP:
+		-X GET: to do a GET request (by default)
+		-X POST: to do a POST request
+		-X PUT: to do a PUT request
+		-X DELETE: to do a DELETE request
+
+# Size of the body of the response
+curl --silent --head "$1" | grep Content-Length | awk '{print $2;}'
+
+# Body of the response in case of redirections
+curl --silent --location "$1"
+
+# Sends a DELETE request and displays the body of the response
+curl --silent --request DELETE "$1"
+
+# All HTTP methods the server will accept.
+curl --silent --head "$1" | grep Allow | cut --delimiter ' ' -f 2-
+
+# script that takes in a URL as an argument, sends a GET request to the URL, and displays the body of the response
+curl --silent --header "X-HolbertonSchool-User-Id:98" "$1"
+
+# script that takes in a URL, sends a POST request to the passed URL, and displays the body of the response
+curl --silent --request POST --data 'email=hr@holbertonschool.com&subject=I will always be here for PLD' "$1"
+
+# script that sends a request to a URL passed as an argument, and displays only the status code of the response.
+curl --output /dev/null --silent --write-out "%{http_code}" "$1"
+
+# script that sends a JSON POST request to a URL passed as the first argument, and displays the body of the response.
+curl --silent --header "Content-Type: application/json" --request POST --data @"$2" "$1"
+
+
+	All query string parameters can be directly add to the URL.
+	But for other HTTP method, you should use the attribute -d.
+	You can use only one and it should be url encoded
+		(separated by the symbol &) or multiples.
+	By default, the Content-Type: application/x-www-form-urlencoded
+curl "http://localhost:5555/states" -X POST -d "name=Cali&code=VC"
+curl "http://localhost:5555/states/12" -X PUT -d "name=Cali" -d "code=CAF"
+curl "http://localhost:5555/states" -X POST
+	-H "Content-Type: application/json"
+	-d "{ \"name\": \"California\", \"code\": \"CA\" }"
+
+	curl --output /dev/null --silent --write-out "%{http_code}\n" 0.0.0.0:5000
+	curl --output /dev/null --silent --write-out "%{time_connect}\n" 0.0.0.0:5000
+	curl --output /dev/null --silent --write-out "%{url_effective}\n" 0.0.0.0:5000
+	curl --header "Content-Type: application/json" --request POST \
+		--data '{"username":"xyz","password":"xyz"}' 0.0.0.0:5000/route_json 
+	curl --header "Content-Type: application/json" \
+		--request POST --data @"$2" "$1"				//@ to read from a file
+
+curl --silent 0.0.0.0:5000/catch_me --location --request PUT --data 'user_id=98' --header "Origin:HolbertonSchool"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

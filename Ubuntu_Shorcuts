@@ -1,0 +1,21 @@
+
+1. Super key: Opens Activities search
+	Super key + #: opens lateral app
+	Super key + pgUp/pgDw: change workspace
+2. Ctrl+Alt+T: Ubuntu terminal shortcut
+3. Super+L or Ctrl+Alt+L: Locks the screen
+4. Super+D or Ctrl+Alt+D: Show desktop
+5. Super+A: Shows the application menu
+6. Super+Tab or Alt+Tab: Switch between running applications
+7. Super+Arrow keys: Snap windows
+8. Super+M: Toggle notification tray
+9. Super+Space: Change input keyboard (for multilingual setup)
+10. Alt+F2: Run console
+11. Ctrl+Q: (Ctrl+W) Close an application window
+12. Ctrl+Alt+arrow: Move between workspaces
+13. Ctrl+Alt+Del: Log out
+Settings->Devices->Keyboard. You’ll see all the keyboard shortcuts here for your system. Scroll down to the bottom and you’ll see the Custom Shortcuts option.
+https://wiki.gnome.org/Design/OS/KeyboardShortcuts
+https://itsfoss.com/linux-command-tricks/
+https://itsfoss.com/best-linux-screen-recorders/
+

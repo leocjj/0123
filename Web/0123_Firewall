@@ -1,0 +1,97 @@
+
+*******************************************************************************
+				Firewall
+*******************************************************************************
+
+https://help.ubuntu.com/community/Firewall
+https://help.ubuntu.com/community/UFW
+https://help.ubuntu.com/community/Gufw		// GUI for ufw
+https://wiki.ubuntu.com/BasicSecurity/Firewall
+https://www.cyberciti.biz/faq/ufw-allow-incoming-ssh-connections-from-a-specific-ip-address-subnet-on-ubuntu-debian/
+
+sudo apt-get -y update
+sudo apt-get -y install ufw
+sudo ufw default allow outgoing
+sudo ufw default deny incoming
+sudo ufw allow 22/tcp				// sudo ufw allow ssh
+sudo ufw limit 22/tcp				//deny connections from an IP address
+//that has attempted to initiate 6 or more connections in the last 30 seconds
+sudo ufw allow 443/tcp
+sudo ufw allow 80/tcp
+sudo ufw enable
+
+->	/etc/ufw/
+->	/etc/default/ufw
+
+->  /etc/sysctl.conf				// For security
+->  /etc/ufw/sysctl.conf
+
+https://help.ubuntu.com/community/Gufw		->
+
+ufw [--dry-run] enable|disable|reload
+	enable		reloads firewall and enables firewall on boot.
+	disable		unloads firewall and disables firewall on boot
+	reload 		reloads firewall
+
+	default allow|deny|reject DIRECTION
+
+ufw show REPORT
+
+ufw status numbered			// list of numbered rules
+
+	ufw allow 53 			// allow tcp and udp port 53 to any address
+	ufw allow 25/tcp		// allow tcp port 25 to any address.
+	ufw deny 80/tcp			
+	ufw reject				// to let the sender know, traffic is denied
+
+*******	reset  Disables and resets firewall to installation defaults. *********
+
+ufw allow proto tcp from any to any port 22
+ufw allow from 10.0.0.0/8
+ufw deny proto udp from 1.2.3.4 to any port 514
+ufw allow proto udp from 1.2.3.5 port 5469 to 1.2.3.4 port 5469
+
+
+****************************** REDIRECTION PORTS ******************************
+
+sudo vi /etc/ufw/before.rules
+	*nat
+	:PREROUTING ACCEPT [0:0]
+	-A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+	COMMIT
+
+[
+    Uncomment these 3 lines in the file /etc/ufw/sysctl.conf: 
+		#net/ipv4/ip_forward=1
+		#net/ipv6/conf/default/forwarding=1
+		#net/ipv6/conf/all/forwarding=1
+]
+
+sudo ufw reload
+
+
+or
+
+
+sudo vi /etc/ufw/before.rules
+	*nat
+	:PREROUTING ACCEPT [0:0]
+	# forward 202.54.1.1  port 80 to 192.168.1.100:80
+	# forward 202.54.1.1  port 443 to 192.168.1.100:443
+	-A PREROUTING -i eth0 -d 202.54.1.1   -p tcp --dport 80 -j  DNAT --to-destination 192.168.1.100:80
+	-A PREROUTING -i eth0 -d 202.54.1.1   -p tcp --dport 443 -j  DNAT --to-destination 192.168.1.100:443
+	# setup routing
+	-A POSTROUTING -s 192.168.1.0/24 ! -d 192.168.1.0/24 -j MASQUERADE
+	COMMIT
+
+sudo vi /etc/sysctl.conf			// Set/edit as follows:
+	net.ipv4.ip_forward=1
+
+sudo sysctl -p
+sudo systemctl restart ufw
+
+sudo ufw status
+sudo iptables -t nat -L -n -v
+
+
+

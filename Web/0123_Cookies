@@ -1,0 +1,56 @@
+
+
+*******************************************************************************
+				COOKIES
+*******************************************************************************
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+
+Small piece of data that a server sends to the user's web browser.
+Browser may store it and send it back with next request to the same server.
+Used to tell if two requests came from the same browser
+	To keeping a user logged-in, for example.
+It remembers stateful information for the stateless HTTP protocol.
+
+
+Session management
+    Logins, shopping carts, game scores, ...
+Personalization
+    User preferences, themes, and other settings
+Tracking
+    Recording and analyzing user behavior 
+
+The Set-Cookie HTTP response header sends cookies from the server to the user
+	agent. A simple cookie is set like this:
+		Set-Cookie: <cookie-name>=<cookie-value>; Expires=Wed, 21 Oct 2015
+			07:28:00 GMT; Secure; HttpOnly; SameSite=Strict
+
+https://developer.mozilla.org/en-US/docs/Tools/Storage_Inspector
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API
+https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
