@@ -14,11 +14,15 @@ sudo apt-get -y install ufw
 sudo ufw default allow outgoing
 sudo ufw default deny incoming
 sudo ufw allow 22/tcp				// sudo ufw allow ssh
-sudo ufw limit 22/tcp				//deny connections from an IP address
+sudo ufw limit 22/tcp				// deny connections from an IP address
 //that has attempted to initiate 6 or more connections in the last 30 seconds
-sudo ufw allow 443/tcp
-sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp				
+sudo ufw allow 80/tcp				
 sudo ufw enable
+
+sudo ufw deny 'Nginx HTTP'			// Nginx listening disable
+sudo ufw deny 80 					// Deny only port 80
+sudo ufw allow 80/tcp				// Deny only protocol tcp in port 80 
 
 ->	/etc/ufw/
 ->	/etc/default/ufw

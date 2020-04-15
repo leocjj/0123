@@ -451,9 +451,35 @@ curl https://www.leocjj.tech
 https://www.ssllabs.com/ssltest/			// TEST
 
 
+https://wakatime.com/blog/23-how-to-scale-ssl-with-haproxy-and-nginx
 
 
+Kael En mi caso yo hice lo siguiente:
+	0.  tener un servidor bl con haproxy
+	1. apuntar los dominios al balanceador desde el panel de tech. Registros tipo A
+	3. verifique el puerto 80 con netstat -na | grep ':80.*LISTEN'
+	4. apague nginx con sudo service haproxy stop
+	5. verifique el puerto 80 de nuevo netstat -na | grep ':80.*LISTEN'
+	6. instale lets-encrypt con cetbot
+	sudo apt-get update
+	sudo apt-get install software-properties-common
+	sudo add-apt-repository universe
+	sudo add-apt-repository ppa: certbot / certbot
+	sudo apt-get update
+	sudo apt-get install certbot
+	sudo certbot certonly --standalone --preferred-challenges http --http-01-port 80 -d www.tupagina.tech -d www.tupagina.tech
+	7.  configurare las keys generadas en sudo mkdir -p /etc/haproxy/certs
+	haciendo DOMAIN='www.tupagina.tech' sudo -E bash -c 'cat /etc/letsencrypt/live/$DOMAIN/fullchain.pem /etc/letsencrypt/live/$DOMAIN/privkey.pem > /etc/haproxy/certs/$DOMAIN.pem'
+	8.  protegi la carpeta de las keys con sudo chmod -R go-rwx /etc/haproxy/certs
+	9. configure la parte del ssl en nginx  en /etc/haproxy/haproxy.cfg
+	solo añadi:
+	bind *:443 ssl crt /etc/haproxy/certs/www.tupagina.tech.pem en 
+	y
+	redirect scheme https unless { ssl_fc }
 
+quedo algo asi:
+
+	https://github.com/kael1706/holberton-system_engineering-devops/blob/master/0x10-https_ssl/100-redirect_http_to_https
 
 
 

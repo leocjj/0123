@@ -1,0 +1,120 @@
+
+
+http://www.fabfile.org/
+https://docs.fabfile.org/en/2.5/getting-started.html
+
+Install Fabric for Python 3 - version 1.14.post1
+
+$ pip3 uninstall Fabric
+$ sudo apt-get install libffi-dev
+$ sudo apt-get install libssl-dev
+$ sudo apt-get install build-essential
+$ sudo apt-get install python3.4-dev
+$ sudo apt-get install libpython3-dev
+$ pip3 install pyparsing
+$ pip3 install appdirs
+$ pip3 install setuptools==40.1.0
+$ pip3 install cryptography==2.8
+$ pip3 install Fabric3==1.14.post1
+
+
+https://docs.fabfile.org/en/2.5/api/connection.html#connect-kwargs-arg
+
+CONNECTIONS
+
+	__init__(host, user=None, port=None, config=None, gateway=None, forward_agent=None, connect_timeout=None, connect_kwargs=None, inline_ssh_env=None)
+
+	c = Connection(
+		host="hostname",
+		user="admin",
+		connect_kwargs={
+		    "key_filename": "/home/myuser/.ssh/private.key",
+		},
+	)
+	Connection(host='web1', user='deploy', port=2202)
+	Connection('deploy@web1:2202')
+
+
+>>> from fabric import Connection
+>>> result = Connection('web1.example.com').run('uname -s', hide=True)
+>>> msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
+>>> print(msg.format(result))
+Ran 'uname -s' on web1.example.com, got stdout:
+Linux
+
+
+>>> from fabric import Connection
+>>> c = Connection('web1')
+>>> result = c.run('uname -s')
+Linux
+>>> result.stdout.strip() == 'Linux'
+True
+>>> result.exited
+0
+>>> result.ok
+True
+>>> result.command
+'uname -s'
+>>> result.connection
+<Connection host=web1>
+>>> result.connection.host
+'web1'
+
+
+TRANSFER FILES
+	from fabric import Connection
+	result = Connection('web1').put('myfiles.tgz', remote='/opt/mydata/')
+	print("Uploaded {0.local} to {0.remote}".format(result))
+		--> Uploaded /local/myfiles.tgz to /opt/mydata/
+
+
+MULTIPLE ACTIONS
+	from fabric import Connection
+	c = Connection('web1')
+	c.put('myfiles.tgz', '/opt/mydata')
+	c.run('tar -C /opt/mydata -xzvf /opt/mydata/myfiles.tgz')
+
+
+MULTIPLE SERVERS
+	from fabric import Connection
+	for host in ('web1', 'web2', 'mac1'):
+	    result = Connection(host).run('uname -s')
+	    print("{}: {}".format(host, result.stdout.strip()))
+
+
+*******************************************************************************
+nginx config file
+
+	location /static/ {
+		root /var/www/app/;
+		autoindex off;
+	}
+	Final path that Nginx will derive will be: /var/www/app/static
+
+	location /static/ {
+		alias /var/www/app/static/;
+		autoindex off;
+	}
+	Final path will correctly be formed as: /var/www/app/static
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -169,7 +169,8 @@ HTTP Response Message
 	Content-Length: 44
 	Connection: close
 	Content-Type: text/html	-->	//"text/plain", "text/html", "image/gif", 
-	X-Pad: avoid browser bug	//"image/jpeg", "audio/mpeg", "video/mpeg", 								//"application/msword", and "application/pdf"
+	X-Pad: avoid browser bug	//"image/jpeg", "audio/mpeg", "video/mpeg",
+								//"application/msword", and "application/pdf"
 	<html><body><h1>It works!</h1></body></html>
 
 HTTP Specifications
