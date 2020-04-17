@@ -1,0 +1,386 @@
+
+
+*******************************************************************************
+						urllib
+*******************************************************************************
+
+https://docs.python.org/3/howto/urllib2.html
+https://docs.python.org/3/library/urllib.request.html#module-urllib.request
+https://docs.python.org/3/library/urllib.request.html#module-urllib.response
+
+
+**************************** request.Request **********************************
+req = urllib.request.Request('https://intranet.hbtn.io/')
+
+req.__dict__
+
+**************************** request.urlopen **********************************
+
+urllib.request.urlopen(url, data=None, [timeout, ]*, cafile=None,capath=None, 	cadefault=False, context=None)¶
+
+* Open the URL url, which can be either a string or a Request object.
+* If context is specified, it must be a ssl.SSLContext instance describing
+	the various SSL options. See HTTPSConnection for more details.
+
+Returns: a context manager or http.client.HTTPResponse in case of HTTP
+		geturl() 	— return the URL of the resource retrieved.
+		info() 		— return the meta-information, such as headers, in the 
+					form of an email.message_from_string() instance.
+		getcode() 	– return the HTTP status code of the response.
+
+
+	defined in the module urllib.response.
+		.read()		--> File content
+		.readline()	-->
+		.geturl() 	- returns real URL fetched. may have followed a redirect.
+					URL fetched may not be the same as the URL requested.
+		.info() 	- dictionary-like obj, describes page fetched, HEADERS sent
+					by server. Currently an http.client.HTTPMessage instance.
+
+	For HTTP, also has:
+		msg 	attribute: same info as reason attribute — the reason
+				phrase returned by server — instead of the response headers as
+				it is specified in the documentation for HTTPResponse.
+
+For FTP, file, and data URLs and requests explicitly handled by legacy
+	URLopener and FancyURLopener classes, this function returns a
+	urllib.response.addinfourl object.
+
+Raises:
+	URLError on protocol errors.
+
+
+************************** SIMPLE REQUEST *************************************
+
+import urllib.request
+with urllib.request.urlopen('http://python.org/') as response:
+   html = response.read()
+
+
+*** RETRIEVE RESOURCE TO STORE IT ***
+
+# retrieve a resource via URL and store it in a temporary location
+import shutil
+import tempfile
+import urllib.request
+with urllib.request.urlopen('http://python.org/') as response:
+    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+        shutil.copyfileobj(response, tmp_file)
+with open(tmp_file.name) as html:
+    pass
+
+
+*** REQUEST AND RESPONSE ***
+
+# Request obj represents the HTTP request, response is a file-like object.
+import urllib.request
+req = urllib.request.Request('http://www.voidspace.org.uk')
+# req = urllib.request.Request('ftp://example.com/')
+with urllib.request.urlopen(req) as response:
+   the_page = response.read()
+
+
+*** POST REQUEST ***
+
+import urllib.parse
+import urllib.request
+url = 'http://www.someserver.com/cgi-bin/register.cgi'
+values = {'name' : 'Michael Foord',
+          'location' : 'Northampton',
+          'language' : 'Python' }
+data = urllib.parse.urlencode(values)
+data = data.encode('ascii') # data should be bytes
+req = urllib.request.Request(url, data)				// Send data to URL.
+with urllib.request.urlopen(req) as response:		// POST REQUEST
+   the_page = response.read()
+
+##### If you do not pass the data argument, urllib uses a GET request. #####
+
+
+*** GET REQUEST ***
+
+import urllib.request
+import urllib.parse
+data = {}
+data['name'] = 'Somebody Here'
+data['location'] = 'Northampton'
+data['language'] = 'Python'
+url_values = urllib.parse.urlencode(data)
+print(url_values)  # The order may differ from below.  
+--> name=Somebody+Here&language=Python&location=Northampton
+url = 'http://www.example.com/example.cgi'
+full_url = url + '?' + url_values
+data = urllib.request.urlopen(full_url)
+
+
+*** HEADERS ***
+
+import urllib.parse
+import urllib.request
+
+url = 'http://www.someserver.com/cgi-bin/register.cgi'
+user_agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)'
+values = {'name': 'Michael Foord',
+          'location': 'Northampton',
+          'language': 'Python' }
+headers = {'User-Agent': user_agent}
+
+data = urllib.parse.urlencode(values)
+data = data.encode('ascii')
+req = urllib.request.Request(url, data, headers)
+with urllib.request.urlopen(req) as response:
+   the_page = response.read()
+
+
+*** EXCEPTIONS ***
+
+URLError: when it cannot handle a response 
+ValueError, TypeError etc.: may also be raised
+
+The exception classes are exported from the urllib.error module.
+
+req = urllib.request.Request('http://www.pretend_server.org')
+try:
+    urllib.request.urlopen(req)
+except urllib.error.URLError as e:
+    print(e.reason)      					--> (4, 'getaddrinfo failed')
+
+
+HTTPError: subclass of URLError raised in the specific case of HTTP URLs.
+
+req = urllib.request.Request('http://www.python.org/fish.html')
+try:
+    urllib.request.urlopen(req)
+except urllib.error.HTTPError as e:
+    print(e.code)							--> 404
+    print(e.read()) 						--> <!DOCTYPE html ...
+
+
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
+req = Request(someurl)
+try:
+    response = urlopen(req)
+except HTTPError as e:
+    print('The server couldn\'t fulfill the request.')
+    print('Error code: ', e.code)
+except URLError as e:
+    print('We failed to reach a server.')
+    print('Reason: ', e.reason)
+else:
+    # everything is fine
+
+
+*** Basic Authentication¶
+
+*** Proxies¶
+
+
+
+
+*******************************************************************************
+						Request lib
+*******************************************************************************
+
+https://requests.readthedocs.io/en/master/
+https://requests.readthedocs.io/en/master/api/#requests.Response
+https://github.com/psf/requests
+
+https://docs.python-guide.org/dev/virtualenvs/#virtualenvironments-ref
+https://pipenv.pypa.io/en/latest/
+pip install --user pipenv
+pipenv install requests
+[pipenv run python main.py]
+
+import requests
+r = requests.get('https://api.github.com/user', auth=('user', 'pass'))
+r.text							--> Content of the server's response.
+	--> '[{"repository":{"open_issues":0,"url":"https://github.com/...
+r.status_code					--> 200
+r.headers['content-type']		--> 'application/json; charset=utf8'
+r.encoding						--> 'utf-8'
+r.text							--> '{"type":"User"...'
+r.json()			--> {'private_gists': 419, 'total_private_repos': 77, ...}
+print('Your IP is {0}'.format(r.json()['origin']))
+
+r = requests.post('https://httpbin.org/post', data = {'key':'value'})
+r = requests.put('https://httpbin.org/put', data = {'key':'value'})
+r = requests.delete('https://httpbin.org/delete')
+r = requests.head('https://httpbin.org/get')
+r = requests.options('https://httpbin.org/get')
+
+payload = {'key1': 'value1', 'key2': 'value2'}
+r = requests.get('https://httpbin.org/get', params=payload)
+print(r.url)				--> https://httpbin.org/get?key2=value2&key1=value1
+
+>>> r.encoding
+'utf-8'
+>>> r.encoding = 'ISO-8859-1'
+
+
+Binary Response Content:
+	access the response body as bytes, for non-text requests:
+		--> b'[{"repository":{"open_issues":0,"url":"https://github.com/...
+	r.content 			--> to find the encoding,
+
+
+Create an image:
+	from binary data returned by a request
+	from PIL import Image
+	from io import BytesIO
+	i = Image.open(BytesIO(r.content))
+
+
+JSON Response Content
+	import requests
+	r = requests.get('https://api.github.com/events')
+	r.json()
+	--> [{'repository': {'open_issues': 0, 'url': 'https://github.com/...
+	--> ValueError: No JSON object could be decoded
+
+	r.raise_for_status()	--> To check that a request is successful
+	r.status_code 			--> check if is what you expect.
+
+
+Raw Response Content
+	r = requests.get('https://api.github.com/events', stream=True)
+	r.raw			--> <urllib3.response.HTTPResponse object at 0x101194810>
+	r.raw.read(10)	--> '\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x03'
+
+	# use a pattern like this to save what is being streamed to a file:
+	with open(filename, 'wb') as fd:
+		for chunk in r.iter_content(chunk_size=128):
+		    fd.write(chunk)
+
+Custom Headers
+	# All header values must be a string, bytestring, or unicode.
+	url = 'https://api.github.com/some/endpoint'
+	headers = {'user-agent': 'my-app/0.0.1'}
+	r = requests.get(url, headers=headers)
+
+
+More complicated POST requests¶
+
+	Send data that is not form-encoded. If you pass in a string instead of a
+		dict, that data will be posted directly.
+	import json
+	url = 'https://api.github.com/some/endpoint'
+	payload = {'some': 'data'}
+	r = requests.post(url, data=json.dumps(payload))
+	r = requests.post(url, json=payload)	# Ignored if passed data or files.
+		# will change the Content-Type in the header to application/json.
+
+
+Response Status Codes
+	r.status_code == requests.codes.ok		--> True
+	r.raise_for_status()					--> If error
+		Traceback (most recent call last):
+		  File "requests/models.py", line 832, in raise_for_status
+			raise http_error
+		requests.exceptions.HTTPError: 404 Client Error
+
+
+Response Headers
+	r.headers
+		{
+			'content-encoding': 'gzip',
+			'transfer-encoding': 'chunked',
+			'connection': 'close',
+			'server': 'nginx/1.0.4',
+			'x-runtime': '148ms',
+			'etag': '"e1ca502697e5c9317743dc078f67693f"',
+			'content-type': 'application/json'
+		}
+	r.headers['Content-Type']				--> 'application/json'
+	r.headers.get('content-type')			--> 'application/json'
+
+
+Cookies access
+	url = 'http://example.com/some/cookie/setting/url'
+	r = requests.get(url)
+	r.cookies['example_cookie_name']		--> 'example_cookie_value'
+
+
+Cookies send
+	url = 'https://httpbin.org/cookies'
+	cookies = dict(cookies_are='working')
+	r = requests.get(url, cookies=cookies)
+	r.text						--> '{"cookies": {"cookies_are": "working"}}'
+
+>>> jar = requests.cookies.RequestsCookieJar()
+>>> jar.set('tasty_cookie', 'yum', domain='httpbin.org', path='/cookies')
+>>> jar.set('gross_cookie', 'blech', domain='httpbin.org', path='/elsewhere')
+>>> url = 'https://httpbin.org/cookies'
+>>> r = requests.get(url, cookies=jar)
+>>> r.text						--> '{"cookies": {"tasty_cookie": "yum"}}'
+
+
+Redirection and History
+
+	By default Requests will perform location redirection for all verbs except HEAD.
+
+	We can use the history property of the Response object to track redirection.
+
+	The Response.history list contains the Response objects that were created in order to complete the request. The list is sorted from the oldest to the most recent response.
+
+	For example, GitHub redirects all HTTP requests to HTTPS:
+
+	>>> r = requests.get('http://github.com/')
+	>>> r.url					-->	'https://github.com/'
+	>>> r.status_code			--> 200
+	>>> r.history				--> [<Response [301]>]
+
+	If you’re using GET, OPTIONS, POST, PUT, PATCH or DELETE, you can disable redirection handling with the allow_redirects parameter:
+
+	>>> r = requests.get('http://github.com/', allow_redirects=False)
+
+	>>> r.status_code
+	301
+
+	>>> r.history
+	[]
+
+	If you’re using HEAD, you can enable redirection as well:
+
+	>>> r = requests.head('http://github.com/', allow_redirects=True)
+
+	>>> r.url
+	'https://github.com/'
+
+	>>> r.history
+	[<Response [301]>]
+
+Timeouts
+
+	You can tell Requests to stop waiting for a response after a given number of seconds with the timeout parameter. Nearly all production code should use this parameter in nearly all requests. Failure to do so can cause your program to hang indefinitely:
+
+	>>> requests.get('https://github.com/', timeout=0.001)
+	Traceback (most recent call last):
+	  File "<stdin>", line 1, in <module>
+	requests.exceptions.Timeout: HTTPConnectionPool(host='github.com', port=80): Request timed out. (timeout=0.001)
+
+	Note
+
+	timeout is not a time limit on the entire response download; rather, an exception is raised if the server has not issued a response for timeout seconds (more precisely, if no bytes have been received on the underlying socket for timeout seconds). If no timeout is specified explicitly, requests do not time out.
+
+
+Errors and Exceptions
+
+	In the event of a network problem (e.g. DNS failure, refused connection, etc), Requests will raise a ConnectionError exception.
+
+	Response.raise_for_status() will raise an HTTPError if the HTTP request returned an unsuccessful status code.
+
+	If a request times out, a Timeout exception is raised.
+
+	If a request exceeds the configured number of maximum redirections, a TooManyRedirects exception is raised.
+
+	All exceptions that Requests explicitly raises inherit from requests.exceptions.RequestException.
+
+
+
+
+
+
+
+
+
