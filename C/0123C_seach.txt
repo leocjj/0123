@@ -174,19 +174,6 @@ algorithm JumpSearch is
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 https://en.wikipedia.org/wiki/Skip_list
 
 https://en.wikipedia.org/wiki/Ternary_search
@@ -210,7 +197,63 @@ Third Edition (Reading, Massachusetts: Addison-Wesley, 2011), 3168pp.
 ISBN 978-0-321-75104-1, 0-321-75104-3
 
 
+*******************************************************************************
 
+Whiteboarding
+Duration: 45 minutes
+What you should tell the candidate:
+You are not allowed to use your computer. If you do not have access to a whiteboard, use a piece of paper. If you are remote, use the software of your choice to draw / write and share your screen with your interviewer.
+You have to talk non-stop and explain what you are thinking about. Once you find a way of solving it, then write the code on the whiteboard.
+You can choose the language of your choice for each solution.
+What you should look for / make sure is covered / asked
+Does the candidate ask for clarification?
+If the candidate do not ask questions before trying to solve or code the problem, it’s a bad sign
+Data structure: Does the candidate use a correct data structure to represent the data / return values / parameters
+Does the code work for edge cases? (empty data structure, etc…)
+Code:
+Good practices (commented, name of variables make sense, etc…)
+No error in the code
+Can code fast
+Too sweet?
+You are preparing a cake but you don't know how many teaspoons of sugar you will need to make it "perfect" or "not too sweet". In this case, find the first number of teaspoons that will make the cake "too sweet". For the first check, you add n teaspoons of sugar but it's too sweet to your taste. Unfortunately, you can't rollback to a previous version of your cake by taking out teaspoons of sugar to adjust the sweetness to your cake. However, you do have a tool to indicate if the current number of teaspoons of sugar will make your cake too sweet. You want to redo this cake but to do so, you need to know at which point the number of teaspoons of sugar will make your cake too sweet.
+You are given n, the number of teaspoons of sugar that the recipe states is required to make your cake and a function isTooSweet(i), which returns true if i teaspoons of sugar makes your cake too sweet. With these two pieces of information, find x, the first number of teaspoons of sugar that will make your cake too sweet.
+What you should not tell the candidate, however if they ask any of the below questions you have permission to clarify:
+After x the cake is too sweet
+n is superior or equal to 1
+For any value of n, your cake will be always too sweet (x always exists)
+Evaluation:
+0%
+0% Comment:
+Extra instructions - hide Naive solution
+You can go through each integers between 1 and n and check if isTooSweet(current_integer) returns true. If yes, x is current_integer.
+Follow-up questions:
+What is the time complexity of this algorithm? O(n)
+Can you find a faster solution?
+Score: If this is the best solution the candidate can find: max 20%
+Binary search in a list
+You create a list of integers between 1 and n ; and you run on it a binary search algorithm:
+Execute isTooSweet on the value in the middle of this list
+If it returns true, redo it on the left part of the list (= list[:middle])
+Otherwise, redo it on the right part of the list (= list[middle:])
+Follow-up questions:
+What is the time complexity of this algorithm? O(log(n))
+What is the space complexity of this algorithm? O(n)
+Can you find a solution using less space?
+Score: If this is the best solution the candidate can find: max 60%
+Binary search
+You create 3 variables:
+Left = 1
+Right = n
+Middle = left + ((right - left) / 2)
+Do a loop while left < right and left >= 1 and right <= n:
+If isTooSweet(middle) returns true, right = middle
+Otherwise, left = middle + 1
+Compute the new middle = left + ((right - left) / 2)
+Return middle
+Follow-up questions:
+What is the time complexity of this algorithm? O(log(n))
+What is the space complexity of this algorithm? O(1)
+Score: If this is the best solution the candidate can find: max 100%
 
 
 

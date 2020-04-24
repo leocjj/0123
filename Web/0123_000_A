@@ -27,6 +27,12 @@ Billing Contact: Email Address: billing@get.tech Tel No.: +1.4152404171
 
 lsb_release -a
 
+In case an installation fails but is still using resources
+sudo fuser -v /var/cache/debconf/config.dat
+	sudo kill PID
+	sudo kill -9 PID  # if the first doesn't work
+
+
 ssh -i ~/.ssh/holberton ubuntu@196.104.66.20		// To connect a server
 ssh d8d9f57a0503@19.hbtn-cod.io						// To connect a container
 

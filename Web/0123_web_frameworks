@@ -1,0 +1,103 @@
+
+
+
+
+import socket
+HOST = ''
+PORT = 80
+listen_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+listen_socket.bind((HOST, PORT))
+listen_socket.listen(1)
+connection, address = listen_socket.accept()
+request = connection.recv(1024)
+connection.sendall("""HTTP/1.1 200 OK
+	Content-type: text/html
+	<html>
+		<body>
+		    <h1>Hello, World!</h1>
+		</body>
+	</html>""")
+connection.close()
+
+
+Web Server Fatigue
+	If we were going to continue building on the example above as the basis for
+	a web application, there are a number of problems we'd need to solve:
+    How do we inspect the requested URL and return the appropriate page?
+    How do we deal with POST requests in addition to simple GET requests
+    How do we handle more advanced concepts like sessions and cookies?
+    How do we scale the application to handle 1000's of concurrent connections?
+
+
+Solving The Big Two: Routing and Templates
+	Of all the issues surrounding building a web application, two stand out.
+    How do we map a requested URL to the code that is meant to handle it?
+    How do we create the requested HTML dynamically, injecting calculated values or information retrieved from a database?
+
+Every web framework solves these issues in some way, and there are many different approaches. Examples will be helpful, so I'll discuss Django and Flask's solutions to both of these problems. First, though, we need to briefly discuss the MVC pattern.
+MVC in Django
+
+Django makes use of the MVC pattern and requires code using the framework to do the same. MVC, or "Model-View-Controller" is simply a way of logically separating the different responsibilities of the application. Resources like database tables are represented by models (in much the same way a class in Python often models some real-world object). controllers contain the business logic of the application and operate on models. Views are given all of the information they needs to dynamically generate the HTML representation of the page.
+
+Somewhat confusingly, in Django, controllers are called views and views are called templates. Other than naming weirdness, Django is a pretty straightforward implementation of an MVC architecture.
+Routing in Django
+
+Routing is the process of mapping a requested URL to the code responsible for generating the associated HTML. In the simplest case, all requests are handled by the same code (as was the case in our earlier example). Getting a little more complex, every URL could map 1:1 to a view function. For example, we could record somewhere that if the URL www.foo.com/bar is requested, the function handle_bar() is responsible for generating the response. We could build up this mapping table until all of the URLs our application supports are enumerated with their associated functions.
+
+However, this approach falls flat when the URLs contain useful data, such as the ID of a resource (as is the case in www.foo.com/users/3/). How do we map that URL to a view function, and at the same time make use of the fact that we want to display the user with ID 3?
+
+Django's answer is to map URL regular expressions to view functions that can take parameters. So, for example, I may say that URLs that match ^/users/(?P<id>\d+)/$ calls the display_user(id) function where the id argument is the captured group id in the regular expression. In that way, any /users/<some number>/ URL will map to the display_user function. These regular expressions can be arbitrarily complex and include both keyword and positional parameters.
+Routing in Flask
+
+Flask takes a somewhat different approach. The canonical method for hooking up a function to a requested URL is through the use of the route() decorator. The following Flask code will function identically to the regex and function listed above:
+
+1
+2
+3
+
+	
+
+@app.route('/users/<id:int>/')
+def display_user(id):
+    # ...
+
+As you can see, the decorator uses an almost simplified form of regular expression to map URLs to arguments (one that implicitly uses / as separators). Arguments are captured by including a <name:type> directive in the URL passed to route(). Routing to static URLs like /info/about_us.html is handled as you would expect: @app.route('/info/about_us.html')
+HTML Generation Through Templates
+
+Continuing the example above, once we have the appropriate piece of code mapped to the correct URL, how do we dynamically generate HTML in a way that still allows web designers to hand-craft it? For both Django and Flask, the answer is through HTML templating.
+
+HTML Templating is similar to using str.format(): the desired output is written with placeholders for dynamic values. These are later replaced by arguments to the str.format() function. Imagine writing an entire web page as a single string, marking dynamic data with braces, and calling str.format() at the end. Both Django templates and jinja2, the template engine Flask uses, are designed to be used in this way.
+
+However, not all templating engines are created equal. While Django has rudimentary support for programming in templates, Jinja2 basically lets you execute arbitrary code (it doesn't really, but close enough). Jinja2 also aggressively caches the result of rendering templates, so that subsequent requests with the exact same arguments are returned from the cache instead of expensively being re-rendered.
+Database Interaction
+
+Django, with its "batteries included" philosophy, includes an ORM ("Object Relational Mapper"). The purpose of an ORM is two-fold: it maps Python classes to database tables and abstracts away the differences between various database engines (though the former is its primary role). No one loves ORMs (because the mapping between domains is never perfect), rather, they are tolerated. Django's is reasonably full-featured. Flask, being a "micro-framework", does not include one (though it is quite compatible with SQLAlchemy, the Django ORM's biggest/only competitor).
+
+The inclusion of an ORM gives Django the ability to create a full-featured CRUD application. CRUD (Create Read Update Delete) applications seem to be the sweet spot for web frameworks (on the server side). Django (and Flask-SQLAlchemy) make the various CRUD operations for each model straightforward.
+Web Framework Round-Up
+
+By now, the purpose of web frameworks should be clear: to hide the boilerplate and infrastructural code related to handling HTTP requests and responses. Just how much is hidden depends on the framework. Django and Flask represent two extremes. Django includes something for every situation, almost to its detriment. Flask bills itself as a "micro-framework" and handles the bare minimum of web application functionality, relying on third-party packages to do some of the less common web framework tasks.
+
+Remember, though, that at the end of the day, Python web frameworks all work the same way: they receive HTTP requests, dispatch code that generates HTML, and creates an HTTP response with that content. In fact, all major server-side frameworks work in this way (excluding JavaScript frameworks). Hopefully, you're now equipped to choose between frameworks as you understand their purpose.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

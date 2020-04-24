@@ -15,6 +15,8 @@ Cursos
 	https://www.youtube.com/playlist?list=PL_c9BZzLwBRKKqOc9TJz1pP0ASrxLMtp2&feature=share	Tutorial de C
 	majoledesma.github.io/react-apuntes/
 	pythontutor.com/	// GOOD TO VISUALIZE MEMORY MOVEMENTS.
+	https://online-learning.harvard.edu/catalog/free
+	https://www.udemy.com/cart/success/309640188/
 
 deeplearningbook.org		//
 https://onlinejudge.org/
@@ -81,6 +83,15 @@ Software:
 	httrack         //  http://www.httrack.com  apt-get install webhttrack 
 	Jupiter notebook	//https://www.digitalocean.com/community/tutorials/how-to-set-up-jupyter-notebook-for-python-3
 
+	Redis: Provided by our guests from last week's Redis event, Dave Nielsen and Drew Kreiger
+	 use up to 30 MB of Redis Cloud in the cloud for free https://bit.ly/2XINt9C
+	 attend RedisConf Takeaway (online conference) May 12th for free: https://bit.ly/2XD1zcK
+	 Get Started with Redis https://bit.ly/2RKOKta
+	 Redis.io https://bit.ly/2K9WiBo
+	 Redis University https://bit.ly/2yGbofn
+	 Redis For Dummies https://bit.ly/2KfnVcs
+	 Redis Youtube https://bit.ly/2z7uJq5
+
 C compilers
 	sudo apt install mingw-w64	//to compile native Windows binaries on Linux
 	sudo apt install clang		//Clang – Clang is much faster and uses far less memory than GCC
@@ -110,6 +121,7 @@ Empresas
 	Avantica.net, monica.rojas @avantica.net, (51) 934 473 203, linkedin.com/in/monicarojasr
 	Slack -> calidev
 	optima.net.co
+	Diego Valencia diego@intelecto.co 
 	PSL -Software development (linkedin)
 	https://www.directrixanalytics.com/
 	Open (Albarracín)
@@ -137,6 +149,7 @@ Empresas
 	data360.in
 	www.hypeideas.co
 	www.personalsoft.com.co
+	www.grupodot.com/en/
 	dataknow.co
 	deeplearning.ai
 	www.etairos.co

@@ -88,8 +88,12 @@ FLUSH PRIVILEGES;
 
 GRANT select, insert ON customers TO webuser;
 
+SELECT user, Repl_slave_priv FROM mysql.user;	// to check users/privileges
+
 
 ********************************** PERMISSIONS *********************************
+https://dev.mysql.com/doc/refman/5.7/en/privileges-provided.html
+
 common possible permissions that users can enjoy.
 
     ALL PRIVILEGES- allow a MySQL user full access to a designated database
@@ -111,6 +115,41 @@ SHOW GRANTS FOR user_0@localhost;	// review a user’s permissions
 DROP USER ‘username’@‘localhost’;	//	
 
 
+Table 6.2 Permissible Privileges for GRANT and REVOKE
+Privilege 				Grant Table Column 		Context
+ALL [PRIVILEGES]	 	= “all privileges” 		Server administration
+ALTER 					Alter_priv 				Tables
+ALTER ROUTINE			Alter_routine_priv 		Stored routines
+CREATE 					Create_priv 			Databases, tables, or indexes
+CREATE ROUTINE 			Create_routine_priv 	Stored routines
+CREATE TABLESPACE 		Create_tablespace_priv 	Server administration
+CREATE TEMPORARY TABLES Create_tmp_table_priv 	Tables
+CREATE USER 			Create_user_priv 		Server administration
+CREATE VIEW 			Create_view_priv 		Views
+DELETE 					Delete_priv 			Tables
+DROP 					Drop_priv 				Databases, tables, or views
+EVENT 					Event_priv 				Databases
+EXECUTE 				Execute_priv 			Stored routines
+FILE 					File_priv 				File access on server host
+GRANT OPTION 			Grant_priv 		Databases, tables, or stored routines
+INDEX 					Index_priv 	T			ables
+INSERT 					Insert_priv 			Tables or columns
+LOCK TABLES 			Lock_tables_priv 		Databases
+PROCESS 				Process_priv 			Server administration
+PROXY 					See proxies_priv table 	Server administration
+REFERENCES 				References_priv 		Databases or tables
+RELOAD 					Reload_priv 			Server administration
+REPLICATION CLIENT 		Repl_client_priv 		Server administration
+REPLICATION SLAVE 		Repl_slave_priv 		Server administration
+SELECT 					Select_priv 			Tables or columns
+SHOW DATABASES			Show_db_priv 			Server administration
+SHOW VIEW 				Show_view_priv 			Views
+SHUTDOWN				Shutdown_priv 			Server administration
+SUPER 					Super_priv 				Server administration
+TRIGGER					Trigger_priv 			Tables
+UPDATE 					Update_priv 			Tables or columns
+USAGE 					Syn “no privileges” 	Server administration
+
 *********************************** SCRIPTS ************************************
 
 -- comment line
@@ -118,10 +157,18 @@ DROP USER ‘username’@‘localhost’;	//
 cat script.sql | mysql -uroot -p my_database		// RUN SQL SCRIPT
 cat script.sql | mysql -hlocalhost -uroot -p [data_base_name]
 
+mysql -uholberton_user -p -e "use tyrell_corp; select * from nexus6"
+
 echo "CREATE DATABASE hbtn_0d_tvshows;" | mysql -uroot -p
 curl "https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/274/hbtn_0d_tvshows.sql" -s | mysql -uroot -p hbtn_0d_tvshows
 
 ******************************* BASIC COMMANDS *********************************
+
+CREATE DATABASE tyrell_corp;
+USE tyrell_corp;
+CREATE TABLE nexus6 (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(20));
+INSERT INTO `nexus6` (name) VALUES ("leocjj");
+GRANT SELECT ON tyrell_corp.nexus6 TO 'holberton_user'@'localhost';
 
 SHOW DATABASES;
 CREATE DATABASE IF NOT EXISTS hbtn_0;
@@ -248,6 +295,148 @@ https://www.dataquest.io/blog/sql-intermediate/
 
 SELECT [* / tabla.col, tabla.col,...] FROM tabla JOIN tabla ON columns_to_match
 SELECT cities.id, cities.name, states.name FROM cities JOIN states ON cities.state_id = states.id
+
+
+
+
+*******************************************************************************
+				Master-Slave
+*******************************************************************************
+
+
+https://www.digitalocean.com/community/tutorials/how-to-choose-a-redundancy-plan-to-ensure-high-availability#sql-replication
+
+Master-Slave configuration
+Master” server is responsible for performing all writes and updates.
+Data from master is copied continuously to a “slave” server.
+Slave server can be read from, but not written to.
+
+Master-Master replication.
+Both servers have “master” abilities.
+Each server can accept writes and updates and will transfer the changes to
+the opposite server. Also benefits from increased write performance if the
+writes are properly distributed by a load balancing mechanism.
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-master-slave-replication-in-mysql
+https://www.digitalocean.com/community/tutorials/how-to-configure-mysql-group-replication-on-ubuntu-16-04
+
+
+								***
+Make sure that UFW is allowing connections on port 3306 (default MySQL port) otherwise replication will not work.
+								***
+
+Setup
+
+12.34.56.789- Master Database
+12.23.34.456- Slave Database
+
+sudo apt-get install mysql-server mysql-client
+
+*** On the master ***
+
+sudo nano	/etc/mysql/my.cnf
+			/etc/mysql/mysql.conf.d/mysqld.cnf
+	bind-address = 127.0.0.1   -->   bind-address = 12.34.56.789
+	server-id = 1		// Asign nique number
+	// The slave is going to copy all of the changes registered in the log.
+	log_bin = /var/log/mysql/mysql-bin.log
+	// designate db that will be replicated on the slave server
+	// include more than one database by repeating this line
+	binlog_do_db = newdatabase	
+sudo service mysql restart
+mysql -u root -p
+	GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'%' IDENTIFIED BY 'password';
+	FLUSH PRIVILEGES;
+
+// IN OTHER WINDOW
+// If you make any new changes in the same window, the database will
+// automatically unlock. For this reason, you should open the new tab or
+// window and continue with the next steps there.
+mysql -u root -p
+	USE newdatabase;
+	FLUSH TABLES WITH READ LOCK;	// lock db to prevent any new changes
+	SHOW MASTER STATUS;				// take note of Position number (306)
+// with db still locked, export database using mysqldump in the new window.
+mysqldump -u root -p --opt newdatabase > newdatabase.sql
+
+// IN ORIGINAL WINDOW (returning to)
+	UNLOCK TABLES;
+
+mysqldump [options] [db_name [tbl_name ...]]
+	performs logical backups, producing a set of SQL statements that can
+	be executed to reproduce the original database object definitions and
+	table data. It dumps one or more MySQL databases for backup or
+	transfer to another SQL server. The mysqldump command can also
+	generate output in CSV, other delimited text, or XML format.
+
+*** On the slave ***
+
+Log into your slave server
+open up the MySQL shell and create the new database that you will be
+replicating from the master (then exit):
+mysql -u root -p
+	CREATE DATABASE newdatabase;
+mysql -u root -p newdatabase < /path/to/newdatabase.sql		// Import db
+
+sudo nano	/etc/mysql/my.cnf
+			/etc/mysql/mysql.conf.d/mysqld.cnf
+	server-id = 2
+	relay-log = /var/log/mysql/mysql-relay-bin.log
+	log_bin = /var/log/mysql/mysql-bin.log
+	binlog_do_db = newdatabase
+sudo service mysql restart
+
+mysql -u root -p
+	CHANGE MASTER TO	MASTER_HOST='12.34.56.789',
+						MASTER_USER='slave_user',
+						MASTER_PASSWORD='password',
+						MASTER_LOG_FILE='mysql-bin.000001',
+						MASTER_LOG_POS=  107;
+	START SLAVE;
+	SHOW SLAVE STATUS\G
+	SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; SLAVE START; 
+
+								***
+https://bobcares.com/blog/ufw-mysql/
+Make sure that UFW is allowing connections on port 3306 (default MySQL port) otherwise replication will not work.
+	sudo netstat -plutn | grep 3306
+	sudo ufw allow mysql
+	sudo ufw status
+								***
+
+
+
+*******************************************************************************
+				Backup-Restore
+*******************************************************************************
+
+
+https://www.databasejournal.com/features/mssql/developing-a-sql-server-backup-strategy.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
