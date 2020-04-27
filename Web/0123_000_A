@@ -22,7 +22,7 @@ Billing Contact: Email Address: billing@get.tech Tel No.: +1.4152404171
 
 
 *******************************************************************************
-				Holberton server
+						Holberton server
 *******************************************************************************
 
 lsb_release -a
@@ -33,21 +33,48 @@ sudo fuser -v /var/cache/debconf/config.dat
 	sudo kill -9 PID  # if the first doesn't work
 
 
+****************************** ssh ********************************************
+
 ssh -i ~/.ssh/holberton ubuntu@196.104.66.20		// To connect a server
 ssh d8d9f57a0503@19.hbtn-cod.io						// To connect a container
-
-scp -i ~/.ssh/holberton README.md ubuntu@196.104.66.20:~/README.md	//copy file
-
-scp -i ~/.ssh/holberton -r files ubuntu@196.104.66.20:~/README.md	//copy dir
 
 ssh -i ~/.ssh/holberton ubuntu@196.104.66.20 'ls ~/'// Remote command execution
 
 	-i options, specify local private key to connect
 
+ssh -i ~/.ssh/holberton ubuntu@web-01.leocjj.tech 'sudo ufw status'
+
+
+****************************** scp ********************************************
+
+scp -i ~/.ssh/holberton README.md ubuntu@196.104.66.20:~/README.md	//copy file
+
+scp -i ~/.ssh/holberton -r files ubuntu@196.104.66.20:~/README.md	//copy dir
+
 ./0-transfer_file page.html 196.104.66.20 ubuntu ~/.ssh/holberton
 	scp -i ~/.ssh/holberton page.html ubuntu@196.104.66.20:~/
 
-ssh -i ~/.ssh/holberton ubuntu@web-01.leocjj.tech 'sudo ufw status'
+
+scp file_name_to_copy username@destination_host:destination_directory_path
+
+*** USING PASSWORD FOR REMOTE SERVERS ***
+scp Hello.scp tuts@192.168.83.132:/home/tuts/FOSSLINUX			// One file
+scp Hello1 Hello2 Hello3 tuts@192.168.83.132:/home/FOSSLINUX	// Multifile
+scp -r FOSSTUTS tuts@192.168.83.132:/home/tuts/FOSSLINUX		// Directory
+-v		// Verbose
+-C		// Comprese/Decompress files for copy
+-l 100	// Limit bandwith to 100 kb
+-P 22	// Use custom port (uppercase)
+-p		// Preserve attributes (lowercase)
+-q		// Quite mode
+scp tuts@192.168.43.96:/home/Hello1 tuts@192.168.83.132:/home/
+scp tuts@192.168.83.132:/home/serverFile.txt /home/
+
+*** USING SSH KEY ***
+ssh-keygen -t rsa							// Create keys
+ssh-copy-id root@192.168.4.200				// Copy ssh key
+scp Hello1 tuts@192.168.83.132:/home/		// Don't ask for password
+
 
 ------------------------------------------------------------------
 
