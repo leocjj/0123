@@ -24,7 +24,7 @@ Select install alongside Windows boot manager
 **************** Install the following software *******************************
     Github Desktop  https://github.com/shiftkey/desktop/releases/   //for Linux
 					git apt install ./file_downloaded.deb
-    Slack           		https://slack.com/intl/en-co/downloads/linux
+    Slack           https://slack.com/intl/en-co/downloads/linux
     Codeblocks		Ubuntu software app
     Terminator		sudo apt-get install terminator
     Pycharm			Ubuntu software app
@@ -32,6 +32,7 @@ Select install alongside Windows boot manager
     Emacs			sudo apt-get install emacs
     git				sudo apt-get install git
     VS code			https://code.visualstudio.com/
+
 
 *****************************  wifi *******************************************
 Zonamerica-Students	09092019@Cali
@@ -126,7 +127,7 @@ Using this option, we don't need to use virtual machine / vagrant in Ubuntu any 
 
 
 
-**********************************BETTY STYLE *************************************+++
+******************************* BETTY STYLE************************************
 
 git clone https://github.com/holbertonschool/Betty.git
 ./install.sh
@@ -194,6 +195,7 @@ to 'PEP8' your files in a pre-configured container.
 sudo apt-get --purge remove pep8	//Uninstall
 pip3 uninstall pep8
 
+
 ************************* PYTHON INSTALL **************************************
 python3 -V
 sudo apt-get install idle-python3.4
@@ -201,5 +203,92 @@ sudo apt-get install python3
 
 /usr/local/bin/python3.4	//Installation dir, put it in path
 set path=%path%;C:\python34	//To set path in Windows
+
+
+********************************  APPS  ***************************************
+
+https://www.gimp.org/downloads/		sudo apt install gimp	// image editing
+
+https://shotcut.org/download/					// video editor
+sudo apt install snapd snapd-xdg-open
+sudo snap install shotcut --classic
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+google-chrome
+
+https://www.videolan.org/vlc/download-ubuntu.html
+sudo snap install vlc
+
+https://cellardoor42.github.io/whatever/			// Notes
+Whatever
+
+https://github.com/oguzhaninan/Stacer				// system optimizer
+sudo add-apt-repository ppa:oguzhaninan/stacer -y
+sudo apt-get update
+sudo apt-get install stacer -y
+
+https://handbrake.fr/downloads.php					// Media file converter
+sudo add-apt-repository ppa:stebbins/handbrake-releases
+sudo apt-get update
+apt-get install handbrake
+
+https://www.skype.com/en/get-skype/
+
+system snapshot tool in Linux
+https://github.com/teejee2008/Timeshift/releases
+sudo add-apt-repository -y ppa:teejee2008/timeshift
+sudo apt-get update
+sudo apt-get install timeshift
+
+https://www.maartenbaert.be/simplescreenrecorder/#download	
+sudo apt-get update
+sudo apt-get install simplescreenrecorder
+
+snap install spotify
+
+https://www.geany.org/download/releases/			// Text editor
+
+http://qmmp.ylsoftware.com/downloads.php			// Winamp alternative 
+sudo add-apt-repository ppa:forkotov02/ppa
+sudo apt-get update
+sudo apt-get install qmmp qmmp-plugin-pack
+
+https://gparted.org/download.php			// disk partitioning and formating
+
+https://filezilla-project.org/download.php?platform=linux64		// Filezilla
+
+https://calibre-ebook.com/download_linux			// e-book manager
+sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin
+
+MyPaint
+https://github.com/mypaint/mypaint-appimage/releases/tag/continuous
+
+draw.io
+https://github.com/jgraph/drawio-desktop/releases/tag/v13.0.1
+
+
+*************************** UPGRADING OS **************************************
+
+sudo apt update 
+sudo apt upgrade
+sudo apt dist-upgrade
+
+sudo apt autoremove				// Removing all no longer required packages
+
+sudo apt install update-manager-core	// update manager utility
+sudo do-release-upgrade			// Ubuntu upgrade utility
+
+
+
+
+
+
+
+
+
+
+
+
 
 
