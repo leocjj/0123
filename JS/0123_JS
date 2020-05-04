@@ -1,0 +1,901 @@
+
+https://www.w3schools.com/js/default.asp
+http://overapi.com/javascript
+https://www.w3schools.com/js/tryit.asp?filename=tryjs_math_pi
+
+https://www.w3schools.com/charsets/ref_html_utf8.asp
+	JavaScript uses the Unicode character set. 
+UTF-8	A character in UTF8 can be from 1 to 4 bytes long.
+		UTF-8 can represent any character in the Unicode standard.
+		UTF-8 is backwards compatible with ASCII.
+		UTF-8 is the preferred encoding for e-mail and web pages
+		First 128 chars of Unicode correspond one-to-one with ASCII
+		The default character encoding in HTML-5 is UTF-8.
+UTF-16	16-bit Unicode Transformation Format is a variable-length character
+		encoding for Unicode, capable of encoding the entire Unicode
+		repertoire. UTF-16 is used in major operating systems and
+		environments, like Microsoft Windows, Java and .NET.
+<meta charset="ISO-8859-1">  if another, must be explicit.
+
+Unicode is a character set. translates characters to numbers.
+UTF-8 is encoding. translates numbers into binary.
+
+******************************* Basics ****************************************
+
+<button type="button" onclick="document.getElementById('demo').innerHTML = Date()">
+Click me to display Date and Time.</button>
+
+<button onclick="document.getElementById('myImage').src='pic_bulbon.gif'">
+Turn on the light</button>
+
+<button type="button" onclick="document.getElementById('demo').style.fontSize='35px'">
+Click Me!</button>
+
+<button type="button" onclick="document.getElementById('demo').style.display='none'">
+Click Me!</button>
+
+<button type="button" onclick="document.getElementById('demo').style.display='block'">
+Click Me!</button>
+
+**************************** Location of JS code ******************************
+
+<!DOCTYPE html><html>
+<head>
+	<script>											<!-- In the head -->
+	function myFunction() {
+	  document.getElementById("demo").innerHTML = "Paragraph changed.";
+	}
+	</script>
+</head><body><h2>JavaScript in Head</h2>
+<p id="demo">A Paragraph.</p>
+<button type="button" onclick="myFunction()">Try it</button>
+	<script>											<!-- In the body -->
+	function myFunction() {
+		document.getElementById("demo").innerHTML = "Paragraph changed.";
+	}
+	</script>
+	<script src="myScript.js"></script>				<!--In external file-->
+	<script src="/js/myScript.js"></script>			<!--In external folder-->
+	<script src="https://www.w3schools.com/js/myScript.js"></script> 
+</body></html> 
+
+
+******************************** JS Outputs ***********************************
+
+<script> document.write(5 + 6); </script>			<!--HTML Output-->
+<script> document.getElementById("demo").innerHTML = 5 + 6; </script>
+<script> window.alert(5 + 6); </script>				<!--Alert box -->
+<script> console.log(5 + 6); </script>				<!--Browser console F12 -->
+
+
+******************************** JS Syntax ************************************
+
+<script>
+/* Multiline comments */
+var x, y;				// Declare 3 variables. Have the value: undefined.
+x = 5;					// Assign the value 5 to x.  With or without decimals.
+z = 'leocjj';			// Strings can be double or single quotes. A..Z0..9_$
+var car = "";			// Value is:  Type is: string
+var x = 5 + 2 + 3;
+var w = "John" + " " + "Doe";
+x = "5" + 2 + 3;		// --> 523
+y = x + 6;  			// Assign the sum of x and 6 to y
+document.getElementById("demo").innerHTML = z + " value is " + y + "<br>";
+</script>
+
+JavaScript evaluates expressions from left to right.
+
++, -, *, /, %, ++, --, +=, -=, *=, /*, %=
+
+Bitwise operators: are performed on 32 bits binary numbers. 
+&, |, ~, ^, << (Zero fill left shift), >> (Signed right shift),
+	>>> (Zero fill right shift)
+
+Operator Precedence:	https://www.w3schools.com/js/js_arithmetic.asp
+
+typeof "" + "<br>" +			// --> string
+typeof "John" + "<br>" + 		// --> string
+typeof 3.14 + "<br>" +			// --> number
+typeof (3.14);					// --> number
+
+var cars = ["Saab","Volvo","BMW"];						// ARRAY
+	cars[0];
+
+
+******************************** OBJECTS **************************************
+
+<p id="demo"></p>
+<script>
+var car = {												// OBJECT
+	type:"Fiat",
+	lastName:"black",
+	firstName:"white"
+	fullName : function() {								// METHOD
+    	return this.firstName + " " + this.lastName;	// THIS
+	}
+};
+document.getElementById("demo").innerHTML = "The car type is " + car.type;
+</script>
+
+to access an object property / method					// ACCESS
+	person.property
+	person["property"]
+	person.fullName()		--> Execute method
+	person.fullName			--> return function definition
+
+
+******************************** FUNCTIONS ************************************
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+arguments is an Array-like object accessible inside functions that contains the values of the arguments passed to that function.
+	function func1(a, b, c) {
+	  console.log(arguments[0]);		--> 1
+	}
+	func1(1, 2, 3);
+
+
+function myFunction(name,job) {...}
+
+var x = myFunction(4, 3);
+document.getElementById("demo").innerHTML = x;
+function myFunction(a, b) {
+  return a * b;
+}
+
+******************************** EVENTS ***************************************
+
+<button onclick="document.getElementById('demo').innerHTML=Date()">time?</button> <p id="demo"></p>
+
+<button onclick="this.innerHTML=Date()">The time is?</button>
+
+<button onclick="displayDate()">The time is?</button>
+
+https://www.w3schools.com/jsref/dom_obj_event.asp
+	Event		Description
+	onchange	An HTML element has been changed
+	onclick 	The user clicks an HTML element
+	onmouseover The user moves the mouse over an HTML element
+	onmouseout 	The user moves the mouse away from an HTML element
+	onkeydown 	The user pushes a keyboard key
+	onload 		The browser has finished loading the page
+
+
+******************************** STRINGS **************************************
+
+var answer1 = "It's alright";
+var x = 'It\'s alright';			// Escapes \' \" \\
+\b 	Backspace		\f 	Form Feed		\n 	New Line
+\r 	Carriage Return \t 	Horizontal Tab	\v 	Vertical Tab
+
+var answer3 = 'He is called "Johnny"';
+document.getElementById("demo").innerHTML = "Hello \	//Break strings,no code
+	Dolly!";											// Better  use concate
+
+txt.length;
+str.indexOf("locate");				// returns position of first occurrence
+
+str = "The rain in SPAIN stays mainly in the plain"; 
+res = str.match(/ain/g);			--> ain,ain,ain		
+		/g Perform a global match (find all matches, don't stop after first)
+		/i Perform case-insensitive matching
+		/m Perform multiline matching
+
+RegExp: regular expresion 	https://www.w3schools.com/js/js_regexp.asp
+
+var str = document.getElementById("demo").innerHTML; 
+txt = str.replace("MS","W3");		//Replace "MS" with "W3" 
+
+text.toUpperCase();
+text.toLowerCase();
+
+var str = "a,b,c,d,e,f";
+var arr = str.split(",");			// arr[0] --> a
+
+==		// equal strings are equal
+=== 	// operator expects equality in both type and value.
+		// Comparing objects will ALWAYS return false.
+
+str.search(/w3Schools/i);			// Search a string for "w3Schools"
+									// Returns position of the match
+str.replace(/ms/i,"W3");			// Replace "ms" with "W3" in str.
+
+ "use strict";
+
+
+******************************** NUMBERS **************************************
+
+https://www.w3schools.com/jsref/jsref_obj_number.asp
+JavaScript numbers are always stored as double precision floating point numbers, following the international IEEE 754 standard.
+Value (aka Fraction/Mantissa) 		Exponent				Sign
+52 bits (0 - 51)					11 bits (52 - 62)		1 bit (63)
+
+The JavaScript interpreter works from left to right.
+
+var x = 3.14;		var y = 3;		var x = 123e5;		var y = 123e-5;
+
+Integers are accurate up to 15 digits:
+var x = 999999999999999;		--> 999999999999999
+var y = 9999999999999999;		--> 10000000000000000
+
+Floating point arithmetic is not always 100% accurate. maximum decimals are 17
+0.2 + 0.1						--> 0.30000000000000004
+(0.2*10 + 0.1*10) / 10;			--> 0.3
+
+100 / "Apple"					--> NaN
+"100" / "10"					--> 10
+"100" * "10"					--> 1000
+"100" - "10"					--> 90
+"100" + "10"					--> "100100"
+
+isNaN(100/"Apple")				--> true
+NaN * 5							--> NaN
+NaN + 5							--> NaN5
+typeof NaN						--> number
+1.3407807929942597e+154 * x		--> Infinity
+2 / 0							--> Infinity
+-2 / 0							--> -Infinity
+typeof Infinity					--> number
+
+var x = 0xFF;					--> 255
+
+toString() 						// returns a number as a string.
+(100 + 23).toString();			// returns 123 from expresion.
+var myNumber = 32;				// can output numbers from base 2 to 36
+myNumber.toString(10)			--> 32
+myNumber.toString(16)			--> 20
+myNumber.toString(8)			--> 40
+myNumber.toString(2)			--> 100000
+
+var x = 123;							(internal use of JS)
+x.valueOf(); (123).valueOf()	--> 123 // Returns a number as a number 
+
+x.toExponential(2)
+returns a string, with number rounded and written using exponential notation.
+optional parameter defines the number of digits behind the decimal point.
+
+x.toFixed(2)		// Rounds to a given number of digits (decimals).
+
+x.toPrecision(2)	// Returns a string, with specified length (total digits)
+
+Number("10")				// converts variables to numbers
+
+var x = new Date("2017-09-30");
+Number(x);					--> 1506729600000	milliseconds since 1.1.1970.
+
+parseInt("10.33")			// converts strings to numbers
+parseFloat("10.33")			// converts strings to numbers
+parseInt("10 20 30");   	// returns 10
+
+Number.MAX_VALUE 			// largest number: 1.7976931348623157e+308
+Number.MIN_VALUE			// 5e-324
+Number.POSITIVE_INFINITY	// Infinity (is returned on overflow)
+Number.NEGATIVE_INFINITY	// -Infinity
+Number.NaN					// NaN
+x.MAX_VALUE;				// undefined
+
+
+******************************** MATHS ****************************************
+
+https://www.w3schools.com/jsref/jsref_obj_math.asp
+Math object has no constructor. Methods and properties are static.
+
+Math.E        // returns Euler's number
+Math.PI       // returns PI
+Math.SQRT2    // returns the square root of 2
+Math.SQRT1_2  // returns the square root of 1/2
+Math.LN2      // returns the natural logarithm of 2
+Math.LN10     // returns the natural logarithm of 10
+Math.LOG2E    // returns base 2 logarithm of E
+Math.LOG10E   // returns base 10 logarithm of E 
+
+Math.round(4.4);	--> 4  Rounded to its nearest integer
+Math.sqrt(64);		Math.pow(8,2);		Math.abs(-4.4);
+Math.ceil(4.4);		Math.floor(4.7);	Math.sin(90 * Math.PI / 180);
+
+Math.max(0, 150, 30, 20, -8, -200);
+Math.min(0, 150, 30, 20, -8, -200);
+
+<p><input id="c" onkeyup="convert('C')"> degrees Celsius</p>
+<p><input id="f" onkeyup="convert('F')"> degrees Fahrenheit</p> 
+<script>
+	function convert(degree) {
+	  var x;
+	  if (degree == "C") {
+		x = document.getElementById("c").value * 9 / 5 + 32;
+		document.getElementById("f").value = Math.round(x);
+	  } else {
+		x = (document.getElementById("f").value -32) * 5 / 9;
+		document.getElementById("c").value = Math.round(x);
+	  }
+	}
+</script>
+
+Method 		Description
+abs(x) 		absolute value of x
+acos(x) 	arccosine of x, in radians
+acosh(x) 	hyperbolic arccosine of x
+asin(x) 	arcsine of x, in radians
+asinh(x) 	hyperbolic arcsine of x
+atan(x) 	arctangent of x as a numeric value between -PI/2 and PI/2 radians
+atan2(y, x) arctangent of the quotient of its arguments
+atanh(x) 	hyperbolic arctangent of x
+cbrt(x) 	cubic root of x
+ceil(x) 	x, rounded upwards to the nearest integer
+cos(x) 		cosine of x (x is in radians)
+cosh(x) 	hyperbolic cosine of x
+exp(x) 		value of Ex
+floor(x) 	Returns x, rounded downwards to the nearest integer
+log(x) 		natural logarithm (base E) of x
+max(x, y, z, ..., n) 	Returns the number with the highest value
+min(x, y, z, ..., n) 	Returns the number with the lowest value
+pow(x, y) 	value of x to the power of y
+random() 	random number between 0 and 1
+round(x) 	Rounds x to the nearest integer
+sin(x) 		sine of x (x is in radians)
+sinh(x) 	hyperbolic sine of x
+sqrt(x) 	square root of x
+tan(x) 		tangent of an angle
+tanh(x) 	hyperbolic tangent of a number
+trunc(x) 	integer part of a number (x)
+
+
+******************************** RANDOM ***************************************
+
+
+Math.random() returns a random number between 0 (inclusive), and 1 (exclusive).
+
+Math.floor(Math.random() * 10);		--> random int: 0 and 9 (both included):
+Math.floor(Math.random() * 11);		--> random int: 0 and 10 (both included):
+Math.floor(Math.random() * 100);	--> random int: 0 and 99 (both included):
+Math.floor(Math.random() * 101);	--> random int: 0 and 100 (both included):
+Math.floor(Math.random() * 10) + 1;	--> random int: 1 and 10 (both included):
+
+Math.floor(Math.random() * (max - min)) + min;	// between 0 - 9 both included
+
+
+******************************** DATES ****************************************
+
+https://www.w3schools.com/js/js_dates.asp
+Date objects are static. Computer time is ticking, but date objects are not.
+
+var d = new Date();		--> Sun May 03 2020 12:25:18 GMT-0500 (Colombia std..)
+var D = new Date(year, month, [day, hours, minutes, seconds, milliseconds]);
+var m = new Date(milliseconds);		// 24 hours = 86 400 000 milliseconds.
+var t = new Date(date string);
+
+d.toDateString();		--> Sun May 03 2020
+days[d.getDay()];		--> Sunday
+
+	Method 				Description
+Date.now() 			Get the time. ECMAScript 5.
+getDate() 			day as a number (1-31)
+getDay() 			weekday a number (0-6)
+getFullYear()	 	four digit year (yyyy)
+getHours() 			hour (0-23)
+getMilliseconds() 	milliseconds (0-999)
+getMinutes() 		minutes (0-59)
+getMonth() 			month (0-11)
+getSeconds() 		seconds (0-59)
+getTime() 			time (milliseconds since January 1, 1970)
+	are used for setting a part of a date
+setDate() 			Set the day as a number (1-31)
+setFullYear() 		Set the year (optionally month and day)
+setHours() 			Set the hour (0-23)
+setMilliseconds() 	Set the milliseconds (0-999)
+setMinutes() 		Set the minutes (0-59)
+setMonth() 			Set the month (0-11)
+setSeconds() 		Set the seconds (0-59)
+setTime() 			Set the time (milliseconds since January 1, 1970)
+
+d.getTime();			--> 1588526799824
+	returns the number of milliseconds since midnight January 1, 1970.
+d.setFullYear(2020);	// sets the year of a date object
+d.toUTCString();		// Sun, 03 May 2020 17:29:52 GMT
+	converts a date to a UTC string (a date display standard):
+
+
+<script>
+	function startTime() {
+	  var today = new Date();
+	  var h = today.getHours();
+	  var m = today.getMinutes();
+	  var s = today.getSeconds();
+	  m = checkTime(m);
+	  s = checkTime(s);
+	  document.getElementById('txt').innerHTML =
+	  h + ":" + m + ":" + s;
+	  var t = setTimeout(startTime, 500);
+	}
+	function checkTime(i) {
+	  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+	  return i;
+	}
+</script>
+<body onload="startTime()">
+<div id="txt"></div>
+
+
+******************************** ARRAYS ***************************************
+
+https://www.w3schools.com/jsref/asp_jsref_obj.array
+Arrays use numbered indexes. special kind of objects, with numbered indexes.
+Objects use named indexes.
+
+var cars = ["Saab", "Volvo", 46];
+cars[0];							--> Saab
+cars								--> Saab,Volvo,BMW
+cLen = cars.length;					--> 3
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+var args = Array.prototype.slice.call(arguments);
+// Using an array literal is shorter than above but allocates an empty array
+var args = [].slice.call(arguments); 
+
+let args = Array.from(arguments);
+let args = [...arguments];
+
+for (i = 0; i < cLen; i++) {
+  text += "<li>" + cars[i] + "</li>";
+}
+
+cars[cars.length] = "newElement";	--> Append new element
+cars[6] = "lastElement";			--> elements 4 and 5 are undefined
+
+cars instanceof Array				--> true
+Array.isArray(cars)					--> true in ECMAScript 5
+	  return x.constructor.toString().indexOf("Array") > -1;	// Alternative.
+
+
+	Method						Action								Returns
+fruits.push("Lemon");		appends new element					new length.
+fruits.pop();				removes last element				value popped.
+fruits.unshift("Lemon");	adds elements to the beginning.		new length
+fruits.shift();				removes first element				string shifted
+delete fruits[0];			Delete ítem, leave undefined holes
+fruits.splice(i, n);		Delete from i, n items. Don't leave holes
+arr1.concat(arr2, ...);		Merge (concatenate) arrays			A new array.
+fruits.slice(i, [j]);		Selects items from i to j-1.		A new array.
+fruits.toString();			Return elements comma separeted
+fruits.join(" * ");			Return elements parameter separeted
+uniq = [...new Set(names)];	Return new array without duplicates
+
+fruits.splice(2, 0, "Lemon", "Kiwi");	-->
+	Banana,Orange,Lemon,Kiwi,Apple,Mango
+	first parameter: position where new elements should be added
+	[second parameter]: defines how many elements should be removed.
+	returns an array with the deleted items
+
+const names = ['John', 'Paul', 'George', 'Ringo', 'John'];
+function removeDups(names) {
+  let unique = {};
+  names.forEach(function(i) {
+    if(!unique[i]) {
+      unique[i] = true;
+    }
+  });
+  return Object.keys(unique);
+}
+removeDups(names); // // 'John', 'Paul', 'George', 'Ringo'
+
+******************************** ARRAYS SORT **********************************
+
+fruits.sort();					sorts alphabetically (ascending order)
+fruits.reverse();				reverses the elements
+fruits.sort();fruits.reverse();	sort descending order
+
+points.sort(function(a, b){return a - b});	// sort in ascending order.
+points.sort(function(a, b){return b - a});	// sort in descending order.
+points.sort(function(a, b){return 0.5 - Math.random()}); // sort randomly
+
+points.sort(function(a, b){return a-b});
+points[0];									// lowest number
+Math.min.apply(null, arr);					// lowest number
+function myArrayMin(arr) {
+  var len = arr.length;
+  var min = Infinity;
+  while (len--) {
+    if (arr[len] < min) {
+      min = arr[len];
+    }
+  }
+  return min;								// lowest number
+}
+
+points.sort(function(a, b){return b-a});
+points[0];									// highest number
+Math.max.apply(null, arr);					// highest number
+function myArrayMax(arr) {
+  var len = arr.length;
+  var max = -Infinity;
+  while (len--) {
+    if (arr[len] > max) {
+      max = arr[len];
+    }
+  }
+  return max;								// highest number
+}
+
+
+function myFunction() {						// sort car objects on age.
+  cars.sort(function(a, b){return a.year - b.year});
+  displayCars();
+}
+
+
+******************************** ARRAYS ITERATION *****************************
+
+numbers.forEach(myFunc);	// Calls function once for each array element.
+numbers.map(myFunc);		// new array by performing a function
+								on each array element.
+	function myFunc(value, index, array) {
+	  return value * 2;
+	}	// Arguments: item value, item index and array itself
+
+
+numbers.filter(myFunc);		// new array with all elements that passes a test.
+numbers.find(myFunc);		// returns the value of the first array element
+								that passes a test function.
+numbers.findIndex(myFunc);	// returns the index of the first array element
+								that passes a test function.
+numbers.every(myFunc);		// checks if ALL array values pass a test
+numbers.some(myFunc);		// checks if some array values pass a test.
+	function myFunc(value, index, array) {
+	  return value > 18;
+	}		// Arguments: item value, item index and array itself
+
+array.indexOf("Apple");		// searches for a value and returns its position.
+array.indexOf(item, start)	// start: where to start the search.
+	Negative values will start at the given position counting from the end,
+	and search to the end. -1 if not found. Position of the first occurrence.
+fruits.lastIndexOf("Apple");// returns the position of the last occurrence 
+
+numbers.reduce(myFunction);			// example finds the sum of all numbers in
+										an array from the left
+numbers.reduceRight(myFunction);	// example finds the sum of all numbers in
+										an array from the right
+	function myFunction(total, value, index, array) {
+	  return total + value;
+	}		// The total (the initial value / previously returned value)
+			// Arguments: item value, item index and array itself
+
+
+******************************** Type Conversion ******************************
+
+TYPES: 			string, number, boolean, object, function	// Can contain data
+OBJECTS:		Object, Date, Array, String, Number, Boolean
+SPECIAL TYPES:	null, undefined		// Cannot contain data
+
+typeof 		// operator: returns type of a var, object, function or expression.
+constructor // property: returns constructor function for a var or an object.
+
+String(x)	// Method: can convert a number to a string.
+x.toString()// Number method: converts a number to a string.
+
+Number("3.14")		// returns 3.14
+Number(" ")			// returns 0
+Number("")			// returns 0
+Number("99 88")		// returns NaN 
+Number(false)		// returns 0
+Number(d)			// returns 1404568027739, if d is a Date. = to d.getTime()
+x = + y;			// Converts string y to number x
+
+5 + null    // returns 5         because null is converted to 0
+"5" + null  // returns "5null"   because null is converted to "null"
+"5" + 2     // returns "52"      because 2 is converted to "2"
+"5" - 2     // returns 3         because "5" is converted to 5
+"5" * "2"   // returns 10        because "5" and "2" are converted to 5 and 2 
+
+
+myArr.constructor.toString().indexOf("Array") > -1; -->true if myArr is Array
+	myArray.constructor === Array;
+
+myDate.constructor.toString().indexOf("Date") > -1;	-->true if myDate is a date
+	myDate.constructor === Date;
+
+
+	Original	Converted 	Converted 			Converted 
+	Value		to Number	to String			to Boolean
+false				0			"false"				false
+true				1			"true"				true
+0					0			"0"					false
+1					1			"1"					true
+"0"					0			"0"					true
+"000"				0			"000"				true
+"1"					1			"1"					true
+NaN					NaN			"NaN"				false
+Infinity			Infinity	"Infinity"			true
+-Infinity			-Infinity	"-Infinity"			true
+""					0			""					false
+"20"				20			"20"				true
+"twenty"			NaN			"twenty"			true
+[ ]					0			""					true
+[20]				20			"20"				true
+[10,20]				NaN			"10,20"				true
+["twenty"]			NaN			"twenty"			true
+["ten","twenty"]	NaN			"ten,twenty"		true
+function(){}		NaN			"function(){}"		true
+{ }					NaN			"[object Object]"	true
+null				0			"null"				false
+undefined			NaN			"undefined"			false
+
+
+
+******************************** BOOLEANS *************************************
+
+https://www.w3schools.com/jsref/jsref_obj_boolean.asp
+True values:
+	10 > 9, Boolean(10 > 9), Any not empty string, any expression except zero
+
+False values:
+	0, -0, "", undefined, null, NaN
+
+
+******************************** COMPARISONS **********************************
+
+Given that x = 5
+
+Operator 	Description 		Comparing 		Returns
+== 			equal to			x == 8 			false 	
+								x == 5 			true 	
+								x == "5" 		true 	
+=== 		equal value  		x === 5 		true 	
+			and equal type		x === "5" 		false 	
+!= 			not equal			x != 8 			true 	
+!== 		not equal value  	x !== 5 		false 	
+			or not equal type	x !== "5" 		true 	
+								x !== 8 		true 	
+>			greater than 		x > 8 			false 	
+< 			less than 			x < 8 			true 	
+>= 			greater or equal	x >= 8 			false
+<= 			less or equal		x <= 8 			true 	
+
+
+Operator 	Description 	Exampld
+&& 			and 			(x < 10 && y > 1) is true 	
+|| 			or			 	(x == 5 || y == 5) is false 	
+! 			not 			!(x == y) is true
+
+variablename = (condition) ? value1:value2 
+var voteable = (age < 18) ? "Too young":"Old enough"; 
+
+
+******************************** CONDITIONALS *********************************
+
+if (condition1) {
+} else if (condition2) {
+} else {
+}
+
+switch(expression) {
+  case x:					// Switch cases use strict comparison (===).
+    // code block
+    break;
+  case y:
+    // code block
+    break;
+  default:
+    // code block
+} 
+
+
+******************************** LOOPS ****************************************
+
+break: 		"jumps out" of a loop. without a label reference, can only be used to jump out of a loop or a switch.
+
+continue:	"jumps over" one iteration in the loop. (with or without a label reference) can only be used to skip one loop iteration.
+	
+With a label reference, the break statement can be used to jump out of any code block
+
+var i;							// loops a block of code a number of times
+for (i = 0; i < cars.length; i++) {
+  text += cars[i] + "<br>";
+} 
+
+*** for/in ***
+var person = {fname:"John", lname:"Doe", age:25};
+var text = "";
+var x;
+for (x in person) {				// loops through the properties of an object
+  text += person[x];
+} 
+
+*** for/off ***
+for (variable of iterable) {	// loops through values of an iterable object
+  // code block to be executed	// Arrays, Strings, Maps, NodeLists, and more
+}
+for (x of cars) {
+  document.write(x + "<br >");
+} 
+
+while (i < 10) {
+  text += "<br>The number is " + i;
+  i++;
+}
+
+do {
+  text += "<br>The number is " + i;
+  i++;
+}
+while (i < 10);
+
+
+
+
+
+******************************** EXCEPTIONS ***********************************
+
+try {
+  adddlert("Welcome guest!");
+}
+catch(err) {
+  document.getElementById("demo").innerHTML = err.message;
+}
+
+var txt = "";
+function message() {
+  try {
+    adddlert("Welcome guest!");
+  }
+  catch(err) {
+    txt = "There was an error on this page.\n\n";
+    txt += "Click OK to continue viewing this page,\n";
+    txt += "or Cancel to return to the home page.\n\n";
+    if(!confirm(txt)) {
+      document.location.href = "https://www.w3schools.com/";
+    }
+  }
+}
+
+onerror = handleErr;
+var txt = "";
+function handleErr(msg, url, l) {
+  txt = "There was an error on this page.\n\n";
+  txt += "Error: " + msg + "\n";
+  txt += "URL: " + url + "\n";
+  txt += "Line: " + l + "\n\n";
+  txt += "Click OK to continue.\n\n";
+  alert(txt);
+  return true;
+}
+
+function message() {
+   adddlert("Welcome guest!");
+}
+
+
+
+******************************** OBJECTS **************************************
+
+JavaScript objects are mutable.
+Any changes to a copy of an object will also change the original.
+	var x = person;  x.age = 10;  --> Modifies person.age
+
+var person = new Object();			// Creating an object
+person.firstName = "John";			// Add new property
+delete person.age;					// Delete object property
+person.firstName;					// Access a property
+person["firstname"];				// Access a property
+
+function Person(first, last) {		// Creating an object
+  this.firstName = first;
+  this.lastName = last;
+}
+var myFather = new Person("John", "Doe");
+
+Creating variables
+	var x1 = {};           // new object
+	var x2 = "";           // new primitive string
+	var x3 = 0;            // new primitive number
+	var x4 = false;        // new primitive boolean
+	var x5 = [];           // new array object
+	var x6 = /()/;         // new regexp object
+	var x7 = function(){}; // new function object 
+
+
+
+******************************** CLASSES **************************************
+
+https://www.w3schools.com/js/js_classes.asp
+
+class Car extends Car{
+  constructor(brand) {
+    super(brand);
+    this._carname = brand;
+  }
+  present() {
+    return "I have a " + this.carname;
+  }
+  get carname() {				// Getter
+    return this._carname;
+  }
+  set carname(x) {				// Setter
+    this._carname = x;
+  }
+}
+mycar = new Car("Ford"); 
+mycar.present("Hello"); 
+
+even if the getter is a method, do not use parentheses to get property value.
+
+Static Methods:
+	are defined on the class itself, and not on the prototype, this means,
+	cannot call a static method on the object (mycar), but on the class (Car)
+
+
+
+******************************** KEYWORDS *************************************
+
+this
+	In a method, this refers to the owner object.
+	Alone, this refers to the global object.
+	In a function, this refers to the global object.
+	In a function, in strict mode, this is undefined.
+	In an event, this refers to the element that received the event.
+
+Block Scope: Global Scope or Function Scope.  
+
+var
+	can not have Block Scope. Variables declared inside a block {} can be
+	accessed from outside the block.
+
+let
+	can have Block Scope. Variables declared inside a block {} can not be
+	accessed from outside the block:
+	for (let i = 0; i < 10; i++) {...}
+
+var and let are quite similar when declared inside a function.
+var and let are quite similar when declared outside a block.
+var keyword belong to the window object
+let keyword do not belong to the window object
+
+Redeclaring a variable with var is allowed anywhere in a program
+Redeclaring a variable with let, in another scope, or block, is allowed
+
+Redeclaring in the same scope, or in the same block
+	a var variable with var		--> Allowed
+	a var variable with let		--> NOT Allowed
+	a let variable with let		--> NOT Allowed
+	a let variable with var		--> NOT Allowed
+
+const
+	Variables defined behave like let vars, except they cannot be reassigned
+
+
+
+
+************************* JavaScript Best Practices ***************************
+
+Avoid global variables
+	Local variables must be declared with the var keyword or the let keyword
+
+Initialize Variables
+Avoid new
+	Never Declare Number, String, or Boolean Objects. Use primitives instead.
+Beware of Automatic Type Conversions
+
+avoid ==. Use === Comparison
+
+Use Parameter Defaults
+	function (a=1, b=1) { /*function code*/ } 
+
+End Your Switches with Defaults
+
+Avoid Using eval(), security problem.
+
+Avoid floating points issues:
+	var z = (x * 10 + y * 10) / 10;       // z will be 0.3 
+
+
+Never break a return statement.
+
+ if (typeof myObj !== "undefined" && myObj !== null)  
+
+
+
+
+
+
+
+
+
+
