@@ -242,7 +242,6 @@ arguments is an Array-like object accessible inside functions that contains the 
 	}
 	func1(1, 2, 3);
 
-
 function myFunction(name,job) {...}
 
 var x = myFunction(4, 3);
@@ -1000,6 +999,96 @@ Redeclaring in the same scope, or in the same block
 
 const
 	Variables defined behave like let vars, except they cannot be reassigned
+
+
+
+************************* SCRIPTS *********************************************
+
+https://nodejs.org/api/process.html#process_process_argv
+
+#!/usr/bin/node
+
+process.argv					// Array
+	First element: process.execPath	(equal to process.argv0)
+	Second element: path to the JavaScript file being executed
+	remaining elements will be any additional command line arguments.
+
+process.argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`);
+});
+
+
+****************************** EXPORTING **************************************
+
+http://51elliot.blogspot.com/2012/01/simple-intro-to-nodejs-module-scope.html
+http://darrenderidder.github.io/talks/ModulePatterns/#/6
+
+Exporting an anonymous function.
+	// bar.js
+	module.exports = function() {
+	  console.log("bar!");
+	};
+	// app.js
+	var bar = require('./bar');
+	bar();
+
+Exporting a named function, called fiz.
+	// fiz.js
+	exports.fiz = function() {
+	  console.log('fiz!');
+	};
+	// app.js
+	var fiz = require('./fiz').fiz;
+	fiz();
+
+Exporting an anonymous object.
+	// buz.js
+	var Buz = function() {}; 
+	Buz.prototype.log = function () {
+	  console.log('buz!');
+	};
+	module.exports = new Buz();
+	// apps.js
+	var buz = require('./buz');
+	buz.log();
+
+Exporting a named object, called Baz.
+	// baz.js
+	var Baz = function() {}; 
+	Baz.prototype.log = function () {
+	  console.log("baz!");
+	};
+	exports.Baz = new Baz();
+	// apps.js
+	var baz = require('./baz').Baz;
+	baz.log();
+
+Exporting an anonymous prototype,
+    // doo.js
+    var Doo = function () {};
+    Doo.prototype.log = function () {
+        console.log('doo!');
+    };
+    module.exports = Doo;
+    // app.js
+    var Doo = require('./doo.js');
+    var doo = new Doo();
+    doo.log();
+
+Exporting an object prototype, called Qux.
+	// qux.js
+	var Qux = function() {}; 
+	Qux.prototype.log = function () {
+	  console.log("qux!");
+	};
+	exports.Qux = Qux;
+	// app.js
+	var Qux = require('./qux').Qux;
+	var qux = new Qux();
+	qux.log();
+
+Named exports - one module, many exported things
+Anonymous exports - simpler client interface 
 
 
 

@@ -73,6 +73,8 @@ Good articles
 
 	https://github.com/doapps/software/wiki
 
+	https://medium.com/@weblab_tech/pair-programming-guide-a76ca43ff389
+
 Software:
 	Codeblocks.org		//C compiler.	sudo apt install codeblocks
 	Visual Studio		// https://visualstudio.microsoft.com
@@ -117,11 +119,14 @@ Employable software engineer
 	Comunications (english)
 	Technical skills
 
-Empresas
+Empresas			DEVELOPER, REMOTE DEVELOPER, ENTRY LEVEL
 	Felipe Arcos
 	Jose Luis, de parte de Juan Carlos. 	jobs.col@avantica.net
 	Avantica.net, monica.rojas @avantica.net, (51) 934 473 203, linkedin.com/in/monicarojasr
 	Slack -> calidev
+	https://www.monster.com/
+	https://co.indeed.com/
+	https://www.glassdoor.com/index.htm
 	optima.net.co
 	Diego Valencia diego@intelecto.co 
 	PSL -Software development (linkedin)
