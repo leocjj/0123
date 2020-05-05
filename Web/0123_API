@@ -1,0 +1,89 @@
+
+
+*************************** RESTful API****************************************
+
+https://www.sitepoint.com/developers-rest-api/
+https://oauth.net/code/python/
+https://jwt.io/
+
+https://any-api.com/	https://apilist.fun/
+https://github.com/public-apis/public-apis	https://rapidapi.com/
+https://developers.google.com/apis-explorer/
+
+https://jsonplaceholder.typicode.com/
+
+Creating a RESTful Web Service
+
+REQUEST:
+
+An Endpoint URL.
+	An application implementing a RESTful API will define one or more URL
+	endpoints with a domain, port, path, and/or querystring — for example,
+	https://mydomain/user/123?format=json.
+
+The HTTP method.
+	Differing HTTP methods can be used on any endpoint which map to
+	application create, read, update, and delete (CRUD) operations:
+    	HTTP method 	CRUD 		Action
+    	GET 			read 		returns requested data
+    	POST 			create 		creates a new record
+    	PUT or PATCH 	update 		updates an existing record
+    	DELETE 			delete 		deletes an existing record
+
+    Examples:
+        a GET request to /user/ returns a list of registered users on a system
+        a POST request to /user/123 creates user with ID 123 using body data
+        a PUT request to /user/123 updates user 123 with the body data
+        a GET request to /user/123 returns the details of user 123
+        a DELETE request to /user/123 deletes user 123
+
+    HTTP headers. Information such as authentication tokens or cookies can
+		be contained in the HTTP request header.
+
+Body Data.
+	Data is normally transmitted in the HTTP body in an identical way to HTML
+	<form> submissions or by sending a single JSON-encoded data string.
+
+
+RESPONSE
+
+	data, HTML, an image, an audio file, and so on.
+	Data are typically JSON-encoded, but can be XML, CSV, strings, or any.
+	You could allow the return format to be specified in the request —
+	for example, /user/123?format=json or /user/123?format=xml.
+
+	An appropriate HTTP status code should also be set in the response header.
+	200 OK, used for successful requests,
+	201 Created, when a record is created.
+	Errors should return an appropriate code such as
+		400 Bad Request, 404 Not Found, 401 Unauthorized, and so on.
+
+	Other HTTP headers can be set including the Cache-Control or
+	Expires directives to specify how long a response can be cached before
+	it’s considered stale.
+
+	There are no strict rules.
+	Endpoint URLs, HTTP methods, body data, and response types can be
+	implemented as you like. For example, POST, PUT, and PATCH are often used
+	interchangeably so any will create or update a record.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
