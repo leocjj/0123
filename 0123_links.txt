@@ -124,9 +124,13 @@ Empresas			DEVELOPER, REMOTE DEVELOPER, ENTRY LEVEL
 	Jose Luis, de parte de Juan Carlos. 	jobs.col@avantica.net
 	Avantica.net, monica.rojas @avantica.net, (51) 934 473 203, linkedin.com/in/monicarojasr
 	Slack -> calidev
-	https://www.monster.com/
-	https://co.indeed.com/
-	https://www.glassdoor.com/index.htm
+	www.monster.com/
+	co.indeed.com/
+	www.glassdoor.com/index.htm
+	www.glassdoor.com/Jobs/
+	www.rappi.com/jobs/open-positions
+	www.skillshare.com/
+	jobs.lever.co/	
 	optima.net.co
 	Diego Valencia diego@intelecto.co 
 	PSL -Software development (linkedin)

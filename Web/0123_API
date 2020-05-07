@@ -1,5 +1,52 @@
 
 
+API REST:
+Un API Rest es una servicio que se ejecuta del lado backend. Su comunicación es mediante el protocolo HTTP donde se hacen peticiones a ciertas rutas o URLs que devuelven información en formatos JSON o XML provenientes de una fuente de datos, y también se puede enviar información a las rutas o URLs en formato JSON o XML para que puedan procesar dicha información.
+
+Ventajas:
+- Separación entre el cliente y el servidor: mejora la portabilidad de la interfaz a otro tipo de plataformas, aumenta la escalabilidad de los proyectos
+- La API REST siempre es independiente del tipo de plataformas o lenguajes: Con una API REST se pueden tener servidores PHP, Java, Python o Node.js. Lo importante es que el formato de respuesta sea igual XML o JSON
+CSV comma-separated values - es un archivo de texto que almacena los datos en forma de columnas, separadas por comas donde las filas se distinguen por saltos de línea. Sirven para exportar información y que puedan ser analizadas, graficadas como estudios de mercado.
+JSON JavaScript Object Notation - formato de datos ligero que sirve para el intercambio de datos,  es independiente de cualquier lenguaje de programación, donde el emisor puede ser Java y el receptor Python.
+
+Herramientas: 
+ Swagger: diseñar, documentar, mocks, testear y monitorear REST APIs
+Postman: Testear
+Postwoman: alternativa del Postamn
+challenges:
+Endpoint consensus: al final no importa el formato de las URL, lo importante es la consistencia atreves de la API
+API versioning: Si hay una nueva version de la API se debe tener un soporte a las versiones anteriores en caso de que  ya hayan otras aplicaciones consumiendolas
+Authentication: Si la API es privada o de un third-party, debe usar alguna alternativa para la autenticacion. Las mas comunes son:
+-http basic authentication
+-API keys
+-OAuth
+-JSON web tokens (jwt)
+
+Security: hay unas buenas practicas comunes:
+-usar HTTPS -usar metodos de autenticacion robustas -usar CORS -validar todos los endpoints URL y el body de la data -evitar exponer los tokens de la api en el lado del cliente con js
+
+
+API
+
+Interface
+capa de abstraccion para que dos sistemas se comuniquen
+
+en el ambito web podriamos decir que un API es un servicio backend que se utiliza para conectar dos servicios
+
+REST (representational state transfer)
+es un estilo de arquitectura para construir APIs 
+
+las API REST se basan en 
+URLs
+Protocolo HTTP
+JSON
+
+Node.js: 	https://www.youtube.com/watch?v=BhvLIzVL8_o
+https://nodejs.org/dist/latest-v12.x/docs/api/
+
+
+
+
 *************************** RESTful API****************************************
 
 https://www.sitepoint.com/developers-rest-api/
