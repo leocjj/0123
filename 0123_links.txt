@@ -120,7 +120,10 @@ Employable software engineer
 	Comunications (english)
 	Technical skills
 
+About to interview at a company? Make sure to check their Glassdoor to get a hint of what their interview process is like. It can drastically help you to be better prepared!
+
 Empresas			DEVELOPER, REMOTE DEVELOPER, ENTRY LEVEL
+https://careers.ibm.com/ShowJob/Id/919352/Quantum-Software-Developer-(Yorktown-Heights,-NY)/?lang=en
 	Felipe Arcos
 	Jose Luis, de parte de Juan Carlos. 	jobs.col@avantica.net
 	Avantica.net, monica.rojas @avantica.net, (51) 934 473 203, linkedin.com/in/monicarojasr
@@ -131,8 +134,12 @@ Empresas			DEVELOPER, REMOTE DEVELOPER, ENTRY LEVEL
 	www.glassdoor.com/Jobs/
 	www.rappi.com/jobs/open-positions
 	www.skillshare.com/
-	jobs.lever.co/	
+	jobs.lever.co/
+	www.r2diesel.com
 	optima.net.co
+	zonamerica.com/PostulantesZA/zajob.html
+	https://www.zonamerica.com/postulantesza/wpofertaslaborales.aspx
+
 	Diego Valencia diego@intelecto.co 
 	PSL -Software development (linkedin)
 	https://www.directrixanalytics.com/
@@ -147,10 +154,11 @@ Empresas			DEVELOPER, REMOTE DEVELOPER, ENTRY LEVEL
 	Banco de occidente (Vero) https://elempleo.com/sitios-empresariales/colombia/banco-occidente/
 	Remotas canadá
 	Sestra Consulting sestra.co
+	www.santandertechup.com
 	mattermost.com/careers
 	engineerhere.ca
+	https://careerkarma.com/	Ruben Harris in linkedin
 	ourworldindata.org/jobs
-	zonamerica.com/PostulantesZA/zajob.html
     https://www.meetup.com/es/CaliSharpCO/    https://twitter.com/calisharpco
 	www.qt.io/careers
 	www.toptal.com/hire-software-developers
@@ -160,6 +168,8 @@ Empresas			DEVELOPER, REMOTE DEVELOPER, ENTRY LEVEL
 	https://data360.com.co/
 	data360.in
 	www.hypeideas.co
+	https://twitter.com/twilio
+	https://learn.joinhandshake.com/students/tag/get-hired-remotely/
 	www.personalsoft.com.co
 	www.grupodot.com/en/
 	dataknow.co
