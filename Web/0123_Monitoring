@@ -1,0 +1,238 @@
+
+https://www.datadoghq.com/
+
+DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=661cf4a640b0384414fbb1e264b2aa8c bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"
+
+sudo apt-get update
+sudo apt-get install apt-transport-https
+
+sudo sh -c "echo 'deb https://apt.datadoghq.com/ stable 7' > /etc/apt/sources.list.d/datadog.list"
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 A2923DFF56EDA6E76E55E492D3A80E30382E94DE
+
+sudo apt-get update
+sudo apt-get install datadog-agent
+
+sudo sh -c "sed 's/api_key:.*/api_key: 661cf4a640b0384414fbb1e264b2aa8c/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml"
+
+sudo systemctl restart datadog-agent.service
+
+sudo systemctl stop datadog-agent
+
+sudo systemctl start datadog-agent
+
+
+https://docs.datadoghq.com/integrations/system/
+
+*******************************************************************************
+
+Web stack monitoring can be broken down into 2 categories:
+
+	Application monitoring: getting data about your running software and
+		making sure it is behaving as expected
+    Server monitoring: getting data about your virtual or physical server
+		and making sure they are not overloaded (could be CPU, memory,
+		disk or network overload)
+
+NewRelic
+
+NewRelic requires you to add a piece of JavaScript to your website, this
+agent will collect information and send it back to the New Relic servers.
+It will give you a detailed analysis of how quickly your website loads in
+a browser, with a detailed analysis at every level of the stack. If the
+website is loading too slowly or users are experiencing error (500), there
+is a feature that allows you to trigger an alert. NewRelic now does much
+more than this, I’ll let you discover the rest.
+
+DataDog
+
+DataDog allows you to measure and monitor everything with graphs. It
+gathers performance data from all your application components. The service
+has a lot of integrations. You usually just need to properly configure
+your alert and you are good to go with solid monitoring coverage.
+
+Uptime Robot
+
+Uptime Robot is a simple service that will check that your website is
+responding from multiple locations in the world. This is the bare minimum
+when you host a website.
+
+Nagios
+
+Nagios is an open source project started in 1999, it is among the most
+widely used monitoring tools in the tech industry. It is, however, seen as
+outdated. Nagios had trouble adapting to the rise of the Cloud but is
+slowly trying to catch up.
+
+WaveFront
+
+Wavefront is a cutting edge monitoring service funded by great software
+engineers who’ve built monitoring tools for the best tech companies in
+Silicon Valley. The idea is to be able to analyze anything that can
+produce data points. A query language that looks like SQL allows users to
+apply mathematical operations to these data points to extract values or
+detect anomalies from the time series data. While it takes some time to
+get used to the tool, it’s the type of monitoring that the best companies
+are using. To my knowledge, LinkedIn, Facebook and DropBox are using a very similar tool for their monitoring needs.
+
+
+
+https://www.sumologic.com/glossary/server-monitoring/
+https://landing.google.com/sre/sre-book/chapters/monitoring-distributed-systems/
+
+
+The general process of server monitoring can be described in five steps:
+
+1) Identify the Most Important KPIs - 
+identification of exactly what data you would like to track on each server.
+	For an application server, availability and responsiveness:
+		resource usage
+		data throughput
+		the latency of responses
+		service failures and restarts
+		error rates and success rates
+		overall application availability.
+	For a web server, capacity and speed:
+		Uptime
+		Time to first byte
+		Complete page load time
+		Search query response time
+		Bounce rate
+	For a data storage server, latency, data throughput, and data loss.
+	Network Servers - A network server acts as a central hub, helping other machines in your network access additional computing resources like processing power, disk space or printers on an on-demand basis. Network servers can also be used to store files or run applications from a central location. The most common KPIs for network servers include:
+		Network connections status
+		Network connection speed
+		Number of connections on the network
+		Packet loss and data transmission errors
+		Latency or throughput
+		Bandwidth Utilization
+
+2) Set Baseline KPI Values -
+To measure the performance of each server on each KPI metric and determine
+an acceptable range of values for the KPI. This initial measurement will act
+as a baseline against which the future performance of the server will be measured.
+
+3) Configure Data Collection and Analysis -
+A server monitoring tool must be appropriately configured to pull data from
+the servers deployed in your cloud environment. Server monitoring tools track
+the activity on the server by streaming event logs, also called log files,
+that the server automatically generates. Log files contain information about
+errors, user activity and security events that happen on the server. In
+addition to log files, server monitoring tools track server operating system
+KPIs including CPU and memory availability, network connectivity and disk
+performance.
+
+4) Set up Comprehensive and Specific Alerts -
+Now that you have configured your data collection and aggregation, the next
+step is to build out an alert system that will send notifications to you and
+your team when there is a KPI breach and your chosen metrics drop below
+threshold levels.
+
+5) Get Ready to Respond -
+Finally, you'll need to outline policy and procedure for responding to alerts.
+Who is responsible for investigating security alerts? Finding solutions to
+operational issues? What kinds of alerts should warrant a response, and how
+urgent should the response be? These are all questions that need to be
+answered as you define how your organization will treat each type of event
+notification.
+
+When these five steps are optimized, IT organizations can achieve a positive return-on-investment from their server monitoring solution by responding quickly to security and operational issues, maintaining compliance with internal and external standards, and reducing application downtime.
+
+
+
+
+The Four Golden Signals
+
+The four golden signals of monitoring are latency, traffic, errors, and saturation. If you can only measure four metrics of your user-facing system, focus on these four.
+
+Latency
+
+    The time it takes to service a request. It’s important to distinguish between the latency of successful requests and the latency of failed requests. For example, an HTTP 500 error triggered due to loss of connection to a database or other critical backend might be served very quickly; however, as an HTTP 500 error indicates a failed request, factoring 500s into your overall latency might result in misleading calculations. On the other hand, a slow error is even worse than a fast error! Therefore, it’s important to track error latency, as opposed to just filtering out errors.
+
+Traffic
+
+    A measure of how much demand is being placed on your system, measured in a high-level system-specific metric. For a web service, this measurement is usually HTTP requests per second, perhaps broken out by the nature of the requests (e.g., static versus dynamic content). For an audio streaming system, this measurement might focus on network I/O rate or concurrent sessions. For a key-value storage system, this measurement might be transactions and retrievals per second.
+
+Errors
+
+    The rate of requests that fail, either explicitly (e.g., HTTP 500s), implicitly (for example, an HTTP 200 success response, but coupled with the wrong content), or by policy (for example, "If you committed to one-second response times, any request over one second is an error"). Where protocol response codes are insufficient to express all failure conditions, secondary (internal) protocols may be necessary to track partial failure modes. Monitoring these cases can be drastically different: catching HTTP 500s at your load balancer can do a decent job of catching all completely failed requests, while only end-to-end system tests can detect that you’re serving the wrong content.
+
+Saturation
+
+    How "full" your service is. A measure of your system fraction, emphasizing the resources that are most constrained (e.g., in a memory-constrained system, show memory; in an I/O-constrained system, show I/O). Note that many systems degrade in performance before they achieve 100% utilization, so having a utilization target is essential.
+
+    In complex systems, saturation can be supplemented with higher-level load measurement: can your service properly handle double the traffic, handle only 10% more traffic, or handle even less traffic than it currently receives? For very simple services that have no parameters that alter the complexity of the request (e.g., "Give me a nonce" or "I need a globally unique monotonic integer") that rarely change configuration, a static value from a load test might be adequate. As discussed in the previous paragraph, however, most services need to use indirect signals like CPU utilization or network bandwidth that have a known upper bound. Latency increases are often a leading indicator of saturation. Measuring your 99th percentile response time over some small window (e.g., one minute) can give a very early signal of saturation.
+
+    Finally, saturation is also concerned with predictions of impending saturation, such as "It looks like your database will fill its hard drive in 4 hours."
+
+If you measure all four golden signals and page a human when one signal is problematic (or, in the case of saturation, nearly problematic), your service will be at least decently covered by monitoring.
+
+
+*******************************************************************************
+
+https://docs.nginx.com/nginx/admin-guide/monitoring/logging/
+https://docs.nginx.com/nginx/admin-guide/monitoring/live-activity-monitoring/
+
+NGINX - Configuring Logging
+
+
+Setting Up the Error Log
+	error log is located at logs/error.log (the absolute path depends on the operating system and installation)
+
+	error_log logs/error.log warn;	//warn, error crit, alert, and emerg levels are logged.
+
+
+Setting Up the Access Log
+	access log is located at logs/access.log
+
+Enabling Conditional Logging
+
+
+*******************************************************************************
+
+Name 	Username 	IP 	State 	
+1195-web-01 	ubuntu 	104.196.66.20 	running 	Soft reboot 	Hard reboot 	Ask a new server
+1195-web-02 	ubuntu 	3.80.113.159 	running 	Soft reboot 	Hard reboot 	Ask a new server
+1195-lb-01 	ubuntu 	54.221.161.113 	running 	Soft reboot 	Hard reboot 	Ask a new server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -62,6 +62,7 @@ Machine
 	w, top, ps		Is the server able to keep up with CPU load?
 	free			Does the server have available memory?
 	htop			Are the server disk(s) able to keep up with read/write IO?
+	strace
 
 There are often 3 ways of solving the issue:
 	free up resources (stop process(es) or reduce their resource consumption)

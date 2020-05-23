@@ -139,6 +139,7 @@ https://careers.ibm.com/ShowJob/Id/919352/Quantum-Software-Developer-(Yorktown-H
 	optima.net.co
 	zonamerica.com/PostulantesZA/zajob.html
 	https://www.zonamerica.com/postulantesza/wpofertaslaborales.aspx
+https://www.smartalentit.com/
 
 redes profesionales como Torre, Angel List y Remote OK.
 
@@ -169,6 +170,7 @@ redes profesionales como Torre, Angel List y Remote OK.
 	mongodb
 	https://data360.com.co/
 	data360.in
+	https://www.datadoghq.com/jobs-other/
 	www.hypeideas.co
 	https://twitter.com/twilio
 	https://learn.joinhandshake.com/students/tag/get-hired-remotely/
