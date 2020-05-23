@@ -130,6 +130,7 @@ https://careers.ibm.com/ShowJob/Id/919352/Quantum-Software-Developer-(Yorktown-H
 	Slack -> calidev
 	www.monster.com/
 	co.indeed.com/
+	https://www.upwork.com/
 	www.glassdoor.com/index.htm
 	www.glassdoor.com/Jobs/
 	www.rappi.com/jobs/open-positions
