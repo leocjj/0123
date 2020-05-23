@@ -1,7 +1,7 @@
 
 https://www.datadoghq.com/
 
-DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=661cf4a640b0384414fbb1e264b2aa8c bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"
+DD_AGENT_MAJOR_VERSION=7 DD_API_KEY=123 bash -c "$(curl -L https://raw.githubusercontent.com/DataDog/datadog-agent/master/cmd/agent/install_script.sh)"
 
 sudo apt-get update
 sudo apt-get install apt-transport-https
@@ -12,7 +12,7 @@ sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 A2923DFF5
 sudo apt-get update
 sudo apt-get install datadog-agent
 
-sudo sh -c "sed 's/api_key:.*/api_key: 661cf4a640b0384414fbb1e264b2aa8c/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml"
+sudo sh -c "sed 's/api_key:.*/api_key: 123/' /etc/datadog-agent/datadog.yaml.example > /etc/datadog-agent/datadog.yaml"
 
 sudo systemctl restart datadog-agent.service
 
@@ -193,7 +193,7 @@ Name 	Username 	IP 	State
 1195-web-01 	ubuntu 	104.196.66.20 	running 	Soft reboot 	Hard reboot 	Ask a new server
 1195-web-02 	ubuntu 	3.80.113.159 	running 	Soft reboot 	Hard reboot 	Ask a new server
 1195-lb-01 	ubuntu 	54.221.161.113 	running 	Soft reboot 	Hard reboot 	Ask a new server
-
+661cf4a640b0384414fbb1e264b2aa8c
 
 
 
