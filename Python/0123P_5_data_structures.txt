@@ -8,9 +8,9 @@ https://www.python-course.eu/python3_lambda.php
 ***************************** 5.1. More on Lists ******************************
 
 list.append(x)	a[len(a):] = [x]  Add an item to the end of the list.
-list.extend(L)	a[len(a):] = L   Extend the list by appending all the items in the given list.
-list.insert(i, x) Insert an item at a given position. The first argument is the
-		index of the element before which to insert
+list.extend(L)	a[len(a):] = L   Extend list, append items in the given list.
+list.insert(i, x) Insert an item at a given position.
+		i is index of the element before which to insert
 		a.insert(0, x)	inserts at the front of the list
 		a.insert(len(a), x)  is equivalent to a.append(x).
 list.remove(x)	Remove the first item from the list whose value is x.
@@ -42,17 +42,15 @@ pop()		//To retrieve an item from the top of the stack, use without an explicit 
 ************************** 5.1.2. Using Lists as Queues ***********************
 
 The first element added is the first element retrieved (“first-in, first-out”)
-lists are not efficient for this. While appends and pops from the end of list are fast,
-inserts or pops from the beginning is slow (because all of the other elements have to be shifted by one).
+lists are not efficient for this. While appends and pops from the end of list are fast, inserts or pops from the beginning is slow (because all of the other elements have to be shifted by one).
+
 To implement a queue, use collections.deque which was designed to have fast appends and pops from both ends.
 >>> from collections import deque
 >>> queue = deque(["Eric", "John", "Michael"])
 >>> queue.append("Terry")           # Terry arrives
 >>> queue.append("Graham")          # Graham arrives
->>> queue.popleft()                 # The first to arrive now leaves
-'Eric'
->>> queue.popleft()                 # The second to arrive now leaves
-'John'
+>>> queue.popleft()                 # The first to arrive now leaves --> 'Eric'
+>>> queue.popleft()                 # The second to arrive now leaves--> 'John'
 >>> queue                           # Remaining queue in order of arrival
 deque(['Michael', 'Terry', 'Graham'])
 
@@ -67,12 +65,12 @@ For example, assume we want to create a list of squares, like:
 >>> squares
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 Note that this creates (or overwrites) a variable named x that still exists after the loop completes. We can calculate the list of squares without any side effects using:
-squares = list(map(lambda x: x**2, range(10)))
-or, equivalently:
-squares = [x**2 for x in range(10)]
-which is more concise and readable.
+
+squares = list(map(lambda x: x**2, range(10)))		or, equivalently:
+squares = [x**2 for x in range(10)]			which is more concise and readable.
 
 A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses. The result will be a new list resulting from evaluating the expression in the context of the for and if clauses which follow it. For example, this listcomp combines the elements of two lists if they are not equal:
+
 >>> [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
 [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
 and it’s equivalent to:
@@ -114,7 +112,6 @@ SyntaxError: invalid syntax
 [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 List comprehensions can contain complex expressions and nested functions:
->>>
 >>> from math import pi
 >>> [str(round(pi, i)) for i in range(1, 6)]
 ['3.1', '3.14', '3.142', '3.1416', '3.14159']
@@ -165,12 +162,15 @@ See Unpacking Argument Lists for details on the asterisk in this line.
 *******************************************************************************
 ************************ 5.2. The del statement *******************************
 
-There is a way to remove an item from a list given its index instead of its value: the del statement. This differs from the pop() method which returns a value. The del statement can also be used to remove slices from a list or clear the entire list (which we did earlier by assignment of an empty list to the slice). For example:
+A way to remove an item from a list given its index instead of its value:
+	del statement, this differs from the pop() method which returns a value.
+	can also be used to remove slices from a list or clear the entire list
+	(which we did earlier by assignment of an empty list to the slice).
 >>> del a[0]		//delete item at index 0
 >>> del a[2:4]		//delete items 2 through 3
 >>> del a[:]		//delete the list 
 
-del a			//delete entire variables
+del a				//delete entire variables
 
 
 *******************************************************************************
@@ -372,13 +372,26 @@ It is possible to assign the result of a comparison or other Boolean expression 
 >>> non_null
 'Trondheim'
 
-Note that in Python, unlike C, assignment cannot occur inside expressions. C programmers may grumble about this, but it avoids a common class of problems encountered in C programs: typing = in an expression when == was intended.
+Note that in Python, unlike C, assignment cannot occur inside expressions.
+C programmers may grumble about this, but it avoids a common class of problems
+encountered in C programs: typing = in an expression when == was intended.
 
 
 *******************************************************************************
 ************** 5.8. Comparing Sequences and Other Types ***********************
 
-Sequence objects may be compared to other objects with the same sequence type. The comparison uses lexicographical ordering: first the first two items are compared, and if they differ this determines the outcome of the comparison; if they are equal, the next two items are compared, and so on, until either sequence is exhausted. If two items to be compared are themselves sequences of the same type, the lexicographical comparison is carried out recursively. If all items of two sequences compare equal, the sequences are considered equal. If one sequence is an initial sub-sequence of the other, the shorter sequence is the smaller (lesser) one. Lexicographical ordering for strings uses the Unicode code point number to order individual characters. Some examples of comparisons between sequences of the same type:
+Sequence objects may be compared to other objects with the same sequence type.
+The comparison uses lexicographical ordering: first the first two items are
+compared, and if they differ this determines the outcome of the comparison;
+if they are equal, the next two items are compared, and so on, until either
+sequence is exhausted.
+
+If two items to be compared are themselves sequences of the same type, the
+lexicographical comparison is carried out recursively.
+If all items of two sequences compare equal, the sequences are considered equal
+If one sequence is an initial sub-sequence of the other, the shorter sequence
+is the smaller (lesser) one. Lexicographical ordering for strings uses the
+Unicode code point number to order individual characters.
 
 (1, 2, 3)              < (1, 2, 4)
 [1, 2, 3]              < [1, 2, 4]
@@ -388,7 +401,11 @@ Sequence objects may be compared to other objects with the same sequence type. T
 (1, 2, 3)             == (1.0, 2.0, 3.0)
 (1, 2, ('aa', 'ab'))   < (1, 2, ('abc', 'a'), 4)
 
-Note that comparing objects of different types with < or > is legal provided that the objects have appropriate comparison methods. For example, mixed numeric types are compared according to their numeric value, so 0 equals 0.0, etc. Otherwise, rather than providing an arbitrary ordering, the interpreter will raise a TypeError exception.
+Note that comparing objects of different types with < or > is legal provided
+that the objects have appropriate comparison methods.
+For example, mixed numeric types are compared according to their numeric value,
+ so 0 equals 0.0, etc. Otherwise, rather than providing an arbitrary ordering,
+ the interpreter will raise a TypeError exception.
 
 Footnotes
 [1]	Other languages may return the mutated object, which allows method chaining, such as d->insert("a")->remove("b")->sort();.
@@ -397,56 +414,94 @@ Footnotes
 
 *******************************************************************************
 
-			String		List		Tupla 		dict		Set		Map
+			String		List		Tupla		dict			Set		Range
 
-Mutable			No		Yes		No		Yes		Yes
-Iterable				Yes		Yes		Yes				Yes
-Unique values		No		No		No		No		Yes
-Slicing			Yes		Yes		Yes		No		
+Mutable		No			Yes			No			Yes				Yes		No
+Sequence	Yes			Yes			Yes									Yes
+Iterable	Yes			Yes			Yes			Yes				Yes
+Unique val	No			No			No			No				Yes
+Slicing		Yes			Yes			Yes			No				No
 
-Define empty		a=''		a=[]		a=()		a={}  		a=set()
-Define 1 item		a='c'		a=['H']		a=(1,)		a={'key': 1}	a={1}
-Define general		a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
+Define
+ empty		a=''		a=[]		a=()		a={}  			a=set()
+ 1 item		a='c'		a=['H']		a=(1,)		a={'key': 1}	a={1}
+ general	a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
 
-Index item		a[i]		a[i]		a[i]		a['key']	N/P
-			a[i:j] slice	a[i:j] slice					N/P
-Iterable                                                                a.items()
-									a.values()
+Index
+ item		a[i]		a[i]		a[i]		a['key']		N/P
+ slice		a[i:j]		a[i:j]		a[i:j]		N/P				N/P
+Iterable	a			a			a			a / a.keys		a
+												a.values()
+												a.items()
 
-Append item		a+=b		a+=['H']	a+=(2,)		a['key']='val'	a |= {2}
-					a.append(H)			N/P
+Append		a+=b		a+=['H']	a+=(2,)		a['key']='val'	a |= {2}
+						a.append(H)				N/P
 
-Item assignment		N/P		a[i]='H'	N/P		a['key']='val'	N/P
-Delete item		N/P		del a[i]	N/P		del a['key']	a -= {2}
+Item
+ assignment	N/P			a[i:J]='H'	N/P			a['key']='val'	N/P
+ delete		N/P			del a[i:J]	N/P			del a['key']	a -= {2}
 
-Length
-Merge two								a.update(dic2)
+Length		len(a)		len(a)		len(a)		len(a)			len(a)
+Merge two										a.update(dic2)
 
-Deep copy (ref.)	b=a  *P/U	b=a		b=a  *P/U	b=a		b=a	
-Shallow copy (w/o ref)	b=a[:]		b=a[:]		b=a[:]		N/P		N/P	
-	means clone	N/P		b=a.copy()	N/P		b=a.copy()	b=a.copy()
-					b=a + []
-Special			a		a+='Hi'						| Union
-					>>> ['H','i']					- Substration
-											& Intersection
-											^ (aub)-(anb)
-											
+Deep copy
+(ref.)		b=a  *P/U	b=a			b=a  *P/U	b=a				b=a
 
+Shallow copy
+(w/o ref,	b=a[:]		b=a[:]		b=a[:]		N/P				N/P	
+i.e. clone)	N/P			b=a.copy()	N/P			b=a.copy()		b=a.copy()
+						b=a + []
+
+Special		a			a+='Hi'									| Union
+						>>> ['H','i']							- Substration
+																& Intersection
+																^ (aub)-(anb)
 N/P: Not Permited
 P/U: Permited but useless
 
 for a,b in {'key': 1}.items():
 ...  print(a,b)
 
-		Define		Concatenate	Read item	Delete item	Copy		Copy(ref)
-string		a='Hola'	a += b		a[i]		
-list		a=[0, 1, 2]	a += b		a[i]
-tupla		a=(1, 'a, [1])	
-		a=(1,)		
-dict
+
+*******************  Sequence Types — str, list, tuple, range *****************
+
+Operation			Result
+x in s				True if an item of s is equal to x, else False
+x not in s			False if an item of s is equal to x, else True
+s + t				the concatenation of s and t
+s * n or n * s		equivalent to adding s to itself n times
+s[i]				ith item of s, origin 0
+s[i:j]				slice of s from i to j
+s[i:j:k]			slice of s from i to j with step k
+len(s)				length of s
+min(s)				smallest item of s
+max(s)				largest item of s
+s.index(x[, i[, j]])index of the first occurrence of x in s 
+					(at or after index i and before index j)
+s.count(x)			total number of occurrences of x in s
 
 
-***************************** LAMBDA & MAP **********************************
+****************** Mutable Sequence Types (List, dict, set) *******************
+
+Operation			Result
+s[i] = x			item i of s is replaced by x
+s[i:j] = t			slice of s from i to j is replaced by content of iterable t
+del s[i:j]			same as s[i:j] = []
+s[i:j:k] = t		the elements of s[i:j:k] are replaced by those of t
+del s[i:j:k]		removes the elements of s[i:j:k] from the list
+s.append(x)		appends x to the end of the sequence (same as s[len(s):len(s)] = [x])
+s.clear()			removes all items from s (same as del s[:])
+s.copy()			creates a shallow copy of s (same as s[:])
+s.extend(t) or s += t		extends s with the contents of t
+							(for the most part the same as s[len(s):len(s)] = t)
+s *= n				updates s with its contents repeated n times
+s.insert(i, x)		inserts x into s at the index given by i (same as s[i:i] = [x])
+s.pop([i])			retrieves the item at i and also removes it from s
+s.remove(x)			remove the first item from s where s[i] is equal to x
+s.reverse()			reverses the items of s in place
+
+
+***************************** LAMBDA & MAP ************************************
 
 lambda argument_list: expression
 
