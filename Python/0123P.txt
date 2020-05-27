@@ -112,12 +112,34 @@ zYxWvUtSrQpOnMlKjIhGfEdCbA>
 *************************** OPERATORS *****************************************
 
 + - * /, // (integer division), % remainder, ** powers, ()
-A//b floor division. // and % works with integers and floats.
+A//b floor division/integer division. Result is always rounded towards -inf:
+// and % works with integers and floats.
 ==, !=, >, < (works also with strings)
 special class: decimal, fractions
 numeric types: integers, floating point numbers, and complex numbers.
 Booleans are a subtype of integers. Integers have unlimited precision.
 
+All numbers.Real types (int and float) also include the following operations:
+For additional numeric operations see the math and cmath modules.
+
+Operation			Result
+math.trunc(x)		x truncated to Integral
+round(x[, n])		x rounded to n digits, rounding half to even.
+					If n is omitted, it defaults to 0.
+math.floor(x)		the greatest Integral <= x
+math.ceil(x)		the least Integral >= x
+
+his table lists the bitwise operations sorted in ascending priority:
+
+Operation		Result
+x | y			bitwise or of x and y
+x ^ y			bitwise exclusive or of x and y
+x & y			bitwise and of x and y
+x << n			x shifted left by n bits,
+				equivalent to mult by pow(2, n) without overflow check
+x >> n			x shifted right by n bits
+				equivalent to division by pow(2, n) without overflow check.
+~x				the bits of x inverted
 
 *************************** STRINGS *******************************************
 
@@ -179,8 +201,8 @@ print("Hello, world!", file=sys.stderr)     // print to standar error
 sys.stderr.write("spam\n")
 os.write(2, b"spam\n")
 
-********************************************************************************
-****************************** ITERABLE & SECUENCES ****************************
+*******************************************************************************
+****************************** ITERABLE & SECUENCES ***************************
 
 a = (x for x in [1,2,3])	//Iterable, one use, returns one bye one each
 				//element and then is empty.
@@ -211,6 +233,7 @@ lookups use arbitrary immutable keys, no integers.
 
 
 ****************************** LIST *******************************************
+
 comma-separated values (items) in square brackets. can be indexed and sliced
 Unlike strings, which are immutable, lists are a mutable type.
 squares = [1, 4, 9, 16, 25]
@@ -231,7 +254,7 @@ a = ['a', 'b', 'c']
 [['a', 'b', 'c'], [1, 2, 3]]	//nested lists
 
 a = range(stop)			//range object
-a[i]				//range element
+a[i]					//range element
 
 range(start, stop [,step])
 range.__len__(self, /)
@@ -243,18 +266,23 @@ a = "Python is cool"
 array[init_index[:final_index]]		//if index missing, takes to the start/end.
 					//if index negative, takes counting in reverse.
 
+
 ********************************************************************************
 ************************* CONTROL FLOW *****************************************
+
 a, b = 0, 1		//multiple assignment
 and, or, not, True, False
 
+
 **************************** IF-ELIF-ELSE **************************************
+
 if x < 0:
 	print('Negative changed to zero')
 elif x == 0:
 	print('Zero')
 else:
 	print('More')
+
 
 ******************************** FOR  LOOP ************************************
 
@@ -281,7 +309,9 @@ while i <=5:      		//break, continue
     else:
         return None		
 
+
 ***************************** RANGE BUILT-IN FUNCTION *************************
+
 To iterate over a sequence of numbers, generates arithmetic progression.
 It is an object which returns the successive items of the desired sequence when
 you iterate over it, but it doesn’t really make the list, thus saving space.
@@ -294,7 +324,8 @@ range(0, 10, 3)			--> 0, 3, 6, 9
 a = ['Mary', 'had', 'a', 'little', 'lamb']
 for i in range(len(a)):
 	print(i, a[i])		--> 0 Mary, 1 had, 2 a, 3 little, 4 lamb
-list(range(5))			//to create a list with range.
+
+list(range(5))			//to create a list with range --> [0,1,2,3,4]
 
 
 *******************************************************************************
@@ -322,6 +353,14 @@ sorted(iterable, *, key=None, reverse=False)
 zip(*iterables)	// Make an iterator that aggregates elements from each of the
 				iterables. zip('ABCD', 'xy') --> Ax By
 
+len(s)			// Return the length (the number of items) of an object.
+				of a sequence (such as a string, bytes, tuple, list, or range)
+				or a collection (such as a dictionary, set, or frozen set).
+max(iterable, *[, key, default])	// Return largest in an iterable
+max(arg1, arg2, *args[, key])		// Return largest of two+ arguments.
+min(iterable, *[, key, default])	// Return smallest in an iterable
+min(arg1, arg2, *args[, key])		// Return smallest of two+ arguments.
+
 
 ****************************** MATH *******************************************
 
@@ -337,8 +376,8 @@ divmod(a, b)	// Take two (non complex) numbers and return a pair of numbers
 				// For floating point -->  (q, a % b) ...
 pow(base, exp[, mod])		// Equivalent to base**exp. mod will apply % after
 round(number[, ndigits])	// Return number rounded to ndigits precision 									after the decimal point.
-sum(iterable, /, start=0)	// Sums start and the items of an iterable from
-							// left to right and returns the total.
+sum(iterable, start=0)	// Sums (start + items of an iterable)
+							// from left to right and returns the total.
 
 
 ****************************** CLASSES ****************************************
@@ -362,7 +401,6 @@ class bytes([source[, encoding[, errors]]])
 
 ****************************** DATA STRUCTURES ********************************
 
-class list([iterable])	// Rather than a function, is a mutable sequence type.
 class dict(**kwarg)		// Create a new dictionary.
 class dict(mapping, **kwarg)
 class dict(iterable, **kwarg)
@@ -370,20 +408,17 @@ class set([iterable])	// Return a new set object, optionally with elements
 							taken from iterable. set is a built-in class.
 class frozenset([iterable])	//Return a new frozenset object, optionally with
 							 elements taken from iterable.
-class range(stop)
-class range(start, stop[, step])
-			// Rather than a function, range is actually an immutable sequence
-			type, documented in Ranges and Sequence Types — list, tuple, range.
-class tuple([iterable])	// Rather than being a function, tuple is actually an
-		 immutable sequence type, as documented in Tuples and Sequence Types — list, tuple, range.
+class list([iterable])	// Rather than a function,  a mutable sequence type.
+class range(stop)		// Rather than a function, an immutable sequence type.
+class range(start, stop[, step])	// from (start) to (stop - 1) step by step.
+class tuple([iterable])	// Rather than a function, an immutable sequence type
 
-enumerate(iterable, start=0)
-				// Return an enumerate object, returns list of tuples, returns
-				// a iterator that will return (0, thing[0]), (1, thing[1]) ...
-					for i in range(len(L)):		for i, item in enumerate(L):
-						item = L[i]					...
-						...							L[i] = result
-						L[i] = result
+enumerate(iterable, start=0) // Return enumerate object, list of tuples,
+						// will return (0, thing[0]), (1, thing[1]) ...
+						for i in range(len(L)):		for i, item in enumerate(L):
+							item = L[i]					...
+							...							L[i] = result
+							L[i] = result
 iter(object[, sentinel])	//Return an iterator object.
 			// iter(obj): object must be a collection object which supports
 				the iteration protocol (the __iter__() method), or it must
@@ -396,7 +431,7 @@ iter(object[, sentinel])	//Return an iterator object.
 				value will be returned.
 map(function, iterable, ...)	// Return an iterator that applies function to
 								 every item of iterable, yielding the results.
-next(iterator[, default])	// Retrieve the next item from the iterator
+next(iterator[, default])		// Retrieve the next item from the iterator
 
 
 ****************************** OBJECTS ****************************************
@@ -412,14 +447,13 @@ id(object)		// Return the “identity” of an object. Mem address in CPython.
 @staticmethod	// Transform a method into a static method.
 
 getattr(object, name[, default])	//Return value of the named attr of object.
-setattr(object, name, value)	// Assigns the value to the attribute
-			// The arguments are an object, a string and an arbitrary value.
-			// The string may name an existing attribute or a new attribute.
-			// setattr(x, 'foobar', 123) is equivalent to x.foobar = 123.
+setattr(object, name, value)		// Assigns the value to the attribute
+				// name is a string, an existing attribute or a new attribute.
+				// setattr(x, 'foobar', 123) is equivalent to x.foobar = 123.
 delattr(object, name)	// deletes the named attribute
 						// delattr(x, 'foobar') is equivalent to del x.foobar.
 hasattr(object, name)	//True if the str name is an object attribute
-hash(object)	// Return the hash value of the object (if it has one).
+hash(object)			// Return the hash value of the object (if it has one).
 
 isinstance(object, classinfo)
 			// True if object is an instance of classinfo or a subclass thereof
@@ -434,6 +468,9 @@ issubclass(object, subclass)
 type()		//returns class type of the argument(object). See isinstance()
 			//type([]) is list  --> True
 super([type[, object-or-type]])
+
+class memoryview(obj)	// Return a “memory view” object
+class object			// Return a new featureless object
 
 class property(fget=None, fset=None, fdel=None, doc=None)
 			// Return a property attribute. Equivalent codes
@@ -462,7 +499,7 @@ class property(fget=None, fset=None, fdel=None, doc=None)
 					del self._x
 
 
-
+****************************** EXECUTION **************************************
 
 globals()		// Return dictionary representing current global symbol table.
 locals()		// Update and return a dict of the current local symbol table.
@@ -474,6 +511,9 @@ exec(object[, globals[, locals]])
 				// dynamic execution of Python code. Can be a string or object
 					code. If string,  is parsed as a suite of Python statements
 					which is then executed
+
+
+****************************** OTHERS *****************************************
 
 filter(function, iterable)	// Construct an iterator from those elements of
 				// iterable for which function returns true.
@@ -505,22 +545,8 @@ __import__(name, globals=None, locals=None, fromlist=(), level=0)
 		// This function is invoked by the import statement.
 
 
-
-len(s)		// Return the length (the number of items) of an object.
-			may be a sequence (such as a string, bytes, tuple, list, or range)
-			or a collection (such as a dictionary, set, or frozen set).
-max(iterable, *[, key, default])
-max(arg1, arg2, *args[, key])
-			// Return largest in an iterable or largest of two+ arguments.
-min(iterable, *[, key, default])
-min(arg1, arg2, *args[, key])
-			// Return smallest in an iterable or smallest of two+ arguments.
-
-
-class memoryview(obj)	// Return a “memory view” object
-class object			// Return a new featureless object
-
-open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)
+open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None,
+	closefd=True, opener=None)
 
 
 print()      // print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)
@@ -551,55 +577,61 @@ vars([object])	// Return the __dict__ attribute
 https://docs.python.org/3.4/tutorial/stdlib.html#command-line-arguments
 
 sys 		//also has attributes for stdin, stdout, and stderr
-glob 		//provides a function for making file lists from directory wildcard searches: glob.glob('*.py')
-os		//provides dozens of functions for interacting with the operating system
+glob 		//provides a function for making file lists from directory wildcard
+			  searches: glob.glob('*.py')
+os			//provides of functions for interacting with the operating system
 shutil 		//provides a higher level interface that is easier to use:
 urllib.request	//for retrieving data from URLs
 smtplib 	//for sending mail:
-datetime 	//supplies classes for manipulating dates and times in both simple and complex ways.
-zlib		//Common data archiving and compression, modules: zlib, gzip, bz2, lzma, zipfile and tarfile.
+datetime 	//for manipulating dates and times in both simple and complex ways.
+zlib		//archiving and compression: zlib, gzip, bz2, lzma, zipfile and tar
 timeit		//quickly demonstrates a modest performance advantage
-doctest module provides a tool for scanning a module and validating tests embedded in a programs docstrings.
+doctest		// provides a tool for scanning a module and validating tests
+			  embedded in a programs docstrings.
 statistics 	//calculates basic statistical properties 
 random 		//provides tools for making random selections:
-math 		//access to the underlying C library functions for floating point math:
-re 		//provides regular expression tools for advanced string processing
+math 		//underlying C library functions for floating point math:
+re 			//provides regular expression tools for advanced string processing
 
-SciPy project <http://scipy.org> has many other modules for numerical computations.
+SciPy project <http://scipy.org> has other modules for numerical computations.
 
 
-************************************** SYS and DIR*****************************
+***************************** SYS and DIR *************************************
 
 https://docs.python.org/3.4/library/sys.html#module-sys
 
 import sys
 
-sys.ps1 = 'C> ';	sys.ps2 = '.. ' 	//Variables, define strings used prompts, interactive mode only.
-sys.path					//A list of strings that specifies the search path for modules
-sys.path.append('/ufs/guido/lib/python')	//determines the interpreter's search path for modules
+sys.ps1 = 'C> ';	sys.ps2 = '.. '
+				//Variables, define strings used prompts, interactive mode only
+sys.path		//A list of strings that specifies the search path for modules
+sys.path.append('/ufs/guido/lib/python')
+				//determines the interpreter's search path for modules
 
-sys.__stdin__		//objects containing original values of stdin, stderr and stdout.
+sys.__stdin__	//objects containing original values of stdin, stderr and stdout.
 sys.__stdout__
 sys.__stderr__
-sys.stdin		//File objects used by the interpreter for standard input, output and errors:
-sys.stdout		//stdin is used for all interactive input (including calls to input());
-sys.stderr		//stdout is used for the output of print() and expression statements;
-			//The interpreters own prompts and its error messages go to stderr.
-			//These streams are regular text files like those returned by the open() function.
+sys.stdin	//File objects used for standard input, output and errors:
+sys.stdout	//stdin is used for all interactive input (including input());
+sys.stderr	//stdout is used for print() and expression statements;
+			//Interpreter's own prompts and its error messages go to stderr.
+			//These streams are regular text files like those returned by open()
 
-dir(fibo)  -->  ['__name__', 'fib', 'fib2']	//sorted list of strings: variables, modules, functions, etc.
+dir(fibo)  -->  ['__name__', 'fib', 'fib2']
+				//sorted list of strings: variables, modules, functions, etc.
 dir(sys)
-dir()						//lists the names you have defined currently:
-dir(builtins)		//built-in functions and variables.
+dir()			//lists the names you have defined currently:
+dir(builtins)	//built-in functions and variables.
 
-python demo.py one two three		//arguments are stored in the sys module's argv attribute as a list.
+python demo.py one two three
+			//arguments are stored in the sys module's argv attribute as a list
 >>> import sys
 >>> print(sys.argv)			//argv[0] is the script name
 ['demo.py', 'one', 'two', 'three']
 
 
-The getopt module processes sys.argv using the conventions of the Unix getopt() function.
-More powerful and flexible command line processing is provided by the argparse module.
+The getopt module processes sys.argv using the conventions of the Unix getopt()
+function. More powerful and flexible command line processing, argparse module.
 
 
 ******************************** OS MODULE ************************************
@@ -625,7 +657,8 @@ sys.path
 sys.platform
 
 from sys import stderr
-sys.stdin/stdout/stderr		//stderr.write("Couldn't open, error: {0}\n".format(e))
+sys.stdin/stdout/stderr
+					//stderr.write("Couldn't open, error: {0}\n".format(e))
 
 
 ************************************ FUNCTIONS ********************************
@@ -640,7 +673,8 @@ def functionname( parameters ):
 
 https://docs.python.org/3/library/py_compile.html
 https://docs.python.org/3/library/compileall.html
-https://stackoverflow.com/questions/5607283/how-can-i-manually-generate-a-pyc-file-from-a-py-file/38426786#38426786
+https://stackoverflow.com/questions/5607283/
+		how-can-i-manually-generate-a-pyc-file-from-a-py-file/38426786#38426786
 
 https://docs.python.org/3.4/library/compileall.html#module-compileall
 python3 -m compileall -b $PYFILE	//
