@@ -7,29 +7,27 @@ https://www.python-course.eu/python3_lambda.php
 *******************************************************************************
 ***************************** 5.1. More on Lists ******************************
 
-list.append(x)	a[len(a):] = [x]  Add an item to the end of the list.
-list.extend(L)	a[len(a):] = L   Extend list, append items in the given list.
-list.insert(i, x) Insert an item at a given position.
-		i is index of the element before which to insert
-		a.insert(0, x)	inserts at the front of the list
-		a.insert(len(a), x)  is equivalent to a.append(x).
-list.remove(x)	Remove the first item from the list whose value is x.
-		It is an error if there is no such item.
-		
-list.pop([i])	Remove the item at the given position in the list and return it
-		If no index is specified, a.pop() removes and returns the last
-		item in the list. (The square brackets around the i in the
-		method signature denote that the parameter is optional).
-		list[n:n+1] = []. Delete item at posición n.
-list.clear()    Remove all items from the list. Equivalent to del a[:].
-list.index(x)	Return the index in the list of the first item whose value is x
-		It is an error if there is no such item.
-list.count(x)	Return the number of times x appears in the list.
-list.sort()	Sort the items of the list in place.
-list.reverse()  a[::-1]. Reverse the elements of the list in place. 
-list.copy()	a[:]. Return a shallow copy of the list.
+list.append(x)		a[len(a):] = [x]	Add an item to the end of the list.
+list.extend(L)		a[len(a):] = L  	Extend list, append items in list.
+list.insert(i, x) 	Insert an item at a given position.
+					i is index of the element before which to insert
+					a.insert(0, x)	inserts at the front of the list
+					a.insert(len(a), x)  is equivalent to a.append(x).
+list.remove(x)		Remove the first item from the list whose value is x.
+					It is an error if there is no such item.
 
-methods like insert, remove or sort that only modify the list return the default None. 
+list.pop([i])		Remove item at i and return it
+					a.pop() removes and returns the last item.
+					list[n:n+1] = []. Delete item at posición n.
+list.clear()    	Remove all items from the list. Equivalent to del a[:].
+list.index(x)		Return index of the first item whose value is x
+					It is an error if there is no such item.
+list.count(x)		Return the number of times x appears in the list.
+sort(*, key=None, reverse=False)	// Sort the items of the list in place.
+list.reverse()  	a[::-1]. Reverse the elements of the list in place. 
+list.copy()	a[:]	Return a shallow copy of the list.
+
+methods like insert, remove or sort that only modify the list return None. 
 
 
 ************************** 5.1.1. Using Lists as Stacks ***********************
@@ -202,8 +200,8 @@ Sequence unpacking requires as many variables on the left side as elements in
 the sequence. Multiple assignment is tuple packing and sequence unpacking.
 
 
-********************************************************************************
-******************************* 5.4. Sets **************************************
+*******************************************************************************
+******************************* 5.4. Sets *************************************
 
 An unordered collection with no duplicate elements.
 For membership testing and eliminating duplicate entries.
@@ -358,19 +356,38 @@ The conditions used in while and if statements can contain any operators, not ju
 
 The comparison operators in and not in check whether a value occurs (does not occur) in a sequence. The operators is and is not compare whether two objects are really the same object; this only matters for mutable objects like lists. All comparison operators have the same priority, which is lower than that of all numerical operators.
 
-Comparisons can be chained. For example, a < b == c tests whether a is less than b and moreover b equals c.
+Comparisons can be chained.
+For example, a < b == c tests whether a is less than b and moreover b equals c.
 
-Comparisons may be combined using the Boolean operators and and or, and the outcome of a comparison (or of any other Boolean expression) may be negated with not. These have lower priorities than comparison operators; between them, not has the highest priority and or the lowest, so that A and not B or C is equivalent to (A and (not B)) or C. As always, parentheses can be used to express the desired composition.
+Comparisons may be combined using the Boolean operators and and or, and the
+outcome of a comparison (or of any other Boolean expression) may be negated
+with not. These have lower priorities than comparison operators; between them,
+not has the highest priority and or the lowest, so that A and not B or C is
+equivalent to (A and (not B)) or C.
+As always, parentheses can be used to express the desired composition.
 
-The Boolean operators and and or are so-called short-circuit operators: their arguments are evaluated from left to right, and evaluation stops as soon as the outcome is determined. For example, if A and C are true but B is false, A and B and C does not evaluate the expression C. When used as a general value and not as a Boolean, the return value of a short-circuit operator is the last evaluated argument.
+The Boolean operators and and or are so-called short-circuit operators:
+their arguments are evaluated from left to right, and evaluation stops as soon
+as the outcome is determined. For example, if A and C are true but B is false,
+A and B and C does not evaluate the expression C. When used as a general value
+and not as a Boolean, the return value of a short-circuit operator is the last
+evaluated argument.
 
-It is possible to assign the result of a comparison or other Boolean expression to a variable. For example,
+It is possible to assign the result of a comparison or other Boolean expression
+ to a variable. For example,
 >>>
 
->>> string1, string2, string3 = '', 'Trondheim', 'Hammer Dance'
->>> non_null = string1 or string2 or string3
->>> non_null
-'Trondheim'
+	>>> string1, string2, string3 = '', 'Trondheim', 'Hammer Dance'
+	>>> non_null = string1 or string2 or string3
+	>>> non_null
+	'Trondheim'
+
+	Boolean operations or and and always return one of their operands.
+	These are the Boolean operations, ordered by ascending priority:
+	Operation		Result
+	x or y			if x is false, then y, else x
+	x and y			if x is false, then x, else y
+	not x			if x is false, then True, else False
 
 Note that in Python, unlike C, assignment cannot occur inside expressions.
 C programmers may grumble about this, but it avoids a common class of problems
@@ -408,7 +425,8 @@ For example, mixed numeric types are compared according to their numeric value,
  the interpreter will raise a TypeError exception.
 
 Footnotes
-[1]	Other languages may return the mutated object, which allows method chaining, such as d->insert("a")->remove("b")->sort();.
+[1]	Other languages may return the mutated object, which allows method chaining
+, such as d->insert("a")->remove("b")->sort();.
 
 
 
@@ -418,7 +436,7 @@ Footnotes
 
 Mutable		No			Yes			No			Yes				Yes		No
 Sequence	Yes			Yes			Yes									Yes
-Iterable	Yes			Yes			Yes			Yes				Yes
+Iterable	Yes			Yes			Yes			Yes				Yes		
 Unique val	No			No			No			No				Yes
 Slicing		Yes			Yes			Yes			No				No
 
@@ -442,7 +460,7 @@ Item
  delete		N/P			del a[i:J]	N/P			del a['key']	a -= {2}
 
 Length		len(a)		len(a)		len(a)		len(a)			len(a)
-Merge two										a.update(dic2)
+Merge two	a.join(b)							a.update(dic2)
 
 Deep copy
 (ref.)		b=a  *P/U	b=a			b=a  *P/U	b=a				b=a
@@ -489,13 +507,13 @@ s[i:j] = t			slice of s from i to j is replaced by content of iterable t
 del s[i:j]			same as s[i:j] = []
 s[i:j:k] = t		the elements of s[i:j:k] are replaced by those of t
 del s[i:j:k]		removes the elements of s[i:j:k] from the list
-s.append(x)		appends x to the end of the sequence (same as s[len(s):len(s)] = [x])
+s.append(x)			appends x to the end (same as s[len(s):len(s)] = [x])
 s.clear()			removes all items from s (same as del s[:])
 s.copy()			creates a shallow copy of s (same as s[:])
-s.extend(t) or s += t		extends s with the contents of t
-							(for the most part the same as s[len(s):len(s)] = t)
+s.extend(t) or		extends s with the contents of t
+	s += t				(for the most part the same as s[len(s):len(s)] =t)
 s *= n				updates s with its contents repeated n times
-s.insert(i, x)		inserts x into s at the index given by i (same as s[i:i] = [x])
+s.insert(i, x)		inserts x into s at index i (same as s[i:i] = [x])
 s.pop([i])			retrieves the item at i and also removes it from s
 s.remove(x)			remove the first item from s where s[i] is equal to x
 s.reverse()			reverses the items of s in place
@@ -509,6 +527,7 @@ sum = lambda x, y : x + y
 sum(3,4)			--> 7
 
 r = map(func, seq)
+
 def fahrenheit(T):
     return ((float(9)/5)*T + 32)
 temperatures = (36.5, 37, 37.5, 38, 39)

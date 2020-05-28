@@ -1,0 +1,47 @@
+
+https://docs.python.org/3/library/stdtypes.html﻿
+
+
+*******************************************************************************
+
+float.is_integer()    Return True if the float instance is finite with integral
+					 value, and False otherwise:
+    >>> (-2.0).is_integer()  -->  True
+
+
+
+https://docs.python.org/3/library/stdtypes.html#string-methods
+
+
+ str.capitalize()
+str.casefold
+ str.center(width[, fillchar])
+ str.count(sub[, start[, end]])¶
+ str.encode(encoding="utf-8", errors="strict")¶
+ str.endswith(suffix[, start[, end]])
+ str.endswith(suffix[, start[, end]])¶
+ str.find(sub[, start[, end]])¶
+ str.format(*args, **kwargs)¶
+ str.isalnum()¶
+ str.isalpha()¶
+ str.isascii()¶
+ str.isdecimal()¶
+ str.isdigit()¶
+ str.isidentifier()¶
+ str.islower()¶
+ str.isnumeric()¶
+ str.isprintable()¶
+ str.isspace()¶
+ str.istitle()¶
+ str.isupper()¶
+ str.join(iterable)¶
+ str.lower()¶ ...
+ str.replace(old, new[, count])¶
+ str.split(sep=None, maxsplit=-1)¶	>>> '1,2,3'.split(',') --> ['1', '2', '3']
+ str.splitlines([keepends])¶...
+ str.upper()¶
+ str.zfill(width)¶
+
+
+
+

@@ -115,6 +115,13 @@ zYxWvUtSrQpOnMlKjIhGfEdCbA>
 A//b floor division/integer division. Result is always rounded towards -inf:
 // and % works with integers and floats.
 ==, !=, >, < (works also with strings)
+
+	Operation	Meaning
+	==			equal
+	!=			not equal
+	is			object identity
+	is not		negated object identity
+
 special class: decimal, fractions
 numeric types: integers, floating point numbers, and complex numbers.
 Booleans are a subtype of integers. Integers have unlimited precision.
@@ -158,8 +165,9 @@ print("""\
 """)
 concatenate + or 'Py' 'thon', 3*'un' to repeat
 
-word = 'Python'	>>> word[0] --> 'P' 	//Strings can be indexed7
-		>>> word[-1] --> 'n'	//To start counting from the right,
+word = 'Python'
+>>> word[0] --> 'P' 	//Strings can be indexed7
+>>> word[-1] --> 'n'	//To start counting from the right,
 						negative indices start from -1.
 
 SLICING
@@ -205,7 +213,7 @@ os.write(2, b"spam\n")
 ****************************** ITERABLE & SECUENCES ***************************
 
 a = (x for x in [1,2,3])	//Iterable, one use, returns one bye one each
-				//element and then is empty.
+							//element and then is empty.
 Object capable of returning its members one at a time.
 
 Example: all sequence types (such as list, str and tuple) and some non-sequence
@@ -227,9 +235,10 @@ sequence, and generator.
 An iterable (object capable of returning its members one at a time.) which
 supports efficient element access using integer indices via the __getitem__()
 special method and defines a __len__() method that returns the length of the
-sequence. Types: list, str, tuple, and bytes. dict also supports __getitem__()
- and __len__(), is considered a mapping rather than a sequence because the
-lookups use arbitrary immutable keys, no integers.
+sequence. Types: list, str, tuple, and bytes.
+
+dict also supports __getitem__() and __len__(), is considered a mapping rather
+than a sequence because the lookups use arbitrary immutable keys, no integers.
 
 
 ****************************** LIST *******************************************
@@ -312,6 +321,8 @@ while i <=5:      		//break, continue
 
 ***************************** RANGE BUILT-IN FUNCTION *************************
 
+class range(start, stop[, step])
+
 To iterate over a sequence of numbers, generates arithmetic progression.
 It is an object which returns the successive items of the desired sequence when
 you iterate over it, but it doesn’t really make the list, thus saving space.
@@ -379,6 +390,14 @@ round(number[, ndigits])	// Return number rounded to ndigits precision 									
 sum(iterable, start=0)	// Sums (start + items of an iterable)
 							// from left to right and returns the total.
 
+Operation			Result
+math.trunc(x)		x truncated to Integral
+round(x[, n])		x rounded to n digits, rounding half to even.
+					If n is omitted, it defaults to 0.
+math.floor(x)		the greatest Integral <= x
+math.ceil(x)		the least Integral >= x
+
+For additional numeric operations see the math and cmath modules.
 
 ****************************** CLASSES ****************************************
 
@@ -387,7 +406,7 @@ class int(x, base=10)			// Return integer object, from number or string
 class complex([real[, imag]])	// Return a complex number
 class float([x])				// Return float number, from a number or string
 class bool([x])		// Return a Boolean value
-					// considered false:
+				// considered false:
 					None, False. 
 					zero of any type: 0, 0.0, 0j, Decimal(0), Fraction(0, 1)
 					empty seq/s/collections: '', (), [], {}, set(), range(0)
