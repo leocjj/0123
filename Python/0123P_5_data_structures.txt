@@ -219,11 +219,11 @@ print(basket)
 //Set operations on unique letters from two words
 a = set('abracadabra')
 b = set('alacazam')
-a	--> {'a', 'r', 'b', 'c', 'd'}	// unique letters in a
-a - b	--> {'r', 'd', 'b'}		// letters in a but not in b
+a		--> {'a', 'r', 'b', 'c', 'd'}			// unique letters in a
+a - b	--> {'r', 'd', 'b'}						// letters in a but not in b
 a | b	--> {'a', 'c', 'r', 'd', 'b', 'm', 'z', 'l'}	//in either a or b
-a & b	--> {'a', 'c'}			// in both a and b
-a ^ b	--> {'r', 'd', 'b', 'm', 'z', 'l'}	//in a or b but not both
+a & b	--> {'a', 'c'}							// in both a and b
+a ^ b	--> {'r', 'd', 'b', 'm', 'z', 'l'}		//in a or b but not both
 
 Set comprehensions are also supported:
 a = {x for x in 'abracadabra' if x not in 'abc'}
@@ -251,17 +251,17 @@ list(d.keys()) 		// returns a list of all keys used, in aleatory order
 list(d.values())	// returns a list of all keys used, in aleatory order
 
 sorted(d.keys())	// sorted
-in keyword		//To check whether a single key is in the dictionary
-d.keys() 		// will return a dictionary view object.
+in keyword			//To check whether a single key is in the dictionary
+d.keys() 			// will return a dictionary view object.
 		//Operations: membership test and iteration, it is only a view
 
 tel = {'jack': 4098, 'sape': 4139}
 tel['guido'] = 4127
-tel			--> {'sape': 4139, 'guido': 4127, 'jack': 4098}
-tel['jack']		--> 4098
+tel					--> {'sape': 4139, 'guido': 4127, 'jack': 4098}
+tel['jack']			--> 4098
 del tel['sape']
 tel['irv'] = 4127
-tel			--> {'guido': 4127, 'irv': 4127, 'jack': 4098}
+tel					--> {'guido': 4127, 'irv': 4127, 'jack': 4098}
 list(tel.keys())	--> ['irv', 'guido', 'jack']
 sorted(tel.keys())	--> ['guido', 'irv', 'jack']
 'guido' in tel		--> True
