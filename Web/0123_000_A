@@ -25,12 +25,26 @@ Billing Contact: Email Address: billing@get.tech Tel No.: +1.4152404171
 						Holberton server
 *******************************************************************************
 
-lsb_release -a
+lsb_release -a or cat /etc/lsb-release or cat /etc/issue.net
 
 In case an installation fails but is still using resources
 sudo fuser -v /var/cache/debconf/config.dat
 	sudo kill PID
 	sudo kill -9 PID  # if the first doesn't work
+
+
+to manage services (start/stop/restart…)?
+
+Answer - hide
+
+One of them:
+
+    SystemV (sysv) - /etc/init.d/name_of_the_service {start|status|stop}
+    Upstart - service name_of_the_service {start|status|stop}
+    Systemd - systemctl {start|status|stop} name_of_the_service
+
+system uptime
+w or uptime or top
 
 
 ****************************** ssh ********************************************

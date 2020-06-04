@@ -61,6 +61,7 @@ Machine
 	df				Does the server have free disk space?
 	w, top, ps		Is the server able to keep up with CPU load?
 	free			Does the server have available memory?
+					free or cat /proc/meminfo or top or vmstat
 	htop			Are the server disk(s) able to keep up with read/write IO?
 	strace
 
