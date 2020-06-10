@@ -69,7 +69,7 @@ which | whereis | type -a python3 django-admin
 
 cd project-directory
 django-admin startproject mysite			
-$ django-admin <command> [options]			// Alternatives to django-admin
+$ django-admin <command> [options]				// Alternatives to django-admin
 $ manage.py <command> [options]
 $ python3 -m django <command> [options]
 
@@ -77,7 +77,7 @@ $ python3 -m django <command> [options]
 Put your code in some directory outside of the document root (/var/www),
 such as /home/mycode.
 
-	python3 -m django startproject mysite
+	python3 -m django startproject mysite		// (1) Create project
 
 manage.py: 			A command-line utility
 mysite/				package for project, name to import (e.g. mysite.urls)
@@ -91,7 +91,73 @@ mysite/asgi.py:		entry-point for ASGI-compatible web servers to serve it
 mysite/wsgi.py:		entry-point for WSGI-compatible web servers to serve it
 					https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 
-	python3 manage.py runserver [[ip:]port]
+	python3 manage.py runserver [[ip:]port]		// (2) Run server
+
+Go to:	http://127.0.0.1:8000/
+
+	python3 manage.py startapp polls			// (3) Create app
+
+polls/
+    __init__.py
+    admin.py
+    apps.py
+    migrations/
+        __init__.py
+    models.py
+    tests.py
+    views.py
+
+
+polls/views.py									// (4) Write view
+
+	from django.http import HttpResponse		
+
+	def index(request):
+		return HttpResponse("Hello, world. You're at the polls index.")
+
+
+polls/urls.py									// (5) to map app to a URL
+
+	from django.urls import path
+	from . import views
+
+	urlpatterns = [
+		path('', views.index, name='index'),
+	]
+
+
+mysite/urls.py			// (6) to point root URLconf at the polls.urls module
+
+	from django.contrib import admin
+	from django.urls import include, path
+
+	urlpatterns = [
+		path('polls/', include('polls.urls')),
+		path('admin/', admin.site.urls),
+	]
+
+
+Go to:	 http://localhost:8000/polls/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
