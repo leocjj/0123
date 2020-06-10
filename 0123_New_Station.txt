@@ -266,12 +266,14 @@ https://github.com/mypaint/mypaint-appimage/releases/tag/continuous
 
 draw.io
 https://github.com/jgraph/drawio-desktop/releases/tag/v13.0.1
+https://online.visual-paradigm.com/
 
 Thunderbird mail
 
 
 HTTrack
 https://www.httrack.com/page/2/en/index.html
+
 
 *************************** UPGRADING OS **************************************
 
