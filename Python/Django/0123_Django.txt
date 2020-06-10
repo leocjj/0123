@@ -1,0 +1,123 @@
+
+
+
+*******************************************************************************
+								ORM
+*******************************************************************************
+
+https://www.fullstackpython.com/object-relational-mappers-orms.html
+
+https://docs.sqlalchemy.org/en/13/orm/tutorial.html
+
+https://www.sqlalchemy.org/
+	The Python SQL Toolkit and Object Relational Mapper
+https://flask-sqlalchemy.palletsprojects.com/en/2.x/
+
+Web framework	None				Flask			Flask			Django
+				_______________________________________________	
+ORM				| SQLAlchemy		SQLAlchemy		SQLAlchemy |	Django ORM
+				|_____________________________________[+ ORM]__|
+DB CONNECTOR	(builtin stdlib)	MySQL-python	psycopg			psycopg
+relational DB	SQLite				MySQL			PostgreSQL		PostgreSQL
+
+
+Python ORM Implementations:
+	SQLAlchemy		https://www.fullstackpython.com/sqlalchemy.html
+    Peewee			https://www.fullstackpython.com/peewee.html
+    The Django ORM	https://www.fullstackpython.com/django-orm.html
+    PonyORM			https://www.fullstackpython.com/pony-orm.html
+    SQLObject		http://sqlobject.org/
+    Tortoise ORM (source code)	 https://tortoise-orm.readthedocs.io/en/latest/
+
+
+
+*******************************************************************************
+						Django intallation
+*******************************************************************************
+
+https://docs.djangoproject.com/en/3.0/topics/
+
+https://docs.djangoproject.com/en/3.0/topics/install/
+
+pip3 install Django					// pip3 install Django==3.0.7
+python3
+>>> print(django.get_version())		// python3 -m django --version
+3.0.7
+
+UNINSTALL
+pip3 uninstall Django
+
+pip3 freeze | grep Django
+pip3 show -f Django
+pip3 search Django | more +/^Django
+
+>>> import django
+>>> django
+<module 'django' from '/usr/local/lib/python2.7/dist-packages/django/__init__.pyc'>
+sudo rm -rf /usr/local/lib/python2.7/dist-packages/django/
+
+*******************************************************************************
+						First project
+*******************************************************************************
+
+Initial setup.
+Auto-generate some code, settings for an instance of Django, database
+configuration, Django-specific options and application-specific settings.
+
+[sudo apt install python-django-common]
+which | whereis | type -a python3 django-admin
+
+cd project-directory
+django-admin startproject mysite			
+$ django-admin <command> [options]			// Alternatives to django-admin
+$ manage.py <command> [options]
+$ python3 -m django <command> [options]
+
+
+Put your code in some directory outside of the document root (/var/www),
+such as /home/mycode.
+
+	python3 -m django startproject mysite
+
+manage.py: 			A command-line utility
+mysite/				package for project, name to import (e.g. mysite.urls)
+mysite/__init__.py: An empty file
+mysite/settings.py: Settings/configuration for this project
+mysite/urls.py: 	The URL declarations for this Django project;
+					a “table of contents” of your Django-powered site.
+					https://docs.djangoproject.com/en/3.0/topics/http/urls/
+mysite/asgi.py:		entry-point for ASGI-compatible web servers to serve it
+					https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
+mysite/wsgi.py:		entry-point for WSGI-compatible web servers to serve it
+					https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
+
+	python3 manage.py runserver [[ip:]port]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
