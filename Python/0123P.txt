@@ -15,6 +15,8 @@ https://pypi.org/	//Python package index
 
 ************************** PYTHON STYLE ***************************************
 
+https://www.python.org/dev/peps/pep-0008/
+
 sudo apt-get install python3-pep8
 	or
 sudo apt-get install python3-pip
