@@ -275,7 +275,8 @@ items()		Returns a list containing a tuple for each key value pair
 keys()		Returns a list containing the dictionary's keys
 pop()		Removes the element with the specified key
 popitem()	Removes the last inserted key-value pair
-setdefault()	Returns the value of the specified key. If the key does not exist: insert the key, with the specified value
+setdefault()	Returns the value of the specified key.
+			If the key does not exist: insert the key, with the specified value
 update()	Updates the dictionary with the specified key-value pairs
 values()	Returns a list of all the values in the dictionary
 
@@ -295,6 +296,16 @@ dict(sape=4139, guido=4127, jack=4098)
 for key, value in storage.all().items():
 	if str(key) == args[0]:
 		a.append(str(value))
+
+
+dict.get(key[, default])
+	It allows you to provide a default value if the key is missing:
+		dictionary.get("bogus", default_value)
+		returns default_value (whatever you choose it to be), whereas
+		dictionary["bogus"] would raise a KeyError.
+	If omitted, default_value is None, such that
+		dictionary.get("bogus")  # <-- No default specified -- defaults to None
+		returns None just like dictionary.get("bogus", None) would.
 
 
 *******************************************************************************
@@ -446,8 +457,10 @@ Define
  general	a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
 
 Index
- item		a[i]		a[i]		a[i]		a['key']		N/P
+ item		a[i]		a[i]		a[i]		avoid a['key']		N/P
+												use a.get(key)
  slice		a[i:j]		a[i:j]		a[i:j]		N/P				N/P
+
 Iterable	a			a			a			a / a.keys		a
 												a.values()
 												a.items()
