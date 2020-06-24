@@ -32,3 +32,8 @@ Crux product
 Projections
 Matrix mult.
 
+MATLAB and NumPy rely on BLAS and LAPACK for efficient linear algebra computations.
+https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms
+https://en.wikipedia.org/wiki/LAPACK
+
+
