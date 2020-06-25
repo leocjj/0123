@@ -23,7 +23,10 @@ python3 -m pip install -U matplotlib
 
 Pandas
 https://docs.conda.io/en/latest/miniconda.html
-
+pip install pandas
+conda install pandas
+https://pandas.pydata.org/docs/getting_started/index.html
+	
 
 SciPy	vs MATLAB, GNU Octave, and Scilab. 
 scipy.org/scipylib
