@@ -1,3 +1,91 @@
+Machine Learning
+First Trimester
+
+    Mathematics:
+        Intro to Linear Algebra
+        Intro to Calculus
+        Intro to Plotting
+        Intro to Probability
+    Supervised Learning:
+        Binary Classification
+        Multiclass Classification
+        Optimization Techniques
+        Regularization Techniques
+        Convolutional Neural Networks
+        Deep Convolutional Architectures
+    Object Detection
+    Face Verification
+    Neural Style Transfer
+
+Second Trimester
+
+    Mathematics:
+        Advanced Linear Algebra
+        Advanced Probability
+    Unsupervised Learning:
+        Dimensionality Reduction
+        Clustering
+        Embeddings
+        Autoencoders
+        Generative Adversarial Networks
+        Hyperparameter Optimization
+        Hidden Markov Models
+    Supervised Learning:
+        Recurrent Neural Networks
+        Transformers
+        Seq-to-Seq modeling
+    Stock predictions
+    Speech to Text
+    Machine Translation
+    Recommender Systems
+
+Third Trimester
+
+    Reinforcement Learning:
+        Agent-Environment Framework
+        Multi-armed Bandit problems
+        Markov decision process
+        Exploration vs Exploitation
+        Policy and Value Functions
+        Temporal Difference Learning
+        Deep Reinforcement Learning
+    Develop a Game Agent
+    The Pipeline:
+        Web scraping
+        Labeling data
+        SQL & NoSQL databases
+        Map Reduce
+        Hosting on cloud platforms
+
+    Portfolio Project
+
+    Career Sprint
+        Portfolio Projects
+            Craft a personal narrative
+            Author a tech-focused resume
+            Polish Github repository documentation
+            Publish a personal website to showcase portfolio
+            Optimize profiles on LinkedIn/Social Media
+        Process
+            Learn different interview formats
+            Practice cold outreach, and following up on warm leads
+            Gain confidence in in-person and virtual networking
+            Define a job search strategy
+            Introduce tools and platforms for sourcing and applications
+            Understand compensation and best negotiation practices
+        Practice
+            Build (more) confidence in whiteboarding
+            Review algorithms and data structures
+            Practice specialized interview skills for specific roles (SRE/Devops, Frontend)
+            Introduce tools and platforms for coaching technical interviewing practice
+            Deliver personal narrative in mock behavioral interviews
+
+
+https://www.khanacademy.org/math/statistics-probability
+
+https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw
+
+
 [1] An Introduction to Machine Learning
 https://www.digitalocean.com/community/tutorials/an-introduction-to-machine-learning
 
@@ -194,8 +282,10 @@ print(accuracy_score(test_labels, preds))
 http://neuralnetworksanddeeplearning.com/index.html
 
 
+*******************************************************************************
 
-
+Cloud resources
+	nimblebox,	google colab 
 
 
 
