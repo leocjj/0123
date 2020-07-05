@@ -1,5 +1,7 @@
 
 https://www.freecodecamp.org/learn/data-visualization/data-visualization-with-d3/
+https://rmotr.com/			// Become a Data Scientist
+https://blog.rmotr.com/
 
 *******************************************************************************
 							Data science
@@ -80,7 +82,61 @@ Programming languages (open tools)
 
 Python ecosystem
 	numpy, pandas, matplotlib, seaborn (stat visualization), statsmodels
-	scipy (scientific computing), scikit-learn (ML)
+	scipy (scientific computing), scikit-learn (ML), ggplot2, TensorFlow
+	Jupyter
+	Big data: Apache Spark, 
+
+
+*******************************************************************************
+							Notebooks
+*******************************************************************************
+
+Jupyter Notebook
+	supports over 40 programming languages: Python, R, Julia, Scala...
+	--> HTML, images, videos, LaTeX, and custom MIME types.
+	Viewer: https://nbviewer.jupyter.org/
+
+	sudo apt update
+	sudo apt install python3-pip python3-dev
+	[conda install -c conda-forge notebook]
+	sudo pip3 install --upgrade pip
+	sudo pip3 install notebook
+	jupyter notebook [notebook.ipynb] [--no-browser] [--help]
+	[python3 -m pip install ipykernel		// Add ipython3 if is not installed
+	python3 -m ipykernel install --user]
+
+JupyterLab (evolution of Notebook)
+	[conda install -c conda-forge jupyterlab]
+	sudo pip3 install jupyterlab
+	jupyter lab
+
+Notebooks (online):
+	https://notebooks.ai/
+
+Shortcuts:
+	[A]bode new cell, [B]elow new cell, [D][D]elete, [C]opy, [V]paste, [X]cut,
+	p[Y]thon code, [M]markdown, [Z]undo, [SHIFT+M]merge
+	SHIFT+RET execute cell and move, CTRL+RET execute cell
+	ESC-command mode, RET-edit mode
+	Edit/Clear Outputs - restore order (number) of execution
+	CTRL+SHIFT+C - command list (icon in left menu)
+	[i][i] interrupt kernel, 
+
+R in Jupyter
+	Install R https://cran.r-project.org/bin/windows/base/
+	Install RStudio https://www.rstudio.com/products/rstudio/download/
+	In RStudio, add R Kernel for Jupyter
+		https://irkernel.github.io/installation/
+		install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ',
+							'devtools', 'uuid', 'digest'))
+		devtools::install_github('IRkernel/IRkernel')
+		IRkernel::installspec()
+
+
+
+
+
+
 
 
 
