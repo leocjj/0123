@@ -61,7 +61,8 @@ PHASES:
 				Unsupervised: clustering, anomaly detection
 			Data:
 				Unstructured: deep learning, CNN, RNN
-				Structured: ML, regression, random forest/decision tree,SVM,XGBoost
+				Structured: ML, regression, random forest/decision
+				tree,SVM,XGBoost
 		Model creation
 		Machine learning researcher role
 		Deploy model into production
@@ -75,7 +76,8 @@ PHASES:
 *******************************************************************************
 
 Auto-managed closed tools (closed tools)
-	Excel, Qlik, tableau, looker, zoho analytics
+	Excel, Qlik, tableau, looker, zoho analytics, PowerBI, Qlikview,
+	Google Data Studio, plotly¿?, statwing¿?
 
 Programming languages (open tools)
 	Python, Julia, R (statistical)
@@ -84,7 +86,14 @@ Python ecosystem
 	numpy, pandas, matplotlib, seaborn (stat visualization), statsmodels
 	scipy (scientific computing), scikit-learn (ML), ggplot2, TensorFlow
 	Jupyter
-	Big data: Apache Spark, 
+
+Big Data
+	Hadoop, Spark, Apache
+
+ETLs Tools: Airflow, Luiggi
+
+NoSQL Databases:
+	ElasticSearch, MongoDB
 
 
 *******************************************************************************
@@ -120,7 +129,7 @@ Shortcuts:
 	ESC-command mode, RET-edit mode
 	Edit/Clear Outputs - restore order (number) of execution
 	CTRL+SHIFT+C - command list (icon in left menu)
-	[i][i] interrupt kernel, 
+	[i][i] interrupt kernel, TAB autocomplete
 
 R in Jupyter
 	Install R https://cran.r-project.org/bin/windows/base/
@@ -138,11 +147,11 @@ R in Jupyter
 
 
 
-
-
 https://www.endava.com/
 https://pydata.org/
 
+https://pypi.org/		# The Python Package Index (PyPI), sw repository
+https://www.pypy.org/	# A fast compliant alternative implementation of Python
 
 CPython
 reference implementation of Python, is a non-optimizing bytecode interpreter.
