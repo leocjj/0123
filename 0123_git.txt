@@ -1,8 +1,9 @@
-https://github.com/leocjj/		//Main git
+https://github.com/leocjj/			//Main git
 https://github.com/leocjj/0123		//Repository for notes
 
 https://github.com/shiftkey/desktop/releases/	     //Github desktop for Linux
 
+https://ohshitgit.com/
 
 -------------------------------- WORKING IN ORIGIN ---------------------------------
 First, create a repository in github.com
