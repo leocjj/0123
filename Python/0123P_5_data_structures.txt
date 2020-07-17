@@ -493,6 +493,9 @@ P/U: Permited but useless
 for a,b in {'key': 1}.items():
 ...  print(a,b)
 
+a, b = b, a		//Swap two variables
+
+
 
 *******************  Sequence Types — str, list, tuple, range *****************
 
