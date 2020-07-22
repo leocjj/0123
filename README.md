@@ -47,7 +47,7 @@ every case and the reader most have the ability to use them inside a full code.
 
 ## Author
 
-* **Leonardo Calderon J.** - *Initial work*
+**Leonardo Calderon J.** - *Initial work*
 [LeoCJJ](https://github.com/leocjj)
 [Web Page](http://leocjj.tech)
 2019-2020
