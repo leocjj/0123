@@ -13,7 +13,7 @@ Each subject has information contiguous (without) blank line, and some others
 
 ### Prerequisites
 
-Read plain text files using an editor configured with tab width of 8 spaces.
+Read plain text files using an editor configured with tab width of 4 spaces.
 
 Is very desirable to know something about:
 
@@ -21,7 +21,7 @@ Is very desirable to know something about:
 Computer hardware
 Basic math operations
 Binary numbers
-Windows environment
+Windows and Linux environments
 Internet navigation
 Google search
 ```
@@ -47,5 +47,7 @@ every case and the reader most have the ability to use them inside a full code.
 
 ## Author
 
-* **Leonardo Calderon J.** - *Initial work* - [LeoCJJ](https://github.com/leocjj)
-12/09/2019
+* **Leonardo Calderon J.** - *Initial work*
+[LeoCJJ](https://github.com/leocjj)
+[Web Page](http://leocjj.tech)
+2019-2020
