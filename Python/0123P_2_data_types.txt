@@ -44,4 +44,34 @@ str.casefold
 
 
 
+**************************** Namespaces ***************************************
+
+https://code.tutsplus.com/tutorials/what-are-python-namespaces-and-why-are-they-needed--cms-28598
+
+What Are Namespaces?
+
+A system to make sure that all the names in a program are unique and can be
+used without any conflict. Python implements namespaces as dictionaries.
+name-to-object mapping, with the names as keys and the objects as values.
+Multiple namespaces can use the same name and map it to a different object.
+
+	Local Namespace: includes local names inside a function.
+	Global Namespace: includes names from various imported
+		modules used in a project. Created when the module is included
+	Built-in Namespace: includes built-in functions and built-in exceptions
+
+For example, the math and cmath modules have a lot of functions that are common
+	Using both modules in the same program: math.log10() and cmath.log10().
+
+
+
+
+
+
+
+
+
+
+
+
 
