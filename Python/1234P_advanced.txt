@@ -1,0 +1,15 @@
+
+
+*******************************************************************************
+
+https://docs.python.org/3/tutorial/index.html		# informal definition
+
+https://docs.python.org/3/reference/index.html		# syntax and core semantics
+
+https://docs.python.org/3/library/index.html		
+	https://docs.python.org/3/library/functional.html
+		https://docs.python.org/3/library/itertools.html
+		https://docs.python.org/3/library/functools.html
+		https://docs.python.org/3/library/operator.html
+
+

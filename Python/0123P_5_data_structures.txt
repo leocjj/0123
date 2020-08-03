@@ -35,15 +35,19 @@ methods like insert, remove or sort that only modify the list return None.
 
 The last element added is the first element retrieved (“last-in, first-out”).
 append()	//To add an item to the top of the stack, use .
-pop()		//To retrieve an item from the top of the stack, use without an explicit index. 
+pop()		//To retrieve an item from the top of the stack, use without an
+				explicit index. 
 
 
 ************************** 5.1.2. Using Lists as Queues ***********************
 
 The first element added is the first element retrieved (“first-in, first-out”)
-lists are not efficient for this. While appends and pops from the end of list are fast, inserts or pops from the beginning is slow (because all of the other elements have to be shifted by one).
+lists are not efficient for this. While appends and pops from the end of list
+are fast, inserts or pops from the beginning is slow (because all of the other
+elements have to be shifted by one).
 
-To implement a queue, use collections.deque which was designed to have fast appends and pops from both ends.
+To implement a queue, use collections.deque which was designed to have fast
+appends and pops from both ends.
 >>> from collections import deque
 >>> queue = deque(["Eric", "John", "Michael"])
 >>> queue.append("Terry")           # Terry arrives

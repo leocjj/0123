@@ -60,18 +60,18 @@ KD Tree 	Θ(logn)	Θ(logn) Θ(logn) Θ(logn) O(n) 	O(n) 	O(n) 	O(n) 	O(n)
 *******************************************************************************
 
 COMPARISON SORTS: cannot perform better than O(n log n).
-Algorithm	Time Complexity 				Space Complexity
-		Best 		Average 	Worst 		Worst           Stable
+Algorithm		Time Complexity 				Space Complexity
+				Best 		Average 	Worst 		Worst           Stable
 Bubble Sort 	Ω(n) 		Θ(n^2) 		O(n^2) 		O(1)            Yes
 
 Insertion Sort 	Ω(n) 		Θ(n^2) 		O(n^2) 		O(1)            Yes
 Selection Sort 	Ω(n^2) 		Θ(n^2) 		O(n^2) 		O(1)            No
 Quicksort Lomuto partition scheme
-		Ω(n log(n)) 	Θ(n log(n)) 	O(n^2) 		O(log(n))       No typicaly
-Shell Sort 	Ω(n log(n)) 	Θ(n(log(n))^2) 	O(n(log(n))^2) 	O(1)            No
+				Ω(n log(n)) 	Θ(n log(n)) 	O(n^2) 		O(log(n))       No typicaly
+Shell Sort 		Ω(n log(n)) 	Θ(n(log(n))^2) 	O(n(log(n))^2) 	O(1)            No
 Cocktail sort	Ω(n)		Θ(n^2)		O(n^2)		O(1)		Yes
-Merge sort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(n)            Yes
-Heap sort 	Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(1)            No
+Merge sort 		Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(n)            Yes
+Heap sort 		Ω(n log(n)) 	Θ(n log(n)) 	O(n log(n)) 	O(1)            No
 
 Bitonic sort	Ω(log^2(n))	Θ(log^2(n))	O(log^2(n))	O(nlog^2(n))	No
 Quick Sort - Hoare Partition scheme
