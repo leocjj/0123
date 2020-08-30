@@ -434,12 +434,14 @@ class range(stop)		// Rather than a function, an immutable sequence type.
 class range(start, stop[, step])	// from (start) to (stop - 1) step by step.
 class tuple([iterable])	// Rather than a function, an immutable sequence type
 
+
 enumerate(iterable, start=0) // Return enumerate object, list of tuples,
 						// will return (0, thing[0]), (1, thing[1]) ...
-						for i in range(len(L)):		for i, item in enumerate(L):
+						for i in range(len(L)):	   for i, item in enumerate(L):
 							item = L[i]					...
 							...							L[i] = result
 							L[i] = result
+
 iter(object[, sentinel])	//Return an iterator object.
 			// iter(obj): object must be a collection object which supports
 				the iteration protocol (the __iter__() method), or it must
@@ -450,8 +452,10 @@ iter(object[, sentinel])	//Return an iterator object.
 				each call to its __next__() method; if the value returned is
 				equal to sentinel, StopIteration will be raised, otherwise the
 				value will be returned.
+
 map(function, iterable, ...)	// Return an iterator that applies function to
 								 every item of iterable, yielding the results.
+
 next(iterator[, default])		// Retrieve the next item from the iterator
 
 
