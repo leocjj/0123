@@ -13,3 +13,36 @@ https://docs.python.org/3/library/index.html
 		https://docs.python.org/3/library/operator.html
 
 
+****************************** pipenv *****************************************
+https://medium.com/@krishnaregmi/pipenv-vs-virtualenv-vs-conda-environment-
+3dde3f6869ed
+https://docs.pipenv.org/
+https://rootnroll.com/d/pipenv/
+https://pip.pypa.io/en/stable/reference/
+
+pip install pipenv
+
+INSIDE OF YOUR PROJECT DIRECTORY
+pipenv install [--python 3.8]	# create a new environment by using.
+						# This will look for a pipenv file, if it doesn’t exist
+						# it will create a new environment and activate it.
+pipenv shell 			# To activate you can run
+pipenv install package		# Install new packages. Will add the package
+							# to the pipenv file that’s called Pipfile
+pipenv install <package> --dev	# install package for just the dev environement
+pip list						# To chechk installed packages in environement
+exit							# To exit env shell
+
+pipenv run <shell_command>		# Run command in env but using actual shell.
+pipenv run python main.py		# Run program in env but using actual shell.
+pipenv run pip freeze			# Output installed packages requirements format
+pip install --user requests		# install in local user directory if using envs
+
+pipenv --rm						# Remove a Virtual Environment
+
+
+
+
+
+
+

@@ -501,6 +501,21 @@ for a,b in {'key': 1}.items():
 a, b = b, a		//Swap two variables
 
 
+*********************** copy **************************************************
+https://docs.python.org/3/library/copy.html
+
+Assignment statements in Python do not copy objects, create bindings between.
+
+copy.copy(x)	    			Return a shallow copy of x.
+copy.deepcopy(x[, memo])		Return a deep copy of x.
+exception copy.error			Raised for module specific errors.
+
+Difference is only relevant for compound objects (objects that contain objects)
+Shallow: constructs a new compound object and then (to the extent possible)
+	inserts references into it to the objects found in the original.
+Deep copy: constructs a new compound object and then, recursively, inserts
+	copies into it of the objects found in the original.
+
 
 *******************  Sequence Types — str, list, tuple, range *****************
 

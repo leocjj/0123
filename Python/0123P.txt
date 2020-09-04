@@ -10,8 +10,10 @@ https://www.youtube.com/watch?v=Zs9u8TAv4_k
 
 https://www.w3schools.com/python/python_ref_functions.asp
 
+***************************** Packages ****************************************
+pip list
 https://pypi.org/	//Python package index
-
+https://pip.pypa.io/en/stable/quickstart/
 
 ************************** PYTHON STYLE ***************************************
 
