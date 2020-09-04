@@ -1,0 +1,31 @@
+Recovered from Fernando Valdes
+https://www.linkedin.com/in/fervaldes
+
+*******************************************************************************
+Tips
+
+01: Nunca pienses que vas a saber todo sobre cualquier cosa.
+02: No te castigues o frustres si no comprendes un concepto nuevo al instante
+03: No te copares con otros . Utilizalos para comprender tu posición
+04: Profundiza en un lenguaje de programación y conviertete en un experto
+05: Aprende a usar git
+06: Aprende a usar la linea de comandos
+07: Aprende shortcuts del IDE, buscar plugins
+08: Verifica tu código 10, 100, 10000 vecesa antes de abrir un pull request
+    Responder al "por qué", comentar, hacer PR pequeños, descripción clara,
+    responder a reviews, no modificar commits revisados, dar gracias por review
+09: Nunca dejes de aprender cosas nuevas. Qué estás aprendiendo ahora?
+10: Aprende a usar Gooble como tu mejor amigo para encontrar soluciones
+11: Aperende a leer el stacktrace de errores de tu lenguaje
+12: Se exigente con la próxima empresa que elijas. Te mereces lo mejor
+13: No tengas miedo de decir "No"
+14: Nunca "pushear" código sin testear
+15: No tengas miedo de pedir ayuda
+16: Intenta 100 veces antes de pedir ayuda
+17: Nunca dejes de aprender cosas nuevas
+18: No tomes personal las correcciones y sugerencias a tu código
+19: Dedica tiempo extra laboral para mejorar tu carrera profesional
+20: Aprende un concepto nuevo todos los dias
+21: Sal de tu zona de confort
+22: Únete a comunidades y grupos de desarrollo
+23: Estudia algoritmos y estructuras de datos
