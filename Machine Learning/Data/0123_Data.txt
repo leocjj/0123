@@ -128,8 +128,13 @@ Shortcuts:
 	SHIFT+RET execute cell and move, CTRL+RET execute cell
 	ESC-command mode, RET-edit mode
 	Edit/Clear Outputs - restore order (number) of execution
-	CTRL+SHIFT+C - command list (icon in left menu)
+	CTRL + SHIFT + C - command list (icon in left menu)
 	[i][i] interrupt kernel, TAB autocomplete
+	SHIFT + TAB + TAB  help popup with parameters
+	?command - despliega ayuda
+	%command line - calculates mean time
+	%% jupyter line - calculates time for all sentences in a jupiter row
+	!{sys.executable} --version # execute command line, equivalent >python3 --version
 
 R in Jupyter
 	Install R https://cran.r-project.org/bin/windows/base/
@@ -192,11 +197,13 @@ data science toolkit
 
 
 pypy.org
-PyPy often runs faster than CPython because PyPy is a just-in-time compiler while CPython is an interpreter.
+PyPy often runs faster than CPython because PyPy is a just-in-time compiler.
 
 
 https://cython.org/
-Cython is an optimising static compiler for both the Python programming language and the extended Cython programming language (based on Pyrex). It makes writing C extensions for Python as easy as Python itself.
+Cython is an optimising static compiler for both the Python programming
+language and the extended Cython programming language (based on Pyrex).
+It makes writing C extensions for Python as easy as Python itself.
 https://pypi.org/project/Cython/	--> pip install Cython
 
 http://pypy.org/
