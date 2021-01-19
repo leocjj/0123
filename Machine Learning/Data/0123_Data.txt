@@ -218,3 +218,43 @@ PyPy is a fast, compliant alternative implementation of the Python language
 
 https://recursospython.com/guias-y-manuales/obtener-lista-numeros-primos/
 
+
+
+*******************************************************************************
+							Installation
+*******************************************************************************
+
+conda config --env --add channels conda-forge	# To install from conda-forge
+conda config --set channel_priority strict		# Conda <5.0
+conda install numpy								# The actual install command
+conda install scipy
+conda install pycodestyle
+
+conda install anaconda-navigator				# (base)> anaconda-navigator
+	Environments/channels/add https://conda.anaconda.org/conda-forge/ <enter>
+	[Install everything from navigator]
+
+conda install -c conda-forge jupyterlab
+
+https://www.spyder-ide.org/						# The Scientific Python Dev Env
+https://mlflow.org/docs/latest/quickstart.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

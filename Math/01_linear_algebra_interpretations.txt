@@ -1,0 +1,30 @@
+Vector
+	v.u (Dot product) --> like a projections of vectors, multiply magnitudes.
+	v^T.u --> like a matrix(v^T) transformation of u in a line over v.
+
+Matrix 
+	Linear transform can be represented by an array of coefficients.
+	Columns -> vectors, basis of the new transformation space.
+	Size of the matrix -> number of dimension of domain and image spaces.
+	Composition of two linear transforms -> the product of their matrices.
+	Inverse of a linear transform -> the matrix inverse.
+	Determinant -> volume of the image of a unit cube by the transformation;
+		Dimensions of the domain and image differ, this volume is zero.
+		Rotation preserves the volumes, so determinant 1.
+		Zero -> it loses dimensions, transformed volume is flat, not invertible
+	Linear transformation can be decomposed in:
+		a pure rotation, a pure (anisotropic) scaling and another pure rotation.
+	A.B = ALL POSIBLE DOT PRODUCT BETWEEN ROWS OF A AND COLUMNS OF B.
+	If A^T.A = Diagonal matrix --> A is orthogonal.
+		--> All columns are orthogonal vectors.
+	If A^T.A = I --> A is orthonormal (normally called just orthogonal).
+		--> All columns are orthonormal vectors (orthonormal)
+		--> A^T is ALSO orthonormal --> all rows are orthogonal vectors too.
+	If A.x = 0 --> x is null space (nullity) or kernel,
+		vectors that lands on the origin (on zero) after transformation,
+		space of all vactors that become null after transformation.
+		
+	Other products: Hadamard product(entry-for-entry), Kronecker product
+	
+	
+	

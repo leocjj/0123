@@ -448,57 +448,58 @@ Footnotes
 
 *******************************************************************************
 
-			String		List		Tupla		dict			Set		Range
+            String      List        Tupla       dict            Set     Range
 
-Mutable		No			Yes			No			Yes				Yes		No
-Sequence	Yes			Yes			Yes									Yes
-Iterable	Yes			Yes			Yes			Yes				Yes		
-Unique val	No			No			No			No				Yes
-Slicing		Yes			Yes			Yes			No				No
+Mutable     No          Yes         No          Yes             Yes     No
+Sequence    Yes         Yes         Yes                                 Yes
+Iterable    Yes         Yes         Yes         Yes             Yes     
+Unique val  No          No          No          No              Yes
+Slicing     Yes         Yes         Yes         No              No
 
 Define
- empty		a=''		a=[]		a=()		a={}  			a=set()
- 1 item		a='c'		a=['H']		a=(1,)		a={'key': 1}	a={1}
- general	a='abd'		a=[1,2,3]	a=(1,2,3)	a={'key': 1}	a=set(b)
+ empty      a=''        a=[]        a=()        a={}            a=set()
+ 1 item     a='c'       a=['H']     a=(1,)      a={'key': 1}    a={1}
+ general    a='abd'     a=[1,2,3]   a=(1,2,3)   a={'key': 1}    a=set(b)
 
 Index
- item		a[i]		a[i]		a[i]		avoid a['key']		N/P
-												use a.get(key)
- slice		a[i:j]		a[i:j]		a[i:j]		N/P				N/P
+ item       a[i]        a[i]        a[i]        avoid a['key']  N/P
+                                                use a.get(key)
+ slice      a[i:j]      a[i:j]      a[i:j]      N/P             N/P
 
-Iterable	a			a			a			a / a.keys		a
-												a.values()
-												a.items()
+Iterable    a           a           a           a / a.keys      a
+                                                a.values()
+                                                a.items() #both as tuple
 
-Append		a+=b		a+=['H']	a+=(2,)		a['key']='val'	a |= {2}
-						a.append(H)				N/P
+Append      a+=b        a+=['H']    a+=(2,)     a['key']='val'  a |= {2}
+                        a.append(H)             N/P             a.add(2)
 
 Item
- assignment	N/P			a[i:J]='H'	N/P			a['key']='val'	N/P
- delete		N/P			del a[i:J]	N/P			del a['key']	a -= {2}
+ assignment N/P         a[i:J]='H'  N/P         a['key']='val'  N/P
+ delete     N/P         del a[i:J]  N/P         del a['key']    a -= {2}
 
-Length		len(a)		len(a)		len(a)		len(a)			len(a)
-Merge two	a.join(b)							a.update(dic2)
+Length      len(a)      len(a)      len(a)      len(a)          len(a)
+Merge two   a.join(b)                           a.update(dic2)  a.update(b)
 
 Deep copy
-(ref.)		b=a  *P/U	b=a			b=a  *P/U	b=a				b=a
+(ref.)      b=a  *P/U   b=a         b=a  *P/U   b=a             b=a
 
 Shallow copy
-(w/o ref,	b=a[:]		b=a[:]		b=a[:]		N/P				N/P	
-i.e. clone)	N/P			b=a.copy()	N/P			b=a.copy()		b=a.copy()
-						b=a + []
+(w/o ref,   b=a[:]      b=a[:]      b=a[:]      N/P             N/P
+i.e. clone)	N/P         b=a.copy()  N/P         b=a.copy()      b=a.copy()
+                        b=a + []
 
-Special		a			a+='Hi'									| Union
-						>>> ['H','i']							- Substration
-																& Intersection
-																^ (aub)-(anb)
+Special     a           a+='Hi'                                 | Union
+                        >>> ['H','i']                           - Substration
+                                                                & Intersection
+                                                                ^ (aub)-(anb)
 N/P: Not Permited
 P/U: Permited but useless
+All built-in inmutable types are hashable
 
 for a,b in {'key': 1}.items():
 ...  print(a,b)
 
-a, b = b, a		//Swap two variables
+a, b = b, a        //Swap two variables
 
 
 *********************** copy **************************************************
