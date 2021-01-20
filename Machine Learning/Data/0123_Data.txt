@@ -229,6 +229,7 @@ conda config --set channel_priority strict		# Conda <5.0
 conda install numpy								# The actual install command
 conda install scipy
 conda install pycodestyle
+	pycodestyle --show-source --show-pep8 testsuite/E40.py
 
 conda install anaconda-navigator				# (base)> anaconda-navigator
 	Environments/channels/add https://conda.anaconda.org/conda-forge/ <enter>
@@ -239,9 +240,14 @@ conda install -c conda-forge jupyterlab
 https://www.spyder-ide.org/						# The Scientific Python Dev Env
 https://mlflow.org/docs/latest/quickstart.html
 
+WSL2 in windows									# Linux in windows
+Ubunto from Windows Store
+Git for Windows
+	git add --chmod=+x -- 4.py					# To upload files as executable
 
-
-
+import os
+print("PYTHONPATH:", os.environ.get('PYTHONPATH'))
+print("PATH:", os.environ.get('PATH'))
 
 
 
