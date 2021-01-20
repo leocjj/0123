@@ -479,14 +479,16 @@ Item
 
 Length      len(a)      len(a)      len(a)      len(a)          len(a)
 Merge two   a.join(b)                           a.update(dic2)  a.update(b)
+                        [*l1, *l2]  =           =               =
 
-Deep copy
+Copies
 (ref.)      b=a  *P/U   b=a         b=a  *P/U   b=a             b=a
-
-Shallow copy
 (w/o ref,   b=a[:]      b=a[:]      b=a[:]      N/P             N/P
 i.e. clone)	N/P         b=a.copy()  N/P         b=a.copy()      b=a.copy()
                         b=a + []
+						b=list(a); b = [i for i in a]
+deepcopy				import copy; copy.deepcopy(a)
+						[subl[:] for subl in mat1] //deepcopy of sublists
 
 Special     a           a+='Hi'                                 | Union
                         >>> ['H','i']                           - Substration
