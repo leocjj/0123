@@ -76,6 +76,7 @@ git status
 	folder_name
 
 git add .				//to add .gitmodules and folder_name
+git add --chmod=+x -- 4.py					# To upload files as executable
 git commint -m "submodules"
 git push origin master
 
