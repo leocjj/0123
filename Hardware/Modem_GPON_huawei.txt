@@ -1,0 +1,36 @@
+
+https://
+
+Configuration
+Conect power and reset the device (button)
+Conect using wifi: 
+	net WirelessNet
+	192.168.100.1 / 2
+	root, admin
+
+[If the other router has DHCP (Automatic IP), Disable DHCP server option, save.
+	verify in wich range of addres is working.]
+
+Change Network/LAN settings to assign an IP Address for the new router, must be
+	in the same range of the first one.
+	To know data of the other browser, access by wifi then properties or
+	connect by cable, cmd / ipconfig, look for puerta de enlace predetermi.
+	if the other is in range of 192.168.1.100 to 192.168.199,
+		asigng a new IP Address to 192.168.1.100
+	if the other is in range of 192.168.1.0 to 192.168.99
+		asigng a new IP Address to 192.168.1.13
+	save, reset and
+	reconect to this NEW address in browser.
+
+Go to Wireless configuration:
+	Enable Wireless Router Radio, save
+	Enable SSID Broadcast, save
+	Enable WDS Bridging (to enable as a bridge)
+	Run Survey to look for the other router (wireless net) or fill fields
+	CHANNEL must be the same as the other router, see configuration of the
+	wireless net.
+Reboot
+Now there is internet with wire in the new router
+
+Wifi configuration
+	Wireless security, select WPA/WPA2 and assign password.
