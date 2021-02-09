@@ -252,6 +252,13 @@ print("PATH:", os.environ.get('PATH'))
 
 
 
+*******************************************************************************
+                              Models
+*******************************************************************************
+
+https://blogs.oracle.com/datascience/confusion-matrix
+https://blogs.oracle.com/datascience/parallelization-machine-learning
+
 
 
 
