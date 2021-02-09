@@ -1,0 +1,43 @@
+
+
+Install using conda navigator
+
+https://matplotlib.org/users/installing.html
+https://matplotlib.org/tutorials/introductory/pyplot.html
+
+https://github.com/rougier/matplotlib-tutorial
+
+*******************************************************************************
+import numpy as np
+import matplotlib.pyplot as plt
+
+plt.plot(x, y, "-b")			        # style and color
+# https://matplotlib.org/api/_as_gen/matplotlib.lines.Line2D.html
+# https://matplotlib.org/api/colors_api.html#module-matplotlib.colors
+plt.plot(x, y, color='green', marker='o', linestyle='dashed', linewidth=2,
+         markersize=12, label='leyend')
+    
+plt.xlabel("Time (years)")
+plt.ylabel("Fraction Remaining")
+plt.title("Exponential Decay of C-14")
+
+plt.axis([[xmin, xmax, ymin, ymax]])    # specifies the viewport of the axes.
+plt.xlim(0, 28650)
+plt.ylim(bottom, top)                   # ylim(top=3); bottom, top = ylim()
+plt.yscale("log")               # {"linear", "log", "symlog", "logit", ...}
+plt.show()
+
+plot(x1, y1, 'bo')              # Plotting multiple sets of data
+plot(x2, y2, 'go')
+plot(a[0], a[1:])
+plot(x1, y1, 'g^', x2, y2, 'g-')
+
+plt.plot(x, y1, color='red', linestyle='dashed', label='C-14')		# Legends
+plt.plot(x, y2, color='green', linestyle='solid', label='Ra-226')
+plt.legend(loc='upper right')
+
+Figure[ ax1, ax2,... ]          # A figure (entire window) have axes.
+All plotting functions apply to the current axes.
+
+
+plt.subplot(nrows, ncols, index, **kwargs)  # Position of the subplot
