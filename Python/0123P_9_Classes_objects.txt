@@ -597,19 +597,120 @@ Footnotes
 
 
 
+*******************************************************************************
+
+We can use `id(<object>)` to check what's going on.
+
+Declaration of a new empty class Robot
+```
+    class Robot(object):
+    ...     pass
+    ... 
+    Robot
+    <class '__main__.Robot'>
+    Robot.__dict__
+    mappingproxy({'__module__': '__main__', '__dict__': <attribute '__dict__' of 'Robot' objects>, '__weakref__': <attribute '__weakref__' of 'Robot' objects>, '__doc__': None})
+
+```
+New instance of `Robot` class
+```
+    x = Robot()
+    x
+    <__main__.Robot object at 0x0000022811C8A978>
+```
+The `x` instance is empty
+```
+    x.__dict__
+    {}
+```
+New class property `brand` is defined
+```
+Robot.brand = "Kuka"
+Robot.brand
+'Kuka'
+```
+If we try to access `x.brand`, Python will look for `brand` in `x.__dict__`, find nothing so it goes to `Robot.__dict__` and find the class property `brand`.
+```
+x.brand
+'Kuka'
+```
+We can verify that we are actually seen the same
+```
+id(Robot.brand)
+2371120205752
+id(x.brand)
+2371120205752
+```
+New instance property `brand` is defined
+```
+x.brand = "Thales"
+```
+And the class property `brand` remains unaltered
+```
+Robot.brand
+'Kuka'
+```
+We can verify that we are actually seen two different properties
+```
+id(x.brand)
+2371119992200
+id(Robot.brand)
+2371120205752
+```
+New instance `y` is created and is empty
+```
+y = Robot()
+y.__dict__
+{}
+```
+We can verify that is a new one:
+```
+id(y)
+2371119989200
+```
+If we try to access `y.brand`, Python will look for `brand` in `y.__dict__`, found nothing so then goes to `Robot.__dict__` and find the class property `brand`.
+```
+y.brand
+'Kuka'
+```
+And we can verify that the id is the same of `Robot.brand`. So `y` is a reference to `Robot.brand`
+```
+id(y.brand)
+2371120205752
+```
+If we modify class property `brand`
+```
+Robot.brand = "Thales"
+id(Robot.brand)
+2371119992200
+```
+`y.brand` is modified because at this moment isn't an instance property but a reference to class property `Robot.brand`. We can check the id of `y.brand` is the same as `Robot.brand`.
+```
+y.brand
+'Thales'
+id(y.brand)
+2371119992200
+```
+Now we can check that `x` has an instance property `x.brand`
+```
+x.brand
+'Thales'
+x.__dict__
+{'brand': 'Thales'}
+```
+but y has nothing because is just a reference to `Robot.brand`
+```
+y.__dict__
+{}
+
+```
+and Robot.brand has the class property `brand` with value `Thales`
+```
+Robot.__dict__
+mappingproxy({'__module__': '__main__', '__dict__': <attribute '__dict__' of 'Robot' objects>, '__weakref__': <attribute '__weakref__' of 'Robot' objects>, '__doc__': None, 'brand': 'Thales'})
+```
+
+See additional notes here: [https://github.com/leocjj/0123/blob/master/Python/0123P_9_Classes_objects.txt][1]
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  [1]: https://github.com/leocjj/0123/blob/master/Python/0123P_9_Classes_objects.txt
