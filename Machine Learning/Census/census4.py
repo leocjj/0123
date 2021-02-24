@@ -144,7 +144,9 @@ def main():
     y_valid = y_valid.to_numpy().reshape(1, len(y_valid))
     x_test = x_test.transpose()
     deep = Deep(x_train.shape[0], [50, 50, 1])
-    A, cost = deep.train(x_train, y_train, iterations=300000)
+    iterations = 200000
+    A, cost = deep.train(x_train, y_train, iterations=iterations)
+    deep.save('census3_{}'.format(iterations))
     accuracy = np.sum(A == y_train) / y_train.shape[1] * 100
     print("Train cost:", cost)
     print("Train accuracy: {}%".format(accuracy))
@@ -155,7 +157,7 @@ def main():
 
     y_test_pred, _ = deep.forward_prop(x_test)
     result = pd.DataFrame(np.stack((np.array(test['Id']), y_test_pred.reshape(y_test_pred.shape[1])), axis=1), columns=['Id', 'Predicted'])
-    result.to_csv('submission4.csv', index=False)
+    result.to_csv('submission4_{}.csv'.format(iterations), index=False)
     print("Result exported.")
 
     """
