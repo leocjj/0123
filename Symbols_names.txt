@@ -1,0 +1,41 @@
+ellipsis        ...
+semicolo        ;
+.   the period or dot 
+(   the opening parenthesis
+)   the closing parenthesis
+[   the opening square bracket
+]   the closing square bracket
+{   the opening curly brace
+}   the closing curly brace
+^   the caret
+|   the vertical bar or pipe symbol
+!   exclamation point
+"   double quotes
+'   single quotes(apostrophes)
+´
+`   backticks
+~
+$   dollar sign
+% 
+#   shebang, number sign
+&
+/
+\   backslash 
++   the plus sign
+*   the asterisk or star
+=
+?   the question mark
+¡
+¿
+-  hyphen
+_  underscore 
+:
+
+<   less than
+>   
+>=
+<=  less than or equal
+@   
+
+Upper Camel Case (Pascal Case): FirstName, LastName, MasterCard, InterCity.
+Lower Camel Case: firstName, lastName, masterCard, interCity.
