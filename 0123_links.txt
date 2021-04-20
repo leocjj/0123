@@ -8,7 +8,6 @@ Cursos
 	https://www.datasciencecentral.com/profiles/blogs/large-collection-of-neural-networks-ml-numpy-pandas-matplotlib-sc
 	https://riptutorial.com/
 	https://drive.google.com/drive/mobile/folders/1Rw95Uo2_XrdZN4l1WJ3t96sRxbnKrcDb?usp=sharing
-	https://drive.google.com/drive/mobile/folders/1Rw95Uo2_XrdZN4l1WJ3t96sRxbnKrcDb?usp=sharing
 	https://openwebinars.net/cursos/metodologias-agiles/
 	https://openlibra.com/en/book/lies-damned-lies-or-statistics-how-to-tell-the-truth-with-statistics
 	http://immersivemath.com/ila/index.html
@@ -18,7 +17,7 @@ Cursos
 	https://online-learning.harvard.edu/catalog/free
 	https://www.udemy.com/cart/success/309640188/
 
-deeplearningbook.org		//
+deeplearningbook.org
 https://onlinejudge.org/
 https://ourworldindata.org/
 
@@ -103,7 +102,6 @@ C compilers
 	sudo apt install gcc		//the defacto-standard open-source C compiler
 
 IDEs Compatibles La mayoría de Entornos de desarrollo integrado escritos para GNU/Linux y algunos otros sistemas operativos soportan GCC. Estos incluyen:
-
     Anjuta
     Code::Blocks
     CodeLite
@@ -116,9 +114,9 @@ IDEs Compatibles La mayoría de Entornos de desarrollo integrado escritos para G
     Xcode
 
 Employable software engineer
-	Profesionalism
-	Comunications (english)
-	Technical skills
+    Profesionalism
+    Comunications (english)
+    Technical skills
 
 Abogados OlarteMoure
 3203874343 isabella.herrera@olartemoure.com. Carlos.
