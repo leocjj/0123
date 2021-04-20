@@ -1,0 +1,128 @@
+
+JOB DESCRIPTIONS
+https://endava.sharepoint.com/Pages/EmployeeHub.aspx?RootFolder=/Libraries/Working%20at%20Endava/Job%20Descriptions/Data&FolderCTID=0x012000BEE095C8413036448E0B93946BD08671&View=%7bFA0F6DD3-9CE4-4F4B-847A-0F63973CBA3C%7d
+
+
+https://confluence.endava.com/display/DevDisc/Data+Science+Community
+https://confluence.endava.com/display/DataScience/Data+Science+Community
+https://endava.sharepoint.com/Disciplines/DATA
+https://endava.sharepoint.com/Communities/DataScience
+Resources
+https://endava.sharepoint.com/_layouts/15/osssearchresults.aspx?u=https%3A%2F%2Fendava%2Esharepoint%2Ecom&k=machine%20learning%20engineer
+https://endava.sharepoint.com/sites/A.I.ParanCommunity/Shared%20Documents/General/machine_learning.pdf#search=machine%20learning%20engineer
+https://endava.sharepoint.com/sites/DevBogota/SitePages/Data-Scientist-Path.aspx
+
+https://www.cs.waikato.ac.nz/ml/weka/book.html
+https://gradient.paperspace.com/free-gpu
+https://cloud.google.com/automl
+https://colab.research.google.com/
+https://www.datagran.io/
+
+https://confluence.endava.com/display/DevDisc/Data+Science+Community
+https://github.com/datastacktv/data-engineer-roadmap
+
+https://ml-cheatsheet.readthedocs.io/en/latest/index.html  TODO
+
+Supervised learning, two tasks
+Regression: Predict a continuous numerical value. How much will that house sell for?
+Classification: Assign a label. Is this a picture of a cat or a dog?
+
+Attributes (features), can be Numerical or Categorical
+Training: machine learns f from labeled training data
+Test: machine predicts Y from unlabeled testing data
+
+Regression
+Y = f(X) + ε, where X = (x1, x2...xn), to minimize cost function
+Linear regression (ordinary least squares): y = B0 + B1.x + ε
+    loss (cost) function = ε^2/2.n    // n = # of observations.
+
+Feature Engineering
+Product of features is called a feature cross and results in a new synthetic feature. 
+Changing Neural Network Architecture
+This is the more interesting approach as it allows us to bypass the feature engineering ourselves and lets the neural network figure out the feature crosses itself!
+
+Activation functions
+https://ml-cheatsheet.readthedocs.io/en/latest/activation_functions.html
+    linear(z,m): return m*z
+    elu(z,alpha):  return z if z >= 0 else alpha*(e^z -1)
+    relu(z): return max(0, z)
+    leakyrelu(z, alpha): return max(alpha * z, z) #alpha = 0.01
+    sigmoid(z): return 1.0 / (1 + np.exp(-z))
+    centered_sigmoid(z): return -0.5 + 1.0 / (1 + np.exp(-z)) *****************************************************************
+    tanh(z): return (np.exp(z) - np.exp(-z)) / (np.exp(z) + np.exp(-z))
+
+NN output
+One:            soft = (sigmoid/tanh)
+                binary = (sigmoid/tanh)*step
+                BAF = 1 if z >= average(Y_train) else 0
+Many (classes)
+    soft-max = e^yi / sum(e^yi)   i.e.[0.84, 0.09, 0.07]
+        Generaliza logistic regression to C classes
+        Loss func: - sum_C(yi.log(yi^))
+    hard-max  i.e[1, 0, 0]
+
+*******************************************************************************
+Feature engineering along with a deep neural network is a powerful combination.
+*******************************************************************************
+
+Gradient Descent Algorithms
+https://realpython.com/gradient-descent-algorithm-python/
+https://blog.paperspace.com/tag/series-gradient-descent-with-python/
+https://www.kdnuggets.com/2019/08/numpy-neural-networks-computational-graphs.html
+The gradient descent algorithm is an approximate and iterative method for
+mathematical optimization. You can use it to approach the minimum of any
+differentiable function.
+Different learning rate values can significantly affect the behavior of
+gradient descent.
+You can use momentum to correct the effect of the learning rate. 
+decay_rate * diff is the momentum, or impact of the previous move.
+-learn_rate * grad is the impact of the current gradient.
+
+Stochastic Gradient Descent Algorithms
+
+Stochastic gradient descent algorithms are a modification of gradient descent.
+In stochastic gradient descent, you calculate the gradient using just a random
+small part of the observations instead of all of them. In some cases, this
+approach can reduce computation time.
+
+Online stochastic gradient descent is a variant of stochastic gradient descent in which you estimate the gradient of the cost function for each observation and update the decision variables accordingly. This can help you find the global minimum, especially if the objective function is convex.
+
+Batch stochastic gradient descent is somewhere between ordinary gradient descent and the online method. The gradients are calculated and the decision variables are updated iteratively with subsets of all observations, called minibatches. This variant is very popular for training neural networks.
+
+You can imagine the online algorithm as a special kind of batch algorithm in which each minibatch has only one observation. Classical gradient descent is another special case in which there’s only one batch containing all observations.
+
+
+*******************************************************************************
+                        Moving average
+*******************************************************************************
+
+Simple moving average (boxcar filter)
+Pn_avg = Pn-1_avg + (Pn - Pn-1_avg)/n
+
+Cumulative moving average (CMA)
+CMAn = avg(n)
+CMAn+1 = (Xn+1 + n.CMAn)/(n+1)
+
+Weighted moving average
+Exponential moving average
+simple moving median 
+ = Median(
+
+GridSearchCV
+
+
+Binary Activation Function
+=IF($B2>C$1,1,0)
+
+
+
+
+
+
+
+
+
+
+
+
+
