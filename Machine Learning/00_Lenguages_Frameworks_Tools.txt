@@ -1,0 +1,34 @@
+(PL) Programming language
+(FW) Framework
+
+MACHINE LEARNING:   Python(PL), R(PL), Numpy->Pandas(FW), Torch/PyTorch(FW),
+                    SciPy -> Scikit-learn
+                    TensorFlow (FW) -> Keras(FW), Flask(FW), Django(FW)
+PYTHON IMPLEM.:     cpython, pypy.org
+BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW)
+NLP:                NLTK, Spacy
+IDEs:               PyCharm, VSCode, IPython/Jupyter, and RStudio.
+SKILLS:             Math, Statistics, data visualization (Tableau, Metabase),
+                    communication, critical thinking, Excel, Business
+                    understanding, ETL-Data preparation.
+OTHERS              Deep learning, Unstructured Data,
+                    Other Big Data Tools, No-SQL, Kaggle, XGBoost, Software
+                    Engineering, Matlab, SAS, Java, Go, Julia
+
+Docker or Open Container Initiative
+¡?elixir, go, julia, rust, kotlin, webassembly
+
+R is a language and environment for statistical computing and graphics.
+Different implementation of S. It compiles and runs on a wide variety of UNIX
+platforms and similar systems (including FreeBSD and Linux), Windows and MacOS.
+
+https://www.rust-lang.org/
+https://www.genbeta.com/desarrollo/que-rust-lenguaje-amado-muchos-programadores-gran-desconocido
+
+Flutter https://flutter.dev/
+Flutter is Google’s UI toolkit for building beautiful, natively compiled
+applications for mobile, web, and desktop from a single codebase.
+
+
+
+
