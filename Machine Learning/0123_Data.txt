@@ -1,0 +1,283 @@
+
+https://www.freecodecamp.org/learn/data-visualization/data-visualization-with-d3/
+https://rmotr.com/			// Become a Data Scientist
+https://blog.rmotr.com/
+
+*******************************************************************************
+							Data science
+*******************************************************************************
+
+Math + Programming + Domain field
+Massive amount of data + High computational power
+
+--> discover useful information
+--> inform conclusions and supporting decision-making
+
+
+Analysis
+	Descriptive:	What has happened, Statistics, visualization, exploration
+	Diagnostic:		Why happened
+	Predictive:		what could happen
+	Prescriptive:	What should we do. Avoid situation
+
+PHASES:
+	Business requirement:
+		resources, targets
+
+	Data extraction - Acquire data:
+		Internal: RDBMS, SQL, flat files (CSV, JSON, XML)
+		External: buy data, scrapping, social media, IoT, web, DBs, streaming
+		Transport data (central location):
+			collect data at one place
+		DBA role:
+			Ask permision for analysis, is ethical to use data?, are allowed?
+
+	Data preprocessing:
+		Standarization, [un]structured data, text/img/num/categories
+		Data cleaning - correction:
+			missing data, outlier in data (noise), empty data, non relevant,
+			data imputaton, incorrect types, incorrect or invalid values
+			statistical sanitization
+		Data transformation
+		Data in good quality but not suitable pass ML algorithm
+		Data wrangling:
+			hierarchival data, handling categorical data, reshaping structures
+			indexing data, merging, combining an joining data.
+
+	Exploratory analysis
+		Statistical parameter of feature
+		Correlation vs causation analysis
+		Hypothesis testing
+		Apply statistical technique: data quality
+		Dataset imbalanced or not
+		Data is sufficient or not
+		Data visualization, representations, graphics
+
+	Data action:
+		Algorithm selection
+			Approach: Machine learning / Rule based model / hybrid
+			Learning:
+				Supervised: regression, classification
+				Unsupervised: clustering, anomaly detection
+			Data:
+				Unstructured: deep learning, CNN, RNN
+				Structured: ML, regression, random forest/decision
+				tree,SVM,XGBoost
+		Model creation
+		Machine learning researcher role
+		Deploy model into production
+		Building ETL pipelines
+		Live dashboard and reporting
+		Decision making and real-life test
+
+
+*******************************************************************************
+							Tools
+*******************************************************************************
+
+Auto-managed closed tools (closed tools)
+	Excel, Qlik, tableau, looker, zoho analytics, PowerBI, Qlikview,
+	Google Data Studio, plotly¿?, statwing¿?
+
+Programming languages (open tools)
+	Python, Julia, R (statistical)
+
+Python ecosystem
+	numpy, pandas, matplotlib, seaborn (stat visualization), statsmodels
+	scipy (scientific computing), scikit-learn (ML), ggplot2, TensorFlow
+	Jupyter
+
+Big Data
+	Hadoop, Spark, Apache
+
+ETLs Tools: Airflow, Luiggi
+
+NoSQL Databases:
+	ElasticSearch, MongoDB
+
+
+*******************************************************************************
+							Notebooks
+*******************************************************************************
+
+Jupyter Notebook
+	supports over 40 programming languages: Python, R, Julia, Scala...
+	--> HTML, images, videos, LaTeX, and custom MIME types.
+	Viewer: https://nbviewer.jupyter.org/
+
+	sudo apt update
+	sudo apt install python3-pip python3-dev
+	[conda install -c conda-forge notebook]
+	sudo pip3 install --upgrade pip
+	sudo pip3 install notebook
+	jupyter notebook [notebook.ipynb] [--no-browser] [--help]
+	[python3 -m pip install ipykernel		// Add ipython3 if is not installed
+	python3 -m ipykernel install --user]
+
+JupyterLab (evolution of Notebook)
+	[conda install -c conda-forge jupyterlab]
+	sudo pip3 install jupyterlab
+	jupyter lab
+
+Notebooks (online):
+	https://notebooks.ai/
+
+Shortcuts:
+	[A]bode new cell, [B]elow new cell, [D][D]elete, [C]opy, [V]paste, [X]cut,
+	p[Y]thon code, [M]markdown, [Z]undo, [SHIFT+M]merge
+	SHIFT+RET execute cell and move, CTRL+RET execute cell
+	ESC-command mode, RET-edit mode
+	Edit/Clear Outputs - restore order (number) of execution
+	CTRL + SHIFT + C - command list (icon in left menu)
+	[i][i] interrupt kernel, TAB autocomplete
+	SHIFT + TAB + TAB  help popup with parameters
+	?command - despliega ayuda
+	%command line - calculates mean time
+	%% jupyter line - calculates time for all sentences in a jupiter row
+	!{sys.executable} --version # execute command line, equivalent >python3 --version
+
+R in Jupyter
+	Install R https://cran.r-project.org/bin/windows/base/
+	Install RStudio https://www.rstudio.com/products/rstudio/download/
+	In RStudio, add R Kernel for Jupyter
+		https://irkernel.github.io/installation/
+		install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ',
+							'devtools', 'uuid', 'digest'))
+		devtools::install_github('IRkernel/IRkernel')
+		IRkernel::installspec()
+
+
+
+https://scipy-lectures.org/intro/numpy/operations.html
+
+
+
+
+https://www.endava.com/
+https://pydata.org/
+
+https://pypi.org/		# The Python Package Index (PyPI), sw repository
+https://www.pypy.org/	# A fast compliant alternative implementation of Python
+
+CPython
+reference implementation of Python, is a non-optimizing bytecode interpreter.
+
+NumPy
+www.numpy.org
+pip install numpy
+adding support for large, multi-dimensional arrays and matrices, along with a
+large collection of highlevel mathematical functions to operate on these arrays
+Open source solutions that interoperate with NumPy include scipy.weave, numexpr
+and Numba. Cython and Pythran are static-compiling alternatives to these. 
+
+Matplotlib
+matplotlib.org	https://en.wikipedia.org/wiki/Matplotlib
+A plotting package that provides MATLAB-like plotting functionality
+python3 -m pip install -U pip
+python3 -m pip install -U matplotlib
+[sudo apt-get install python3-matplotlib]
+
+Pandas
+https://docs.conda.io/en/latest/miniconda.html
+pip install pandas
+conda install pandas
+https://pandas.pydata.org/docs/getting_started/index.html
+	
+
+SciPy	vs MATLAB, GNU Octave, and Scilab. 
+scipy.org/scipylib
+adds more MATLAB-like functionality
+NumPy + SciPy + Matplotlib + IPython + SymPy + pandas 
+
+
+Anaconda
+https://www.anaconda.com/products/individual
+https://www.anaconda.com/open-source
+data science toolkit
+
+
+
+pypy.org
+PyPy often runs faster than CPython because PyPy is a just-in-time compiler.
+
+
+https://cython.org/
+Cython is an optimising static compiler for both the Python programming
+language and the extended Cython programming language (based on Pyrex).
+It makes writing C extensions for Python as easy as Python itself.
+https://pypi.org/project/Cython/	--> pip install Cython
+
+http://pypy.org/
+PyPy is a fast, compliant alternative implementation of the Python language
+(2.7.13 and 3.6.9). It has several advantages and distinct features:
+    Speed: thanks to its Just-in-Time compiler, Python programs often run faster on PyPy. (What is a JIT compiler?)
+    “If you want your code to run faster, you should probably just use PyPy.” — Guido van Rossum (creator of Python)
+    Memory usage: memory-hungry Python programs (several hundreds of MBs or more) might end up taking less space than they do in CPython.
+    Compatibility: PyPy is highly compatible with existing python code. It supports cffi and can run popular python libraries like twisted and django.
+    Stackless: PyPy comes by default with support for stackless mode, providing micro-threads for massive concurrency.
+
+https://recursospython.com/guias-y-manuales/obtener-lista-numeros-primos/
+
+
+
+*******************************************************************************
+							Installation
+*******************************************************************************
+
+conda config --env --add channels conda-forge	# To install from conda-forge
+conda config --set channel_priority strict		# Conda <5.0
+conda install numpy								# The actual install command
+conda install scipy
+conda install pycodestyle
+	pycodestyle --show-source --show-pep8 testsuite/E40.py
+
+conda install anaconda-navigator				# (base)> anaconda-navigator
+	Environments/channels/add https://conda.anaconda.org/conda-forge/ <enter>
+	[Install everything from navigator]
+
+conda install -c conda-forge jupyterlab
+
+https://www.spyder-ide.org/						# The Scientific Python Dev Env
+https://mlflow.org/docs/latest/quickstart.html
+
+WSL2 in windows									# Linux in windows
+Ubunto from Windows Store
+Git for Windows
+	git add --chmod=+x -- 4.py					# To upload files as executable
+
+import os
+print("PYTHONPATH:", os.environ.get('PYTHONPATH'))
+print("PATH:", os.environ.get('PATH'))
+
+
+
+
+*******************************************************************************
+                              Models
+*******************************************************************************
+
+https://blogs.oracle.com/datascience/confusion-matrix
+https://blogs.oracle.com/datascience/parallelization-machine-learning
+
+
+
+*******************************************************************************
+                            Special packages
+*******************************************************************************
+
+numba   # just-in-time compiler for NumPy arrays and functions, and loops.
+https://dask.org/   # advanced parallelism, enabling performance at scale.
+
+OpenCV		//Real time library for Computer Vision
+
+https://docs.python.org/3/library/timeit.html
+
+https://cmder.net/
+
+
+
+
+
+
+
+
