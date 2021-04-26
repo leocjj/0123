@@ -1,0 +1,86 @@
+
+
+https://en.wikipedia.org/wiki/Go_(programming_language)
+
+The main Go distribution includes tools for building, testing, and analyzing code:
+    go build, which builds Go binaries using only information in the source files themselves, no separate makefiles
+    go test, for unit testing and microbenchmarks
+    go fmt, for formatting code
+    go get, for retrieving and installing remote packages
+    go vet, a static analyzer looking for potential errors in code
+    go run, a shortcut for building and executing code
+    godoc, for displaying documentation or serving it via HTTP
+    gorename, for renaming variables, functions, and so on in a type-safe way
+    go generate, a standard way to invoke code generators
+
+It also includes profiling and debugging support, runtime instrumentation (for example, to track garbage collection pauses), and a race condition tester.
+An ecosystem of third-party tools adds to the standard distribution, such as gocode, which enables code autocompletion in many text editors, goimports, which automatically adds/removes package imports as needed, and errcheck, which detects code that might unintentionally ignore errors. 
+
+
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func readword(ch chan string) {
+    fmt.Println("Type a word, then hit Enter.")
+    var word string
+    fmt.Scanf("%s", &word)
+    ch <- word
+}
+
+func timeout(t chan bool) {
+    time.Sleep(5 * time.Second)
+    t <- false
+}
+
+func main() {
+    t := make(chan bool)
+    go timeout(t)
+
+    ch := make(chan string)
+    go readword(ch)
+
+    select {
+    case word := <-ch:
+        fmt.Println("Received", word)
+    case <-t:
+        fmt.Println("Timeout.")
+    }
+}
+
+// show "Hello world!" when localhost:8080 is visited. 
+import (
+    "fmt"
+    "log"
+    "net/http"    
+)
+
+func helloFunc(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w,"Hello world!")
+}
+
+func main() {
+    http.HandleFunc("/",helloFunc)
+    log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
