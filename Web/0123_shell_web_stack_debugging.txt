@@ -249,7 +249,9 @@ netstat -bano | grep LISTENING
 netstat -bano | findstr /R /C:"[LISTEING]"
 Conclusion
 
-This page explained command to determining if a port is in use on Linux or Unix-like server. For more information see the nmap command and lsof command page online here
+This page explained command to determining if a port is in use on Linux or
+Unix-like server. For more information see the nmap command and lsof command
+page online here.
 
 
 
