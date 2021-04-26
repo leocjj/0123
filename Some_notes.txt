@@ -1,0 +1,20 @@
+Ejecutar en windows: partitions
+Liberar espacio de la partición: shrink
+Tomar foto de las particiones
+Reiniciar con la usb con iso de ubuntu
+Hit enter at beginning
+Enter, F12 to choose a temp... , select usb,
+Install Ubuntu with wind, first option
+SELECT CHECK OPTION OF THIRD PARTS
+
+Wifi
+https://holberton-students.slack.com/archives/G235EAW3T/p1576864785009500?thread_ts=1576864785.009500&cid=G235EAW3T
+
+Portfolio
+https://holberton-students.slack.com/archives/G235EAW3T/p1575593814008700?thread_ts=1575593814.008700&cid=G235EAW3T
+
+I learned a lot by writing simple statements in C and looking via GDB or Radare2 at the disassembly.
+Assign an array to memory, see how it looks in assembly.
+Index that array at one point, see how that looks in assembly.
+Run a for() loop thru the array, see how that looks in assembly.
+This is the path to solving the hard crackme.
