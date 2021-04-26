@@ -1,0 +1,19 @@
+
+Probability
+P(A) = x(A)/Universe in [0, 1]
+
+Independent events (A and B are independent).
+    P(A and B) = P(A intersect B) = P(A) x P(B)   # Both occurring.
+
+    Not mutually exclusive events
+    P(A or B) = P(A) + P(B) - P(A and B)    # (inclusive)
+
+Mutually exclusive events (disjointed)
+    P(A and B) = P(A intersect B) = 0       # Both occurring.
+
+    P(A or B) = P(A) + P(B)
+
+Conditional Probabilities (A and B are NOT independent)
+P(A and B) = P(A) x P(B|A) = P(B) x P(A|B)
+
+

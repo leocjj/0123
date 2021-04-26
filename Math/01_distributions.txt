@@ -9,6 +9,10 @@ Que nos gusta
 	back-end + front-end + infraestructura--> full stack
 
 
+http://www.math.wm.edu/~leemis/chart/UDR/UDR.html
+https://onlinestatbook.com/2/probability/probability.html
+
+
 ---------------------------------- Distribución de Binomial.------------------------------------
 Número de ensayos fijos, observar número de éxitos.
 p- prob. exito, de que ocurra x, es constante.
