@@ -1,0 +1,178 @@
+
+MongoDB
+
+https://docs.mongodb.com/manual/
+https://university.mongodb.com/
+https://docs.mongodb.com/manual/applications/drivers/
+
+mongodb+srv://<username>:<password>@cluster0.h8fp0.mongodb.net/test
+
+https://github.com/jzamora5
+
+Database that have collections (folders) that have files (jsons)
+Python packages: pymongo, ODMS: mongoose
+
+use <new/old_db_name>
+db                              # Shows db in use
+db.<collection_name>.insertOne({name: "Larry"})
+    _id:"añslkdfjñaslkfjsañl"   # Hex id gererated automaticaly
+
+id = objectId("añslkdfjñaslkfjsañl")    # Real id
+show databases
+
+db.<collection_name>.find({name: "Larry"})  # .pretty()  optional
+db.<collection_name>.find({_id: "añslkdfjñaslkfjsañl"})
+db.<collection_name>.find({hight: {$lt: 1.7}})
+db.<collection_name>.find({$and: [{hight: {$gt: 1.6}}, {hight: {$lt: 1.7}}]})
+
+db.<collection_name>.updateOne(     # Update the fist coincidence
+    {query to search},
+    {query to update}
+)
+db.<collection_name>.updateOne(
+    {name: "Larry", age: 30},
+    {$set: {height: 4.3}}
+)
+db.<collection_name>.updateMany(     # Update several coincidences
+    {query to search},
+    {query to update}
+)
+db.<collection_name>.deleteMany(     # Delete several coincidences
+    {query to delete}
+)
+
+db.<collection_name>.help
+
+*******************************************************************************
+
+If locally:
+
+sudo service mongod start = Start Service
+
+mongo = Run mongo locally
+
+*** General ***
+
+show databases              # Shows available databases
+use <db_name>               # Create / Use database
+db.<collection_name>.help() # Shows operations that can be done with a collection
+
+db = Shows database being used currently
+
+db.dropDatabase() = Drops the database that is currently being used
+
+.pretty() = Can be added to queries in order to get a better looking result
+
+
+**** CRUD =======================================================================================
+
+With mydb as database and participants as collection
+
+*** INSERT DATA ***
+
+_id is auto generated if not specified
+db.participants.insertOne(
+    {
+        name: "Larry",
+        age: 25,
+        height: 1.75,
+        programs: ["foundations",                   # Array
+                   "web stack"],
+        pdata: {phone: "123456789",                 # Object
+                address: "Buena Vibra Street"
+               }
+    }
+)
+
+db.participants.insertMany(
+    [
+        {
+            name: "Larry", age: 25, height: 1.75, 
+            programs: ["foundations", "web stack"],
+            pdata: {phone: "123456789", address: "Buena Vibra Street"} },
+        {
+            name: "Erika", age: 21, height: 1.60,
+            programs: ["foundations", "machine learning"],
+            pdata: {phone: "987654321", address: "World Center"} },
+        {
+            name: "Jackson", age: 18, height: 1.65,
+            programs: ["foundations", "ar vr"],
+            pdata: {phone: "987321654", address: "Mk Hall"} }
+    ]
+)
+
+
+*** INSERT WITH SPECIFIC ID ***
+
+db.participants.insertOne(
+    {
+        _id: 1, name: "Larry", age: 25, height: 1.75,
+        programs: ["foundations", "web stack"],
+        pdata: {phone: "123456789", address: "Buena Vibra Street"} }
+)
+
+ALTERNATIVE INSERT WITH insert (Deprecated in some programming languages drivers)
+
+
+*** READ DATA ***
+
+db.participants.find({})                    # Get all documents in collection
+
+# Find by id
+db.inventory.findOne({_id: ObjectId("5f9af4db6749deffdb10e47b")})
+
+db.participants.findOne({name: "Larry"})            # Find single
+
+db.participants.find({name: "Larry"})               # Find Multiple
+db.participants.find({name: "Larry", age: 30})
+
+
+*** Operators -Comparison Query Operators ***
+
+$eq     -> Matches values that are equal to a specified value.
+$gt     -> Matches values that are greater than a specified value.
+$gte    -> Matches values that are greater than or equal to a specified value.
+$in     -> Matches any of the values specified in an array.
+$lt     -> Matches values that are less than a specified value.
+$lte    -> Matches values that are less than or equal to a specified value.
+$ne     -> Matches all values that are not equal to a specified value.
+$nin    -> Matches none of the values specified in an array.
+
+db.participants.find( { height: { $lt: 1.7 } } )
+
+# Logical AND 
+db.participants.find( {$and: [{height: { $lt: 1.7 }}, {height: {$gt: 1.6} }] })
+
+# Logical OR
+db.participants.find( { $or: [{height: 1.6 }, {height: {$gt: 1.7} }] })
+
+
+*** UPDATE DATA ***
+
+db.participants.updateOne(              # Update Inner Object
+   { name: "Larry", age: 30 },
+   { $set: { height: 1.80}, })
+
+db.participants.updateOne(              # Update inner Array
+   { name: "Larry", age: 30 },
+   { $set: { "programs.1": "retired"}, })
+
+db.participants.updateOne(              # Update Inner Object
+   { name: "Larry", age: 30 },
+   { $set: { "pdata.address": "New Address"}, })
+
+db.participants.updateMany(             # Update Many
+   { name: "Larry"},
+   { $set: { height: 2.0} })
+
+
+*** DELETE DATA - FIND BEFORE DELETE !!!!! ***
+
+db.participants.findOne({name: "Erika"})    # Delete a single documents
+db.participants.deleteOne({name: "Erika"})
+
+db.participants.find({name: "Larry"})       # Delete Many documents
+db.participants.deleteMany({name: "Larry"})
+
+db.participants.find({})            # Delete all documents in Collection
+db.participants.deleteMany({})
