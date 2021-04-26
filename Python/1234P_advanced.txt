@@ -42,7 +42,19 @@ pipenv --rm						# Remove a Virtual Environment
 
 
 
+*******************************************************************************
 
+def func(arg_1, ..., arg_N, *args, kwarg_1, ..., kwarg_M, **kwargs):
+    # do stuff
+    return True
+Where, in most typical cases;
+    arg_i is an unnamed argument (positional arguments)
+    args is a list, hence a set of unnamed arguments,
+    kwarg_j is a named argument (non positional arguments)
+    kwargs is a dictionary, hence a set of named arguments.
+
+zip(*iterables)
+The zip() function returns an iterator of tuples based on the iterable objects.
 
 
 
