@@ -719,3 +719,16 @@ pprint.pprint(requests.json)
 import os
 [os.path.basename(object["ssh_url"]) for object in json]
 
+
+***
+To avoid .pyc files creation
+
+Set environment variable PYTHONDONTWRITEBYTECODE=1
+Set sys.dont_write_bytecode to True
+start Python with the -B option?
+
+
+
+
+
+
