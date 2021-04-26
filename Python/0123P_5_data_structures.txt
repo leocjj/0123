@@ -486,9 +486,9 @@ Copies
 (w/o ref,   b=a[:]      b=a[:]      b=a[:]      N/P             N/P
 i.e. clone)	N/P         b=a.copy()  N/P         b=a.copy()      b=a.copy()
                         b=a + []
-						b=list(a); b = [i for i in a]
-deepcopy				import copy; copy.deepcopy(a)
-						[subl[:] for subl in mat1] //deepcopy of sublists
+                        b=list(a); b = [i for i in a]
+deepcopy                import copy; copy.deepcopy(a)
+                        [subl[:] for subl in mat1] //deepcopy of sublists
 
 Special     a           a+='Hi'                                 | Union
                         >>> ['H','i']                           - Substration
@@ -522,40 +522,40 @@ Deep copy: constructs a new compound object and then, recursively, inserts
 
 *******************  Sequence Types — str, list, tuple, range *****************
 
-Operation			Result
-x in s				True if an item of s is equal to x, else False
-x not in s			False if an item of s is equal to x, else True
-s + t				the concatenation of s and t
-s * n or n * s		equivalent to adding s to itself n times
-s[i]				ith item of s, origin 0
-s[i:j]				slice of s from i to j
-s[i:j:k]			slice of s from i to j with step k
-len(s)				length of s
-min(s)				smallest item of s
-max(s)				largest item of s
+Operation           Result
+x in s              True if an item of s is equal to x, else False
+x not in s          False if an item of s is equal to x, else True
+s + t               the concatenation of s and t
+s * n or n * s      equivalent to adding s to itself n times
+s[i]                ith item of s, origin 0
+s[i:j]              slice of s from i to j
+s[i:j:k]            slice of s from i to j with step k
+len(s)              length of s
+min(s)              smallest item of s
+max(s)              largest item of s
 s.index(x[, i[, j]])index of the first occurrence of x in s 
-					(at or after index i and before index j)
-s.count(x)			total number of occurrences of x in s
+                    (at or after index i and before index j)
+s.count(x)          total number of occurrences of x in s
 
 
 ****************** Mutable Sequence Types (List, dict, set) *******************
 
-Operation			Result
-s[i] = x			item i of s is replaced by x
-s[i:j] = t			slice of s from i to j is replaced by content of iterable t
-del s[i:j]			same as s[i:j] = []
-s[i:j:k] = t		the elements of s[i:j:k] are replaced by those of t
-del s[i:j:k]		removes the elements of s[i:j:k] from the list
-s.append(x)			appends x to the end (same as s[len(s):len(s)] = [x])
-s.clear()			removes all items from s (same as del s[:])
-s.copy()			creates a shallow copy of s (same as s[:])
-s.extend(t) or		extends s with the contents of t
-	s += t				(for the most part the same as s[len(s):len(s)] =t)
-s *= n				updates s with its contents repeated n times
-s.insert(i, x)		inserts x into s at index i (same as s[i:i] = [x])
-s.pop([i])			retrieves the item at i and also removes it from s
-s.remove(x)			remove the first item from s where s[i] is equal to x
-s.reverse()			reverses the items of s in place
+Operation           Result
+s[i] = x            item i of s is replaced by x
+s[i:j] = t          slice of s from i to j is replaced by content of iterable t
+del s[i:j]          same as s[i:j] = []
+s[i:j:k] = t        the elements of s[i:j:k] are replaced by those of t
+del s[i:j:k]        removes the elements of s[i:j:k] from the list
+s.append(x)         appends x to the end (same as s[len(s):len(s)] = [x])
+s.clear()           removes all items from s (same as del s[:])
+s.copy()            creates a shallow copy of s (same as s[:])
+s.extend(t) or      extends s with the contents of t
+    s += t              (for the most part the same as s[len(s):len(s)] =t)
+s *= n              updates s with its contents repeated n times
+s.insert(i, x)      inserts x into s at index i (same as s[i:i] = [x])
+s.pop([i])          retrieves the item at i and also removes it from s
+s.remove(x)         remove the first item from s where s[i] is equal to x
+s.reverse()         reverses the items of s in place
 
 
 ***************************** LAMBDA & MAP ************************************
@@ -563,7 +563,7 @@ s.reverse()			reverses the items of s in place
 lambda argument_list: expression
 
 sum = lambda x, y : x + y
-sum(3,4)			--> 7
+sum(3,4)            --> 7
 
 r = map(func, seq)
 
