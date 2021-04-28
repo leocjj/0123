@@ -446,13 +446,22 @@ Footnotes
 
 
 
+Iterable                Object capable of returning its members one at a time.
+Generator:              Function, returns generator iterator. Contains yield.
+Generator iterator:     Object created by a generator.
+Generator expression:   Expression that returns an iterator.
+                        <expresion> for i in range(<>) [if <condition>]
+Sequence:               Iterable which supports efficient element access
+                        using integer indices, defines a __len__() method.
+
 *******************************************************************************
 
-            String      List        Tupla       dict            Set     Range
+            String      List        Tupla       dict            Set       Range
 
-Mutable     No          Yes         No          Yes             Yes     No
-Sequence    Yes         Yes         Yes                                 Yes
-Iterable    Yes         Yes         Yes         Yes             Yes     
+Iterable    Yes         Yes         Yes         Yes             Yes       Yes
+Sequence    Yes         Yes         Yes         No              No        Yes
+
+Mutable     No          Yes         No          Yes             Yes       No
 Unique val  No          No          No          No              Yes
 Slicing     Yes         Yes         Yes         No              No
 
@@ -563,7 +572,7 @@ s.reverse()         reverses the items of s in place
 lambda argument_list: expression
 
 sum = lambda x, y : x + y
-sum(3,4)            --> 7
+sum(3,4)        --> 7
 
 r = map(func, seq)
 
