@@ -1,19 +1,28 @@
 (PL) Programming language
 (FW) Framework
 
-MACHINE LEARNING:   Python(PL), R(PL), Numpy->Pandas(FW), Torch/PyTorch(FW),
+MACHINE LEARNING:   Python(PL), R(PL), 
+                    Matplotlib ->
+                    Numpy -> Pandas(FW)
+                    Torch/PyTorch(FW),
                     SciPy -> Scikit-learn
-                    TensorFlow (FW) -> Keras(FW), Flask(FW), Django(FW)
-PYTHON IMPLEM.:     cpython, pypy.org
+                    TensorFlow (FW) -> Keras(FW)
+                    Flask(FW), Django(FW)
+PYTHON IMPLEM.:     cpython, pypy.org (JIT compiled), numba.pydata.org (JIT),
+                    cython.org (faster Python modules)
 BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW)
 NLP:                NLTK, Spacy
 IDEs:               PyCharm, VSCode, IPython/Jupyter, and RStudio.
+Cloud:              
 SKILLS:             Math, Statistics, data visualization (Tableau, Metabase),
                     communication, critical thinking, Excel, Business
                     understanding, ETL-Data preparation.
 OTHERS              Deep learning, Unstructured Data,
-                    Other Big Data Tools, No-SQL, Kaggle, XGBoost, Software
+                    Other Big Data: Kaggle, XGBoost, Software
                     Engineering, Matlab, SAS, Java, Go, Julia
+No-SQL              MongoDB, 
+Data generation:    https://www.mockaroo.com/
+
 
 Docker or Open Container Initiative
 ¡?elixir, go, julia, rust, kotlin, webassembly
