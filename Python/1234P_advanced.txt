@@ -57,4 +57,31 @@ zip(*iterables)
 The zip() function returns an iterator of tuples based on the iterable objects.
 
 
+*******************************************************************************
+
+import subprocess
+completed = subprocess.run(args, *, stdin=None, input=None, stdout=None,
+               stderr=None, shell=False, cwd=None, timeout=None, check=False,
+               encoding=None, errors=None, env=None)
+completed.returncode
+subprocess.run("exit 1", shell=True, check=True)
+subprocess.run(["ls", "-l", "/dev/null"], stdout=subprocess.PIPE)
+b = subprocess.run("dir", shell=True, check=True, stdout=subprocess.PIPE)
+b.stdout                                            // Bytes
+str(b.stdout, encoding='utf-8', errors='ignore')     // String
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
