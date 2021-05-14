@@ -12,13 +12,9 @@ blog.rmotr.com
 							Tools
 *******************************************************************************
 
-seaborn (stat visualization), statsmodels
-Jupyter
 
-Big Data
-	Hadoop, Spark, Apache
 
-ETLs Tools: Airflow, Luiggi
+
 
 PYTHON IMPLEM.:     CPython, pypy.org (JIT compiled), numba.pydata.org (JIT),
                     cython.org (faster Python modules), Pythran(¿?).
@@ -30,6 +26,7 @@ MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
                     TensorFlow (FW) -> Keras(FW)
                     Torch / PyTorch(FW),
                     Flask(FW), Django(FW)
+                    seaborn (stat visualization), statsmodels
 BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW)
 NLP:                NLTK, Spacy
 Computer Vision     OpenCV
@@ -41,6 +38,7 @@ Cloud:              gradient.paperspace.com/free-gpu
                     cloud.databricks.com   # apache spark cluster, notebooks...
                     nimblebox
                     Kaggle
+ETLs Tools          Airflow, Luiggi
 Closed tools        Excel, Qlik, tableau, looker, zoho analytics, PowerBI,
                     Qlikview, Google Data Studio, plotly¿?, statwing¿?
 SKILLS:             Math, Statistics, data visualization (Tableau, Metabase),
