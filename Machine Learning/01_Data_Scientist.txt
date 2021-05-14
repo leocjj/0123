@@ -1,74 +1,106 @@
 
 JOB DESCRIPTIONS
-https://endava.sharepoint.com/Pages/EmployeeHub.aspx?RootFolder=/Libraries/Working%20at%20Endava/Job%20Descriptions/Data&FolderCTID=0x012000BEE095C8413036448E0B93946BD08671&View=%7bFA0F6DD3-9CE4-4F4B-847A-0F63973CBA3C%7d
-
+    https://endava.sharepoint.com/Pages/EmployeeHub.aspx?RootFolder=/Libraries/Working%20at%20Endava/Job%20Descriptions/Data&FolderCTID=0x012000BEE095C8413036448E0B93946BD08671&View=%7bFA0F6DD3-9CE4-4F4B-847A-0F63973CBA3C%7d
 
 https://confluence.endava.com/display/DevDisc/Data+Science+Community
 https://confluence.endava.com/display/DataScience/Data+Science+Community
 https://endava.sharepoint.com/Disciplines/DATA
 https://endava.sharepoint.com/Communities/DataScience
+
 Resources
 https://endava.sharepoint.com/_layouts/15/osssearchresults.aspx?u=https%3A%2F%2Fendava%2Esharepoint%2Ecom&k=machine%20learning%20engineer
 https://endava.sharepoint.com/sites/A.I.ParanCommunity/Shared%20Documents/General/machine_learning.pdf#search=machine%20learning%20engineer
 https://endava.sharepoint.com/sites/DevBogota/SitePages/Data-Scientist-Path.aspx
-
-https://www.cs.waikato.ac.nz/ml/weka/book.html
-https://gradient.paperspace.com/free-gpu
-https://cloud.google.com/automl
-https://colab.research.google.com/
-https://www.datagran.io/
 
 https://confluence.endava.com/display/DevDisc/Data+Science+Community
 https://github.com/datastacktv/data-engineer-roadmap
 
 https://ml-cheatsheet.readthedocs.io/en/latest/index.html  TODO
 
-Supervised learning, two tasks
-Regression: Predict a continuous numerical value. How much will that house sell for?
-Classification: Assign a label. Is this a picture of a cat or a dog?
+Supervised learning, two tasks:
+    Regression: Predict a continuous numerical value. How much will be ...?
+    Classification: Assign a label. Is this a picture of a cat or a dog?
 
-Attributes (features), can be Numerical or Categorical
+Attributes (features): can be Numerical or Categorical
 Training: machine learns f from labeled training data
 Test: machine predicts Y from unlabeled testing data
 
 Regression
-Y = f(X) + ε, where X = (x1, x2...xn), to minimize cost function
-Linear regression (ordinary least squares): y = B0 + B1.x + ε
-    loss (cost) function = ε^2/2.n    // n = # of observations.
+    Y = f(X) + ε, where X = (x1, x2...xn), to minimize cost function
+    Linear regression (ordinary least squares): y = B0 + B1.x + ε
+        loss (cost) function = ε^2/2.n    // n = # of observations.
 
 Feature Engineering
-Product of features is called a feature cross and results in a new synthetic feature. 
-Changing Neural Network Architecture
-This is the more interesting approach as it allows us to bypass the feature engineering ourselves and lets the neural network figure out the feature crosses itself!
+    Product of features is called a feature cross and results in a new
+    synthetic feature. Changing Neural Network Architecture.
+    This is the more interesting approach as it allows us to bypass the feature
+    engineering ourselves and lets the neural network figure out the feature
+    crosses itself!
 
 Activation functions
-https://ml-cheatsheet.readthedocs.io/en/latest/activation_functions.html
+    https://ml-cheatsheet.readthedocs.io/en/latest/activation_functions.html
     linear(z,m): return m*z
     elu(z,alpha):  return z if z >= 0 else alpha*(e^z -1)
     relu(z): return max(0, z)
     leakyrelu(z, alpha): return max(alpha * z, z) #alpha = 0.01
     sigmoid(z): return 1.0 / (1 + np.exp(-z))
-    centered_sigmoid(z): return -0.5 + 1.0 / (1 + np.exp(-z)) *****************************************************************
     tanh(z): return (np.exp(z) - np.exp(-z)) / (np.exp(z) + np.exp(-z))
 
+OWN FUNCTIONS:
+    centered_sigmoid(z): return -0.5 + 1.0 / (1 + np.exp(-z)) *****************************************************************
+    logmoid(z): return np.where(z < 0, -np.log(1 - z), np.log(1 + z)) *********************************************************
+        derivative:
+            np.where(z < 0, np.power(1 - z, -1), np.power(1 + z, -1))
+        cost function: 
+            return (-1/Y.shape[1]) * np.sum(Y*np.exp(-A) + (1-Y)*np.exp(A-1))
+
+    def gradient_descent(self, Y, cache, alpha=0.05):
+        """
+        Calculates one pass of gradient descent on the neuron.
+        Updates the private attributes __W1, __b1, __W2, and __b2
+        :param Y: is a numpy.ndarray with shape (1, m) that contains the
+            correct labels for the input data.
+        :param cache: is a dictionary containing all the intermediary values
+            of the network.
+        :param alpha: is the learning rate
+        :return: Nothing.
+        """
+        dZ = cache['A' + str(self.L)] - Y
+        m1 = (1 / Y.shape[1])
+        for i in range(self.L, 0, -1):
+            dW = m1 * np.matmul(cache['A' + str(i - 1)], dZ.T)
+            db = m1 * np.sum(dZ, axis=1, keepdims=True)
+            # dZ = (Wi * dZ).dA ,  dA is the derivative of activation function.
+            dZ = np.matmul(self.weights['W' + str(i)].T, dZ)
+
+            z = logmoid_inv(cache['A' + str(i - 1)])
+            dZ *= np.where(z < 0, np.power(1 - z, -1), np.power(1 + z, -1))
+
+            self.weights['W' + str(i)] -= (alpha * dW).T
+            self.weights['b' + str(i)] -= (alpha * db)
+
 NN output
-One:            soft = (sigmoid/tanh)
-                binary = (sigmoid/tanh)*step
-                BAF = 1 if z >= average(Y_train) else 0
-Many (classes)
-    soft-max = e^yi / sum(e^yi)   i.e.[0.84, 0.09, 0.07]
-        Generaliza logistic regression to C classes
-        Loss func: - sum_C(yi.log(yi^))
-    hard-max  i.e[1, 0, 0]
+    One
+        soft = (sigmoid/tanh)
+        binary = (sigmoid/tanh)*step
+        BAF = 1 if z >= average(Y_train) else 0 *******************************************************************************
+
+    Many (classes)
+        soft-max = e^yi / sum(e^yi)   i.e.[0.84, 0.09, 0.07]
+            Generaliza logistic regression to C classes
+            Loss func: - sum_C(yi.log(yi^))
+        hard-max  i.e[1, 0, 0]
+
 
 *******************************************************************************
 Feature engineering along with a deep neural network is a powerful combination.
 *******************************************************************************
 
 Gradient Descent Algorithms
-https://realpython.com/gradient-descent-algorithm-python/
-https://blog.paperspace.com/tag/series-gradient-descent-with-python/
-https://www.kdnuggets.com/2019/08/numpy-neural-networks-computational-graphs.html
+    realpython.com/gradient-descent-algorithm-python/
+    blog.paperspace.com/tag/series-gradient-descent-with-python/
+    www.kdnuggets.com/2019/08/numpy-neural-networks-computational-graphs.html
+
 The gradient descent algorithm is an approximate and iterative method for
 mathematical optimization. You can use it to approach the minimum of any
 differentiable function.
@@ -93,7 +125,7 @@ You can imagine the online algorithm as a special kind of batch algorithm in whi
 
 
 *******************************************************************************
-                        Moving average
+                                Moving average
 *******************************************************************************
 
 Simple moving average (boxcar filter)
