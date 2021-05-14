@@ -164,6 +164,8 @@ https://blogs.oracle.com/datascience/parallelization-machine-learning
                             Special packages
 *******************************************************************************
 
+https://developer.nvidia.com/deep-learning
+https://developer.nvidia.com/deep-learning-frameworks
 
 https://cmder.net/
 
