@@ -9,12 +9,8 @@ blog.rmotr.com
 
 
 *******************************************************************************
-							Tools
+                                Tools
 *******************************************************************************
-
-
-
-
 
 PYTHON IMPLEM.:     CPython, pypy.org (JIT compiled), numba.pydata.org (JIT),
                     cython.org (faster Python modules), Pythran(¿?).
@@ -23,10 +19,10 @@ MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
                     Numpy -> Pandas(FW)
                      |-> scipy.weave, numexpr, Numba
                     SciPy -> Scikit-learn
-                    TensorFlow (FW) -> Keras(FW)
-                    Torch / PyTorch(FW),
                     Flask(FW), Django(FW)
                     seaborn (stat visualization), statsmodels
+DEEP LEARNING:      TensorFlow (FW) -> Keras(FW)
+                    Torch / PyTorch(FW)
 BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW)
 NLP:                NLTK, Spacy
 Computer Vision     OpenCV
@@ -77,23 +73,32 @@ SciPy   vs MATLAB, GNU Octave, and Scilab.
 adds more MATLAB-like functionality
 NumPy + SciPy + Matplotlib + IPython + SymPy + pandas 
 
-https://scikit-learn.org/stable/
+scikit-learn.org/stable
 Simple and efficient tools for predictive data analysis. Built on NumPy, SciPy,
 and matplotlib. Open source, commercially usable.
 
-https://www.tensorflow.org/
+www.tensorflow.org
 TensorFlow is an end-to-end open source platform for machine learning.
 It has a comprehensive, flexible ecosystem of tools, libraries and resources.
+Library for numerical computation using data flow graphs.
+Nodes in the graph represent mathematical operations, while the graph edges
+represent the multidimensional data arrays (tensors) that flow between them.
+This flexible architecture lets you deploy computation to one or more CPUs or
+GPUs in a desktop, server, or mobile device without rewriting code.
+For visualizing, offers TensorBoard, suite of visualization tools.
 
-https://pytorch.org/
-An open source machine learning framework that accelerates the path from
-research prototyping to production deployment.
-
-https://keras.io/
+keras.io
 Keras is a high-level neural networks API, written in Python and capable of
 running on top of TensorFlow, CNTK, or Theano. It was developed with a focus on
 enabling fast experimentation. Being able to go from idea to result with the
 least possible delay is key to doing good research.
+
+pytorch.org
+An open source machine learning framework that accelerates the path from
+research prototyping to production deployment.
+PyTorch is a Python package that provides two high-level features:
+    Tensor computation (like numpy) with strong GPU acceleration
+    Deep Neural Networks built on a tape-based autograd system
 
 https://www.anaconda.com/
 Data science toolkit
@@ -101,7 +106,6 @@ Data science toolkit
 numba
 Just-in-time compiler for NumPy arrays, functions, and loops.
 https://dask.org/   # advanced parallelism, enabling performance at scale.
-
 
 R is a language and environment for statistical computing and graphics.
 www.rust-lang.org/
