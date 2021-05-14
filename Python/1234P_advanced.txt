@@ -56,6 +56,8 @@ Where, in most typical cases;
 zip(*iterables)
 The zip() function returns an iterator of tuples based on the iterable objects.
 
+https://docs.python.org/3/library/timeit.html
+
 
 *******************************************************************************
 
@@ -71,8 +73,31 @@ b.stdout                                            // Bytes
 str(b.stdout, encoding='utf-8', errors='ignore')     // String
 
 
+*******************************************************************************
+
+try:
+    with open( "a.txt" ) as f :
+        print f.readlines()
+except EnvironmentError: # parent of IOError, OSError *and* WindowsError where available
+    print 'oops'
+
+To handle errors from the open call vs the working code:
+try:
+    f = open(filename, 'rb')
+except IOError:
+    print('error')
+else:
+    with f:
+        print f.readlines()
+
+*******************************************************************************
+
+import os
+print("PYTHONPATH:", os.environ.get('PYTHONPATH'))
+print("PATH:", os.environ.get('PATH'))
 
 
+https://recursospython.com/guias-y-manuales/obtener-lista-numeros-primos/
 
 
 
