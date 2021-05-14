@@ -1,43 +1,114 @@
 (PL) Programming language
 (FW) Framework
 
-MACHINE LEARNING:   Python(PL), R(PL), 
-                    Matplotlib ->
+pydata.org/
+www.cs.waikato.ac.nz/ml/weka/book.html
+www.freecodecamp.org/learn/data-visualization/data-visualization-with-d3/
+rmotr.com/          # Become a Data Scientist
+blog.rmotr.com
+
+
+*******************************************************************************
+							Tools
+*******************************************************************************
+
+seaborn (stat visualization), statsmodels
+Jupyter
+
+Big Data
+	Hadoop, Spark, Apache
+
+ETLs Tools: Airflow, Luiggi
+
+PYTHON IMPLEM.:     CPython, pypy.org (JIT compiled), numba.pydata.org (JIT),
+                    cython.org (faster Python modules), Pythran(¿?).
+MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
+                    Matplotlib, ggplot2,
                     Numpy -> Pandas(FW)
-                    Torch/PyTorch(FW),
+                     |-> scipy.weave, numexpr, Numba
                     SciPy -> Scikit-learn
                     TensorFlow (FW) -> Keras(FW)
+                    Torch / PyTorch(FW),
                     Flask(FW), Django(FW)
-PYTHON IMPLEM.:     cpython, pypy.org (JIT compiled), numba.pydata.org (JIT),
-                    cython.org (faster Python modules)
 BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW)
 NLP:                NLTK, Spacy
-IDEs:               PyCharm, VSCode, IPython/Jupyter, and RStudio.
-Cloud:              
+Computer Vision     OpenCV
+IDEs:               PyCharm, Goland, VSCode, IPython/Jupyter, and RStudio.
+Cloud:              gradient.paperspace.com/free-gpu
+                    cloud.google.com/automl
+                    colab.research.google.com/
+                    www.datagran.io/
+                    cloud.databricks.com   # apache spark cluster, notebooks...
+                    nimblebox
+                    Kaggle
+Closed tools        Excel, Qlik, tableau, looker, zoho analytics, PowerBI,
+                    Qlikview, Google Data Studio, plotly¿?, statwing¿?
 SKILLS:             Math, Statistics, data visualization (Tableau, Metabase),
                     communication, critical thinking, Excel, Business
                     understanding, ETL-Data preparation.
 OTHERS              Deep learning, Unstructured Data,
-                    Other Big Data: Kaggle, XGBoost, Software
-                    Engineering, Matlab, SAS, Java, Go, Julia
-No-SQL              MongoDB, 
+                    Other Big Data: XGBoost.
+No-SQL              MongoDB, ElasticSearch
 Data generation:    https://www.mockaroo.com/
 
 
-Docker or Open Container Initiative
-¡?elixir, go, julia, rust, kotlin, webassembly
+pypy.org
+PyPy is a fast, compliant alternative implementation of the Python language.
+PyPy often runs faster than CPython because PyPy is a just-in-time compiler.
+Stackless: PyPy comes by default with support for stackless mode,
+providing micro-threads for massive concurrency.
+
+cython.org
+Cython is an optimising static compiler for both the Python programming
+language and the extended Cython programming language (based on Pyrex).
+It makes writing C extensions for Python as easy as Python itself.
+https://pypi.org/project/Cython/	--> pip install Cython
+
+matplotlib.org
+A plotting package that provides MATLAB-like plotting functionality
+python3 -m pip install -U pip; python3 -m pip install -U matplotlib
+[sudo apt-get install python3-matplotlib]
+
+Pandas
+https://pandas.pydata.org/docs/getting_started/index.html
+https://docs.conda.io/en/latest/miniconda.html
+pip install pandas  ^  conda install pandas
+
+scipy.org/scipylib
+SciPy   vs MATLAB, GNU Octave, and Scilab. 
+adds more MATLAB-like functionality
+NumPy + SciPy + Matplotlib + IPython + SymPy + pandas 
+
+https://scikit-learn.org/stable/
+Simple and efficient tools for predictive data analysis. Built on NumPy, SciPy,
+and matplotlib. Open source, commercially usable.
+
+https://www.tensorflow.org/
+TensorFlow is an end-to-end open source platform for machine learning.
+It has a comprehensive, flexible ecosystem of tools, libraries and resources.
+
+https://pytorch.org/
+An open source machine learning framework that accelerates the path from
+research prototyping to production deployment.
+
+https://keras.io/
+Keras is a high-level neural networks API, written in Python and capable of
+running on top of TensorFlow, CNTK, or Theano. It was developed with a focus on
+enabling fast experimentation. Being able to go from idea to result with the
+least possible delay is key to doing good research.
+
+https://www.anaconda.com/
+Data science toolkit
+
+numba
+Just-in-time compiler for NumPy arrays, functions, and loops.
+https://dask.org/   # advanced parallelism, enabling performance at scale.
+
 
 R is a language and environment for statistical computing and graphics.
-Different implementation of S. It compiles and runs on a wide variety of UNIX
-platforms and similar systems (including FreeBSD and Linux), Windows and MacOS.
-
-https://www.rust-lang.org/
-https://www.genbeta.com/desarrollo/que-rust-lenguaje-amado-muchos-programadores-gran-desconocido
-
-Flutter https://flutter.dev/
-Flutter is Google’s UI toolkit for building beautiful, natively compiled
+www.rust-lang.org/
+flutter.dev     Google’s UI toolkit for building beautiful, natively compiled
 applications for mobile, web, and desktop from a single codebase.
 
 
-
-
+*******************************************************************************
