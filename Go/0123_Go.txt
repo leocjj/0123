@@ -1,22 +1,46 @@
-
+*******************************************************************************
+                                Go lang
+*******************************************************************************
 
 https://en.wikipedia.org/wiki/Go_(programming_language)
 
-The main Go distribution includes tools for building, testing, and analyzing code:
-    go build, which builds Go binaries using only information in the source files themselves, no separate makefiles
-    go test, for unit testing and microbenchmarks
-    go fmt, for formatting code
-    go get, for retrieving and installing remote packages
-    go vet, a static analyzer looking for potential errors in code
+Add to PATH environment variable
+GOROOT=c:\go    // =C:\Program Files\Go\bin
+GOPATH=C:\Users\lcalderon\go\bin
+$ go env GOPATH
+
+GoLand IDE
+https://www.jetbrains.com/go/
+Add GOROOT
+
+Go distribution includes:
     go run, a shortcut for building and executing code
+    go build, builds Go binaries using only the source files themselves
+    go fmt [./...], for formatting code
+    go vet, a static analyzer looking for potential errors in code
+    go test, for unit testing and microbenchmarks
+    go get, for retrieving and installing remote packages
+    go install, build and publish executable into the $GOPATH/bin folder.
     godoc, for displaying documentation or serving it via HTTP
     gorename, for renaming variables, functions, and so on in a type-safe way
     go generate, a standard way to invoke code generators
 
-It also includes profiling and debugging support, runtime instrumentation (for example, to track garbage collection pauses), and a race condition tester.
-An ecosystem of third-party tools adds to the standard distribution, such as gocode, which enables code autocompletion in many text editors, goimports, which automatically adds/removes package imports as needed, and errcheck, which detects code that might unintentionally ignore errors. 
+It also includes profiling and debugging support, runtime instrumentation
+(for example, to track garbage collection pauses), and a race condition tester.
+
+Third-party tools adds to the standard distribution, such as:
+    gocode, which enables code autocompletion in many text editors,
+    goimports, which automatically adds/removes package imports as needed
+    errcheck, which detects code that might unintentionally ignore errors. 
 
 
+GOPATH directory
+/bin    $go building
+/pkg    $go get
+/src    $git clone...
+
+
+// package and func main to create an executable file.
 package main
 
 import (
