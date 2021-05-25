@@ -1,0 +1,42 @@
+
+*******************************************************************************
+https://pypi.org/project/Cython/
+    $ pip install Cython
+
+Microsoft Visual C++ 14.0 required. Get it with "Build Tools for Visual Studio"
+https://visualstudio.microsoft.com/downloads/
+
+https://cython.readthedocs.io/en/latest/src/quickstart/build.html
+
+    hello.pyx
+        def say_hello_to(name):
+            print("Hello %s!" % name)
+
+    setup.py
+        from setuptools import setup
+        from Cython.Build import cythonize
+
+        setup(
+            name='Hello world app',
+            ext_modules=cythonize("hello.pyx"),
+            zip_safe=False,
+        )
+
+    $ python setup.py build_ext --inplace
+
+    from hello import say_hello_to
+    # and use the imported function as you see fit.
+
+
+
+NEXT:
+https://cython.readthedocs.io/en/latest/src/tutorial/numpy.html
+https://cython.readthedocs.io/en/latest/src/quickstart/cythonize.html
+https://github.com/cython/cython/wiki/examples-mandelbrot
+
+
+
+
+
+
+
