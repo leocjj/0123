@@ -124,6 +124,14 @@ https://scipy-lectures.org/intro/numpy/operations.html
 https://recursospython.com/guias-y-manuales/obtener-lista-numeros-primos/
 
 
+Four tools that provide solutions to some of the issues. These include:
+https://towardsdatascience.com/
+4-tools-for-reproducible-jupyter-notebooks-d7423721bd04
+    Nbdime for better version control.
+    Run linters on notebook code with nbQA.
+    Jupyter-nbrequirements for managing dependencies within notebooks.
+    Notebook validation with nbval.
+
 *******************************************************************************
                             Installation
 *******************************************************************************
@@ -168,6 +176,19 @@ https://developer.nvidia.com/deep-learning
 https://developer.nvidia.com/deep-learning-frameworks
 
 https://cmder.net/
+https://online.stat.psu.edu/stat414/    # Probability distributions
+https://www.fast.ai/
+
+
+
+
+
+
+
+
+
+
+
 
 
 
