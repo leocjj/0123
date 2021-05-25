@@ -110,5 +110,47 @@ https://numpy.org/doc/stable/reference/generated/numpy.matmul.html
 https://stackoverflow.com/questions/63024056/lockboxes-problem-list-inside-a-list-and-each-list-contains-keys-to-unlock-the
 
 
+*******************************************************************************
+
+numpy.where(condition[, x, y])
+    Return elements, either from x or y, depending on condition. If x, y are
+    functions, these are executed and then takes elementes from the results.
+    If only condition is given, return condition.nonzero().
+    condition : array_like, bool
+        When True, yield x, otherwise yield y.
+    x, y : array_like, optional
+        Values from which to choose. x, y
+    Returns:    ndarray or tuple of ndarrays
+        If both x and y are specified, the output array contains elements of
+        x where condition is True, and elements from y elsewhere.
+        If only condition is given, return the tuple condition.nonzero(),
+        the indices where condition is True.
+
+numpy.piecewise(x, condlist, funclist, *args, **kw)
+    Evaluate a piecewise-defined function.
+    x : ndarray or scalar. The input domain.
+    condlist : list of bool arrays or bool scalars
+        Each boolean array corresponds to a function in funclist.
+        Wherever condlist[i] is True, funclist[i](x) is used as output value.
+        Length of condlist must correspond to that of funclist.
+        If len(funclist) == len(condlist) + 1, extra function is the default.
+    funclist : list of callables, f(x,*args,**kw), or scalars
+        Each function is evaluated over x wherever its corresponding condition
+    Returns:    ndarray. Same shape and type as x. Default value of 0.
+    >>> np.piecewise(y, [y < 0, y >= 0], [lambda x: -x, lambda x: x])
+
+numpy.frompyfunc(func, nin, nout)
+    Takes an arbitrary Python function and returns a NumPy ufunc.
+    e.g. to add broadcasting to a built-in Python function.
+    >>> oct_array = np.frompyfunc(oct, 1, 1)
+    >>> oct_array(np.array((10, 30, 100)))
+        array([012, 036, 0144], dtype=object)
+
+numpy.random.permutation(x)
+    Randomly permute a sequence, or return a permuted range.
+    x : int or array_like
+        integer, randomly permute np.arange(x).
+        array, make a copy and shuffle elements randomly along its first index.
+    Returns:    out : ndarray. Permuted sequence or array range.
 
 
