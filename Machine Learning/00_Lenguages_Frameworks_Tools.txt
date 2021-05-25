@@ -13,7 +13,9 @@ blog.rmotr.com
 *******************************************************************************
 
 PYTHON IMPLEM.:     CPython, pypy.org (JIT compiled), numba.pydata.org (JIT),
-                    cython.org (faster Python modules), Pythran(¿?).
+                    cython.org (faster Python modules),
+                    https://www.lfd.uci.edu/~gohlke/pythonlibs/#cython
+                    Pythran(¿?).
 MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
                     Matplotlib, ggplot2,
                     Numpy -> Pandas(FW)
@@ -23,28 +25,36 @@ MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
                     seaborn (stat visualization), statsmodels
 DEEP LEARNING:      TensorFlow (FW) -> Keras(FW)
                     Torch / PyTorch(FW)
-BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW)
+BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW), XGBoost
 NLP:                NLTK, Spacy
 Computer Vision     OpenCV
 IDEs:               PyCharm, Goland, VSCode, IPython/Jupyter, and RStudio.
-Cloud:              gradient.paperspace.com/free-gpu
-                    cloud.google.com/automl
-                    colab.research.google.com/
-                    www.datagran.io/
-                    cloud.databricks.com   # apache spark cluster, notebooks...
-                    nimblebox
-                    Kaggle
 ETLs Tools          Airflow, Luiggi
 Closed tools        Excel, Qlik, tableau, looker, zoho analytics, PowerBI,
                     Qlikview, Google Data Studio, plotly¿?, statwing¿?
 SKILLS:             Math, Statistics, data visualization (Tableau, Metabase),
                     communication, critical thinking, Excel, Business
                     understanding, ETL-Data preparation.
-OTHERS              Deep learning, Unstructured Data,
-                    Other Big Data: XGBoost.
 No-SQL              MongoDB, ElasticSearch
 Data generation:    https://www.mockaroo.com/
-
+Image sets:         http://yann.lecun.com/exdb/mnist/
+                    https://www.cs.toronto.edu/~kriz/cifar.html
+                    ResNet18 and CIFAR100 - VGG1
+                    STL10 - Wide ResNet 16-8 and FMNIST - CAPS 
+                    PTB - LSTM and MNIST - VAE.
+Cloud:              gradient.paperspace.com/free-gpu
+                    cloud.google.com/automl
+                    colab.research.google.com/
+                    www.datagran.io/
+                    cloud.databricks.com   # apache spark cluster, notebooks...
+                    nimblebox
+                    www.comet.ml
+                    Kaggle
+                    https://www.openml.org/
+                    wandb.ai
+OTHERS (SW)         www.determined.ai
+                    github.com/openml/openml-docker-dev
+                    github.com/IDSIA/sacred
 
 pypy.org
 PyPy is a fast, compliant alternative implementation of the Python language.
