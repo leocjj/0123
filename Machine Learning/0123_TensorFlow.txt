@@ -1,4 +1,9 @@
 
+https://www.tensorflow.org/
+https://www.tensorflow.org/learn
+https://github.com/tensorflow
+
+
 *****************************************************************************
                             TensorFlow Core
 *****************************************************************************
@@ -27,12 +32,12 @@ Shape:  tuple of integers specifying the array's length along each dimension.
 
 TensorFlow Core programs:
     tf.Graph:   build the computational graph.
-        tf.Operation:   nodes. calculations consume/produce tensors
-        tf.Tensor:      edges. REPRESENT values, will flow through the graph.
+        tf.Operation:   NODES. calculations consume/produce tensors
+        tf.Tensor:      EDGES. REPRESENT values, will flow through the graph.
                         Most TensorFlow functions return tf.Tensors.
     tf.Session: run the computational graph.
 
-Building the computation graph:
+Building the graph:
     # Each operation in a graph is given a unique name
     a = tf.constant(3.0, dtype=tf.float32)
     b = tf.constant(4.0)        # also tf.float32 implicitly
@@ -41,16 +46,169 @@ Building the computation graph:
     print(b)                    # Tensor("Const_1:0", shape=(), dtype=float32)
     print(total)                # Tensor("add:0", shape=(), dtype=float32)
 
-TensorBoard: visualize the graph
+TensorBoard:
+https://github.com/tensorflow/docs/blob/master/site/en/r1/guide/graph_viz.md
+    # To visualize the graph in a web browser.
     writer = tf.summary.FileWriter('.')         # save the computation graph
     writer.add_graph(tf.get_default_graph())
     writer.flush()
     # This will create a file in current directory with the format
     # events.out.tfevents.{timestamp}.{hostname}
-    $ tensorboard --logdir .
+    $ tensorboard --logdir .    => http://localhost:6006/#graphs
+
+Session:
+    # To evaluate tensors. instantiate a tf.Session object.
+    # Encapsulates the state of the TensorFlow runtime, and runs operations.
+    # Session.run request the output of a node, backtracks through the graph
+    # and runs all the nodes that provide input to the requested output node.
+    sess = tf.Session()         # Creates a tf.Session object.
+    print(sess.run(total))      # evaluate the 'total' tensor
+    print(sess.run({'ab':(a, b), 'total':total}))   # handles tuples or dicts.
+
+    # During a tf.Session.run any tf.Tensor has a single (the same) value.
+    
+    # Some TensorFlow functions return tf.Operations instead of tf.Tensors.
+    # The result of calling run on an Operation is None.
+    # Run an operation to cause a side-effect, e.g. initialization, training.
+    
+    
+Placeholders:
+    # To accept external inputs. Promise to provide a value LATER, like args.
+    def create_placeholders(nx, classes):
+        x = tf.placeholder("float", shape=[None, nx], name='x')
+        y = tf.placeholder("float", shape=[None, classes], name='y')
+        return x, y
+    
+    x = tf.placeholder(tf.float32)
+    y = tf.placeholder(tf.float32)
+    z = x + y
+    # To evaluate graph use feed_dict argument in tf.Session.run method
+    # to feed concrete values to the placeholders or to overwrite any tensor.
+    print(sess.run(z, feed_dict={x: 3, y: 4.5}))            # 7.5
+    print(sess.run(z, feed_dict={x: [1, 3], y: [2, 4]}))    # [ 3.  7.]
+
+Datasets:
+    # Preferred method of streaming data into a model.
+    # 1) convert it to a tf.data.Iterator
+    # 2) call the Iterator's method: tf.data.Iterator.get_next
+    
+    my_data = [[0, 1,], [2, 3,], [4, 5,], [6, 7,],]
+    slices = tf.data.Dataset.from_tensor_slices(my_data)
+    # The following will return a row from the my_data array on each run call.
+    next_item = slices.make_one_shot_iterator().get_next()
+    while True:
+        try:
+            print(sess.run(next_item))
+        except tf.errors.OutOfRangeError:
+            break
+
+    #If the Dataset depends on stateful operations you may need to initialize the iterator before using it, as shown below:
+    r = tf.random_normal([10,3])
+    dataset = tf.data.Dataset.from_tensor_slices(r)
+    iterator = dataset.make_initializable_iterator()
+    next_row = iterator.get_next()
+    sess.run(iterator.initializer)
+    while True:
+      try:
+        print(sess.run(next_row))
+      except tf.errors.OutOfRangeError:
+        break
+
+Tensor-like objects:
+    TF functions will accept a tensor-like object in place of a tf.Tensor, and
+    implicitly convert it to a tf.Tensor using the tf.convert_to_tensor method.
+        tf.Tensor
+        tf.Variable
+        numpy.ndarray
+        list (and lists of tensor-like objects)
+        Scalar Python types: bool, float, int, str
+        additional types using tf.register_tensor_conversion_function
+
+    Create a new tf.Tensor just once to avoid out-of-memory.
+    Manually call tf.convert_to_tensor on the tensor-like object once
+    and use the returned tf.Tensor instead.
+
+
+*******************************************************************************
+                            TensorFlow 2.0
+*******************************************************************************
+
+https://www.tensorflow.org/guide
+https://www.tensorflow.org/guide/effective_tf2
+
+*) Executes eagerly (like Python), graphs/sessions like implementation details.
+*) Functions, not sessions
+    # TensorFlow 1.X
+    outputs = session.run(f(placeholder), feed_dict={placeholder: input})
+    # TensorFlow 2.0
+    outputs = f(input)
+*) Decorate Python function using @tf.function() to mark it for JIT compilation
+
+
+tf.Tensor.numpy:    returns the object's value as a NumPy ndarray.
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+*******************************************************************************
+                        OPTIMIZE TENSORFLOW (OPTIONAL)
+*******************************************************************************
+
+to get full use of your computer’s hardware, build tensorflow from source.
+
+How to compile Tensorflow with SSE4.2 and AVX instructions?
+    https://stackoverflow.com/questions/41293077/how-to-compile-tensorflow-with-sse4-2-and-avx-instructions/43555840#43555840
+Installing Bazel on Ubuntu
+    https://docs.bazel.build/versions/master/install-ubuntu.html
+Build from Source
+    https://www.tensorflow.org/install/source
+Performance
+    https://github.com/tensorflow/models/tree/master/official/
+Python Configuration Error: ‘PYTHON_BIN_PATH’ environment variable is not set
+    https://github.com/tensorflow/tensorflow/issues/9436
+    
+The following instructions assume you already have tensorflow (version 1.12)
+installed and that you do not have access to a GPU:
+
+0. Install All Dependencies:
+  $ sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python python3-dev
+
+1. Install Bazel
+    $ wget https://github.com/bazelbuild/bazel/releases/download/0.18.1/
+    bazel-0.18.1-installer-linux-x86_64.sh
+    $ chmod +x bazel-0.18.1-installer-linux-x86_64.sh
+    $ sudo ./bazel-0.18.1-installer-linux-x86_64.sh --bin=/bin
+    Add the line source /usr/local/lib/bazel/bin/bazel-complete.bash to your
+    ~/.bashrc if you want bash to tab complete bazel.
+
+2. Clone Tensorflow Repository
+    $ git clone https://github.com/tensorflow/tensorflow.git
+    $ cd tensorflow
+    $ git checkout r1.12
+
+3. Build and Install Tensorflow
+    $ export PYTHON_BIN_PATH=/usr/bin/python3 # or wherever python3 is located
+    $ bazel build --config=mkl --config=opt 
+        //tensorflow/tools/pip_package:build_pip_package  
+    $ ./bazel-bin/tensorflow/tools/pip_package/build_pip_package  
+        /tmp/tensorflow_pkg
+    $ pip install --user  
+        /tmp/tensorflow_pkg/tensorflow-1.12.0-cp35-cp35m-linux_x86_64.whl
+
+4. Remove Tensorflow Repository
+    $ cd ..
+    $ rm -rf tensorflow
+
+Now tensorflow will be able to fully utilize the parallel processing
+capabilities of your computer’s hardware, which will make training MUCH faster!
