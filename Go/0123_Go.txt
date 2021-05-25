@@ -5,25 +5,34 @@
 https://en.wikipedia.org/wiki/Go_(programming_language)
 
 Add to PATH environment variable
-GOROOT=c:\go    // =C:\Program Files\Go\bin
-GOPATH=C:\Users\lcalderon\go\bin
-$ go env GOPATH
+    GOROOT=c:\go    =C:\Program Files\Go\bin
+        Where downloaded binaries are.
+        $ go env GOPATH; echo %GOPATH%; echo %PATH%
+
+    GOPATH=C:\Users\lcalderon\go\
+        Where our work will be. Used to resolve import statements.
+        It is implemented by and documented in the go/build package.
+
+    GOPATH directory structure
+        /bin    $go building
+        /pkg    $go get
+        /src    $git clone...
 
 GoLand IDE
-https://www.jetbrains.com/go/
-Add GOROOT
+    https://www.jetbrains.com/go/
+    File/Settings/ GOROOT, GOPATH, Go Modules (Enable Go modules integration).
 
 Go distribution includes:
-    go run, a shortcut for building and executing code
-    go build, builds Go binaries using only the source files themselves
+    go run      shortcut for building and executing code
+    go build    builds Go binaries using only the source files themselves
     go fmt [./...], for formatting code
-    go vet, a static analyzer looking for potential errors in code
-    go test, for unit testing and microbenchmarks
-    go get, for retrieving and installing remote packages
-    go install, build and publish executable into the $GOPATH/bin folder.
-    godoc, for displaying documentation or serving it via HTTP
-    gorename, for renaming variables, functions, and so on in a type-safe way
-    go generate, a standard way to invoke code generators
+    go vet      a static analyzer looking for potential errors in code
+    go test     for unit testing and microbenchmarks
+    go get      for retrieving and installing remote packages
+    go install  build and publish executable into the $GOPATH/bin folder.
+    godoc       for displaying documentation or serving it via HTTP
+    gorename    for renaming variables, functions, and so on in a type-safe way
+    go generate a standard way to invoke code generators
 
 It also includes profiling and debugging support, runtime instrumentation
 (for example, to track garbage collection pauses), and a race condition tester.
@@ -33,11 +42,6 @@ Third-party tools adds to the standard distribution, such as:
     goimports, which automatically adds/removes package imports as needed
     errcheck, which detects code that might unintentionally ignore errors. 
 
-
-GOPATH directory
-/bin    $go building
-/pkg    $go get
-/src    $git clone...
 
 
 // package and func main to create an executable file.
@@ -92,7 +96,10 @@ func main() {
 }
 
 
+*******************************************************************************
 
+fmt.Print | Println
+log.Print               // Print with timestamp.
 
 
 
