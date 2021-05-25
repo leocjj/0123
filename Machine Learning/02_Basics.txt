@@ -104,8 +104,12 @@ https://www.digitalocean.com/community/tutorials/how-to-plot-data-in-python-3-us
 https://www.digitalocean.com/community/tutorials/how-to-set-up-jupyter-notebook-with-python-3-on-ubuntu-18-04
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-tensorflow-on-ubuntu-18-04
 https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-18-04
-***************************** MACHINE LEARNING ********************************
 
+
+
+*******************************************************************************
+                            MACHINE LEARNING
+*******************************************************************************
 
 ***
 The term artificial intelligence was coined in 1956, but AI has become more popular today thanks to increased data volumes, advanced algorithms, and improvements in computing power and storage.
@@ -203,7 +207,11 @@ Applicationson text, including natural language processing, topic modeling, docu
 Machine learning is a field that is continuously being innovated
 
 
-************************** PRACTICAL EXAMPLE OF ML [2] ************************
+
+*******************************************************************************
+                        PRACTICAL EXAMPLE OF ML
+*******************************************************************************
+
 With python3 installed
 
 sudo apt-get install python3-pip
@@ -235,7 +243,8 @@ print(feature_names)
 print(features[0])
 
 # Split our data
-train, test, train_labels, test_labels = train_test_split(features, labels, test_size=0.33, random_state=42)
+train, test, train_labels, test_labels =\
+train_test_split(features, labels, test_size=0.33, random_state=42)
 
 # Initialize our classifier
 gnb = GaussianNB()
@@ -259,8 +268,300 @@ print(accuracy_score(test_labels, preds))
 http://neuralnetworksanddeeplearning.com/index.html
 
 
+
+*******************************************************************************
+                            GENERAL CONCEPTS
 *******************************************************************************
 
+REGULARIZATION
+Is the process of adding information in order to solve an ill-posed problem or
+to prevent overfitting. Can be applied to objective functions in ill-posed
+optimization problems. The regularization term, or penalty, imposes a cost on
+the optimization function to make the optimal solution unique.
+
+HYPERPARAMETER
+Is a parameter whose value is used to control the learning process.
+They refer to the model selection task, or algorithm
+
+HYPERPARAMETER OPTIMIZATION
+Finds a tuple of hyperparameters that yields an optimal model which minimizes a
+predefined loss function on given test data.
+
+FEATURE SCALING
+sklearn.preprocessing.scal
+To improve the convergence properties of a network.
+Method used to normalize the range of independent variables or data features.
+In data processing is a data normalization generally during data preprocessing.
+For algorithms that assumes zero centric data (e.g. PCA)
+    x' = (x - avg(x)) / (max(x) - min(x))   # substract avg and divide by span.
+    x' = (x - avg(x)) / stdev               # z-score normalization, feature
+        standarization. Makes the values have zero-mean and unit-variance.
+For features with hard boundaries -> [0,1] (e.g. image data, colors 0 to 255).
+    x' = (x - min(x)) / (max(x) - min(x))   # substract min and divide by span.
+    x' = x / norm(x)                    # Scale components of a feature vector.
+Batch normalization
+    Normalization of the hidden layers' inputs by re-centering and re-scaling.
+
+MOVING AVERAGE
+    Moving/rolling/running average, moving/rolling mean.        LOW-PASS FILTER
+    Averages of subsets of the full data set. Type of finite impulse filter.
+    Smooth out short-term fluctuations, highlight longer-term trends or cycles.
+    Simple Moving Average (SMA):
+      Average of only the last k terms.
+      SMA(k) = (1/k).sum(i=n-k+1, n, Pi) = SMA(k,prev) + (1/k).(Pn+1 - Pn-k+1)
+    Cumulative moving average (CMA):
+      Average of all of the data up until the current datum arrived.
+      CMA(n+1) = (Xn+1 + n.CMA(n)) / (n + 1)
+    Weighted moving average (WMA):
+      Multiplying factors to give different weights (decreasing in ARITHMETICAL
+      progression)to data at different positions in the sample window (last m).
+      WMA(m) = sum(Wm.Pm) / sum(Wm)
+    Exponentially (Weighted) moving average (EMA-EWMA):
+      Applies weighting factors which decrease exponentially to ALL past data.
+      Can be approximated by N elements only. Alpha CAN be 2/(N+1), but [0,1].
+      Approximately averaging over last 1 / (1- alpha) points of sequence.
+      EMA(t) = alpha.Yt + (1 - alpha).EMA(t-1)      # Yt value at a time t.
+    Simple moving Median
+      Over n time points = Median(Pm...Pm-n+1)  # tolerates shocks
+    Others:
+      volume weighting, Gaussian,
+
+
+
+*******************************************************************************
+                        GRADIENT DESCENT - VARIANTS
+*******************************************************************************
+
+GRADIENT DESCENT (Batch/Vanill -)                                       BASIC.
+    Guaranteed to converge to global or local minimum.
+    Batch size = number of training examples.
+    dW = dJ(W)/dWi              # Gradient
+    Wi = Wi - alpha.(dW)        # alpha is the learning rate.
+
+* Develop cost functions which are proven to have a convex space, guaranteeing
+    that we only have one optimum, the global minimum.
+
+¿Batch Gradient Descent?
+    Calculates the error for each example in the training dataset,
+    but only updates the model after all training examples have been evaluated.
+    
+MINI BATCH GRADIENT DESCENT ("SGD")                     MORE STABLE, EFFICIENT.
+    Split training data into mini batches which can be processed individually.
+    Epoch: one full cycle through the dataset.
+    Improve parameters at each mini batch iteration. If we split our data into
+    100 mini batches this will take 100 steps towards the global optimum rather
+    than just 1 step had we elected to use batch gradient descent.
+    BATCH SIZE TIPS:
+    Small values: converges quickly at the cost of noise in training process.
+    Large values: converges slowly with accurate estimates of error gradient.
+    Sizes recommended: 32, 16, 8, 4, 2
+    Review learning curves against training time with different batch sizes.
+    Tune batch size and learning rate after tuning all other hyperparameters.
+
+STOCHASTIC GRADIENT DESCENT (SGD)                               SLOW. CAN FAIL.
+    Batch size = 1, update performed on a single training observation.
+    can also be used to learn online, with new data coming.
+
+
+
+*******************************************************************************
+                                OPTIMIZERS
+*******************************************************************************
+https://ruder.io/optimizing-gradient-descent/index.html
+
+MOMENTUM OPTIMIZER                                                   CAN FAIL.
+    Moving average gradient over the previous x steps, keep momentum.
+    Allows our search to overcome local optima when using gradient descent.
+    Offers improvements navigating ravines.
+    vdW = beta.vdW + (1 − beta).dW      # Velocity term,
+    W = W − alpha.vdW                   # replace the immediate gradient value.
+
+Nesterov accelerated gradient (NAG)                                     SLOWER.
+    Prevents us from going too fast and results in increased responsiveness.
+    Calculate gradient with the approximate future position of our parameters.
+    vdW = beta.vdW + (1 − beta).dW      # Velocity term,
+
+ADAGRAD (Adaptive gradient) OPTIMIZER                                   SLOWER.
+    Adapts the learning rate to the parameters, performing smaller updates.
+    Monotonic decreasing learning rate, will be slower.
+
+ADADELTA OPTIMIZER                                                      BETTER.
+    Restricts the window of accumulated past gradients to some fixed size w.
+    Sum of grads recursively defined decaying average of all past squared gradients.
+
+RMSProp OPTIMIZER
+    To prevent local optima from slowing our convergence process.       BETTER.
+    Adaptively scaling the learning rate in each dimension.
+    Damp out steep gradients as to reduce oscillations: alpha=0.001, beta=0.9.
+    sdW = beta.sdW + (1 − beta).dW^2    # Exponential Moving (weight) average
+    W = W − (alpha / (sqrt(sdw) + e)).vdW   # of gradient divide learning rate.
+
+ADAM (Adaptive Moment Estimation)                                       BEST?.
+    Combines momentum and RMSProp formulas. A "ball" (momentum) with friction.
+    The authors propose default values beta1 = 0.9, beta2 = 0.999, e = 10^−8.
+
+ADAMAX
+    Relies on the max operation, it is not as suggestible to bias towards zero.
+    alpha = 0.002, beta1 = 0.9, beta2 = 0.999.
+
+NADAM
+    NAG + ADAM. More accurate step in the gradient direction.
+
+AMSGrad                                                      ¿BETTER THAN ADAM?
+    With some problems, better algorithms can fail and SGD+momentum is better.
+    Non-increasing step size, which avoids the problems suffered by Adam.
+    Also remove the debiasing step that we have seen in Adam.
+    https://fdlm.github.io/post/amsgrad/
+
+Other recent optimizers
+    https://johnchenresearch.github.io/demon/
+    AdamW which fixes weight decay in Adam
+    QHAdam which averages a standard SGD step with a momentum SGD step
+    AggMo which combines multiple momentum terms
+    adaptive learning rate (Adam, AMSGrad, AdamW, QHAdam, Demon Adam)
+    non-adaptive learning rate (SGDM (SGD w/Momentum), AggMo, QHM, Demon SGDM).
+
+To train a Neural Network:
+    Gradient check with a small batch of data and be awar0e of the pitfalls.
+    As a sanity check, make sure your initial loss is reasonable, and that you
+    can achieve 100% training accuracy on a very small portion of the data
+    During training, monitor the loss, the training/validation accuracy, and if
+    the magnitude of updates in relation to parameter values (should be ~1e-3),
+    and when dealing with ConvNets, the first-layer weights.
+    Two recommended updates to use are either SGD+Nesterov Momentum or Adam.
+    Decay your learning rate over the period of the training. For example, halve the learning rate after a fixed number of epochs, or whenever the validation accuracy tops off.
+    Search for good hyperparameters with random search (not grid search). Stage your search from coarse (wide hyperparameter ranges, training only for 1-5 epochs), to fine (narrower rangers, training for many more epochs)
+    Form model ensembles for extra performance
+
+Tips for Gradient Descent
+    Plot Cost versus Time each iteration. Expect cost decreased each iteration.
+    Learning Rate: Try different values and see which works best.
+    Rescale Inputs: as [0, 1] or [-1, 1].
+    Few Passes: SGD need 1-to-10 passes through training dataset to converge.
+    Plot Mean Cost: taking average over 10, 100, or 1000 updates to plot.
+
+
+
+*******************************************************************************
+                            ERROR ANALYSIS
+*******************************************************************************
+https://en.wikipedia.org/wiki/Confusion_matrix
+
+Confusion matrix (Error -)
+  Actual (real) class(es) vs predicted class(es)
+ |------------------------------------------------------------------|
+ |  Actual \ Predicted  |      Class 1      |       Class2          |
+ |----------------------|-------------------|-----------------------|
+ |         P + N        |       PP          |         NN            |
+ |         Total        | Predicted positive|  Predicted negative   |
+ |----------------------|-------------------|-----------------------|
+ |         |      P     |                   | FN (miss)             |
+ | Class 1 |   Actual   | TP (hit)          |   False negative      |
+ |         |  Positive  |   True positive   |   type II error       |
+ |         |            |                   |   overestimation      |
+ |----------------------|-------------------|-----------------------|
+ |         |      N     | FP (false alarm)  |                       |
+ | Class 2 |   Actual   |   False positive  | TN (correct rejection)|
+ |         |  Negative  |   type I error /  |   True negative       |
+ |         |            |   underestimation |                       |
+ |------------------------------------------------------------------|
+    
+    Online calculator: http://www.marcovanetti.com/pages/cfmatrix/
+ 
+    https://scikit-learn.org/stable/modules/generated/
+        sklearn.metrics.confusion_matrix.html
+    from sklearn.metrics import confusion_matrix
+    expected = [1, 1, 0, 1, 0, 0, 1, 0, 0, 0]
+    predicted = [1, 0, 0, 1, 0, 0, 1, 1, 1, 0]
+    results = confusion_matrix(expected, predicted)
+ 
+ TRUE'S RATES:
+     TRUE POSITIVE RATE: Sensitivity, Recall, hit rate,
+        When it's actually yes, how often does it predict yes?
+        TPR = TP / P        = TP / (TP + FN) = 1 - FNR
+     TRUE NEGATIVE RATE: Specificity, selectivity.
+        When it's actually no, how often does it predict no?
+        TNR = TN / N        = TN / (TN + FP) = 1 - FPR
+     
+     POSITIVE PREDICTED VALUE: Precision
+        When it predicts yes, how often is it correct?
+        PPV = TP / PP       = TP / (TP + FP) = 1 - FDR
+     NEGATIVE PREDICTED VALUE
+        NPV = TN / NN       = TN / (TN + FN) = 1 - FOR
+ 
+ FALSE'S RATES:
+     FALSE NEGATIVE RATE: Miss rate
+        FNR = FN / P        = FN / (FN + TP) = 1 - TPR
+     FALSE POSITIVE RATE: Fall-out
+        When it's actually no, how often does it predict yes?
+        FPR = FP / N        = FP / (FP + TN) = 1 - TNR
+     
+     FALSE DISCOVERY RATE
+        FDR = FP / PP       = FP / (TP + FP) = 1 - PPV
+     FALSE OMISSION RATE
+        FOR = FN / NN       = FP / (TN + FN) = 1 - NPV
+ 
+ Prevalence: How often does the yes condition actually occur in our sample?
+    Prevalence = P / (P + N)
+ 
+ Threat score (TS) or critical success index (CSI)
+    TS = TP / (TP + FN + FP)
+ 
+ Accuracy: Overall, how often is the classifier correct?               NOT GOOD
+    ACC = (TP + TN) / (P + N)                                   ACCURAY PARADOX
+    ERR = 1 - ACC
+ Error / Misclassification Rate: Overall, how often is it wrong?
+    Miss = (FP + FN) / (P + N)
+ 
+ Balanced accuracy
+    BA = (TPR + TNR) / 2
+ 
+ F1 score: harmonic mean of the precision and recall (0 <= F1 <= 1)
+    Comparison across different problems with differing class ratios is
+    problematic -> use a standard class ratio when making such comparisons.
+    F1 = 2 / (TPR^-1 + PPV^-1)  = 2 . (TPR . PPV) / (TPR + PPV)
+       = TP / (TP + 0.5(FP + FN))
+
+ Fowlkes–Mallows index: geometric mean of the precision and recall
+    FM = SQRT(PPV.TPR)
+
+ Matthews correlation coefficient (MCC)                        MOST INFORMATIVE
+    MCC = (TP.TN - FP.FN) / SQRT((TP + FP)(TP + FN)(TN + FP)(TN + FN))
+
+ Null Error Rate: This is how often you would be wrong if you always predicted
+    the majority class.
+    
+ Cohen's kappa: measures the agreement between two raters who each classify
+    N items into C mutually exclusive categories.
+    K = 1, reters are in complete agreement.
+    k = 0, expected agreement by chance.
+    k < 0, agreement is worse than random.
+    kappa = (Po - Pe) / (1 - Pe)
+ ROC Curve: graph that summarizes the performance of a classifier over all
+    possible thresholds. TPR (y-axis) vs FPR (x-axis) as you vary the threshold
+    for assigning observations to a given class.
+    Area Under the Curve: 0.5 <= AUC <= 1 (perfect classfier)
+    https://www.dataschool.io/roc-curves-and-auc-explained/
+ Prevalence threshold (PT)
+ Informedness or bookmaker informedness (BM)
+ Markedness (MK) or deltaP
+ 
+ Positive likelihood ratio  (LR+) = TPR / FPR
+ Negative likelihood ratio  (LR−) = FNR / TNR
+ Diagnostic odds ratio      (DOR) = LR+ / LR-
+ 
+ 
+ 
+ MEANS
+ Aritmetic mean: 
+    A = sum(ai, 1, n) / n
+ Geometric mean: used for a set of numbers whose values are meant to be
+    multiplied together or are exponential in nature, such as a set of growth 
+    figures.  nth root of the product of n numbers (only positive numbers).
+    G = power(prod(xi, 1 , n), 1 / n)
+ Harmonic mean: appropriated for average of rates.
+    Reciprocal of the arithmetic mean of the reciprocals.
+    H = n / (sum(1 / xi, 1, n))
 
 
 
@@ -274,3 +575,28 @@ http://neuralnetworksanddeeplearning.com/index.html
 
 
 
+
+NEXT
+https://www.youtube.com/watch?v=npoNbXXS4oQ
+https://medium.com/@zeeshanmulla/cost-activation-loss-function-neural-network-deep-learning-what-are-these-91167825a4de
+https://www.jeremyjordan.me/gradient-descent/
+
+https://ruder.io/optimizing-gradient-descent/index.html#parallelizinganddistributingsgd
+https://ruder.io/deep-learning-optimization-2017/
+
+Newton, second derivative
+https://medium.com/paperspace/intro-to-optimization-in-deep-learning-momentum-rmsprop-and-adam-8335f15fdee2
+The Hessian gives us an estimate of the curvature of loss surface at a point. A loss surface can have a positive curvature which means the surface, which means a surface is rapidly getting less steeper as we move. If we have a negative curvature, it means that the surface is getting more steeper as we move.
+Notice, if this step is negative, it means we can use a arbitrary step. In other words, we can just switch back to our original algorithm. This corresponds to the following case where the gradient is getting more steeper.
+However if the gradient is getting less steeper, we might be heading towards a region at the bottom of pathological curvature. Here, Newton’s algorithm gives us a revised learning step, which is, as you can see is inversely proportional to the curvature, or how quickly the surface is getting less steeper.
+If the surface is getting less steeper, then the learning step is decreased.
+Second order optimization is about incorporating the information about how is the gradient changing itself. Though we cannot precisely compute this information, we can chose to follow heuristics that guide our search for optima based upon the past behavior of gradient.
+
+Stochastic Weight Averaging.
+https://blog.paperspace.com/intro-to-optimization-in-deep-learning-gradient-descent/
+
+https://cs231n.github.io/neural-networks-3/#hyper
+
+https://machinelearningmastery.com/implement-linear-regression-stochastic-gradient-descent-scratch-python/
+
+http://cs231n.stanford.edu/
