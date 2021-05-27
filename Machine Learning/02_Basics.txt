@@ -369,6 +369,9 @@ STOCHASTIC GRADIENT DESCENT (SGD)                               SLOW. CAN FAIL.
 *******************************************************************************
 https://ruder.io/optimizing-gradient-descent/index.html
 
+3.2. Tuning the hyper-parameters of an estimator¶
+https://scikit-learn.org/stable/modules/grid_search.html
+
 MOMENTUM OPTIMIZER                                                   CAN FAIL.
     Moving average gradient over the previous x steps, keep momentum.
     Allows our search to overcome local optima when using gradient descent.
@@ -520,7 +523,7 @@ Confusion matrix (Error -)
     Comparison across different problems with differing class ratios is
     problematic -> use a standard class ratio when making such comparisons.
     F1 = 2 / (TPR^-1 + PPV^-1)  = 2 . (TPR . PPV) / (TPR + PPV)
-       = TP / (TP + 0.5(FP + FN))
+       = TP / (TP + 0.5(FP + FN))  = TP / (0.5(PP + P))
 
  Fowlkes–Mallows index: geometric mean of the precision and recall
     FM = SQRT(PPV.TPR)
@@ -542,6 +545,7 @@ Confusion matrix (Error -)
     for assigning observations to a given class.
     Area Under the Curve: 0.5 <= AUC <= 1 (perfect classfier)
     https://www.dataschool.io/roc-curves-and-auc-explained/
+    https://youtu.be/OAl6eAyP-yo
  Prevalence threshold (PT)
  Informedness or bookmaker informedness (BM)
  Markedness (MK) or deltaP
@@ -549,9 +553,59 @@ Confusion matrix (Error -)
  Positive likelihood ratio  (LR+) = TPR / FPR
  Negative likelihood ratio  (LR−) = FNR / TNR
  Diagnostic odds ratio      (DOR) = LR+ / LR-
- 
- 
- 
+
+
+*******************************************************************************
+                                Regularization
+*******************************************************************************
+
+Underfitting, e.g. a linear model for complex data.
+Just right, e.g. a polinomial for complex data.
+overfitting, e.g. a function (high-order polinomial) passing for all the data.
+    Model tries to learn too well the details and noise from training data,
+    which ultimately results in poor performance on the unseen data.
+
+Techniques in Deep Learning
+    L2 and L1 regularization:
+        https://developers.google.com/machine-learning/crash-course/
+        regularization-for-simplicity/l2-regularization
+        update the cost function by adding another term
+        weights decrease because it assumes: smaller weights --> simpler models.
+        L2: cost = loss + (lambda/2m).sum(L2-norm(w)^2) # w1^2 + w2^2 + ...
+            forces the weights to decay towards zero (but not exactly zero).
+        L1: cost = loss + (lambda/2m).norm(w)
+            weights may be reduced to zero here, to compress our model.
+            Otherwise, we usually prefer L2 over it.
+        from keras import regulars
+        model.add(Dense(64, input_dim=64, kernel_regularizer=regulars.l2(0.01)
+    Dropout:
+        randomly selects some nodes and removes them along with all of
+        their incoming and outgoing connections. each iteration has a different
+        set of nodes and this results in a different set of outputs.
+        from keras.layers.core import Dropout
+        model = Sequential([
+        Dense(output_dim=hidden1_num_units, input_dim=input_num_units,
+            activation='relu'), Dropout(0.25),
+        Dense(output_dim=output_num_units, input_dim=hidden5_num_units,
+            activation='softmax'),])
+    Data augmentation:
+        Dealing with images, increase size of the training data by rotating
+        the image, flipping, scaling, shifting, etc.
+        It can be considered as a mandatory trick to improve our predictions.
+        from keras.preprocessing.image import ImageDataGenerator
+        datagen = ImageDataGenerator(horizontal flip=True)
+        datagen.fit(train)
+    Early stopping:
+        keep one part of the training set as the validation set.
+        When we see that the performance on the validation set is getting worse
+        stop the training on the model. This is known as early stopping.
+        It may be possible that defined limit, the model starts improving again
+        from keras.callbacks import EarlyStopping
+        EarlyStopping(monitor='val_err', patience=5)
+
+
+
+
  MEANS
  Aritmetic mean: 
     A = sum(ai, 1, n) / n
@@ -563,8 +617,22 @@ Confusion matrix (Error -)
     Reciprocal of the arithmetic mean of the reciprocals.
     H = n / (sum(1 / xi, 1, n))
 
-
-
+ NORMS
+ https://en.wikipedia.org/wiki/Norm_(mathematics)#Definition
+ https://numpy.org/doc/stable/reference/generated/numpy.linalg.norm.html
+ VECTORS(Real -):
+    L0: sum(X != 0), # X is a vector. Amount of non-zero vectors.
+    Lp-norm, |X|p: sum(abs(X)**p)**(1./p), p != 0, p can be <0.
+        L1-norm: Manhattan/taxicab norm. All components weighted equally.
+        L2-norm: Vector norm. Outliers have more weighting, can skew results.
+        Linf-norm: max(abs(x))          L-inf-norm: min(abs(x))
+ MATRICES:
+    Frobenius norm: ||A||F = sqrt(sum(|aij|^2))),  square root of the sum
+        of the absolute squares of its elements.
+    Nuclear norm: sum of the singular values.
+    Inf: max(sum(abs(x), axis=1))       -Inf: min(sum(abs(x), axis=1))
+    1:  max(sum(abs(x), axis=0))        -1: min(sum(abs(x), axis=0))
+    2:  2-norm (largest sing. value)    -2: smallest singular value
 
 
 
@@ -577,6 +645,11 @@ Confusion matrix (Error -)
 
 
 NEXT
+
+3.2. Tuning the hyper-parameters of an estimator¶
+https://scikit-learn.org/stable/modules/grid_search.html
+
+
 https://www.youtube.com/watch?v=npoNbXXS4oQ
 https://medium.com/@zeeshanmulla/cost-activation-loss-function-neural-network-deep-learning-what-are-these-91167825a4de
 https://www.jeremyjordan.me/gradient-descent/
