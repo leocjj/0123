@@ -112,6 +112,11 @@ https://stackoverflow.com/questions/63024056/lockboxes-problem-list-inside-a-lis
 
 *******************************************************************************
 
+np.set_printoptions(suppress=True, edgeitems=10)
+np.set_printoptions(threshold=sys.maxsize | threshold=np.inf)
+with np.printoptions(threshold=np.inf):
+    print(arr)
+
 numpy.where(condition[, x, y])
     Return elements, either from x or y, depending on condition. If x, y are
     functions, these are executed and then takes elementes from the results.
