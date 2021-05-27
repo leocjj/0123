@@ -1,8 +1,8 @@
 
 *******************************************************************************
-				Docker
+                                Docker
 *******************************************************************************
-
+https://www.youtube.com/watch?v=CV_Uf3Dq-EU
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
 
 sudo apt update
@@ -11,11 +11,10 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt update
-apt-cache policy docker-ce			//candidate to install must be from Docker.
+apt-cache policy docker-ce      //candidate to install must be from Docker.
 sudo apt install docker-ce
 
-sudo systemctl status docker		// Check if is running
-
+sudo systemctl status docker    // Check if is running
 
 
 sudo usermod -aG docker ${USER}
@@ -24,9 +23,27 @@ id -nG
 [sudo usermod -aG docker username]
 
 
+APP OUTPUT INSIDE A DOCKER MUST BE AT LEAST IN STDOUTPUT
+    TO BE RETRIEVED LATER BY docker logs
+
 docker [option] [command] [arguments]
 docker docker-subcommand --help
 
+  run     Run a command in a new container, create container using image.
+          [-d] deattached mode, in background
+          [-e] set environment variables
+          [-p port:port] Publish a container's port(s) to the host
+          [-v dir:dir] Bind mount a volume in container, hostdir<=>containerdir
+            Changes are applied dinamically in the container.
+            Image needs to me reconstructed at the end.
+  images    List images availables.
+  ps        List containers running, [-a] lattest containers running or not.
+  logs      Fetch logs of container, [CONTAINER_ID | NAMES]
+            [-f] keep waitng for new logs.
+  exec      Run a command in a running container, [-it]
+            e.g. docker exec -it [CONTAINER_ID | NAMES] sh
+  stop      Stop one or more running containers
+  
   attach      Attach local standard input, output, and error streams to a running container
   build       Build an image from a Dockerfile
   commit      Create a new image from a container's changes
@@ -34,10 +51,8 @@ docker docker-subcommand --help
   create      Create a new container
   diff        Inspect changes to files or directories on a container's filesystem
   events      Get real time events from the server
-  exec        Run a command in a running container
   export      Export a container's filesystem as a tar archive
   history     Show the history of an image
-  images      List images
   import      Import the contents from a tarball to create a filesystem image
   info        Display system-wide information
   inspect     Return low-level information on Docker objects
@@ -45,22 +60,18 @@ docker docker-subcommand --help
   load        Load an image from a tar archive or STDIN
   login       Log in to a Docker registry
   logout      Log out from a Docker registry
-  logs        Fetch the logs of a container
   pause       Pause all processes within one or more containers
   port        List port mappings or a specific mapping for the container
-  ps          List containers
   pull        Pull an image or a repository from a registry
   push        Push an image or a repository to a registry
   rename      Rename a container
   restart     Restart one or more containers
   rm          Remove one or more containers
   rmi         Remove one or more images
-  run         Run a command in a new container
   save        Save one or more images to a tar archive (streamed to STDOUT by default)
   search      Search the Docker Hub for images
   start       Start one or more stopped containers
   stats       Display a live stream of container(s) resource usage statistics
-  stop        Stop one or more running containers
   tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
   top         Display the running processes of a container
   unpause     Unpause all processes within one or more containers
@@ -69,6 +80,79 @@ docker docker-subcommand --help
   wait        Block until one or more containers stop, then print their exit codes
 
 
+*******************************************************************************
+                            Dockerfile
+*******************************************************************************
+$ vim Dockerfile
+FROM image_name:tag // image:tag from hub.docker.com, alpine version is better.
+
+WORKDIR /app        // directory in the container
+COPY . .            // from local dir (where Dockerfile is) to container /app
+RUN <command to install>
+
+CMD ["node", "/app/src/index.js"]   // Will be executed when container start.
+| ENTRYPOINT ["node"]  // Needs the rest as parameter when we run the container
+
+
+***
+// To construct an image using the Dockerfile file
+$ docker build -t <image_name>
+// To run a container using the created image.
+$ docker run <image_name>
+// To construct a new version of the image (i.e. source code changed)
+$ docker build -t <image_name:tag_version>
+
+***
+// To share an image in hub.docker.com
+$ docker login
+$ docker tag <IMAGE_ID> <user/image_name:tag_version>   // To change image name
+$ docker push <user/image_name:tag_version>
+
+
+
+*******************************************************************************
+                            Multidocker
+*******************************************************************************
+Good practice: different dockers for different apps (e.g. node_app, db_app)
+
+$ docker network create todo-app
+$ docker run -d --network todo-app --network-alias mysql -v dir:dir
+  -e env_vars mysql:5.7
+$ docker exec -it [CONTAINER_ID | NAMES] mysql -p
+$ docker run -it --network todo-app <image>
+    |-> $ dig mysql -> will show the IP
+
+
+
+*******************************************************************************
+                            Docker compose
+*******************************************************************************
+
+$ vim docker-compose.yaml       // To automate docker processes
+version: "3.7"                  // Syntax version of yml
+
+services:
+    app:
+        image: <user/image_name:tag_version>
+        ports:
+          - 3000:3000
+        depends_on:
+          - mysql
+        environment:
+          MYSQL_HOST: mysql
+          MYSQL_USER: root
+          MYSQL_PASSWORD: secret
+          MYSQL_DB: todos
+    mysql:
+        image: mysql:5.7
+        volumes:
+          - host_dir:docker:dir
+        environment:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: todos
+https://docs.docker.com/compose/startup-order/
+$ docker-compose up -d 
+$ docker-compose down 
 
 
 
