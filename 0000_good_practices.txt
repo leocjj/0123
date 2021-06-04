@@ -1,7 +1,87 @@
-Comment each part of the code
-Use readable names for variables, functions, files
-Team work: define versions, branches, management, repos, aprovals
 
-TO SPLIT THE CODE IN FUNCTIONS, REUSE, REUSE, REUSE PAST FUNCTIONS.
+*****************************************************************************
+                                IN GENERAL
+*****************************************************************************
 
-Methodology
+Comment each part of the code.
+Use readable names for variables, functions, files.
+Team work: define versions, branches, management, repos, aprovals.
+
+SPLIT THE CODE INTO FUNCTIONS, REUSE, REUSE, REUSE PAST FUNCTIONS.
+
+
+Ask for clarification! Before trying to solve or code the problem.
+Data structure to represent the data / return values / parameters.
+Does the code work for edge cases? (empty data structure, etc…)
+No error in the code
+Can code fast
+
+https://medium.com/@architraigupta_99365/
+roadmap-to-learn-software-design-2b647a710a1
+
+Milestone 1: Clean Code principles
+    being consistent, preferring meaningful variable, function and class names
+    over comments, ensuring code is indented and spaced properly, ensuring all
+    the tests can run, writing pure functions with no side effects.
+
+Milestone 2: Programming Paradigms, understand and how they influence
+    Object-oriented programming
+    Functional programming
+    Structural programming
+    Effective software uses a hybrid of all 3 programming paradigms.
+
+Milestone 3: Object oriented programming
+    Helps us to create a pluggable architecture and brings flexibility.
+        Abstraction
+        Encapsulation
+        Inheritance
+        Polymorphism
+
+Milestone 4: Design Principles. Object oriented best practices.
+    Composition over inheritance
+    Encapsulate what varies
+    Program against abstractions
+    SOLID
+    DRY (Don’t repeat yourself)
+    YAGNI (You aren’t gonna need it)
+    KISS (Kiss it simple stupid)
+    Your own conclusions from experience
+
+Milestone 5: Design Patterns. Use this knowledge instead of re-inventing.
+    There are 3 categories of design patterns.
+    Creational: Controls how the objects are created.
+        Example: Factory, Singleton, Prototype.
+    Structural: Controls how we define relationships between objects.
+        Example: Adapter, Bridge, Decorator
+    Behavioural: Controls communication between objects.
+        Example: Template, Mediator, Observer.
+
+Milestone 6: Architectural Principles
+    Once we have organized our code using the low level design patterns,
+        next is to think about planning our architecture.
+    Component Design principles: How to organize components, their dependencies
+        when to couple them and implications of cyclic dependencies.
+    Identifying boundaries between application rules vs implementation details.
+
+Milestone 7: Architectural Styles
+    Structural
+        Component based: separate concerns between different individual components within a system.
+        Monolithic: Application is combined into a single program and is deployed together.
+        Layer based: Cut the software into different layers like infrastructure, adapter, application and domain.
+    Messaging
+        Event-Driven: View all the changes to state as events.
+        Publisher Subscriber: Components interact by producing and consuming messages/events.
+    Distributed
+        The components are separate and talk to each other by communicating over a network protocol.
+        Client-Server: Divide the work between the client (presentation layer) and the server (business logic)
+        Peer to Peer: Distribute the application level tasks equally between the participants.
+
+Milestone 8: Architectural Patterns
+
+Architectural Patterns give the implementation details of the architectural styles.
+
+    Domain Driven Design: Good for really complex problem domains.
+    Model View Controller: It works by dividing the application into three components: Model, View and Controller and is the easiest to start with.
+    Event Sourcing: Here we only store the events and never the final state. The final state can be reconstructed by replaying the events.
+
+Most of us know most of these jargons. I will attempt to deep-dive into each of these and this time I am ready to trade my right arm for it.
