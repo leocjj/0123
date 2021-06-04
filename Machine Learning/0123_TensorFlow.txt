@@ -148,13 +148,40 @@ https://www.tensorflow.org/guide/effective_tf2
 tf.Tensor.numpy:    returns the object's value as a NumPy ndarray.
 
 
+tf.layers.Dense(
+             units: Any,
+             activation: Any = None,
+             use_bias: bool = True,
+             kernel_initializer: str = None,
+             bias_initializer: str = init_ops.zeros_initializer(),
+             kernel_regularizer: Any = None,
+             bias_regularizer: Any = None,
+             activity_regularizer: Any = None,
+             kernel_constraint: Any = None,
+             bias_constraint: Any = None,
+             trainable: bool = True,
+             name: Any = None,
+             **kwargs: Any) -> None
+    outputs = activation(inputs * kernel + bias)
+        activation: activation function passed as the activation argument
+        kernel: weights matrix created by the layer
+        bias: bias vector created by the layer (only if use_bias is True).
+    Properties:
+        units: Python integer, dimensionality of the output space
+        activation: Activation function (callable)
+        use_bias: Boolean, whether the layer uses a bias
+        kernel_initializer: Initializer instance (or name) for kernel matrix
+        bias_initializer: Initializer instance (or name) for the bias
+        kernel_regularizer: Regularizer instance for  kernel matrix (callable)
+        bias_regularizer: Regularizer instance for the bias (callable)
+        activity_regularizer: Regularizer instance for the output (callable)
+        kernel_constraint: Constraint function for the kernel matrix
+        bias_constraint: Constraint function for the bias
+        kernel: Weight matrix (TensorFlow variable or tensor)
+        bias: Bias vector, if applicable (TensorFlow variable or tensor)
 
-
-
-
-
-
-
+tf.contrib.layers.l2_regularizer(scale, scope=None)
+    Returns function that can be used to apply L2 regularization to weights.
 
 
 
@@ -212,3 +239,5 @@ installed and that you do not have access to a GPU:
 
 Now tensorflow will be able to fully utilize the parallel processing
 capabilities of your computer’s hardware, which will make training MUCH faster!
+
+
