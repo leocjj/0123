@@ -1,0 +1,106 @@
+
+https://www.tensorflow.org/
+https://www.tensorflow.org/learn
+https://github.com/tensorflow
+
+*******************************************************************************
+                                Keras
+*******************************************************************************
+
+https://www.tensorflow.org/guide/keras/sequential_model
+https://www.tensorflow.org/api_docs/python/tf/keras?hl=en
+https://www.youtube.com/watch?v=UYRBHFAvLSs
+
+
+High level API, interfaces multiple frameworks (TF, Theano, CNTK).
+Network in Keras
+    Define, Compile, Fit, Evaluate, Make predictions
+
+
+ARCHITECTURE (classes):
+    Engine: Layer, Network(internal), Model(Network + training), Sequential.
+    Layers: various subclasses of Layer.
+    Loss, Metric, Callback, Optimizer, Regularizer, Constraints.
+
+
+Layer:
+    Compute batch of inputs to a batch of outputs (eager/graph execution)
+    Manages state (weights), Tracks losses & metrics, un-frozen, de-serialized
+    
+
+Sequential model:
+    Plain stack of layers. Behaves like a list of layers.
+    Each layer has exactly one input and one output tensor. 
+    import tensorflow as tf
+    from tensorflow import keras
+    from tensorflow.keras import layers
+    # Define Sequential model with 3 layers
+    model = keras.Sequential(
+        [
+            layers.Dense(2, activation="relu", name="layer1"),
+            layers.Dense(3, activation="relu", name="layer2"),
+            layers.Dense(4, name="layer3"),
+        ]
+    )
+    # model = keras.Sequential(name="my_sequential")
+    # model.add(layers.Dense(2, activation="relu", name="layer1"))
+    # model.add(layers.Dense(3, activation="relu", name="layer2"))
+    # model.add(layers.Dense(4, name="layer3"))
+    # len(model.layers) # model.pop()
+    
+    # layer = layers.Dense(3)
+    # layer.weights  # Empty
+    # Weights are created the first time it is called on an input, since the
+    # shape of the weights depends on the shape of the inputs:
+    # x = tf.ones((1, 4))   # Call layer on a test input
+    # y = layer(x)
+    # layer.weights  # Now it has weights, of shape (4, 3) and (3,)
+    
+    # Call model on a test input
+    x = tf.ones((3, 3))
+    y = model(x)
+    model.summary()
+    
+    # Set input shape at the beginning.
+    model = keras.Sequential()
+    model.add(keras.Input(shape=(4,)))
+    model.add(layers.Dense(2, activation="relu"))
+    
+    # Set input shape at the first layer.
+    model = keras.Sequential()
+    model.add(layers.Dense(2, activation="relu", input_shape=(4,)))
+    
+
+
+
+
+
+
+*******************************************************************************
+                                HDF
+*******************************************************************************
+
+https://portal.hdfgroup.org/display/support/Documentation
+
+Python HDF5
+    h5py: both high- and low-level access to HDF5 abstractions.
+    PyTables: high-level interface, advanced indexing, database-like query cap.
+    Pandas can import from and export to HDF5 via PyTables.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
