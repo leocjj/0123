@@ -565,11 +565,40 @@ overfitting, e.g. a function (high-order polinomial) passing for all the data.
     Model tries to learn too well the details and noise from training data,
     which ultimately results in poor performance on the unseen data.
 
+Underfitting: high bias and low variance.
+    High bias and low variance. Refers to a model that can neither model the
+    training data nor generalizes to new data.
+    Symptoms:
+        High training error.
+        Training error close to testing error.
+        High bias.
+    To reduce underfitting :
+        Increase model complexity.
+        Increase the number of features, performing feature engineering.
+        Remove noise from the data.
+        Increase the number of epochs or increase the duration of training.
+
+Overfitting:
+    High variance and low bias. Refers to a model that models the training data
+    too well. Happens when a model learns the detail and noise in the training
+    data to the extent that it negatively impacts the performance of the model
+    on new data.
+    Symptoms:
+        Very low training error.
+        Training error much lower than testing error.
+        High variance.
+    To reduce overfitting (regularization):
+        Reduce model complexity (L1 regularization).
+        Reduce model complexity (L2 regularization).
+        Use dropout for neural networks to tackle overfitting (Dropout).
+        Increase training data (Data Augmentation).
+        Stopping during the training phase (Early stopping).
+
 Techniques in Deep Learning
-    L2 and L1 regularization:
+    L2 and L1 regularization (Ridge and Lasso regression):
         https://developers.google.com/machine-learning/crash-course/
         regularization-for-simplicity/l2-regularization
-        update the cost function by adding another term
+        Update the cost function by adding another term. 0 <= lambda <= 1.
         weights decrease because it assumes: smaller weights --> simpler models.
         L2: cost = loss + (lambda/2m).sum(L2-norm(w)^2) # w1^2 + w2^2 + ...
             forces the weights to decay towards zero (but not exactly zero).
@@ -582,6 +611,10 @@ Techniques in Deep Learning
         randomly selects some nodes and removes them along with all of
         their incoming and outgoing connections. each iteration has a different
         set of nodes and this results in a different set of outputs.
+        Direct (not commonly implemented) and inverted (boost learning rate).
+        Should be using together with other normalization techniques that
+        constrain the parameters to simplify learning rate selection procedure.
+        dropout_matrix = np.random.binomial(1, keep_prob, size=z.shape)
         from keras.layers.core import Dropout
         model = Sequential([
         Dense(output_dim=hidden1_num_units, input_dim=input_num_units,
@@ -596,7 +629,7 @@ Techniques in Deep Learning
         datagen = ImageDataGenerator(horizontal flip=True)
         datagen.fit(train)
     Early stopping:
-        keep one part of the training set as the validation set.
+        Keep one part of the training set as the validation set.
         When we see that the performance on the validation set is getting worse
         stop the training on the model. This is known as early stopping.
         It may be possible that defined limit, the model starts improving again
@@ -636,10 +669,62 @@ Techniques in Deep Learning
 
 
 
+*******************************************************************************
+                                CNN
+*******************************************************************************
 
+https://setosa.io/ev/image-kernels/
+https://github.com/vdumoulin/conv_arithmetic
+https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/
+    master/Convolutional%20Neural%20Network/Convolutional%20Layers/README.md
 
-
-
+kernel/filter: matrix to use in a convolutinal layer
+    blur: de-emphasizes differences in adjacent pixel values.
+    sobel: used to show only the differences in adjacent pixel values in a
+        particular direction (bottom, top, left, right).
+    emboss: (similar to sobel): illusion of depth, emphasizing the differences
+        of pixels in a given direction.
+    outline (also called "edge") to highlight large differences in pixel values
+        A pixel next to neighbor pixels with close to the same intensity will
+        appear black in the new image while one next to neighbor pixels that
+        differ strongly will appear white.
+    sharpen: emphasizes differences in adjacent pixel values.
+        This makes the image look more vivid.
+     Sharpen     Blur                     Top sobel   Emboss      Outline
+    [ 0 -1  0]  [0.0625  0.125  0.0625]  [ 1  2  1]  [-2 -1  0]  [-1 -1 -1]
+    [-1  5  1]  [0.1250  0.250  0.1250]  [ 0  0  0]  [-1  1  1]  [-1  8 -1]
+    [ 0 -1  0]  [0.0625  0.125  0.0625]  [-1 -2 -1]  [ 0  1  2]  [-1 -1 -1]
+Convolutional layer: apply one or several kernels/filters to a input image.
+    First ConvLayer capture Low-Level features such as edges, color, gradient
+    orientation, etc. Added layers, High-Level features as well
+    Stride: step to move the kernel, if stride Length = 1 meansNon-Strided).
+    Padding:
+        Valid -: output is reduced, kernel is applied over the original image.
+        Same -: image is augmented in the borders with 0's to apply the center
+            of the kernel to every input of the original image (matrix).
+Pooling layer:
+    Reduce spatial size of the convolved feature. Decrease computes required.
+    Extract dominant features which are rotational and positional invariant.
+    Apply a max or average function to the image portion covered by the kernel.
+    Max performs as a Noise Suppressant, performs  better than average pooling.
+Architectures:
+    General:
+            Input: (28x28x1)
+        Conv_1 (5x5) kernel valid padding
+            n1 channels (24x24x1)
+        Max-Pooling (2x2)
+            n1 channels (12x12xn1)
+        Conv_2 (5x5) kernel valid padding
+            n2 channels (8x8xn2)
+        Max-Pooling (2x2)
+            n2 channels (4x4xn2)
+        Flattened
+            n3 units
+        Fully-Connected NN (ReLU)
+            n3 units
+        Fully-Connected NN (with dropout)
+            Output (y-classess)
+    LeNet, AlexNet, VGGNet, GoogLeNet, ResNet, ZFNet.
 
 
 
@@ -656,6 +741,8 @@ https://www.jeremyjordan.me/gradient-descent/
 
 https://ruder.io/optimizing-gradient-descent/index.html#parallelizinganddistributingsgd
 https://ruder.io/deep-learning-optimization-2017/
+
+https://probml.github.io/pml-book/book1.html
 
 Newton, second derivative
 https://medium.com/paperspace/intro-to-optimization-in-deep-learning-momentum-rmsprop-and-adam-8335f15fdee2
