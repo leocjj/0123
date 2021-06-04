@@ -25,6 +25,7 @@ MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
                     seaborn (stat visualization), statsmodels
 DEEP LEARNING:      TensorFlow (FW) -> Keras(FW)
                     Torch / PyTorch(FW)
+                    MS CNTK, FB Caffe2, Amazon MxNet, format ONNX,
 BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW), XGBoost
 NLP:                NLTK, Spacy
 Computer Vision     OpenCV
@@ -35,6 +36,7 @@ Closed tools        Excel, Qlik, tableau, looker, zoho analytics, PowerBI,
 SKILLS:             Math, Statistics, data visualization (Tableau, Metabase),
                     communication, critical thinking, Excel, Business
                     understanding, ETL-Data preparation.
+                    https://workera.ai/
 No-SQL              MongoDB, ElasticSearch
 Data generation:    https://www.mockaroo.com/
 Image sets:         http://yann.lecun.com/exdb/mnist/
@@ -45,6 +47,7 @@ Image sets:         http://yann.lecun.com/exdb/mnist/
 Cloud:              gradient.paperspace.com/free-gpu
                     cloud.google.com/automl
                     colab.research.google.com/
+                    www.ibm.com/cloud/watson-studio
                     www.datagran.io/
                     cloud.databricks.com   # apache spark cluster, notebooks...
                     nimblebox
