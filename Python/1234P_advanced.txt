@@ -90,6 +90,7 @@ else:
     with f:
         print f.readlines()
 
+
 *******************************************************************************
 
 import os
@@ -100,7 +101,44 @@ print("PATH:", os.environ.get('PATH'))
 https://recursospython.com/guias-y-manuales/obtener-lista-numeros-primos/
 
 
+*******************************************************************************
 
+properties.ini
+    [EMAIL]
+    user= <gmail username>
+    password = <gmail password>
+
+main.py
+    import configparser
+    config = configparser.ConfigParser()
+    config.read('properties.ini')
+    gmail_user = config['EMAIL']['user']
+    gmail_password = config['EMAIL']['password']
+    
+    import smtplib
+    gmail_user = '<input your gmail user. No need to use @gmail.com>'
+    gmail_password = '<input your gmail password>'
+    #email properties
+    sent_from = gmail_user
+    to = [<email_send_address>]
+    subject = 'Alert for reduced in price'
+    email_text = 
+    """
+    Alert for reduced in price
+    """
+    #email send request
+    try:
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        server.ehlo()
+        server.login(gmail_user, gmail_password)
+        server.sendmail(sent_from, to, email_text)
+        server.close()
+        print ('Email sent!')
+    except Exception as e:
+        print(e)
+        print ('Something went wrong...')
+''' If error and have double checked username and password, then open Gmail
+Settings and Toggle on the Less Secure App Access Option.'''
 
 
 
