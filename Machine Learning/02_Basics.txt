@@ -450,7 +450,7 @@ Tips for Gradient Descent
 *******************************************************************************
 https://en.wikipedia.org/wiki/Confusion_matrix
 
-Confusion matrix (Error -)
+CONFUSION MATRIX (Error -)
   Actual (real) class(es) vs predicted class(es)
  |------------------------------------------------------------------|
  |  Actual \ Predicted  |      Class 1      |       Class2          |
@@ -540,12 +540,14 @@ Confusion matrix (Error -)
     k = 0, expected agreement by chance.
     k < 0, agreement is worse than random.
     kappa = (Po - Pe) / (1 - Pe)
+    
  ROC Curve: graph that summarizes the performance of a classifier over all
     possible thresholds. TPR (y-axis) vs FPR (x-axis) as you vary the threshold
     for assigning observations to a given class.
     Area Under the Curve: 0.5 <= AUC <= 1 (perfect classfier)
     https://www.dataschool.io/roc-curves-and-auc-explained/
     https://youtu.be/OAl6eAyP-yo
+    
  Prevalence threshold (PT)
  Informedness or bookmaker informedness (BM)
  Markedness (MK) or deltaP
@@ -555,9 +557,19 @@ Confusion matrix (Error -)
  Diagnostic odds ratio      (DOR) = LR+ / LR-
 
 
+
 *******************************************************************************
                                 Regularization
 *******************************************************************************
+
+BIAS error: (1/ACCURACY) erroneous assumptions in the learning algorithm.
+    Miss relevant relations between features and target outputs (underfitting).
+    Typically produce simpler models that may fail to capture important
+    regularities (i.e. underfit) in the data.
+VARIANCE error: (1/PRECISION) sensitivity to small fluctuations in training set
+    Algorithm modeling the random noise in the training data (overfitting).
+    May be able to represent their training set well but are at risk of
+    overfitting to noisy or unrepresentative training data.
 
 Underfitting, e.g. a linear model for complex data.
 Just right, e.g. a polinomial for complex data.
@@ -565,7 +577,7 @@ overfitting, e.g. a function (high-order polinomial) passing for all the data.
     Model tries to learn too well the details and noise from training data,
     which ultimately results in poor performance on the unseen data.
 
-Underfitting: high bias and low variance.
+Underfitting:
     High bias and low variance. Refers to a model that can neither model the
     training data nor generalizes to new data.
     Symptoms:
@@ -637,9 +649,7 @@ Techniques in Deep Learning
         EarlyStopping(monitor='val_err', patience=5)
 
 
-
-
- MEANS
+MEANS
  Aritmetic mean: 
     A = sum(ai, 1, n) / n
  Geometric mean: used for a set of numbers whose values are meant to be
@@ -650,7 +660,8 @@ Techniques in Deep Learning
     Reciprocal of the arithmetic mean of the reciprocals.
     H = n / (sum(1 / xi, 1, n))
 
- NORMS
+
+NORMS
  https://en.wikipedia.org/wiki/Norm_(mathematics)#Definition
  https://numpy.org/doc/stable/reference/generated/numpy.linalg.norm.html
  VECTORS(Real -):
@@ -677,6 +688,20 @@ https://setosa.io/ev/image-kernels/
 https://github.com/vdumoulin/conv_arithmetic
 https://github.com/Machinelearninguru/Image-Processing-Computer-Vision/blob/
     master/Convolutional%20Neural%20Network/Convolutional%20Layers/README.md
+https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and
+    -convolutional-neural-networks-f40359318721
+https://github.com/tflearn/tflearn/tree/master/examples#tflearn-examples
+
+We need to give our neural network understanding of translation invariance
+— an “8” is an “8” no matter where in the picture it shows up.
+It understands translation invariance, where it recognizes an object as an
+    object, even when its appearance varies in some way.
+
+CNN architecture accomplishes two major tasks:
+    Feature extraction (convolution + pooling layers)
+    Classification (fully-connected layers).
+In general, the more convolution steps we have, the more complicated features
+    our network will be able to learn to recognize.
 
 kernel/filter: matrix to use in a convolutinal layer
     blur: de-emphasizes differences in adjacent pixel values.
@@ -694,6 +719,11 @@ kernel/filter: matrix to use in a convolutinal layer
     [ 0 -1  0]  [0.0625  0.125  0.0625]  [ 1  2  1]  [-2 -1  0]  [-1 -1 -1]
     [-1  5  1]  [0.1250  0.250  0.1250]  [ 0  0  0]  [-1  1  1]  [-1  8 -1]
     [ 0 -1  0]  [0.0625  0.125  0.0625]  [-1 -2 -1]  [ 0  1  2]  [-1 -1 -1]
+     Top edges   Buttom edges    Left edges  Right edges
+    [-1 -1 -1]  [ 0  0  0]      [-1  1  0]  [ 0  1 -1]
+    [ 1  1  1]  [ 1  1  1]      [-1  1  0]  [ 0  1 -1]
+    [ 0  0  0]  [-1 -1 -1]      [-1  1  0]  [ 0  1 -1]
+    
 Convolutional layer: apply one or several kernels/filters to a input image.
     First ConvLayer capture Low-Level features such as edges, color, gradient
     orientation, etc. Added layers, High-Level features as well
@@ -725,6 +755,9 @@ Architectures:
         Fully-Connected NN (with dropout)
             Output (y-classess)
     LeNet, AlexNet, VGGNet, GoogLeNet, ResNet, ZFNet.
+
+Input:
+    Tensor: (number of inputs)x(input height)x(input width)x(input channels).
 
 
 
