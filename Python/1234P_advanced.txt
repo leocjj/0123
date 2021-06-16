@@ -1,6 +1,144 @@
 
 
 *******************************************************************************
+                                PEP8 (STYLE)
+*******************************************************************************
+
+ClassNames
+ErrorExceptionNames
+variable_names
+function_names
+method_names
+CONSTANTS_NAMES
+packagenames
+module_names
+
+Trailing Commas is correct if put each value on a line by itself.
+Limit all lines to a maximum of 79 characters.
+Spaces are the preferred indentation method.
+
+# Correct:
+import os
+import sys
+from subprocess import Popen, PIPE
+put at the top of the file, just after any module comments and docstrings,
+    and before module globals and constants.
+Imports should be grouped in the following order:
+    Standard library imports.
+    Related third party imports.
+    Local application/library specific imports.
+You should put a blank line between each group of imports.
+
+income = (gross_wages
+          + taxable_interest
+          + (dividends - qualified_dividends))
+
+Core Python distribution code should use UTF-8 and no encoding declaration.
+
+# Add some extra indentation on the conditional continuation line.
+if (this_is_one_thing
+        and that_is_another_thing):
+    do_something()
+# Aligned with opening delimiter.
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+# Add 4 spaces (an extra indentation) to distinguish arguments from the rest.
+def long_function_name(
+        var_one, var_two, var_three,
+        var_four):
+    print(var_one)
+
+
+
+*******************************************************************************
+                            None vs NaN
+*******************************************************************************
+
+None define a null value, or no value at all.
+Missing values are NaN in numerical arrays and None in object arrays.
+    --> foo is None     instead of      foo == None
+
+np.nan in []np.nan]             # is true
+np.nan == np.nan                # is false
+np.nan is np.nan                # is true
+
+NaN cannot be equal to NaN because NaN is the result of a failure,
+    a failure can happen in multiple ways.
+
+== (Value equality)                 # EVALUATES VALUES
+    Ask if content of one variable is the sase as the content of another one.
+
+is (Reference identity)             # EVALUATES IDs
+    Ask if a variable is the same as another (share the same id-identity),
+    if two variables point to the same object. 
+    np.nan has one Id, always the same Id.
+
+In (container)                      # EVALUATES IDs THEN VALUES
+    Checks identity before checking equality. (x is y implies x = y)
+
+if boolean (if not boolean)         # EVALUATES IF TRUE/FALSE
+    Right way to evaluate boolean values. 
+    Avoid if boolean == True, if boolean is True
+
+if sequence (if not sequence)       # EVALUATES IF EMPTY/NOT EMPTY
+    For sequences (str, lists, tuples) use that empty sequences are false.
+    # Wrong: if len(seq):
+
+if v is None (if v is not None)     # EVALUATES IF IS NONE/NOT NONE
+    Comparisons to singletons like None should always be done with is/is not.
+
+
+
+
+float('nan') is float('nan')    # is false. Creates != objects with != ids
+float('nan') is np.nan          # is true.
+np.isnan(float('nan'))          # is true.
+pd.isna(float('nan'))           # is true.
+pd.isnull(float('nan'))         # is true.
+
+math.nan is float('nan')        # is false
+math.isnan(float('nan'))        # is true.
+math.nan is math.nan            # is true.
+math.nan is np.nan              # is false
+
+TypeError: 'float' object is no iterable --> can be because nan values in data.
+
+
+
+*******************************************************************************
+                        Pure functions vs Modifiers
+*******************************************************************************
+
+Side effects:
+    Modification of variables received as parameters (by reference).
+Pure function:
+    Receive parameters, don't have side effects, return values.
+Modifiers:
+    Receive parameters, have side effects, return values.
+
+
+
+*******************************************************************************
+                                Doctest
+*******************************************************************************
+
+def make_matrix(rows, columns):
+    """
+       >>> m = make_matrix(3, 5)
+       >>> m
+       [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+       >>> m[1][1] = 7
+       >>> m
+       [[0, 0, 0, 0, 0], [0, 7, 0, 0, 0], [0, 0, 0, 0, 0]]
+    """
+    # return [[0] * columns] * rows     # Failed
+    return [[0 for j in range(columns)] for i in range(rows)]
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
+
+*******************************************************************************
 
 https://docs.python.org/3/tutorial/index.html		# informal definition
 
@@ -142,6 +280,77 @@ Settings and Toggle on the Less Secure App Access Option.'''
 
 
 
+*******************************************************************************
+                            doctest
+*******************************************************************************
+
+def make_matrix(rows, columns):
+    """
+       >>> m = make_matrix(3, 5)
+       >>> m
+       [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+       >>> m[1][1] = 7
+       >>> m
+       [[0, 0, 0, 0, 0], [0, 7, 0, 0, 0], [0, 0, 0, 0, 0]]
+    """
+    return [[0 for j in range(columns)] for i in range(rows)]
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
+
+
+
+*******************************************************************************
+                                Packages
+*******************************************************************************
+
+Core:
+    Functions for: lists, iterators, types and meta-programming.
+    Types: convertion (numerics, sequences, mappings, classes, etc) to another,
+        comparisons, sorting, counting, etc.
+    Utilities: Dataclasses for working with Data Objects, gettext for handling
+        localization (l10n) and internationalization (i18n) of strings,
+        json for converting to/from JSON, etc.
+
+WebDev:
+    FW Django > Flask > Bottle
+    https://www.activestate.com/blog/
+        the-top-10-python-frameworks-for-web-development/
+    Data Analysis/Visualization:
+        Pandas for working with data
+        NumPy for working with arrays
+        matplotlib for plotting data.
+    ML: TensorFlow for modeling neural networks, Keras simplify TensorFlow,
+        and Scikit-Learn for working with algorithms.
+
+urllib3:    HTTP library with thread-safe connection pooling.
+certifi:    providing Mozilla’s Certificate Authority (CA) Bundle
+boto3:      Python implementation of the Amazon Web Services SDK
+Pytest:     simple unit test to a more complex functional test.
+Pywin32:    access to many of the native Windows API functions
+Pandas:     manipulate and analyze large sets of data
+statsmodels:
+Tkinter:    framework for GUIs. Binds Python to the TK GUI toolkit. wxPython.
+PyQT:       for building GUIs, heavier-duty GUI programming than Tkinter.
+Requests:   sends HTTP requests. HTTP clients.
+MoviePy:    videos. Common tasks, importing, modifying, and exporting.
+Pillow:     images. Common tasks, importing, modifying, and exporting.
+OpenCV:     images and videos. Mor advanced.
+Pendulum:   datetime replacement.
+
+https://www.activestate.com/blog/top-10-python-tools-to-make-your-life-easier/
+#1 Simple Web Frameworks with Flask
+#2 Web Scraping with Scrapy
+#3 API Calls with Requests
+#4 Command Line Packaging with Click
+#5 Automated Testing with Selenium
+#7 Generating Fake Data with Faker
+#10 Code Template Creation with CookieCutter
+
+6. Setuptools
+5. Docutils: The Documentation Utilities project exists to create a set of tools to easily process plaintext documents into more useful file formats such as HTML, XMS, or LaTeX.
+7. Pytest: Testing code fidelity 
 
 
 
