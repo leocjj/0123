@@ -1,3 +1,27 @@
+
+
+
+
+SOLID 
+    Single responsibility   principle (and should encapsulate that part)
+    Open/closed             principle (the solution is inheritance)
+    Liskov substitution     principle
+    Interface segregation   principle
+    Dependency inversion    principle
+
+Encapsulation
+    Each object maintains a private state, inside a class.
+Abstraction
+    Is an extension of encapsulation.
+    Select data from a larger pool to show only relevant details to the object.
+Inheritance
+    Ability of one object to acquire some/all properties of another object.
+Polymorphism
+    gives us a way to use a class exactly like its parent so there is no
+    confusion with mixing types.
+
+
+
 https://swaroop-c-h.gitbook.io/byte-of-python/
 https://github.com/swaroopch/byte-of-python
 
@@ -11,11 +35,6 @@ https://www.python-course.eu/python3_object_oriented_programming.php
 
 Everything is a class: functions and methods are values just like lists,
 integers or floats. Each of these are instances of their corresponding classes.
-
-    Encapsulation
-    Data Abstraction
-    Polymorphism
-    Inheritance
 
 
 
@@ -348,7 +367,7 @@ isinstance("Hello", (float, int, str, list, dict, tuple))
 
 issubclass() to check class inheritance.		INHERITS FROM
 issubclass(object, subclass)  True if the specified object is a subclass of the
-specified object, otherwise False. Subclass is class object, or a tuple.
+    specified object, otherwise False. Subclass is class object, or a tuple.
 issubclass(bool, int) is True since bool is a subclass of int.
 
 
@@ -479,9 +498,14 @@ for cls in [B, C, D]:
 Note that if the except clauses were reversed (with except B first), it would have printed B, B, B — the first matching except clause is triggered.
 
 When an error message is printed for an unhandled exception, the exception’s class name is printed, then a colon and a space, and finally the instance converted to a string using the built-in function str().
-9.9. Iterators
 
-By now you have probably noticed that most container objects can be looped over using a for statement:
+
+
+*******************************************************************************
+                                9.9. Iterators
+*******************************************************************************
+
+Most container objects can be looped over using a for statement:
 
 for element in [1, 2, 3]:
     print(element)
@@ -494,8 +518,12 @@ for char in "123":
 for line in open("myfile.txt"):
     print(line, end='')
 
-This style of access is clear, concise, and convenient. The use of iterators pervades and unifies Python. Behind the scenes, the for statement calls iter() on the container object. The function returns an iterator object that defines the method __next__() which accesses elements in the container one at a time. When there are no more elements, __next__() raises a StopIteration exception which tells the for loop to terminate. You can call the __next__() method using the next() built-in function; this example shows how it all works:
->>>
+for statement calls iter() on the container object.
+    function returns an iterator object that defines the method __next__()
+    which accesses elements in the container one at a time.
+When there are no more elements, __next__() raises a StopIteration exception
+    which tells the for loop to terminate.
+You can call the __next__() method using the next() built-in function;
 
 >>> s = 'abc'
 >>> it = iter(s)
@@ -513,7 +541,11 @@ Traceback (most recent call last):
     next(it)
 StopIteration
 
-Having seen the mechanics behind the iterator protocol, it is easy to add iterator behavior to your classes. Define an __iter__() method which returns an object with a __next__() method. If the class defines __next__(), then __iter__() can just return self:
+
+Having seen the mechanics behind the iterator protocol, it is easy to add
+    iterator behavior to your classes.
+Define an __iter__() method which returns an object with a __next__() method.
+If the class defines __next__(), then __iter__() can just return self:
 
 class Reverse:
     """Iterator for looping over a sequence backwards."""
@@ -528,8 +560,6 @@ class Reverse:
         self.index = self.index - 1
         return self.data[self.index]
 
->>>
-
 >>> rev = Reverse('spam')
 >>> iter(rev)
 <__main__.Reverse object at 0x00A1DB50>
@@ -541,10 +571,19 @@ a
 p
 s
 
-9.10. Generators
 
-Generators are a simple and powerful tool for creating iterators. They are written like regular functions but use the yield statement whenever they want to return data. Each time next() is called on it, the generator resumes where it left off (it remembers all the data values and which statement was last executed). An example shows that generators can be trivially easy to create:
 
+*******************************************************************************
+                            9.10. Generators
+*******************************************************************************
+
+Generators are a simple and powerful tool for creating iterators.
+They are written like regular functions but use the yield statement whenever
+they want to return data. Each time next() is called on it, the generator
+resumes where it left off (it remembers all the data values and which statement
+was last executed).
+
+# An example shows that generators can be trivially easy to create:
 def reverse(data):
     for index in range(len(data)-1, -1, -1):
         yield data[index]
@@ -559,14 +598,30 @@ l
 o
 g
 
-Anything that can be done with generators can also be done with class-based iterators as described in the previous section. What makes generators so compact is that the __iter__() and __next__() methods are created automatically.
+Anything that can be done with generators can also be done with class-based
+iterators as described in the previous section.
+What makes generators so compact is that the __iter__() and __next__() methods
+are created automatically.
 
-Another key feature is that the local variables and execution state are automatically saved between calls. This made the function easier to write and much more clear than an approach using instance variables like self.index and self.data.
+Another key feature is that the local variables and execution state are
+automatically saved between calls.
+This made the function easier to write and much more clear than an approach
+using instance variables like self.index and self.data.
 
-In addition to automatic method creation and saving program state, when generators terminate, they automatically raise StopIteration. In combination, these features make it easy to create iterators with no more effort than writing a regular function.
-9.11. Generator Expressions
+In addition to automatic method creation and saving program state,
+when generators terminate, they automatically raise StopIteration.
+In combination, these features make it easy to create iterators with no more
+effort than writing a regular function.
 
-Some simple generators can be coded succinctly as expressions using a syntax similar to list comprehensions but with parentheses instead of brackets. These expressions are designed for situations where the generator is used right away by an enclosing function. Generator expressions are more compact but less versatile than full generator definitions and tend to be more memory friendly than equivalent list comprehensions.
+
+
+*******************************************************************************
+                        9.11. Generator Expressions
+*******************************************************************************
+
+Simple generators use list comprehensions with parentheses instead of brackets.
+
+These expressions are designed for situations where the generator is used rightaway by an enclosing function. Generator expressions are more compact but less versatile than full generator definitions and tend to be more memory friendly than equivalent list comprehensions.
 
 Examples:
 >>>
