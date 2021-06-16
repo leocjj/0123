@@ -10,6 +10,7 @@ https://www.youtube.com/watch?v=Zs9u8TAv4_k
 
 https://www.w3schools.com/python/python_ref_functions.asp
 
+
 ***************************** Packages ****************************************
 pip list
 https://pypi.org/	//Python package index
@@ -216,7 +217,7 @@ os.write(2, b"spam\n")
 *******************************************************************************
 ****************************** ITERABLE & SECUENCES ***************************
 
-a = (x for x in [1,2,3])	//Iterable, one use, returns one bye one each
+a = (x for x in [1,2,3])	//Iterable, one use, returns one by one each
 							//element and then is empty.
 Object capable of returning its members one at a time.
 
@@ -371,10 +372,11 @@ zip(*iterables)	// Make an iterator that aggregates elements from each of the
 len(s)			// Return the length (the number of items) of an object.
 				of a sequence (such as a string, bytes, tuple, list, or range)
 				or a collection (such as a dictionary, set, or frozen set).
-max(iterable, *[, key, default])	// Return largest in an iterable
-max(arg1, arg2, *args[, key])		// Return largest of two+ arguments.
-min(iterable, *[, key, default])	// Return smallest in an iterable
-min(arg1, arg2, *args[, key])		// Return smallest of two+ arguments.
+max(iterable, *[, key=func, default])   // Return largest in an iterable
+max(arg1, arg2, ..., *args[, key])           // Return largest argument.
+min(iterable, *[, key, default])        // Return smallest in an iterable
+min(arg1, arg2, ..., *args[, key])      // Return smallest argument.
+    e.g. key=list1.count
 
 
 ****************************** MATH *******************************************
