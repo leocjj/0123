@@ -14,7 +14,7 @@ https://docs.python.org/3/library/stdtypes.html#string-methods
 
 
  str.capitalize()
-str.casefold
+ str.casefold
  str.center(width[, fillchar])
  str.count(sub[, start[, end]])¶
  str.encode(encoding="utf-8", errors="strict")¶
@@ -39,6 +39,7 @@ str.casefold
  str.replace(old, new[, count])¶
  str.split(sep=None, maxsplit=-1)¶	>>> '1,2,3'.split(',') --> ['1', '2', '3']
  str.splitlines([keepends])¶...
+ str.strip(sub=' ')             # Remove characters on the end of str.
  str.upper()¶
  str.zfill(width)¶
 
