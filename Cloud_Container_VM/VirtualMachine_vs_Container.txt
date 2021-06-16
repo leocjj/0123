@@ -1,0 +1,189 @@
+
+
+Multicore Procesing:                Multiple actual hardware
+Virtualization via VMs:             Multiple virtual hardware
+Virtualization via Containters:     Multiple virtual OSs
+
+
+*******************************************************************************
+                Virtualization (via Virtual machines)
+*******************************************************************************
+
+Virtual Machine:
+    Enable applications to run on virtual hardware
+    --> Better for: DB, monolitic systems, security develpments
+
++   cost, downtime, productivity, faster, continuity, simplified, availability.
+    Partitioning, isolation, encapsulation, hardware independence.
+-   reduced machine performance (run over hypervisors)
+    Size in order of Gigabytes
+
+Types:
+    Servers Virtualization
+    Network Virtualization
+    Aplication Virtualization
+    Storage Virtualization
+    Destop Virtualization
+
+Architecture:
+    Type 1 Native (bare metal):
+        Don't have Host OS, Hypervisore is directly over the infrastructure
+    
+    Type 2 Hosted:
+        App 1       App 2       App 3
+        Bins/Libs   Bins/Libs   Bins/Libs
+        Guest OS 1  Guest OS 2  Guest OS 3
+        VM1         VM1         VM1
+        ----------------------------------
+                    Hypervisor
+                    Host OS
+                    Infrastructure
+
+    Hypervisor needs bios habilitation.
+    Infrastructure can be a local PC, a server, a cloud.
+
+            ***************************************************
+            *** ONLY ENABLE ONE HYPERVISOR AT THE SAME TIME ***
+            ***************************************************
+
+Techniques:
+    Full virtualization: Type 2
+    Para-virtualizaton: guest OS are modified to access hardware directly.
+
+Hypervisors (Type 1-Native):
+    Xen
+    Kernel-based Virtual Machine (KVM)14​
+    Microsoft Hyper-V
+    VMware ESXi
+    Oracle VM Server15​.
+
+Hypervisors (Type 2-Hosted):
+    MS Hyper-V, MS Virtual Server
+    VirtualBox
+    VMware Workstation, VMware ESXi, VMware vSphere
+    KVM (Kernel-based Virtual Machine)
+    Xen17 (Type 1 hypervisor)
+    Oracle VM
+    redhat Linux
+
+Tools:
+    Vagrant HashiCorp: to create and manipulate virtual machines
+
+
+*******************************************************************************
+                Containerization (virtualization via containers)
+*******************************************************************************
+opencontainers.org
+https://insights.sei.cmu.edu/blog/virtualization-via-containers/
+
+Container
+    Enable applications to run on virtual operating systems.
+    Virtual runtime environment,
+    runs on top of a single operating system (OS) kernel,
+    emulates an operating system rather than the underlying hardware.
+
++ Portability, lightweight, isolation, speed, size in order of MB
+- Security if OS kernel has issues.
+
+Packaging mechanism, abstracted from the actual environment, decoupling.
+Container-based apps deployed easily and consistently independing of the env.
+
+Use linux kernel and put additional libraries needed.
+In windows, sw creates a VM with linux and then containers over.
+
+Containers:     docker, LXC, rkt
+Kubertenes:     for containers orchestation.
+Architecture:
+        App 1       App 2       App 3
+        Bins/Libs   Bins/Libs   Bins/Libs
+        Cont1       Cont2       Cont3
+        ----------------------------------
+          Container Engine (e.g. Docker)
+                       OS
+                 Infrastructure
+
+
+*******************************************************************************
+                            Cloud
+*******************************************************************************
+
+Virtual networks, Virtual Machines, Containers.
+
+GCP
+    Virtual Private Cloud
+    Compute Engine
+    Kubernetes Engine (GKE)
+
+Azure
+    Virtual Networks
+    Virtual Machines
+    Kubernetes Services
+
+AWS
+    Virtual Private Cloud (VPC)
+    Elactic Compute Cloud (EC2)
+    Eleactic Containers Services (ECS)
+
+
+*******************************************************************************
+                            Vagrant
+*******************************************************************************
+
+https://gitlab.com/cd-plus-ta-workshop/cicd/-/tree/master/vagrant-plus-docker
+https://gitlab.com/cd-plus-ta-workshop/cicd/-/tree/master/jenkins/vagrant
+
+https://docs.microsoft.com/en-us/troubleshoot/windows-client/
+    application-management/virtualization-apps-not-work-with-hyper-v
+https://downloadcenter.intel.com/download/28539
+
+Allow us to create, automate and manipulate virtual machines.
+
+1) Install VirtualBox       # It's a Hypervisor for Vagrant
+    https://www.virtualbox.org/wiki/Downloads
+    https://gitlab.com/cd-plus-ta-workshop/cicd/-/tree/master/
+        virtual-box-installers
+2) 'Turn Windows feature on or off' on your pc and disable Hyper-V function.
+Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor
+3) Install Vagrant:
+    https://www.vagrantup.com/downloads.html
+    $ vagrant --version
+4) Restart the pc.
+5) Start VM VirtualBox
+
+vagrant init            # Create Vagrantfile file empty
+vagrant box add 'box'   # Download a box to be used latter.
+                        # e.g. vagrant box add ubuntu/bionic64
+vagrant up              # Looks for a Vagrantfile in actual dir to create VM,
+                        # if not foud, goes up until home directory.
+
+Verify if the machine was created.
+    Go to Oracle VM VirtualBox program, the machine should appear there with
+    "docker-local-environment".
+
+vagrant ssh             # Connect with VM created
+
+vagrant box list        # List of available boxes
+
+vagrant reload
+vagrant provision
+
+vagrant halt
+vagrant destroy
+rm -r .vagrant/
+
+vagrantbox.es           # A lot of more (non official) boxes.
+
+# How to update node
+[sudo] npm install -g n         # In Ansible sudo is already set (check).
+[sudo] n <version-number>       # e.g. sudo n 10     or    sudo n lts
+n
+
+
+
+*******************************************************************************
+                            Configuration management
+*******************************************************************************
+
+Ansible, chef, pupet, ...
+
+
