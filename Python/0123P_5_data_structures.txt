@@ -154,7 +154,8 @@ which, in turn, is the same as:
 >>> transposed
 [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 
-In the real world, you should prefer built-in functions to complex flow statements. The zip() function would do a great job for this use case:
+In the real world, you should prefer built-in functions to complex flow
+statements. The zip() function would do a great job for this use case:
 >>>
 >>> list(zip(*matrix))
 [(1, 5, 9), (2, 6, 10), (3, 7, 11), (4, 8, 12)]
@@ -316,47 +317,37 @@ dict.get(key[, default])
 *******************************************************************************
 **************************** 5.6. Looping Techniques **************************
 
-When looping through dictionaries, the key and corresponding value can be
-retrieved at the same time using the items() method.
+DICTIONARIES, retrieve key and value at the same time with items().
+    knights = {'gallahad': 'the pure', 'robin': 'the brave'}
+    for k, v in knights.items():
+        print(k, v)	--> gallahad the pure --> robin the brave
 
-knights = {'gallahad': 'the pure', 'robin': 'the brave'}
-for k, v in knights.items():
-	print(k, v)	--> gallahad the pure --> robin the brave
+SEQUENCE, retrieve index an value at the same time with enumerate().
+    for i, v in enumerate(['tic', 'tac', 'toe']):
+        print(i, v)	--> 0 tic	--> 1 tac	--> 2 toe
 
-When looping through a sequence, the position index and corresponding value
-can be retrieved at the same time using the enumerate() function.
+SEQUENCES (two or more), pair entries with the zip().
+    >>> questions = ['name', 'quest', 'favorite color']
+    >>> answers = ['lancelot', 'the holy grail', 'blue']
+    >>> for q, a in zip(questions, answers):
+    ...     print('What is your {0}?  It is {1}.'.format(q, a))
+    What is your name?  It is lancelot.
+    What is your quest?  It is the holy grail.
+    What is your favorite color?  It is blue.
 
-for i, v in enumerate(['tic', 'tac', 'toe']):
-	print(i, v)	--> 0 tic	--> 1 tac	--> 2 toe
+SEQUENCE in reverse, specify in a forward and then call reversed().
+    >>> for i in reversed(range(1, 10, 2)):
+    ...     print(i)	-->  9  7  5  3  1
 
-To loop over two or more sequences at the same time, the entries can be paired
-with the zip() function.
-
->>> questions = ['name', 'quest', 'favorite color']
->>> answers = ['lancelot', 'the holy grail', 'blue']
->>> for q, a in zip(questions, answers):
-...     print('What is your {0}?  It is {1}.'.format(q, a))
-...
-What is your name?  It is lancelot.
-What is your quest?  It is the holy grail.
-What is your favorite color?  It is blue.
-
-To loop over a sequence in reverse, first specify the sequence in a forward direction and then call the reversed() function.
->>>
-
->>> for i in reversed(range(1, 10, 2)):
-...     print(i)	-->  9  7  5  3  1
-
-To loop over a sequence in sorted order, use the sorted() function which
-returns a new sorted list while leaving the source unaltered.
-
-basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
-for f in sorted(set(basket)):
-	print(f)	--> apple  banana  orange  pear
+SEQUENCE in sorted order, use sorted() leaving the source unaltered.
+    basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+    for f in sorted(set(basket)):
+        print(f)    --> apple  banana  orange  pear
 
 To change a sequence you are iterating over while inside the loop (for example
 to duplicate certain items), it is recommended that you first make a copy.
-Looping over a sequence does not implicitly make a copy. The slice notation makes this especially convenient:
+Looping over a sequence does not implicitly make a copy.
+The slice notation makes this especially convenient:
 
 words = ['cat', 'window', 'defenestrate']
 for w in words[:]:  # Loop over a slice copy of the entire list.
@@ -411,7 +402,9 @@ encountered in C programs: typing = in an expression when == was intended.
 
 
 *******************************************************************************
-************** 5.8. Comparing Sequences and Other Types ***********************
+                5.8. Comparing Sequences and Other Types
+*******************************************************************************
+
 
 Sequence objects may be compared to other objects with the same sequence type.
 The comparison uses lexicographical ordering: first the first two items are
@@ -446,6 +439,8 @@ Footnotes
 
 
 
+*******************************************************************************
+
 Iterable                Object capable of returning its members one at a time.
 Generator:              Function, returns generator iterator. Contains yield.
 Generator iterator:     Object created by a generator.
@@ -475,20 +470,20 @@ Index
                                                 use a.get(key)
  slice      a[i:j]      a[i:j]      a[i:j]      N/P             N/P
 
+Item
+ assignment N/P         a[i:J]='H'  N/P         a['key']='val'  N/P
+ delete     N/P         del a[i:J]  N/P         del a['key']    a -= {2}
+
 Iterable    a           a           a           a / a.keys      a
                                                 a.values()
                                                 a.items() #both as tuple
 
 Append      a+=b        a+=['H']    a+=(2,)     a['key']='val'  a |= {2}
-                        a.append(H)             N/P             a.add(2)
-
-Item
- assignment N/P         a[i:J]='H'  N/P         a['key']='val'  N/P
- delete     N/P         del a[i:J]  N/P         del a['key']    a -= {2}
+                        a.append(H) N/P       a.update({'k':1}) a.add(2)
 
 Length      len(a)      len(a)      len(a)      len(a)          len(a)
 Merge two   a.join(b)                           a.update(dic2)  a.update(b)
-                        [*l1, *l2]  =           =               =
+                        [*l1, *l2]  =           {**x, **y}      =
 
 Copies
 (ref.)      b=a  *P/U   b=a         b=a  *P/U   b=a             b=a
@@ -496,6 +491,7 @@ Copies
 i.e. clone)	N/P         b=a.copy()  N/P         b=a.copy()      b=a.copy()
                         b=a + []
                         b=list(a); b = [i for i in a]
+                        
 deepcopy                import copy; copy.deepcopy(a)
                         [subl[:] for subl in mat1] //deepcopy of sublists
 
@@ -507,10 +503,26 @@ N/P: Not Permited
 P/U: Permited but useless
 All built-in inmutable types are hashable
 
-for a,b in {'key': 1}.items():
+for a, b in {'key': 1}.items():
 ...  print(a,b)
 
-a, b = b, a        //Swap two variables
+a, b = b, a                     # Swap two variables
+
+words = ["Hello", "world"]
+sentence = " ".join(words)      # Use " " as word separator.
+
+[8.2]*1000                      # List of 1000 8.2's
+[[0] * cols] * rows             # Duplicate rows by reference.
+
+test = [1,2,3,4,2,2,3,1,4,4,4]
+max(set(test), key=test.count)  # Most frequent element. Iterate set in count.
+
+sys.getsizeof(x)                # Memory usage of object x.
+
+[:, :, :, 0], […, 0] and [Ellipsis, 0] are all equivalent.
+def foo(x: ...) -> None:        # Argument type is assumed as type: Any
+‘pass’ replaced by ‘…’ or ‘Ellipsis’.
+def foo(x = ...):
 
 
 *********************** copy **************************************************
