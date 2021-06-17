@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"math/rand"
-	"time"
 )
 
 func power(base float64, expo float64) (float64, float64, float64) {
@@ -14,6 +12,7 @@ func power(base float64, expo float64) (float64, float64, float64) {
 }
 
 func main() {
+	/*
 	now := time.Now()
 	fmt.Println(now)
 	n := 2548
@@ -60,4 +59,23 @@ func main() {
 	var f, g, h = power(12, 2)
 	fmt.Printf("%0.2f %.0f %.2f", f, g, h)
 	fmt.Printf("%T %v %.2f", f, g, h)	// Type and value
+
+	log.Printf("a")
+	*/
+	var myVar struct{
+		flag1, flag2	bool
+		i, j, k			int16
+		pyNumber		float32
+	}
+
+	fmt.Printf("Struct element: %v\n", myVar)
+
+	var myVar2 struct {
+		flag1		bool
+		ii			int16
+	}
+
+	fmt.Printf("Struct element: %v\n", myVar2.flag1)
+
+
 }
