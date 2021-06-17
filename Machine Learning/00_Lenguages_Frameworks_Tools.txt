@@ -20,10 +20,10 @@ MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
                     Matplotlib, ggplot2,
                     Numpy -> Pandas(FW)
                      |-> scipy.weave, numexpr, Numba
-                    SciPy -> Scikit-learn
+                    SciPy (lin.alg, stats, etc) -> Scikit-learn
                     Flask(FW), Django(FW)
                     seaborn (stat visualization), statsmodels
-DEEP LEARNING:      TensorFlow (FW) -> Keras(FW)
+DEEP LEARNING:      TensorFlow (FW) -> Keras(FW) -> tflearn.org
                     Torch / PyTorch(FW)
                     MS CNTK, FB Caffe2, Amazon MxNet, format ONNX,
 BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW), XGBoost
@@ -47,6 +47,7 @@ Image sets:         http://yann.lecun.com/exdb/mnist/
 Cloud:              gradient.paperspace.com/free-gpu
                     cloud.google.com/automl
                     colab.research.google.com/
+                    datastudio.google.com/
                     www.ibm.com/cloud/watson-studio
                     www.datagran.io/
                     cloud.databricks.com   # apache spark cluster, notebooks...
