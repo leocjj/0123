@@ -1,5 +1,29 @@
 
-ssh c9054ac4e8b0@19.hbtn-cod.io	93c94e9b1f530aa4cfdc
+https://www.w3schools.com/sql/default.asp
+https://www.techbeamers.com/sql-query-questions-answers-for-practice/#sql-scripts
+
+RDBMS
+    Stands for Relational Database Management System(i.e. SQL Server, MySQL)
+    Data: is stored in database objects called tables.
+    Table: collection of related data entries consists
+        Columns = fields
+        Rows = records
+
+Some of The Most Important SQL Commands
+    SELECT          - extracts data from a database
+    UPDATE          - updates data in a database
+    DELETE          - deletes data from a database
+    INSERT INTO     - inserts new data into a database
+
+    CREATE DATABASE - creates a new database
+    ALTER DATABASE  - modifies a database
+
+    CREATE TABLE    - creates a new table
+    ALTER TABLE     - modifies a table
+    DROP TABLE      - deletes a table
+
+    CREATE INDEX    - creates an index (search key)
+    DROP INDEX      - deletes an index
 
 
 *******************************************************************************
@@ -8,78 +32,87 @@ GUI for MySQL: https://tableplus.com/linux
 
 https://dev.mysql.com/doc/refman/5.7/en/sql-statements.html
 
-********************************************************************************
-				INSTALATION
-********************************************************************************
+*******************************************************************************
+                                INSTALATION
+*******************************************************************************
+
+(SEE 0123_Docker.txt for MySQL container)
+https://dev.mysql.com/downloads/workbench/
 
 echo 'deb http://repo.mysql.com/apt/ubuntu/ trusty mysql-5.7-dmr' |
-	sudo tee -a /etc/apt/sources.list
+    sudo tee -a /etc/apt/sources.list
 sudo apt-get update
 
-sudo apt-get install mysql-server-5.7		// Specific version in Ubuntu
-sudo apt-get install mysql-server			// Last version in Ubuntu
-sudo yum install mysql-server				// In centos
+sudo apt-get install mysql-server-5.7        // Specific version in Ubuntu
+sudo apt-get install mysql-server            // Last version in Ubuntu
+sudo yum install mysql-server                // In centos
 /etc/init.d/mysqld start
 
-systemctl restart sshd.service				// On CentOS7/RHEL7
-service sshd restart						// on CentOS5/6/RHEL5/6/ :
+systemctl restart sshd.service                // On CentOS7/RHEL7
+service sshd restart                        // on CentOS5/6/RHEL5/6/ :
 
 service mysql start
 
 mysql --version
   mysql  Ver 14.14 Distrib 5.7.8-rc, for Linux (x86_64) using  EditLine wrapper
 
-default user:	root
-default pass:	pass_created_at_installation_of_mysql
+default user:    root
+default pass:    pass_created_at_installation_of_mysql
 
-mysql -u root -p							// Access MySQL Shell, ask for pass
-mysql -uroot -proot							// The same
+mysql -u root -p                            // Access MySQL Shell, ask for pass
+mysql -uroot -proot                            // The same
 mysql --user=root --password=root
 mysql -hlocalhost -uroot -p
 
 sudo apt-get remove --purge mysql-server mysql-client mysql-common
 
 
-************************ ROOT PASSWORD RESET ***********************************
+
+*******************************************************************************
+                            ROOT PASSWORD RESET
+*******************************************************************************
 
 https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for
-	-user-rootlocalhost
+    -user-rootlocalhost
 
 ***
-If password is missing		IT WORKS!!!!
-	service mysql stop
-	sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking
-	sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking
-	service mysql start
-	mysql -u root
-	FLUSH PRIVILEGES;
-	ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+If password is missing        IT WORKS!!!!
+    service mysql stop
+    sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking
+    sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking
+    service mysql start
+    mysql -u root
+    FLUSH PRIVILEGES;
+    ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
 
 ***
 sudo apt-get remove --purge mysql-server mysql-client mysql-common
 
 ***
-[service mysql start]			// in a container
+[service mysql start]            // in a container
 
 ***
-$ sudo mysql -u root 	# I had to use "sudo" since is new installation
-	mysql> USE mysql;
-	mysql> UPDATE user SET plugin='mysql_native_password' WHERE User='root';
-	mysql> FLUSH PRIVILEGES;
-	mysql> exit;
+$ sudo mysql -u root     # I had to use "sudo" since is new installation
+    mysql> USE mysql;
+    mysql> UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+    mysql> FLUSH PRIVILEGES;
+    mysql> exit;
 $ service mysql restart
 
-mysql -hlocalhost -uroot -p		//Connect to your MySQL server:
+mysql -hlocalhost -uroot -p        //Connect to your MySQL server:
 
 
-********************************** NEW USER ************************************
+
+*******************************************************************************
+                                NEW USER
+*******************************************************************************
 
 SHOW GRANTS FOR user_0d_1@localhost;
 
-	CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';	// provide access
-					// asterisks to database and table
-FLUSH PRIVILEGES;	// Reload all the privileges.
+    CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';    // provide access
+                    // asterisks to database and table
+FLUSH PRIVILEGES;    // Reload all the privileges.
 
 CREATE USER IF NOT EXISTS user_0d_1@localhost;
 SET PASSWORD FOR user_0d_1@localhost = 'user_0d_1_pwd';
@@ -88,16 +121,20 @@ FLUSH PRIVILEGES;
 
 GRANT select, insert ON customers TO webuser;
 
-SELECT user, Repl_slave_priv FROM mysql.user;	// to check users/privileges
+SELECT user, Repl_slave_priv FROM mysql.user;    // to check users/privileges
 
 
-********************************** PERMISSIONS *********************************
+
+*******************************************************************************
+                                PERMISSIONS
+*******************************************************************************
+
 https://dev.mysql.com/doc/refman/5.7/en/privileges-provided.html
 
 common possible permissions that users can enjoy.
 
     ALL PRIVILEGES- allow a MySQL user full access to a designated database
-		(or if no database is selected, global access across the system)
+        (or if no database is selected, global access across the system)
     CREATE- allows them to create new tables or databases
     DROP- allows them to them to delete tables or databases
     DELETE- allows them to delete rows from tables
@@ -110,59 +147,70 @@ GRANT permission_type ON database_name.table_name TO ‘username’@'localhost�
 
 REVOKE permission_type ON database_name.table_name FROM ‘username’@‘localhost’;
 
-SHOW GRANTS FOR user_0@localhost;	// review a user’s permissions
+SHOW GRANTS FOR user_0@localhost;    // review a user’s permissions
 
-DROP USER ‘username’@‘localhost’;	//	
+DROP USER ‘username’@‘localhost’;    //    
 
 
 Table 6.2 Permissible Privileges for GRANT and REVOKE
-Privilege 				Grant Table Column 		Context
-ALL [PRIVILEGES]	 	= “all privileges” 		Server administration
-ALTER 					Alter_priv 				Tables
-ALTER ROUTINE			Alter_routine_priv 		Stored routines
-CREATE 					Create_priv 			Databases, tables, or indexes
-CREATE ROUTINE 			Create_routine_priv 	Stored routines
-CREATE TABLESPACE 		Create_tablespace_priv 	Server administration
-CREATE TEMPORARY TABLES Create_tmp_table_priv 	Tables
-CREATE USER 			Create_user_priv 		Server administration
-CREATE VIEW 			Create_view_priv 		Views
-DELETE 					Delete_priv 			Tables
-DROP 					Drop_priv 				Databases, tables, or views
-EVENT 					Event_priv 				Databases
-EXECUTE 				Execute_priv 			Stored routines
-FILE 					File_priv 				File access on server host
-GRANT OPTION 			Grant_priv 		Databases, tables, or stored routines
-INDEX 					Index_priv 	T			ables
-INSERT 					Insert_priv 			Tables or columns
-LOCK TABLES 			Lock_tables_priv 		Databases
-PROCESS 				Process_priv 			Server administration
-PROXY 					See proxies_priv table 	Server administration
-REFERENCES 				References_priv 		Databases or tables
-RELOAD 					Reload_priv 			Server administration
-REPLICATION CLIENT 		Repl_client_priv 		Server administration
-REPLICATION SLAVE 		Repl_slave_priv 		Server administration
-SELECT 					Select_priv 			Tables or columns
-SHOW DATABASES			Show_db_priv 			Server administration
-SHOW VIEW 				Show_view_priv 			Views
-SHUTDOWN				Shutdown_priv 			Server administration
-SUPER 					Super_priv 				Server administration
-TRIGGER					Trigger_priv 			Tables
-UPDATE 					Update_priv 			Tables or columns
-USAGE 					Syn “no privileges” 	Server administration
+Privilege                Grant Table Column     Context
+ALL [PRIVILEGES]        = “all privileges”      Server administration
+ALTER                   Alter_priv              Tables
+ALTER ROUTINE           Alter_routine_priv      Stored routines
+CREATE                  Create_priv             Databases, tables, or indexes
+CREATE ROUTINE          Create_routine_priv     Stored routines
+CREATE TABLESPACE       Create_tablespace_priv  Server administration
+CREATE TEMPORARY TABLES Create_tmp_table_priv   Tables
+CREATE USER             Create_user_priv        Server administration
+CREATE VIEW             Create_view_priv        Views
+DELETE                  Delete_priv             Tables
+DROP                    Drop_priv               Databases, tables, or views
+EVENT                   Event_priv              Databases
+EXECUTE                 Execute_priv            Stored routines
+FILE                    File_priv               File access on server host
+GRANT OPTION            Grant_priv              Databases, tables, or stored routines
+INDEX                   Index_priv              Tables
+INSERT                  Insert_priv             Tables or columns
+LOCK TABLES             Lock_tables_priv        Databases
+PROCESS                 Process_priv            Server administration
+PROXY                   See proxies_priv table  Server administration
+REFERENCES              References_priv         Databases or tables
+RELOAD                  Reload_priv             Server administration
+REPLICATION CLIENT      Repl_client_priv        Server administration
+REPLICATION SLAVE       Repl_slave_priv         Server administration
+SELECT                  Select_priv             Tables or columns
+SHOW DATABASES          Show_db_priv            Server administration
+SHOW VIEW               Show_view_priv          Views
+SHUTDOWN                Shutdown_priv           Server administration
+SUPER                   Super_priv              Server administration
+TRIGGER                 Trigger_priv            Tables
+UPDATE                  Update_priv             Tables or columns
+USAGE                   Syn “no privileges”     Server administration
 
-*********************************** SCRIPTS ************************************
+
+
+*******************************************************************************
+                                 SCRIPTS
+*******************************************************************************
 
 -- comment line
+/* comment several lines */
 
-cat script.sql | mysql -uroot -p my_database		// RUN SQL SCRIPT
+cat script.sql | mysql -uroot -p my_database        // RUN SQL SCRIPT
 cat script.sql | mysql -hlocalhost -uroot -p [data_base_name]
 
 mysql -uholberton_user -p -e "use tyrell_corp; select * from nexus6"
 
 echo "CREATE DATABASE hbtn_0d_tvshows;" | mysql -uroot -p
-curl "https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/274/hbtn_0d_tvshows.sql" -s | mysql -uroot -p hbtn_0d_tvshows
+curl "https://s3.amazonaws.com/intranet-projects-files/
+    holbertonschool-higher-level_programming+/274/hbtn_0d_tvshows.sql" -s |
+    mysql -uroot -p hbtn_0d_tvshows
 
-******************************* BASIC COMMANDS *********************************
+
+
+*******************************************************************************
+                         EXAMPLE COMMANDS SEQUENCE
+*******************************************************************************
 
 CREATE DATABASE tyrell_corp;
 USE tyrell_corp;
@@ -173,23 +221,23 @@ GRANT SELECT ON tyrell_corp.nexus6 TO 'holberton_user'@'localhost';
 SHOW DATABASES;
 CREATE DATABASE IF NOT EXISTS hbtn_0;
 DROP DATABASE IF EXISTS hbtn_0;
-USE database_name;					// Changes context to the specified database
+USE database_name;                    // Changes context to the specified database
 
 SHOW TABLES;
 CREATE TABLE IF NOT EXISTS first_table(id INT, name VARCHAR(256) NOT NULL);
 CREATE TABLE IF NOT EXISTS id_not_null(id INT DEFAULT 1, name VARCHAR(256));
 CREATE TABLE potluck (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
-	name VARCHAR(20),
-	confirmed CHAR(1),
-	signup_date DATE);
-SHOW CREATE TABLE first_table;		// Show table, code to create.
-DESCRIBE first_table;				// NICE DESCRIPTIONS OF A TABLE
+    name VARCHAR(20),
+    confirmed CHAR(1),
+    signup_date DATE);
+SHOW CREATE TABLE first_table;        // Show table, code to create.
+DESCRIBE first_table;                // NICE DESCRIPTIONS OF A TABLE
 
 SELECT * FROM first_table;
 INSERT INTO `first_table` (id, name) VALUES (89, "Holberton School");
 
 SELECT * FROM first_table WHERE id=89;
-SELECT COUNT(*) FROM first_table WHERE id=89;	// How many rows are.
+SELECT COUNT(*) FROM first_table WHERE id=89;    // How many rows are.
 SELECT score, name FROM second_table ORDER BY score DESC;
 SELECT score, name FROM second_table ORDER BY score ASC, name DESC;
 SELECT score, name FROM second_table WHERE score >= 10 ORDER BY score DESC;
@@ -202,7 +250,7 @@ DELETE FROM t WHERE score <= 5;
 DELETE FROM t WHERE code IS NULL;
 
 *** add/drop columns/fields ***
-ALTER TABLE t ADD email VARCHAR(40);			// Add column at the end.
+ALTER TABLE t ADD email VARCHAR(40);            // Add column at the end.
 ALTER TABLE t ADD email VARCHAR(40) AFTER name; // Add column after name col.
 ALTER TABLE t DROP email;
 
@@ -216,14 +264,201 @@ select id
      , phone
      , location
   from Directory
- WHERE lastname LIKE BINARY 'M%'		// BINARY for case
+ WHERE lastname LIKE BINARY 'M%'        // BINARY for case
  order
     by lastname
      , firstname
 
 https://dev.mysql.com/doc/refman/5.7/en/cast-functions.html#operator_binary
 
-**************************** ADVANCED COMMANDS *********************************
+
+
+*******************************************************************************
+                                  BASIC COMMANDS
+*******************************************************************************
+
+cols:   means column_name_1, column_name_2, ...     or *
+col:    means column_name
+
+SELECT col, col2, ...           FROM table_name;
+SELECT *                        FROM Customers;
+SELECT DISTINCT col1, col2, ... FROM table_name;
+SELECT COUNT(DISTINCT Country)  FROM Customers;
+SELECT COUNT(*)                 FROM (SELECT DISTINCT Country FROM Customers);
+
+
+WHERE
+    =, >, <, >=, <=, <> Not equal, in some SQL versions is !=
+    SELECT cols     FROM table_name     WHERE condition;
+    SELECT *        FROM Customers      WHERE CustomerID = 1;
+    SELECT *        FROM Customers      WHERE Country = 'Mexico';
+
+BETWEEN     Selects values within a given range.
+    NOT BETWEEN  inverted selection
+    The values can be numbers, text, or dates.  Operator is inclusive.
+    SELECT cols     FROM table_name     WHERE col       BETWEEN val1 AND val2;
+    SELECT *        FROM Products       WHERE Price     BETWEEN 40 AND 60;
+    SELECT *        FROM Orders         WHERE OrderDate
+        BETWEEN #07/01/1996# AND #07/31/1996#;
+        BETWEEN '1996-07-01' AND '1996-07-31';
+
+LIKE        Used in a WHERE clause to search for a specified pattern
+    NOT LIKE  inverted selection
+    %   zero or more characters	bl% finds bl, black, blue, and blob.
+    _   a single character	h_t finds hot, hat, and hit.
+    []  any single character within [].  h[oa]t finds hot and hat, but not hit.
+    ^   any character not in [].  h[^oa]t finds hit, but not hot and hat.
+    -   a range of characters	c[a-b]t finds cat and cbt.
+    SELECT col1, col2, ...  FROM table_name     WHERE columnN   LIKE pattern;
+    SELECT *                FROM Customers      WHERE City      LIKE '%s%';
+
+IN          To specify multiple possible values for a column
+    NOT IN  inverted selection
+    SELECT cols     FROM table_name     WHERE col   IN (val1, val2, ...);
+    SELECT cols     FROM table_name     WHERE col   IN (SELECT STATEMENT);
+    SELECT *        FROM Customers      WHERE City  IN ('Paris','Cali');
+
+NOT
+    SELECT col1, col2, ...  FROM table_name     WHERE NOT condition;
+    SELECT *                FROM Customers      WHERE NOT City = 'Berlin';
+
+AND
+    SELECT col1, col2, ...  FROM table_name WHERE cond1 AND cond2 AND cond3 ..;
+
+OR
+    SELECT col1, col2, ...  FROM table_name WHERE cond1 OR cond2 OR cond3 ..;
+
+NULL
+    SELECT col1, col2, ...  FROM table_name WHERE column_name   IS NULL;
+    SELECT col1, col2, ...  FROM table_name WHERE column_name   IS NOT NULL;
+
+ORDER BY
+    SELECT col1, col2, ...  FROM table_name ORDER BY col1, col2, ... ASC|DESC;
+    SELECT *           FROM Customers  ORDER BY Country ASC, CustomerName DESC;
+
+
+INSERT INTO table_name
+    (cols_tuple) VALUES (val_tuple);
+
+UPDATE      table_name
+    SET col1 = val1, col2 = val2, ...
+    WHERE condition;
+
+DELETE FROM table_name
+    WHERE condition;
+
+
+
+*******************************************************************************
+                                FUNCTIONS
+*******************************************************************************
+
+TOP - SQL Server
+    SELECT TOP number [PERCENT] cols    FROM table_name     WHERE condition;
+TOP - MySQL
+    SELECT cols     FROM table_name     WHERE condition     LIMIT number;
+
+MIN - returns the smallest value of the selected column.
+MAX - returns the largest value of the selected column.
+COUNT - returns the number of rows that matches a specified criterion.
+AVG   - returns the average value of a numeric column.
+SUM   - returns the total sum of a numeric column. 
+    SELECT MIN(col)                     FROM table_name     WHERE condition;
+        SELECT MIN(Price) AS SmallestPrice  FROM Products;
+    SELECT MAX(col)                     FROM table_name     WHERE condition;
+    SELECT COUNT(col)                   FROM table_name     WHERE condition;
+    SELECT AVG(col)                     FROM table_name     WHERE condition;
+    SELECT SUM(col)                     FROM table_name     WHERE condition;
+Note: NULL values are ignored.
+
+
+
+*******************************************************************************
+                                ALIASES
+*******************************************************************************
+
+Aliases can be useful when:
+    There are more than one table involved in a query
+    Functions are used in the query
+    Column names are big or not very readable
+    Two or more columns are combined together
+
+    Give a table, or a column in a table, a temporary name.
+    Make column names more readable.
+    Only exists for the duration of that query.
+    Double quotation marks or square brackets if the alias name contains spaces
+
+Alias Column Syntax
+    SELECT column_name AS alias_name    FROM table_name;
+
+Alias Table Syntax
+    SELECT column_name(s)               FROM table_name AS 'alias name';
+    SELECT o.OrderID, o.OrderDate, c.CustomerName
+    FROM Customers AS c, Orders AS o
+    WHERE c.CustomerName='Around the Horn' AND c.CustomerID=o.CustomerID;
+
+SELECT CustomerName, Address + ', ' + PostalCode + ' ' + City + ', ' + Country
+    AS Address  FROM Customers;
+SELECT CustomerName, CONCAT(Address,', ',PostalCode,', ',City,', ',Country)
+    AS Address  FROM Customers;
+
+
+
+*******************************************************************************
+                                JOINS
+*******************************************************************************
+
+Joins of tables t1 and t2.
+Warning if columns have NULL, this don't join with other values or with NULL,
+    except if IS NULL o IS NOT NULL are used.
+
+INNER JOIN:
+    t1 intersect t2
+    Records that have matching values in both tables
+        SELECT cols     FROM t1 INNER JOIN t2     ON t1.col1 = t2.col1;
+        SELECT cols     FROM t1, t2            WHERE t1.col1 = t2.col1;
+    INNER JOIN - 3 tables
+        SELECT cols     FROM (  (t1 INNER JOIN t2 ON t1.col1 = t2.col1)
+                                    INNER JOIN t3 ON t1.col2 = t3.col2);
+
+LEFT (OUTER) JOIN
+    t1 + INNER JOIN
+    Join ALL values from left table (t1) with the correspondent values in
+        right table (t2) even if there is no correspondence.
+        NULL in fields without correspondence.
+        SELECT cols     FROM t1 LEFT JOIN t2        ON t1.col1 = t2.col1;
+
+LEFT (OUTER) JOIN - Exclusive
+    t1 - INNER JOIN
+        SELECT cols     FROM t1 LEFT JOIN t2        ON t1.col1 = t2.col1
+            WHERE t2.col1 IS NULL;
+
+RIGHT (OUTER) JOIN
+    t2 + INNER JOIN
+        SELECT cols     FROM t1 RIGHT JOIN t2       ON t1.col1 = t2.col1;
+
+RIGHT (OUTER) JOIN - Exclusive
+    t2 - INNER JOIN
+        SELECT cols     FROM t1 RIGHT JOIN t2       ON t1.col1 = t2.col1
+            WHERE t1.col1 IS NULL;
+
+FULL (OUTER) JOIN
+    t1 + INNER JOIN + t2
+        SELECT cols    FROM t1 FULL OUTER JOIN t2   ON t1.col1 = t2.col1
+
+FULL (OUTER) JOIN - Exclusive
+    t1 - INNER JOIN + t2
+        SELECT cols    FROM t1 FULL OUTER JOIN t2   ON t1.col1 = t2.col1
+            WHERE (t1.col1 IS NULL)  OR  (t2.col1 is NULL)
+
+CROSS JOIN
+    Cartesian product between registres from both tables.
+        SELECT *        FROM empleado CROSS JOIN departamento
+        SELECT *        FROM empleado, departamento;
+
+*******************************************************************************
+                                ADVANCED COMMANDS
+*******************************************************************************
 
 ALTER DATABASE hbtn_0c_0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 ALTER TABLE hbtn_0c_0.first_table CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -239,7 +474,7 @@ SELECT state, MAX(value) AS max_temp FROM temperatures GROUP BY state ORDER BY s
 
 
 *******************************************************************************
-					List of all MySQL commands:
+                            List of all MySQL commands:
 *******************************************************************************
 
 Note that all text commands must be first on line and end with ';'
@@ -274,7 +509,7 @@ For server side help, type 'help contents'
 
 
 *******************************************************************************
-					:
+                    :
 *******************************************************************************
 
 https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/queries.php
@@ -300,9 +535,8 @@ SELECT cities.id, cities.name, states.name FROM cities JOIN states ON cities.sta
 
 
 *******************************************************************************
-				Master-Slave
+                                Master-Slave
 *******************************************************************************
-
 
 https://www.digitalocean.com/community/tutorials/how-to-choose-a-redundancy-plan-to-ensure-high-availability#sql-replication
 
@@ -317,13 +551,16 @@ Each server can accept writes and updates and will transfer the changes to
 the opposite server. Also benefits from increased write performance if the
 writes are properly distributed by a load balancing mechanism.
 
-https://www.digitalocean.com/community/tutorials/how-to-set-up-master-slave-replication-in-mysql
-https://www.digitalocean.com/community/tutorials/how-to-configure-mysql-group-replication-on-ubuntu-16-04
+https://www.digitalocean.com/community/tutorials/
+    how-to-set-up-master-slave-replication-in-mysql
+https://www.digitalocean.com/community/tutorials/
+    how-to-configure-mysql-group-replication-on-ubuntu-16-04
 
 
-								***
-Make sure that UFW is allowing connections on port 3306 (default MySQL port) otherwise replication will not work.
-								***
+                                ***
+Make sure that UFW is allowing connections on port 3306 (default MySQL port)
+    otherwise replication will not work.
+                                ***
 
 Setup
 
@@ -334,40 +571,40 @@ sudo apt-get install mysql-server mysql-client
 
 *** On the master ***
 
-sudo nano	/etc/mysql/my.cnf
-			/etc/mysql/mysql.conf.d/mysqld.cnf
-	bind-address = 127.0.0.1   -->   bind-address = 12.34.56.789
-	server-id = 1		// Asign nique number
-	// The slave is going to copy all of the changes registered in the log.
-	log_bin = /var/log/mysql/mysql-bin.log
-	// designate db that will be replicated on the slave server
-	// include more than one database by repeating this line
-	binlog_do_db = newdatabase	
+sudo nano    /etc/mysql/my.cnf
+            /etc/mysql/mysql.conf.d/mysqld.cnf
+    bind-address = 127.0.0.1   -->   bind-address = 12.34.56.789
+    server-id = 1        // Asign nique number
+    // The slave is going to copy all of the changes registered in the log.
+    log_bin = /var/log/mysql/mysql-bin.log
+    // designate db that will be replicated on the slave server
+    // include more than one database by repeating this line
+    binlog_do_db = newdatabase    
 sudo service mysql restart
 mysql -u root -p
-	GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'%' IDENTIFIED BY 'password';
-	FLUSH PRIVILEGES;
+    GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'%' IDENTIFIED BY 'password';
+    FLUSH PRIVILEGES;
 
 // IN OTHER WINDOW
 // If you make any new changes in the same window, the database will
 // automatically unlock. For this reason, you should open the new tab or
 // window and continue with the next steps there.
 mysql -u root -p
-	USE newdatabase;
-	FLUSH TABLES WITH READ LOCK;	// lock db to prevent any new changes
-	SHOW MASTER STATUS;				// take note of Position number (306)
+    USE newdatabase;
+    FLUSH TABLES WITH READ LOCK;    // lock db to prevent any new changes
+    SHOW MASTER STATUS;                // take note of Position number (306)
 // with db still locked, export database using mysqldump in the new window.
 mysqldump -u root -p --opt newdatabase > newdatabase.sql
 
 // IN ORIGINAL WINDOW (returning to)
-	UNLOCK TABLES;
+    UNLOCK TABLES;
 
 mysqldump [options] [db_name [tbl_name ...]]
-	performs logical backups, producing a set of SQL statements that can
-	be executed to reproduce the original database object definitions and
-	table data. It dumps one or more MySQL databases for backup or
-	transfer to another SQL server. The mysqldump command can also
-	generate output in CSV, other delimited text, or XML format.
+    performs logical backups, producing a set of SQL statements that can
+    be executed to reproduce the original database object definitions and
+    table data. It dumps one or more MySQL databases for backup or
+    transfer to another SQL server. The mysqldump command can also
+    generate output in CSV, other delimited text, or XML format.
 
 *** On the slave ***
 
@@ -375,43 +612,44 @@ Log into your slave server
 open up the MySQL shell and create the new database that you will be
 replicating from the master (then exit):
 mysql -u root -p
-	CREATE DATABASE newdatabase;
-mysql -u root -p newdatabase < /path/to/newdatabase.sql		// Import db
+    CREATE DATABASE newdatabase;
+mysql -u root -p newdatabase < /path/to/newdatabase.sql        // Import db
 
-sudo nano	/etc/mysql/my.cnf
-			/etc/mysql/mysql.conf.d/mysqld.cnf
-	server-id = 2
-	relay-log = /var/log/mysql/mysql-relay-bin.log
-	log_bin = /var/log/mysql/mysql-bin.log
-	binlog_do_db = newdatabase
+sudo nano    /etc/mysql/my.cnf
+            /etc/mysql/mysql.conf.d/mysqld.cnf
+    server-id = 2
+    relay-log = /var/log/mysql/mysql-relay-bin.log
+    log_bin = /var/log/mysql/mysql-bin.log
+    binlog_do_db = newdatabase
 sudo service mysql restart
 
 mysql -u root -p
-	CHANGE MASTER TO	MASTER_HOST='12.34.56.789',
-						MASTER_USER='slave_user',
-						MASTER_PASSWORD='password',
-						MASTER_LOG_FILE='mysql-bin.000001',
-						MASTER_LOG_POS=  107;
-	START SLAVE;
-	SHOW SLAVE STATUS\G
-	SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; SLAVE START; 
+    CHANGE MASTER TO    MASTER_HOST='12.34.56.789',
+                        MASTER_USER='slave_user',
+                        MASTER_PASSWORD='password',
+                        MASTER_LOG_FILE='mysql-bin.000001',
+                        MASTER_LOG_POS=  107;
+    START SLAVE;
+    SHOW SLAVE STATUS\G
+    SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1; SLAVE START; 
 
-								***
+                                ***
 https://bobcares.com/blog/ufw-mysql/
 Make sure that UFW is allowing connections on port 3306 (default MySQL port) otherwise replication will not work.
-	sudo netstat -plutn | grep 3306
-	sudo ufw allow mysql
-	sudo ufw status
-								***
+    sudo netstat -plutn | grep 3306
+    sudo ufw allow mysql
+    sudo ufw status
+                                ***
 
 
 
 *******************************************************************************
-				Backup-Restore
+                            Backup-Restore
 *******************************************************************************
 
 
-https://www.databasejournal.com/features/mssql/developing-a-sql-server-backup-strategy.html
+https://www.databasejournal.com/features/mssql/
+    developing-a-sql-server-backup-strategy.html
 
 
 
