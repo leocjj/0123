@@ -448,6 +448,7 @@ Tips for Gradient Descent
 *******************************************************************************
                             ERROR ANALYSIS
 *******************************************************************************
+
 https://en.wikipedia.org/wiki/Confusion_matrix
 
 CONFUSION MATRIX (Error -)
@@ -649,7 +650,11 @@ Techniques in Deep Learning
         EarlyStopping(monitor='val_err', patience=5)
 
 
-MEANS
+
+*******************************************************************************
+                                MEANS
+*******************************************************************************
+
  Aritmetic mean: 
     A = sum(ai, 1, n) / n
  Geometric mean: used for a set of numbers whose values are meant to be
@@ -661,9 +666,13 @@ MEANS
     H = n / (sum(1 / xi, 1, n))
 
 
-NORMS
+*******************************************************************************
+                                NORMS
+*******************************************************************************
+
  https://en.wikipedia.org/wiki/Norm_(mathematics)#Definition
  https://numpy.org/doc/stable/reference/generated/numpy.linalg.norm.html
+ 
  VECTORS(Real -):
     L0: sum(X != 0), # X is a vector. Amount of non-zero vectors.
     Lp-norm, |X|p: sum(abs(X)**p)**(1./p), p != 0, p can be <0.
@@ -754,10 +763,48 @@ Architectures:
             n3 units
         Fully-Connected NN (with dropout)
             Output (y-classess)
-    LeNet, AlexNet, VGGNet, GoogLeNet, ResNet, ZFNet.
+    LeNet
 
 Input:
     Tensor: (number of inputs)x(input height)x(input width)x(input channels).
+
+
+
+*******************************************************************************
+                                DEEP CNN
+*******************************************************************************
+
+LeNet, AlexNet, ZFNet, VGGNet, SPPNet, PReLU-Net, GoogLeNet / Inception-v1,
+BN-Inception / Inception-v2, Inception-v3, Inception-v4, Xception, MobileNetV1,
+ResNet, Pre-Activation ResNet
+
+AlexNet      5 convolutional layers     #
+VGG         19 convolutional layers
+GoogleNet   22 convolutional layers     # also codenamed Inception_v1
+ResNet      18, 34, up to 152 layers    # skip or shortcut connection forward.
+ResNeXt     # new dimension n=cardinality, each ResNet block is divided in n
+            # blocks in parallel with outputs added.
+Pre-activation ResNet                   # pre-activation unit.
+
+DenseNet    # each layer obtains additional inputs from all preceding layers.
+            # https://towardsdatascience.com/
+                review-densenet-image-classification-b6631a8ef803
+            # https://arxiv.org/abs/1608.06993
+DenseNet-B  # reduce complexity and size with BN-ReLU-1×1 Conv before 3x3 conv.
+DenseNet-C  # transition layer generate alpha.m output feature maps (alpha<1).
+DenseNets w/wo B/C and with different L layers and k growth rate are trained.
+            # Strong Gradient Flow, Parameter & Computational Efficiency,
+            # More Diversified Features, uses features of all complexity levels
+            # Maintains Low Complexity Features.
+MSDNet      # Multi-Scale DenseNet in addition to depth (layer) has width,
+            # (scale), i.e. several DenseNet in parallel
+ZFNet
+
+
+
+
+
+
 
 
 
