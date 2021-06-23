@@ -16,7 +16,6 @@ sudo apt install docker-ce
 
 sudo systemctl status docker    // Check if is running
 
-
 sudo usermod -aG docker ${USER}
 su - ${USER}
 id -nG
@@ -28,62 +27,109 @@ id -nG
                                 Commands
 *******************************************************************************
 
+https://www.zdnet.com/article/what-is-docker-and-why-is-it-so-darn-popular/
+
+
 APP OUTPUT INSIDE A DOCKER MUST BE AT LEAST IN STDOUTPUT
     TO BE RETRIEVED LATER BY docker logs
+
 
 docker [option] [command] [arguments]
 docker docker-subcommand --help
 
-  run     Run a command in a new container, create container using image.
-          [-d] deattached mode, in background
-          [-e] set environment variables
-          [-p port:port] Publish a container's port(s) to the host
-          [-v dir:dir] Bind mount a volume in container, hostdir<=>containerdir
+  run       Run a command in a new container, create container using image.
+            Images is downloaded if doesn't exist yet.
+            [-d] deattached mode, in background
+            [-e] set environment variables
+            [-p port:port] Publish a container's port(s) to the host
+            [-v dir:dir] Bind mount a volume in container
+                hostdir<=>containerdir
             Changes are applied dinamically in the container.
             Image needs to me reconstructed at the end.
+            $ docker run -d -ti ubuntu:16.04
+
   images    List images availables.
   ps        List containers running, [-a] lattest containers running or not.
-  pull        Pull an image or a repository from a registry
-              e.g. docker pull mysql:5.7
+  pull      Pull an image or a repository from a registry
+            e.g. docker pull mysql:5.7
   logs      Fetch logs of container, [CONTAINER_ID | NAMES]
             [-f] keep waitng for new logs.
   exec      Run a command in a running container, [-it]
-            e.g. docker exec -it [CONTAINER_ID | NAMES] sh
+            e.g. $ docker exec -it [CONTAINER_ID | NAMES] sh
   stop      Stop one or more running containers
+            e.g. $ docker stop <container_ID>
   
-  attach      Attach local standard input, output, and error streams to a running container
-  build       Build an image from a Dockerfile
-  commit      Create a new image from a container's changes
-  cp          Copy files/folders between a container and the local filesystem
-  create      Create a new container
-  diff        Inspect changes to files or directories on a container's filesystem
-  events      Get real time events from the server
-  export      Export a container's filesystem as a tar archive
-  history     Show the history of an image
-  import      Import the contents from a tarball to create a filesystem image
-  info        Display system-wide information
-  inspect     Return low-level information on Docker objects
-  kill        Kill one or more running containers
-  load        Load an image from a tar archive or STDIN
-  login       Log in to a Docker registry
-  logout      Log out from a Docker registry
-  pause       Pause all processes within one or more containers
-  port        List port mappings or a specific mapping for the container
-  push        Push an image or a repository to a registry
-  rename      Rename a container
-  restart     Restart one or more containers
-  rm          Remove one or more containers
-  rmi         Remove one or more images
-  save        Save one or more images to a tar archive (streamed to STDOUT by default)
-  search      Search the Docker Hub for images
-  start       Start one or more stopped containers
-  stats       Display a live stream of container(s) resource usage statistics
-  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
-  top         Display the running processes of a container
-  unpause     Unpause all processes within one or more containers
-  update      Update configuration of one or more containers
-  version     Show the Docker version information
-  wait        Block until one or more containers stop, then print their exit codes
+  attach    Attach local standard input, output, and error streams to a running container
+  build     Build an image from a Dockerfile
+  commit    Create a new image from a container's changes
+  cp        Copy files/folders between a container and the local filesystem
+  create    Create a new container
+  diff      Inspect changes to files or directories on a container's filesystem
+  events    Get real time events from the server
+  export    Export a container's filesystem as a tar archive
+  history   Show the history of an image
+  import    Import the contents from a tarball to create a filesystem image
+  info      Display system-wide information
+  inspect   Return low-level information on Docker objects
+  kill      Kill one or more running containers
+  load      Load an image from a tar archive or STDIN
+  login     Log in to a Docker registry
+  logout    Log out from a Docker registry
+  pause     Pause all processes within one or more containers
+  port      List port mappings or a specific mapping for the container
+  push      Push an image or a repository to a registry
+  rename    Rename a container
+  restart   Restart one or more containers
+  rm        Remove one or more containers
+  rmi       Remove one or more images
+  save      Save one or more images to a tar archive (streamed to STDOUT by default)
+  search    Search the Docker Hub for images
+  start     Start one or more stopped containers
+  stats     Display a live stream of container(s) resource usage statistics
+  tag       Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top       Display the running processes of a container
+  unpause   Unpause all processes within one or more containers
+  update    Update configuration of one or more containers
+  version   Show the Docker version information
+  wait      Block until one or more containers stop, then print their exit codes
+
+
+// To execute a command on the Docker container, use docker exec:
+    $ docker exec -i e1fc0d4bbb5d hostname
+        e1fc0d4bbb5d
+    $ hostname
+        ubuntu-xenial
+
+// Connect to your Docker container and use Bash,
+$ docker exec -ti e1fc0d4bbb5d [/bin/]bash
+# echo "I am in $(hostname) Docker container"
+I am in e1fc0d4bbb5d Docker container
+# exit
+$
+
+
+
+*******************************************************************************
+                            Volumes
+*******************************************************************************
+
+https://docs.docker.com/storage/volumes/
+
+Docker desktop preserves data in containers created until it's destroyed.
+
+$ docker volume create my-vol
+$ docker volume ls
+$ docker volume inspect my-vol
+$ docker volume rm my-vol
+
+Start a container with a volume
+#
+$ docker run -d 
+    --name <container_name> 
+    -v <host_relative_folder_path>:<container_absolute_folder_path>
+    image:tag
+e.g. $ docker run -d --name mysql_container -v 'C:\temp\mysql':/tmp/mysql mysql:5.7
+$ docker inspect <container_name> 
 
 
 
@@ -145,6 +191,7 @@ $ docker push <user/image_name:tag_version>
 *******************************************************************************
                             Multidocker
 *******************************************************************************
+
 Good practice: different dockers for different apps (e.g. node_app, db_app)
 
 $ docker network create todo-app
@@ -182,73 +229,10 @@ services:
         environment:
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: todos
+
 https://docs.docker.com/compose/startup-order/
 $ docker-compose up -d 
 $ docker-compose down 
-
-
-
-https://www.zdnet.com/article/what-is-docker-and-why-is-it-so-darn-popular/
-
-Docker
-
-System engineering & DevOps
-Readme
-
-    What is Docker and why is it popular?
-
-Let’s first pull a Docker image and run a container:
-
-vagrant@ubuntu-xenial:~$ docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-vagrant@ubuntu-xenial:~$ docker run -d -ti ubuntu:16.04
-Unable to find image 'ubuntu:16.04' locally
-16.04: Pulling from library/ubuntu
-34667c7e4631: Pull complete
-d18d76a881a4: Pull complete
-119c7358fbfc: Pull complete
-2aaf13f3eff0: Pull complete
-Digest: sha256:58d0da8bc2f434983c6ca4713b08be00ff5586eb5cdff47bcde4b2e88fd40f88
-Status: Downloaded newer image for ubuntu:16.04
-e1fc0d4bbb5d3513b8f7666c91932812da7640346f6e05b7cfc3130ddbbb8278
-vagrant@ubuntu-xenial:~$ docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED              STATUS              PORTS               NAMES
-e1fc0d4bbb5d        ubuntu:16.04        "/bin/bash"         About a minute ago   Up About a minute                       keen_blackwell
-vagrant@ubuntu-xenial:~$
-
-Note that docker command will pull the Ubuntu docker container image from the Internet and run it. I let you look at the meaning of the flags using the command docker run --help, the main idea is that it keeps the container up and running.
-
-To execute a command on the Docker container, use docker exec:
-
-vagrant@ubuntu-xenial:~$ docker exec -i e1fc0d4bbb5d hostname
-e1fc0d4bbb5d
-vagrant@ubuntu-xenial:~$ hostname
-ubuntu-xenial
-vagrant@ubuntu-xenial:~$
-
-If you want to connect to your Docker container and use Bash, you need to use docker exec -ti:
-
-vagrant@ubuntu-xenial:~$ docker exec -ti e1fc0d4bbb5d /bin/bash
-root@e1fc0d4bbb5d:/# echo "I am in $(hostname) Docker container"
-I am in e1fc0d4bbb5d Docker container
-root@e1fc0d4bbb5d:/# exit
-exit
-vagrant@ubuntu-xenial:~$
-
-If you want to stop a container, use docker stop:
-
-vagrant@ubuntu-xenial:~$ docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-e1fc0d4bbb5d        ubuntu:16.04        "/bin/bash"         5 minutes ago       Up 5 minutes                            keen_blackwell
-vagrant@ubuntu-xenial:~$ docker stop e1fc0d4bbb5d
-e1fc0d4bbb5d
-vagrant@ubuntu-xenial:~$ docker ps
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
-vagrant@ubuntu-xenial:~$
-
-
-
-
 
 
 
