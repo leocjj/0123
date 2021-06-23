@@ -4,6 +4,9 @@
                                 PEP8 (STYLE)
 *******************************************************************************
 
+sudo apt-get update -y
+sudo apt-get install -y pycodestyle
+
 ClassNames
 ErrorExceptionNames
 variable_names
