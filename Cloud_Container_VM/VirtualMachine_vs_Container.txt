@@ -67,7 +67,8 @@ Hypervisors (Type 2-Hosted):
     redhat Linux
 
 Tools:
-    Vagrant HashiCorp: to create and manipulate virtual machines
+    Vagrant HashiCorp: to create and manipulate virtual machines.
+    WSL 2: create a VM with a linux distro, can run without Hyper-V.
 
 
 *******************************************************************************
@@ -84,15 +85,17 @@ Container
 
 + Portability, lightweight, isolation, speed, size in order of MB
 - Security if OS kernel has issues.
+- Do not easily persist user space
 
 Packaging mechanism, abstracted from the actual environment, decoupling.
 Container-based apps deployed easily and consistently independing of the env.
 
 Use linux kernel and put additional libraries needed.
 In windows, sw creates a VM with linux and then containers over.
+    If is a Windows container, it use Windows kernel directly.
 
 Containers:     docker, LXC, rkt
-Kubertenes:     for containers orchestation.
+Orchestation:   docker compose, Kubertenes
 Architecture:
         App 1       App 2       App 3
         Bins/Libs   Bins/Libs   Bins/Libs
@@ -151,6 +154,7 @@ Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor
 5) Start VM VirtualBox
 
 vagrant init            # Create Vagrantfile file empty
+                        # or with a box vagrant init hashicorp/bionic64
 vagrant box add 'box'   # Download a box to be used latter.
                         # e.g. vagrant box add ubuntu/bionic64
 vagrant up              # Looks for a Vagrantfile in actual dir to create VM,
@@ -187,3 +191,16 @@ n
 Ansible, chef, pupet, ...
 
 
+https://endava.sharepoint.com/sites/AMBOD/SitePages/PIO-Workshops.aspx
+
+mkdir session5
+cd session5
+touch easy_script.py
+echo "print(\"Testing a job from Jenkins\")" > easy_script.py
+cat easy_script.py
+python3 easy_script.python3
+pwd
+
+whoami              
+sudo su - jenkins
+cd .ssh
