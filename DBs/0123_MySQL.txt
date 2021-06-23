@@ -10,6 +10,13 @@ RDBMS
         Rows = records
 
 Some of The Most Important SQL Commands
+
+    SHOW DATABASES;
+    USE <DATABASE>;
+    SHOW TABLES;
+    DESCRIBE <TABLE>;
+    SELECT * FROM <TABLE> LIMIT <n>;
+
     SELECT          - extracts data from a database
     UPDATE          - updates data in a database
     DELETE          - deletes data from a database
@@ -284,8 +291,12 @@ SELECT col, col2, ...           FROM table_name;
 SELECT *                        FROM Customers;
 SELECT DISTINCT col1, col2, ... FROM table_name;
 SELECT COUNT(DISTINCT Country)  FROM Customers;
-SELECT COUNT(*)                 FROM (SELECT DISTINCT Country FROM Customers);
+SELECT COUNT(*)         FROM (SELECT DISTINCT Country from Customers) as C;
 
+**** DERIVED TABLE: (table inside parentesis)
+        Expression(Subquery) that generates a table,
+        is inside the scope of a FROM clause,
+        MUST have its own alias ****
 
 WHERE
     =, >, <, >=, <=, <> Not equal, in some SQL versions is !=
@@ -415,7 +426,8 @@ Warning if columns have NULL, this don't join with other values or with NULL,
 INNER JOIN:
     t1 intersect t2
     Records that have matching values in both tables
-        SELECT cols     FROM t1 INNER JOIN t2     ON t1.col1 = t2.col1;
+        SELECT cols     FROM t1 INNER JOIN t2     ON t1.col1 = t2.col1
+            [condition: AND/OR... WHERE];
         SELECT cols     FROM t1, t2            WHERE t1.col1 = t2.col1;
     INNER JOIN - 3 tables
         SELECT cols     FROM (  (t1 INNER JOIN t2 ON t1.col1 = t2.col1)
@@ -453,8 +465,93 @@ FULL (OUTER) JOIN - Exclusive
 
 CROSS JOIN
     Cartesian product between registres from both tables.
-        SELECT *        FROM empleado CROSS JOIN departamento
-        SELECT *        FROM empleado, departamento;
+        SELECT *        FROM Worker CROSS JOIN Department;
+        SELECT *        FROM Worker, Department;
+
+SELF JOIN
+    Create combinations of elements from the same table.
+        SELECT cols FROM table1 T1, table1 T2   WHERE condition;
+        /*  i.e. for workers from same department, combine names,
+            e.g, for (0, 1) creates (00, 01, 10, 11) */
+        SELECT A.FIRST_NAME, B.FIRST_NAME, A.DEPARTMENT
+        -> FROM Worker A, Worker B
+        -> WHERE A.WORKER_ID <> B.WORKER_ID AND A.DEPARTMENT = B.DEPARTMENT
+        -> ORDER BY A.DEPARTMENT;
+
+
+
+*******************************************************************************
+                                OTHERS
+*******************************************************************************
+
+UNION
+    Combine two or more SELECT statements, only DISTINCT VALUES, must have the:
+        Same number of columns, with similar data types, in the same order.
+            SELECT cols FROM table1
+            UNION
+            SELECT cols FROM table2;
+
+    UNION ALL
+    To allow DUPLICATE values.
+
+    AS <new_col_name>
+        Creates a temporary col "new_col_name" to make both tables compatible.
+        Column names are usually the column names in the first SELECT.
+            SELECT 'Customer' AS Type,  Name, City, Country  FROM Customers
+            UNION
+            SELECT 'Supplier',          Name, City, Country  FROM Suppliers
+
+
+GROUP BY
+    Groups rows that have the same values into summary rows
+    like "find the number of customers in each country".
+        SELECT cols     FROM t1         WHERE condition
+            GROUP BY cols   ORDER BY cols
+    cols MUST be aggregated columns (e.g. Country, Department,...)
+    col  can be aggregated by using COUNT(), MAX(), MIN(), SUM(), AVG()
+    e.g.    SELECT COUNT(CustomerID), Country   FROM Customers
+                GROUP BY Country
+                ORDER BY COUNT(CustomerID) DESC;
+            SELECT LAST_NAME AS NAME, COUNT(BONUS_AMOUNT)
+                FROM Worker LEFT JOIN Bonus
+                ON Worker.WORKER_ID = Bonus.WORKER_REF_ID
+                WHERE Bonus.BONUS_AMOUNT IS NOT NULL GROUP BY NAME;
+
+
+HAVING
+    Used with aggregate functions (i.e. after a GROUP BY)
+        SELECT cols         FROM t1             WHERE condition
+            GROUP BY cols       HAVING condition    ORDER BY cols;
+        SELECT E.EmployeeID, LastName, FirstName, count(OrderID) AS Orders
+            FROM (Employees as E INNER JOIN Orders as O
+                ON E.EmployeeID = O.EmployeeID)
+            GROUP BY E.EmployeeID   HAVING Orders > 10
+
+
+EXIST
+    Test for the existence of any record in a subquery and return TRUE
+        SELECT column_name(s)
+            FROM table_name
+            WHERE EXISTS
+            (SELECT column_name FROM table_name WHERE condition);
+        SELECT SupplierName
+            FROM Suppliers
+            WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
+        SELECT SupplierName
+            FROM Suppliers
+            WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price = 22);
+
+
+https://www.w3schools.com/sql/sql_any_all.asp
+
+ANY
+    Comparison between a single column value and a range of other values.
+    Returns TRUE if ANY of the subquery values meet the condition
+    
+
+
+
+
 
 *******************************************************************************
                                 ADVANCED COMMANDS
@@ -471,6 +568,7 @@ SELECT city, AVG(value) AS avg_temp FROM temperatures WHERE month IN (7, 8) GROU
 
 Display the max temperature in each state
 SELECT state, MAX(value) AS max_temp FROM temperatures GROUP BY state ORDER BY state;
+
 
 
 *******************************************************************************
