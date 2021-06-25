@@ -799,8 +799,39 @@ DenseNets w/wo B/C and with different L layers and k growth rate are trained.
 MSDNet      # Multi-Scale DenseNet in addition to depth (layer) has width,
             # (scale), i.e. several DenseNet in parallel
 ZFNet
+UNet
 
 
+
+*******************************************************************************
+                            TRANSFER LEARNING
+*******************************************************************************
+
+https://towardsdatascience.com/a-comprehensive-hands-on-guide-to-transfer-
+    learning-with-real-world-applications-in-deep-learning-212bf3b2f27a
+https://keras.io/guides/transfer_learning/
+
+Traditional learning:
+    isolated, based on specific tasks
+    datasets and training separate isolated models on them.
+    No knowledge is retained which can be transferred from one model to another
+
+Transfer learning:
+    Leverage knowledge (features, weights etc) from previously trained models
+    for training newer models and even having less data for the newer task!
+
+Workflow (Typical)
+    Instantiate a base model and load pre-trained weights into it.
+    Freeze all layers in the base model by setting trainable = False.
+    Create a new model on top of the output of one (or several) layers from the
+        base model.
+    Train your new model on your new dataset.
+
+Workflow (lightweight)
+    Instantiate a base model and load pre-trained weights into it.
+    Run your new dataset through it and record the output of one (or several)
+    layers from the base model. This is called feature extraction.
+    Use that output as input data for a new, smaller model.
 
 
 
