@@ -12,38 +12,78 @@ blog.rmotr.com
                                 Tools
 *******************************************************************************
 
-PYTHON IMPLEM.:     CPython, pypy.org (JIT compiled), numba.pydata.org (JIT),
+PYTHON IMPLEM.:     CPython
+                    pypy.org (JIT compiled)
+                    numba.pydata.org (JIT)
                     cython.org (faster Python modules),
                     https://www.lfd.uci.edu/~gohlke/pythonlibs/#cython
                     Pythran(¿?).
-MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
-                    Matplotlib, ggplot2,
-                    Numpy -> Pandas(FW)
+
+MATH:               NumPy - multidimensional arrays
                      |-> scipy.weave, numexpr, Numba
-                    SciPy (lin.alg, stats, etc) -> Scikit-learn
+                    SciPy (lin.alg, stats, etc) - algorithms to use with numpy.
+                    SymPy - symbolic math.
+                    statsmodels, seaborn
+
+VISUALIZATION:      Matplotlib
+                    Seaborn (stat visualization)
+                    ggplot2
+                    Bokeh
+
+DATA (ETL):         Pandas - data analysis
+                    Airflow - data engineering tool
+                    Luigi - data engineering tool
+                    Dask - data engineering tool
+
+STORE & DB:         HDF5 - store and manipulate data
+                    PyTables - manage HDF5 datasets
+                    SQLAlchemy - Python SQL Toolkit
+                    pyMySQL - MySQL connector
+                    Redis - Redis access libraries
+                    Pymongo - MongoDB driver
+                    HDFS - c/c++ wrapper for Hadoop
+                    ElasticSearch - data search engine
+
+MACHINE LEARNING:   Python(PL, CPython), R(PL), Go(PL)
+                    SciPy -> Scikit-learn
                     Flask(FW), Django(FW)
-                    seaborn (stat visualization), statsmodels
+                    PyBrain - algorithms for ML
+
 DEEP LEARNING:      TensorFlow (FW) -> Keras(FW) -> tflearn.org
                     Torch / PyTorch(FW)
+                    Theano -> Lasagne
                     MS CNTK, FB Caffe2, Amazon MxNet, format ONNX,
+
 BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW), XGBoost
-NLP:                NLTK, Spacy
+
+NLP:                NLTK, Spacy, Pattern
+
 Computer Vision     OpenCV
-IDEs:               PyCharm, Goland, VSCode, IPython/Jupyter, and RStudio.
-ETLs Tools          Airflow, Luiggi
+
+IDEs:               PyCharm, Goland, VSCode, and RStudio.
+                    Jupyter - research collaboration tool
+                    IPython - powerful shell
+                    Spyder - Simple IDE
+
 Closed tools        Excel, Qlik, tableau, looker, zoho analytics, PowerBI,
                     Qlikview, Google Data Studio, plotly¿?, statwing¿?
+
 SKILLS:             Math, Statistics, data visualization (Tableau, Metabase),
                     communication, critical thinking, Excel, Business
                     understanding, ETL-Data preparation.
                     https://workera.ai/
-No-SQL              MongoDB, ElasticSearch
+
 Data generation:    https://www.mockaroo.com/
+
 Image sets:         http://yann.lecun.com/exdb/mnist/
                     https://www.cs.toronto.edu/~kriz/cifar.html
                     ResNet18 and CIFAR100 - VGG1
                     STL10 - Wide ResNet 16-8 and FMNIST - CAPS 
                     PTB - LSTM and MNIST - VAE.
+                    ILSVRC uses a subset of ImageNet
+                    MS COCO, Pascal VOC, VQA challenge
+                    https://www.kaggle.com/c/dogs-vs-cats/data
+
 Cloud:              gradient.paperspace.com/free-gpu
                     cloud.google.com/automl
                     colab.research.google.com/
@@ -56,6 +96,7 @@ Cloud:              gradient.paperspace.com/free-gpu
                     Kaggle
                     https://www.openml.org/
                     wandb.ai
+
 OTHERS (SW)         www.determined.ai
                     github.com/openml/openml-docker-dev
                     github.com/IDSIA/sacred
