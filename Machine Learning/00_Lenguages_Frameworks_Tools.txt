@@ -100,6 +100,7 @@ Cloud:              gradient.paperspace.com/free-gpu
 OTHERS (SW)         www.determined.ai
                     github.com/openml/openml-docker-dev
                     github.com/IDSIA/sacred
+                    https://copilot.github.com/
 
 pypy.org
 PyPy is a fast, compliant alternative implementation of the Python language.
