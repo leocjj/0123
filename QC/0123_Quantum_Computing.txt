@@ -1,0 +1,44 @@
+
+https://aws.amazon.com/braket/          #quantum computing
+Amazon Quantum Solutions Lab
+AWS Center for Quantum Computing
+NISQ - Noisy Intermediate-Scale Quantum
+QUBO - Quadratic Unconstrained Binary Optimization
+
+https://www.youtube.com/watch?v=_ltGOs7aN3U&t=922s
+
+https://docs.dwavesys.com/docs/latest/doc_getting_started.html
+
+https://docs.aws.amazon.com/braket/latest/developerguide/braket-how-it-works.html
+
+*******************************************************************************
+                                RUN APPLICATIONS
+*******************************************************************************
+
+Near-term approaches to quantum optimization
+   *)Many problems can be formulates in terms of QUBO
+    |_ Map the problem onto a QUBO
+    |_ Embed QUBO onto the topology of the device to use (e.g. D-Wave)
+   *)Use gate-based approach via QAOA (e.g. IONQ, Rigetti)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
