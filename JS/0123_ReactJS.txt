@@ -1,0 +1,160 @@
+
+https://reactjs.org/
+https://reactjs.org/docs
+https://github.com/facebook/react
+https://github.com/facebook/create-react-app
+
+https://github.com/enaqx/awesome-react                              # Resources
+https://softwarecrafters.io/react/tutorial-react-js-introduccion/   # Tutorial
+
+https://codepen.io/pen                                      # Playgrounds
+https://codesandbox.io/s/new
+https://jsfiddle.net/boilerplate/react-jsx
+
+https://devhints.io/react                                   # Cheatsheet
+https://code.visualstudio.com/docs/nodejs/reactjs-tutorial  # VS Code
+https://reactjs.org/docs/add-react-to-a-website.html        # Add to a website
+
+
+*******************************************************************************
+                            INSTALL DEV ENVIRONMENT
+*******************************************************************************
+
+docker-compose.yml
+    version: "3.9"
+    services:
+      react:
+        build: ./react-app/         # Points to Dockerfile
+        volumes:
+          - ..:/app                 # Map volumes host:container
+        ports:
+          - "3000:3000"             # Map ports host:container
+
+Dockerfile
+    FROM node:14-alpine3.11
+    RUN npm install -g npm@7.18.1   # npm version in the original is deprecated
+    COPY run.sh /
+    RUN chmod +x /run.sh
+    CMD ["sh", "/run.sh"]
+
+run.sh
+    #!/bin/sh
+    date
+    echo INSTALLING NPM DEPENDENCIES
+    echo ---------------------------
+    cd /app
+    npm install
+    echo DEPENDENCIES DONE
+    echo -----------------
+    while true; do
+        date
+        sleep 60
+    done
+
+ReactJS environment for DEV with Docker:
+    Install Docker Engine plus Docker Compose or install and open Docker
+        Desktop which includes both.
+        Note: in case you already have Docker, please make sure you 
+            stop all containers and deleted docker images related before.
+    If using Windows:
+        Install Git for Windows.
+        Change the global config to preserve the end-of-lines of files from
+        cloned repositories: https://github.com/LibreTime/libretime/issues/141
+            git config --global core.autocrlf input
+        A workaround for previous step is to clone the repository and then
+            change the end-of-line character for all files using this extension
+            for VS Code:
+            https://marketplace.visualstudio.com/items?itemName=
+            vs-publisher-1448185.keyoti-changeallendoflinesequence
+        Note: any new text files must be created using the ‘LF’ end-of-line character.
+    Configure your SSH key for GitHub and clone the repository you need:
+        git clone git@github.com:leocjj/0123.git 0123
+
+    Open three different consoles (Terminal in Linux, Git Bash in Windows)
+        in the project folder (e.g. mini) and follow these steps:
+
+    1$ cd devel-env/                    # Open the first console to run and keep container running.
+    1$ docker-compose up [-d]           # If -d (detached) is used, you can use 'docker-compose ps' to see what is running.
+    ...                                 # The first time takes several minutes.
+    1$ docker-compose stop              # To stop and remove everything from a container.
+    1$ docker-compose down --volumes
+
+    2$ nano .env.local                  # Open a second console and put environment variables,
+    2$ cd devel-env/                    # (e.g. Firebase credentials) into this file.
+    2$ docker-compose exec react sh     # to start and keep service running.
+      # cd app/
+      # npm install                   # Install all dependencies.
+      # npm start                       # Start server.
+    ...                                 # WAIT for development server to start.
+
+    3$ code .                           # If you have VS Code installed, this will open the repository with it.
+    3$ docker ps                        # To check the container is running and its ID.
+    3$ docker exec -it <CONT_ID> sh     # Open a shell for the continer
+
+    Open http://localhost:3000/
+
+
+EDIT FILES IN HOST VOLUME, CHANGES WILL BE AUTOMATICALLY SYNCHRONIZED WITH THE CONTAINER.
+
+
+
+*******************************************************************************
+                                    VS Code
+*******************************************************************************
+
+cd <project_folder>
+code .
+
+On the code:
+    F12 / Alt + F12:    Definitions
+SAVE FILES WITH LINUX EOL (LF only) TO RUN THEM WELL IN A LINUX CONTAINER.
+
+
+
+*******************************************************************************
+                                    Basics
+*******************************************************************************
+
+https://softwarecrafters.io/react/tutorial-react-js-introduccion/
+
+For SPA's (Single Page Application)
+
+COMPONENT ORIENTED PROGRAMING
+    Components are classes, these inherate from Component class.
+    Render method define its content
+    It's recomended to use JSX, i.e. HTML tags inside JS code.
+
+        class MyComponent extends React.Component {
+          render() {
+            return (
+              <h1>Hello World</h1>
+            );
+          }
+        }
+
+CREATING APPS
+    https://github.com/facebook/create-react-app            # Full
+    https://reactjs.org/docs/add-react-to-a-website.html    # Just add react
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
