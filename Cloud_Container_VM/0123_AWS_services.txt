@@ -1,0 +1,162 @@
+
+https://aws.amazon.com/braket/          #quantum computing
+Amazon Quantum Solutions Lab
+AWS Center for Quantum Computing
+NISQ - Noisy Intermediate-Scale Quantum
+QUBO - Quadratic Unconstrained Binary Optimization
+
+https://www.youtube.com/watch?v=JIbIYCM48to
+
+
+
+*******************************************************************************
+                            DEVELOPMENT TOOLS
+*******************************************************************************
+
+https://aws.amazon.com/tools/?e=gs2020&p=fundoverview&p=gsrc&c=fo
+
+IaaS
+CloudFormation  # IaaS - Organized way to provision all these services, to create
+                # templates in yaml or json
+SAM - Serverless Application Model
+CDK - Cloud Development Kit
+
+SDK - Software Development Tools
+CLI - Command Line Interfase
+CloudShell
+
+IDE & IDE Toolkits
+    Cloud9
+
+
+
+https://aws.amazon.com/getting-started/fundamentals-core-concepts/?e=gs2020&p=fundoverview&p=gsrc&c=fo
+
+
+
+*******************************************************************************
+                                RUN APPLICATIONS
+*******************************************************************************
+
+EC2 - Elastic compute cloud # Virtual computing (virtual machines)
+Load balancing              # Load balancer
+Cloud Watch                 # Collect logs, metrics from each EC2 
+Auto scaling                # Receive data from cloud watch, create EC2s
+
+Elastic Beanstalk       # PaaS - Abstraction layer on top of EC2
+Lightsail               # SaaS - Static server always running... WordPress, ,
+                        # Django, LAMP, Node, Nginx, Magento, MEAN, GitLAB, etc
+
+Lambda          # F(unc)aaS - Serverless - Ephimeral jobs (code) triggered.
+Serverless Repo # Pre-built functions ready to deploy with a click
+
+Outposts        # Run AWS APIs on the own infrastructure.
+Snow            # For remote locations
+
+ECR - Elastic Container Registry    # Create and store a docker image
+ECS - Elastic Container Services    # Pull and run docker images on EC2
+EKS - Elastic Kubernetes Service    # Run Kubernetes
+Fargate     # Run containers like serverless functions (automatic resources)
+App Runner  # Deploy containerized app, handles orchestation and scaling
+
+
+
+*******************************************************************************
+                                    STORAGE
+*******************************************************************************
+
+S3 - Simple Storage Service # General purpose file storage
+Glacier                     # Archive data, higher latency but lower cost.
+EBS - Elastic Block Storage # Extremely fast storage, intensive data processing
+EFS - Elastic File System   # High performance, fully managed, higher cost.
+
+
+
+*******************************************************************************
+                                      DB
+*******************************************************************************
+
+NO-SQL
+SDB - Simple DB         # General purpose NO-SQL DB
+Dynamo DB               # Document DB, +scales +fast +cheap -limited queries
+Document DB             # Document DB, exactly like Mongo DB but Isn't Mongo DB
+Elastic Search          # Full text search engine.
+
+SQL
+RDS - Relational database service   # PostgreSQL, MySQL, MAriaDB, ORACLE, MSSQL
+Aurora                  # Own flavor, faster, PostgreSQL or MySQL compatible
+Aurora Serverless       # Pay for the time the database is in use
+
+OTHERS DB
+Neptune         # Graph DB - for highly connected data sets like a social graph
+Elastic Cache   # Fully managed version of redis, in-memory DB, ultra-fast read
+Timestream      # For time series data, time-based queries and analitycs
+Quantum Ledger  # Cryptographically signed transactions ~blockchain
+
+
+
+*******************************************************************************
+                                    Analytics
+*******************************************************************************
+
+Redshift        # Data warehouse to dump multiple data sources in one place.
+                # Structured (alows SQL queries.
+Laka formation  # Data lakes, repos for unstructured large amount of data
+Kinesis         # Real-time data. To capture real-time streams.
+Map-Reduce      # Can run Apache Spark (a stream processng FW), to operate on
+                # massive datasets efficiently with paralled distributed algo.
+MSK             # Kafka, alternative for real-time data. Fully managed service
+
+Glue            # Serverless to ETL (Extract, Transform & Load). Glue studio.
+
+
+
+*******************************************************************************
+                                    DATA AND ML
+*******************************************************************************
+
+Data exchange   # Purchase and suscribe to third-party data sources
+Sagemaker       # Jupyter, TF, PyThorch -> ML models, GPU, deploy.
+Rekognition     # API for image recognition/analysis.
+LEX             # To build a conversational bot.
+Deep racer      # Run a car with own ML code.
+
+
+
+*******************************************************************************
+                                      OTHERS
+*******************************************************************************
+
+IAM             # Identity and Access Management
+KMS             # Key Management Service
+Cognito         # Web/mobile authentication methods, manage sessions
+Amplify         # To interact with those services with an SDK in frontend apps.
+Budgets         # Cost explorer
+
+SNS - Simple Notification Service   # Push notifications
+SES - Simple Email Service          # Email notifications
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
