@@ -305,6 +305,8 @@ $ eval `ssh-agent -s`           $ eval $(ssh-agent)
 $ clip < ~/.ssh/id_ed25519.pub
 # Copies the contents of the id_ed25519.pub file to your clipboard
 github / settings / SSH and GPG keys / New SSH key / Add SSH key
+# Check the email in the ssh key entered.
+git clone git@github.com:leocjj/0123.git 0123
 
 $ ssh -T git@hostname
 # Attempts to ssh to GitHub Enterprise Server
