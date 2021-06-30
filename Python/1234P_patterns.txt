@@ -33,3 +33,9 @@ class Logger(metaclass=Singleton2):
 d = Logger()
 e = Logger()
 assert d is e
+
+
+*******************************************************************************
+                            Decorator
+*******************************************************************************
+Decorator, Mediator, Observator, Adapter, MVC, Flux
