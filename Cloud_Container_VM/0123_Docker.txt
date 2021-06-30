@@ -110,7 +110,7 @@ $
 
 
 *******************************************************************************
-                            Volumes
+                                    Volumes
 *******************************************************************************
 
 https://docs.docker.com/storage/volumes/
@@ -134,7 +134,7 @@ $ docker inspect <container_name>
 
 
 *******************************************************************************
-                            MySQL
+                                    MySQL
 *******************************************************************************
 
 https://hub.docker.com/_/mysql?tab=description&page=1&ordering=last_updated
@@ -206,6 +206,9 @@ $ docker run -it --network todo-app <image>
 *******************************************************************************
                             Docker compose
 *******************************************************************************
+
+# It comes with Docker Desktop, otherwise install it before:
+# https://docs.docker.com/compose/install/
 
 $ vim docker-compose.yaml       // To automate docker processes
 version: "3.7"                  // Syntax version of yml
