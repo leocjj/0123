@@ -16,8 +16,8 @@ https://www.youtube.com/watch?v=JIbIYCM48to
 https://aws.amazon.com/tools/?e=gs2020&p=fundoverview&p=gsrc&c=fo
 
 IaaS
-CloudFormation  # IaaS - Organized way to provision all these services, to create
-                # templates in yaml or json
+CloudFormation  # IaaS - Organized way to provision all these services,
+                # to create templates in yaml or json
 SAM - Serverless Application Model
 CDK - Cloud Development Kit
 
@@ -28,9 +28,8 @@ CloudShell
 IDE & IDE Toolkits
     Cloud9
 
-
-
-https://aws.amazon.com/getting-started/fundamentals-core-concepts/?e=gs2020&p=fundoverview&p=gsrc&c=fo
+https://aws.amazon.com/getting-started/fundamentals-core-concepts/
+    ?e=gs2020&p=fundoverview&p=gsrc&c=fo
 
 
 
@@ -137,26 +136,7 @@ SNS - Simple Notification Service   # Push notifications
 SES - Simple Email Service          # Email notifications
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+CodeCommit      # Host secure git-based repositories (~GitHub)
+CodeBuild       # Automate and manage server builds for applications (~Jenkins)
+CodePipeline    # Automate the deployment process (~CD)
 
