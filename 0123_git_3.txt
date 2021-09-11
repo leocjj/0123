@@ -92,6 +92,9 @@ $ git status                            # List of files modified/added/deleted.
 $ git diff --name-only --diff-filter=M [HEAD] # List only modified files.
 $ git status | grep modified
 
+$ git config -l                         # To check config of local repository.
+$ git remote -v                         # To show remote repos
+
 echo '*~'>>.gitignore                   # To ignore temp files.
 
 git config --global credential.helper wincred        # will store credentials.
@@ -184,14 +187,17 @@ git status
 git checkout -b <new_branch>        # -b to create branch if it doesn’t exist
 [Modify/add/delete files]
 git diff | git log
+    git restore <file>              # to discard changes in working directory
+                                    # for files tracked with previous git add,
+                                 # but not staged for commit (changes pending).
     git checkout -- <file>          # to discard changes in working directory.
     git checkout HEAD <filename>    # undo deletion
 git add/rm <file>                   # git rm file if I’m deleting a file or
                                     # git add if a file was created/modified.
-    git reset <file>                # to undo add/rm. TESTED.
+    git restore --staged <file>     # To unstage, undo add/rm, KEEP CHANGES
+    git reset <file>                # To unstage, undo add/rm, KEEP CHANGES
 git commit -m "Message..."
-    git reset <file>                # to undo add/rm
-    git reset [--hard] HEAD~1       # undo commit. DELETE ALL CHANGES MADE
+    git reset [--hard] HEAD~1       # To unstage, undo commit/add, KEEP CHANGES
     git log -- <filename>           # check the history of a file
     git checkout <commit hash> -- <filename>
                                     # returns a file to a specific commit
@@ -208,6 +214,9 @@ Review: from, to, message, approver, related commits, create button (PR/draft)
 List of commits can be squashed with merge button.
 
 https://www.git-tower.com/learn/git/faq/restoring-deleted-files/
+
+https://github.community/t/
+    github-pull-requests-showing-invalid-diff-for-already-merged-branch/559
 
 
 *******************************************************************************
@@ -290,7 +299,7 @@ How to push your updates:
 If you have GitHub Desktop installed, you can use it to clone repositories and
 not deal with SSH keys.
 
-Open Git Bash.
+# Open Git Bash.
 ls -al ~/.ssh
 # Lists the files in your .ssh directory, if they exist
 # Check the directory listing to see if you already have a public SSH key.
@@ -304,8 +313,8 @@ $ eval `ssh-agent -s`           $ eval $(ssh-agent)
 
 $ clip < ~/.ssh/id_ed25519.pub
 # Copies the contents of the id_ed25519.pub file to your clipboard
-github / settings / SSH and GPG keys / New SSH key / Add SSH key
-# Check the email in the ssh key entered.
+Go to: github / settings / SSH and GPG keys / New SSH key / Add SSH key
+# Check the email in the ssh key entered, and add the new SSH key
 git clone git@github.com:leocjj/0123.git 0123
 
 $ ssh -T git@hostname
@@ -319,3 +328,50 @@ authenticating-to-github/working-with-ssh-key-passphrases
 
 
 https://www.w3schools.com/git/git_revert.asp
+
+
+
+*******************************************************************************
+                            DELETE A BRANCH
+*******************************************************************************
+
+git branch  --> list of branches
+
+For deleting the remote branch:
+    git push origin --delete <your_branch>
+
+For deleting the local branch, you have three ways:
+    1: git branch -D <branch_name>
+    2: git branch --delete --force <branch_name>  # Same as -D
+    3: git branch --delete  <branch_name>         # Error on unmerge
+
+
+
+*******************************************************************************
+                                ADVANCED
+*******************************************************************************
+
+git commit      # Creates a commit with added files and opend text editor to 
+                # put larger commit messages (several lines. -m is for one line
+
+To change author of a commit
+    git commit --amend --author="name < e@mail.com > " -m "commit message"
+
+List of actual available branches
+    git branch
+
+Tool to check commit history visually
+    sudo apt install tig
+    tig --all
+
+Return to previous branch
+    git checkout -
+
+
+    git diff dev...HEAD
+    git diff dev..HEAD
+
+
+
+
+
