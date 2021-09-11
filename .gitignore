@@ -1,3 +1,5 @@
 
 *.exe
 Go/.vscode/launch.json
+*.xml
+*.iml
