@@ -6,7 +6,7 @@ PostgreSQL and MySQL are two of the most common open source databases
 
 
 *******************************************************************************
-						DBs
+                                DBs
 *******************************************************************************
 
 Libraries for relational databases:
@@ -44,7 +44,7 @@ Databases learning checklist
 		or SQLAlchemy with Flask.
 			http://www.sqlalchemy.org/
     Build your database tables or sync the ORM models with the PostgreSQL
-		instance, if you're using an ORM.
+		instance, if you're using an ORM. --> Alembic
     Start creating, reading, updating and deleting data in the database from
 		your web application.
 
@@ -62,7 +62,7 @@ https://www.sqlalchemy.org/
 https://flask-sqlalchemy.palletsprojects.com/en/2.x/
 
 Web framework	None				Flask			Flask			Django
-				_______________________________________________	
+				+----------------------------------------------+
 ORM				| SQLAlchemy		SQLAlchemy		SQLAlchemy |	Django ORM
 				|_____________________________________[+ ORM]__|
 DB CONNECTOR	(builtin stdlib)	MySQL-python	psycopg			psycopg
@@ -80,7 +80,7 @@ Python ORM Implementations:
 
 
 *******************************************************************************
-						MySQLdb
+                                    MySQLdb
 *******************************************************************************
 
 https://pypi.org/project/MySQL-python/
@@ -197,6 +197,7 @@ db.close()
 *******************************************************************************
 						SQLAlchemy
 *******************************************************************************
+https://docs.sqlalchemy.org/en/14/orm/tutorial.html
 
 pip3 install SQLAlchemy==1.2.5
 ...
@@ -207,8 +208,8 @@ python3
 
 *******************************************************************************
 
-https://docs.sqlalchemy.org/en/11/core/engines.html
-
+https://docs.sqlalchemy.org/en/14/core/engines.html
+https://docs.sqlalchemy.org/en/14/core/type_basics.html
 https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/
 
 
@@ -301,7 +302,7 @@ if __name__ == "__main__":
 	session.close()							# 10 - close session
 
 ****
-Stuntmand.py class
+Stuntman.py class
 
 from sqlalchemy import Column, String, Integer, Boolean, ForeignKey
 from sqlalchemy.orm import relationship, backref
@@ -324,8 +325,9 @@ class Stuntman(Base):
         self.actor = actor
 ***
 
+
 *******************************************************************************
-					Queries with SQLAlcheny
+                            Queries with SQLAlcheny
 *******************************************************************************
 https://docs.sqlalchemy.org/en/13/orm/query.html
 
@@ -359,6 +361,58 @@ session.query(Actor) \
     .all()
 
 
+
+*******************************************************************************
+                            Upsert with SQLAlcheny
+*******************************************************************************
+https://stackoverflow.com/questions/55368162/bulk-upsert-with-sqlalchemy-postgres/55369524
+https://docs.sqlalchemy.org/en/14/dialects/postgresql.html#insert-on-conflict-upsert
+https://stackoverflow.com/questions/25955200/sqlalchemy-performing-a-bulk-upsert-if-exists-update-else-insert-in-postgr/26018934#26018934
+https://stackoverflow.com/questions/25955200/sqlalchemy-performing-a-bulk-upsert-if-exists-update-else-insert-in-postgr/26018934#26018934
+
+def write_records(records: Iterable[VideoRecord]):
+    db = get_client().get_database(MONGO_DBNAME)
+    post_coll = db.get_collection("facebook_posts")
+    write_ops = []
+
+    session = Session(engine)
+    insp = Inspector.from_engine(engine)
+    table_name = FacebookVideoPost.__table__
+    https://stackoverflow.com/questions/33878830/sqlalchemy-determine-if-unique-constraint-exists
+    table_constraint = insp.get_unique_constraints(table_name)[0].get('name')
+    video_list = []
+
+    for r in video_records:
+        # MongoDB
+        rd = asdict(r)
+        rid = rd.pop("metric_sample_id")
+        upsert = ReplaceOne(dict(_id=rid), rd, upsert=True)
+        write_ops.append(upsert)
+        # PostgreSQL session
+        #  rd = asdict(r)
+        #  new_video = FacebookVideoPost()
+        #  new_video.__dict__.update(rd)
+        #  video_list.append(new_video)
+        #PostgreSQL INSERT
+        #  insert_stmt = insert(new_video.__table__).values(rd)
+        #  session.execute(update_statement)
+        #  session.commit()
+        #PostgreSQL INSERT…ON CONFLICT (Upsert)  facebook_video_post_metric_sample_id_key
+        rd = asdict(r)
+        insert_stmt = insert(table_name).values(rd)
+        update_columns = {
+            col.name: col for col in insert_stmt.excluded if col.name not in ('id', 'metric_sample_id')}
+        update_statement = insert_stmt.on_conflict_do_update(
+            constraint=table_constraint,
+            set_=update_columns)
+        session.execute(update_statement)
+        session.commit()
+    if video_list:
+        # PostgreSQL session
+        #  session.add_all(video_list)
+        #  session.commit()
+        pass
+    session.close()
 
 
 
