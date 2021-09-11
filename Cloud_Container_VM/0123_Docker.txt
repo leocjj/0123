@@ -3,13 +3,19 @@
                                 Docker
 *******************************************************************************
 https://www.youtube.com/watch?v=CV_Uf3Dq-EU
-https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04
+https://www.digitalocean.com/community/tutorials/
+    how-to-install-and-use-docker-on-ubuntu-18-04
+
+# If working with WSL in windows, install Docker Desktop and enable to use WSL2
 
 sudo apt update
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
+sudo apt install apt-transport-https ca-certificates curl
+    software-properties-common
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo add-apt-repository "deb [arch=amd64]
+    https://download.docker.com/linux/ubuntu bionic stable"
+sudo add-apt-repository "deb [arch=amd64]
+    https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt update
 apt-cache policy docker-ce      //candidate to install must be from Docker.
 sudo apt install docker-ce
@@ -29,10 +35,8 @@ id -nG
 
 https://www.zdnet.com/article/what-is-docker-and-why-is-it-so-darn-popular/
 
-
 APP OUTPUT INSIDE A DOCKER MUST BE AT LEAST IN STDOUTPUT
     TO BE RETRIEVED LATER BY docker logs
-
 
 docker [option] [command] [arguments]
 docker docker-subcommand --help
@@ -128,13 +132,14 @@ $ docker run -d
     --name <container_name> 
     -v <host_relative_folder_path>:<container_absolute_folder_path>
     image:tag
-e.g. $ docker run -d --name mysql_container -v 'C:\temp\mysql':/tmp/mysql mysql:5.7
+
+$ docker run -d --name mysql_container -v 'C:\temp\mysql':/tmp/mysql mysql:5.7
 $ docker inspect <container_name> 
 
 
 
 *******************************************************************************
-                                    MySQL
+                            MySQL container
 *******************************************************************************
 
 https://hub.docker.com/_/mysql?tab=description&page=1&ordering=last_updated
@@ -158,18 +163,35 @@ $ docker run -it --network some-network --rm mysql mysql -hsome-mysql
 $ docker run -it --rm mysql mysql -hsome.mysql.host -usome-mysql-user -p
 
 
+
+*******************************************************************************
+                            MongoDB container
+*******************************************************************************
+
+docker create --name mongo \
+  -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
+  -e MONGO_INITDB_ROOT_PASSWORD=secret \
+  -e MONGO_INITDB_DATABASE=analytics_dev \
+  --publish=27017:27017 \
+  mongo:4-bionic
+
+
+
 *******************************************************************************
                             Dockerfile
 *******************************************************************************
+
+In VS, use extension to create Dockerfile
+
 $ vim Dockerfile
-FROM image_name:tag // image:tag from hub.docker.com, alpine version is better.
+    FROM image_name:tag // image:tag from hub.docker.com, alpine ver. is light
 
-WORKDIR /app        // directory in the container
-COPY . .            // from local dir (where Dockerfile is) to container /app
-RUN <command to install>
+    WORKDIR /app        // directory in the container
+    COPY . .            // from local dir where Dockerfile is to container /app
+    RUN <command to install>
 
-CMD ["node", "/app/src/index.js"]   // Will be executed when container start.
-| ENTRYPOINT ["node"]  // Needs the rest as parameter when we run the container
+    CMD ["node", "/app/src/index.js"]   // executed when container start
+    | ENTRYPOINT ["node"]  // Needs the rest as param. when we run container
 
 
 ***
@@ -185,6 +207,72 @@ $ docker build -t <image_name:tag_version>
 $ docker login
 $ docker tag <IMAGE_ID> <user/image_name:tag_version>   // To change image name
 $ docker push <user/image_name:tag_version>
+
+
+
+*******************************************************************************
+                            PYTHON CONTAINER
+*******************************************************************************
+
+https://code.visualstudio.com/docs/containers/quickstart-python
+
+$ docker-compose up     # Run in repo root folder.
+To rebuild this image use:
+    $`docker-compose build`     # or `docker-compose up --build`.
+
+
+'docker scan' to run Snyk tests against images to find vulnerabilities.
+To rebuild image use `docker-compose build` or `docker-compose up --build`.
+
+In other terminal (or use the same terminas if --detach option was ussed).
+    $ docker image ls
+    $ cd <repo_folder>
+    $ docker-compose exec <container_name> bash
+
+
+e.g Dockerfile
+    FROM python:3.8-slim-buster     // public.ecr.aws/lambda/python:3.8
+    # Keeps Python from generating .pyc files in the container
+    ENV PYTHONDONTWRITEBYTECODE=1
+    # Turns off buffering for easier container logging
+    ENV PYTHONUNBUFFERED=1
+    # Install pip requirements
+    COPY requirements.txt .
+    COPY requirements_dev.txt .
+    # RUN  pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
+    RUN python -m pip install -r requirements_dev.txt
+
+    # WORKDIR /app
+    # COPY . /app
+
+    # Creates a non-root user with UID and permissions for /app folder
+    # For more info, please refer to
+    # https://aka.ms/vscode-docker-python-configure-containers
+    # RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R
+        appuser /app
+    # USER appuser
+    # During debugging, this entry point will be overridden.
+    # For more information, please refer to
+    # https://aka.ms/vscode-docker-python-debug
+    # CMD ["python", "fb_analytics_datasource/lambda_analytics_for_page.py"]
+
+    COPY run.sh /
+    RUN chmod +x /run.sh
+    # To keep at least one process running and avoid containers dead.
+    CMD ["sh", "/run.sh"]
+
+run.sh      # To keep container running.
+    #!/bin/sh
+    while true; do
+        date
+        sleep 60
+    done
+
+
+https://docs.docker.com/engine/install/ubuntu/
+https://dev.to/paddymorgan84/wsl-2-and-terminals-28d7
+https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+https://docs.docker.com/develop/dev-best-practices/
 
 
 
@@ -211,35 +299,99 @@ $ docker run -it --network todo-app <image>
 # https://docs.docker.com/compose/install/
 
 $ vim docker-compose.yaml       // To automate docker processes
-version: "3.7"                  // Syntax version of yml
+    version: "3.7"                  // Syntax version of yml
 
-services:
-    app:
-        image: <user/image_name:tag_version>
-        ports:
-          - 3000:3000
-        depends_on:
-          - mysql
-        environment:
-          MYSQL_HOST: mysql
-          MYSQL_USER: root
-          MYSQL_PASSWORD: secret
-          MYSQL_DB: todos
-    mysql:
-        image: mysql:5.7
-        volumes:
-          - host_dir:docker:dir
-        environment:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_DATABASE: todos
+    services:
+        app:
+            image: <user/image_name:tag_version>
+            ports:
+              - 3000:3000
+            depends_on:
+              - mysql
+            environment:
+              MYSQL_HOST: mysql
+              MYSQL_USER: root
+              MYSQL_PASSWORD: secret
+              MYSQL_DB: todos
+        mysql:
+            image: mysql:5.7
+            volumes:
+              - host_dir:docker:dir
+            environment:
+              MYSQL_ROOT_PASSWORD: secret
+              MYSQL_DATABASE: todos
 
 https://docs.docker.com/compose/startup-order/
-$ docker-compose up -d 
+$ docker-compose up --detach [--build]
 $ docker-compose down 
 
+e.g. docker-compose.yml
+    version: '3.4'
+
+    services:
+
+      social-lambda:
+        image: social
+        container_name: lambda
+        build:
+          context: ..
+          dockerfile: devel-env/Dockerfile
+        # Needed just for lambda containers
+        entrypoint: ''
+        environment:
+          # Hosts must be the other services instead of localhost
+          DB_HOSTNAME: postgres-db
+          DB_USERNAME: postgres
+          DB_PASSWORD: abc123
+          MONGO_HOST: mongo-db
+          ENV: testing
+        links:
+          - postgres-db
+          - mongo-db
+        depends_on:
+          postgres-db:
+            condition: service_healthy
+          mongo-db:
+            condition: service_healthy
+
+      postgres-db:
+        image: postgres:12.8-alpine
+        container_name: social-postgres-db
+        # Expose to other containers, not to the host machine
+        expose:
+          - 5432
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: abc123
+          POSTGRES_DB: analytics_dev
+        healthcheck:
+          test: 'pg_isready -U postgres'
+          interval: 1s
+          timeout: 1s
+          retries: 5
+
+      mongo-db:
+        image: mongo:4-bionic
+        container_name: social-mongo-db
+        expose:
+          - 27017
+        healthcheck:
+          test: echo 'db.runCommand("ping").ok' | mongo mongo-db:27017/test
+            --quiet
+          interval: 10s
+          timeout: 10s
+          retries: 5
+          start_period: 10s
+        environment:
+          MONGO_INITDB_ROOT_USERNAME: mongoadmin
+          MONGO_INITDB_ROOT_PASSWORD: secret
+          MONGO_INITDB_DATABASE: analytics_dev
 
 
 
+
+docker system prune
+docker volume prune
 
 
 
