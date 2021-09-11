@@ -199,6 +199,49 @@ The zip() function returns an iterator of tuples based on the iterable objects.
 
 https://docs.python.org/3/library/timeit.html
 
+https://hakibenita.com/fast-load-data-python-postgresql
+Measuring Time
+    To measure time for each method we use the built-in time module:
+    >>> import time
+    >>> start = time.perf_counter()
+    >>> time.sleep(1) # do work
+    >>> elapsed = time.perf_counter() - start
+    >>> print(f'Time {elapsed:0.4}')
+    Time 1.001
+    import time
+    def pc():
+        start = time.perf_counter()
+        time.sleep(1)
+        print(time.perf_counter()-start)
+    def pt():
+        start = time.process_time()
+        time.sleep(1)
+        print(time.process_time()-start)
+    pc()  # 0.99872320449432
+    pt()  # 0.0
+    perf_counter() should measure the real amount of time for a process to
+        take, as if you used a stop watch.
+    process_time() will give you the time spent by the computer for the current
+        process, a computer with an OS usually won’t spend 100% of the time on
+        any given process. This counter shouldn’t count the time the cpu is
+        running anything else.
+
+Most cases perf_counter is probably preferable but process_time can be useful if you want to compare code efficiency.
+Measuring Memory
+    To measure memory consumption, we are going to use the package memory-profiler.
+    $ python -m pip install memory-profiler
+    $ python -m memory_profiler example.py
+
+
+from datetime import date, timedelta
+start_date = date(2019, 1, 1)
+end_date = date(2020, 1, 1)
+delta = timedelta(days=1)
+while start_date <= end_date:
+    print(start_date.strftime("%Y-%m-%d"))
+    start_date += delta
+
+
 
 *******************************************************************************
 
@@ -303,6 +346,53 @@ if __name__ == '__main__':
     doctest.testmod()
 
 
+*******************************************************************************
+                            New features & 3.6+
+*******************************************************************************
+
+
+Python 3.6+
+f-strings o literals strings. Runtime evaluated.
+    course = 'Python'
+    feature = 'f-strings'
+    print(f"The new {course.upper()} feature is {feature} !")
+
+
+from dataclasses import dataclass, asdict, field
+@dataclass  #over a class
+asdict(<instance>)  --> Convert the instance properties in a dictionary
+
+dict(_id=5)       --> {_id: 5}
+
+How to copy all properties of an object to another object
+destination.__dict__.update(source.__dict__)
+
+Formating and Style:
+    Mypy (type checking)
+    Black ¿?
+    Pylint  # http://pylint.pycqa.org/en/latest/user_guide/ide-integration.html
+
+3.8+
+    class names(Enum):
+        UNKNOWN = 'unknown'
+        YOU = 'know'
+    a = names.YOU   --> a.value # 'you'     --> a.name # know
+
+    def func1(parameterA: Optional[<type>] = DefaultValue) -> Optional[<return_value>]:
+    def parseV(value: Optional[str] = None) -> Optional[bool]:
+    # Optional[str] means value can be type str or None
+
+
+
+*******************************************************************************
+                                Logging
+*******************************************************************************
+
+import logging
+
+logging.basicConfig(format="%(asctime)-15s  %(message)s")
+logger = logging.getLogger(__name__)
+
 
 *******************************************************************************
                                 Packages
@@ -355,8 +445,14 @@ https://www.activestate.com/blog/top-10-python-tools-to-make-your-life-easier/
 5. Docutils: The Documentation Utilities project exists to create a set of tools to easily process plaintext documents into more useful file formats such as HTML, XMS, or LaTeX.
 7. Pytest: Testing code fidelity 
 
+https://stackoverflow.com/questions/1060279/iterating-through-a-range-of-dates-in-python
+http://labix.org/python-dateutil
 
 
-
+# How to import a parent package. Add it to PYTHONPATH
+https://www.geeksforgeeks.org/python-import-from-parent-directory/
+    from sys import path
+    path.append("<dir>")
+    import <module_in_dir> as mid
 
 
