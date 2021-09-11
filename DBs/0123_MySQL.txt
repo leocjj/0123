@@ -175,7 +175,8 @@ DROP                    Drop_priv               Databases, tables, or views
 EVENT                   Event_priv              Databases
 EXECUTE                 Execute_priv            Stored routines
 FILE                    File_priv               File access on server host
-GRANT OPTION            Grant_priv              Databases, tables, or stored routines
+GRANT OPTION            Grant_priv              Databases, tables, or
+                                                    stored routines
 INDEX                   Index_priv              Tables
 INSERT                  Insert_priv             Tables or columns
 LOCK TABLES             Lock_tables_priv        Databases
@@ -221,14 +222,14 @@ curl "https://s3.amazonaws.com/intranet-projects-files/
 
 CREATE DATABASE tyrell_corp;
 USE tyrell_corp;
-CREATE TABLE nexus6 (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(20));
-INSERT INTO `nexus6` (name) VALUES ("leocjj");
-GRANT SELECT ON tyrell_corp.nexus6 TO 'holberton_user'@'localhost';
+CREATE TABLE ne (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(20));
+INSERT INTO `ne` (name) VALUES ("leocjj");
+GRANT SELECT ON tyrell_corp.ne TO 'holberton_user'@'localhost';
 
 SHOW DATABASES;
 CREATE DATABASE IF NOT EXISTS hbtn_0;
 DROP DATABASE IF EXISTS hbtn_0;
-USE database_name;                    // Changes context to the specified database
+USE database_name;                    // Changes context to specified database
 
 SHOW TABLES;
 CREATE TABLE IF NOT EXISTS first_table(id INT, name VARCHAR(256) NOT NULL);
@@ -262,8 +263,9 @@ ALTER TABLE t ADD email VARCHAR(40) AFTER name; // Add column after name col.
 ALTER TABLE t DROP email;
 
 SELECT AVG(score) AS average FROM second_table;
-SELECT score, COUNT(*) AS number FROM second_table GROUP BY score ORDER BY score DESC;
-SELECT score, name FROM second_table WHERE name IS NOT NULL ORDER BY score DESC;
+SELECT score, COUNT(*) AS number FROM second_table GROUP BY score
+    ORDER BY score DESC;
+SELECT score,name FROM second_table WHERE name IS NOT NULL ORDER BY score DESC;
 
 select id
      , firstname
@@ -357,6 +359,17 @@ UPDATE      table_name
 
 DELETE FROM table_name
     WHERE condition;
+
+
+Copy table1 into an existing table2
+    INSERT INTO table2 SELECT * FROM table1 [WHERE condition];
+
+Copy table1 into a new table2
+    SELECT * INTO table2 [IN externaldb] FROM table1 [WHERE condition];
+    -- CREATE TABLE table2 AS SELECT * FROM table1 [WHERE condition];
+
+Copy schema. Create a new, empty table using the schema of another.
+    SELECT * INTO table2 [IN externaldb] FROM table1 WHERE 1 = 0;
 
 
 
@@ -536,10 +549,12 @@ EXIST
             (SELECT column_name FROM table_name WHERE condition);
         SELECT SupplierName
             FROM Suppliers
-            WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
+            WHERE EXISTS (SELECT ProductName FROM Products
+            WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
         SELECT SupplierName
             FROM Suppliers
-            WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price = 22);
+            WHERE EXISTS (SELECT ProductName FROM Products
+            WHERE Products.SupplierID = Suppliers.supplierID AND Price = 22);
 
 
 https://www.w3schools.com/sql/sql_any_all.asp
@@ -558,21 +573,25 @@ ANY
 *******************************************************************************
 
 ALTER DATABASE hbtn_0c_0 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-ALTER TABLE hbtn_0c_0.first_table CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE hbtn_0c_0.first_table CONVERT TO CHARACTER SET utf8mb4 
+    COLLATE utf8mb4_unicode_ci;
 
 Display the average temperature by city ordered by temperature
-SELECT city, AVG(value) AS avg_temp FROM temperatures GROUP BY city ORDER BY avg_temp DESC;
+SELECT city, AVG(value) AS avg_temp FROM temperatures GROUP BY city
+    ORDER BY avg_temp DESC;
 
 Display the top 3 cities with highest average temperature in July and August
-SELECT city, AVG(value) AS avg_temp FROM temperatures WHERE month IN (7, 8) GROUP BY city ORDER BY avg_temp DESC LIMIT 3;
+SELECT city, AVG(value) AS avg_temp FROM temperatures WHERE month IN (7, 8)
+    GROUP BY city ORDER BY avg_temp DESC LIMIT 3;
 
 Display the max temperature in each state
-SELECT state, MAX(value) AS max_temp FROM temperatures GROUP BY state ORDER BY state;
+SELECT state, MAX(value) AS max_temp FROM temperatures
+    GROUP BY state ORDER BY state;
 
 
 
 *******************************************************************************
-                            List of all MySQL commands:
+                        List of all MySQL commands:
 *******************************************************************************
 
 Note that all text commands must be first on line and end with ';'
@@ -597,7 +616,8 @@ status    (\s) Get status information from the server.
 system    (\!) Execute a system shell command.
 tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
 use       (\u) Use another database. Takes database name as argument.
-charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+charset   (\C) Switch to another charset.
+                Might be needed for processing binlog with multi-byte charsets.
 warnings  (\W) Show warnings after every statement.
 nowarning (\w) Don't show warnings after every statement.
 resetconnection(\x) Clean session context.
@@ -610,25 +630,26 @@ For server side help, type 'help contents'
                     :
 *******************************************************************************
 
-https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/queries.php
-https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/join.php
-https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/multijoin.php
-https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/jointypes.php
-https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/functions.php
-https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/subqueries.php
-https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/setops.php
-https://web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/views.php
+web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/queries.php
+web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/join.php
+web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/multijoin.php
+web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/jointypes.php
+web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/functions.php
+web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/subqueries.php
+web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/setops.php
+web.csulb.edu/colleges/coe/cecs/dbdesign/dbdesign.php?page=sql/views.php
 
 https://selectstarsql.com/
 https://sqlzoo.net/
 https://www.sohamkamani.com/blog/2016/07/07/a-beginners-guide-to-sql/
-https://blog.jooq.org/2017/01/12/a-probably-incomplete-comprehensive-guide-to-the-many-different-ways-to-join-tables-in-sql/
+https://blog.jooq.org/2017/01/12/a-probably-incomplete-comprehensive-guide-
+    to-the-many-different-ways-to-join-tables-in-sql/
 https://www.dataquest.io/blog/sql-intermediate/
 
 
 SELECT [* / tabla.col, tabla.col,...] FROM tabla JOIN tabla ON columns_to_match
-SELECT cities.id, cities.name, states.name FROM cities JOIN states ON cities.state_id = states.id
-
+SELECT cities.id, cities.name, states.name FROM cities
+    JOIN states ON cities.state_id = states.id
 
 
 
@@ -636,7 +657,8 @@ SELECT cities.id, cities.name, states.name FROM cities JOIN states ON cities.sta
                                 Master-Slave
 *******************************************************************************
 
-https://www.digitalocean.com/community/tutorials/how-to-choose-a-redundancy-plan-to-ensure-high-availability#sql-replication
+https://www.digitalocean.com/community/tutorials/
+    how-to-choose-a-redundancy-plan-to-ensure-high-availability#sql-replication
 
 Master-Slave configuration
 Master” server is responsible for performing all writes and updates.
@@ -733,47 +755,19 @@ mysql -u root -p
 
                                 ***
 https://bobcares.com/blog/ufw-mysql/
-Make sure that UFW is allowing connections on port 3306 (default MySQL port) otherwise replication will not work.
-    sudo netstat -plutn | grep 3306
-    sudo ufw allow mysql
-    sudo ufw status
+Make sure that UFW is allowing connections on port 3306 (default MySQL port)
+    otherwise replication will not work.
+        sudo netstat -plutn | grep 3306
+        sudo ufw allow mysql
+        sudo ufw status
                                 ***
 
 
 
 *******************************************************************************
-                            Backup-Restore
-*******************************************************************************
+                                Backup-Restore
+***************************************************************
 
 
 https://www.databasejournal.com/features/mssql/
     developing-a-sql-server-backup-strategy.html
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
