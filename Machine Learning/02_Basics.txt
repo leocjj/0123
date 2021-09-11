@@ -666,6 +666,7 @@ Techniques in Deep Learning
     H = n / (sum(1 / xi, 1, n))
 
 
+
 *******************************************************************************
                                 NORMS
 *******************************************************************************
@@ -832,6 +833,71 @@ Workflow (lightweight)
     Run your new dataset through it and record the output of one (or several)
     layers from the base model. This is called feature extraction.
     Use that output as input data for a new, smaller model.
+
+
+
+*******************************************************************************
+                        Dimensionality Reduction
+*******************************************************************************
+https://towardsdatascience.com/https-medium-com-abdullatif-h-dimensionality-reduction-for-dummies-part-1-a8c9ec7b7e79
+
+GOOD:
+    to have features with high variance,
+    since they will be more informative and more important.
+BAD:
+    to have highly correlated features, or high covariance,
+    since they can be deduced from one another with little loss
+    keeping them together is redundant.
+
+PCA - Principal Component Analysis
+    to find another representation of the data (another set of features),
+    such that the features have the highest variance and lowest covariance. 
+
+
+
+*******************************************************************************
+                                Probability
+*******************************************************************************
+
+Conditional:
+    P(A|B) = P(A n B) / P(B)
+    P(B|A) = P(B n A) / P(A)
+
+T. Bayesian:
+    P(Hipotesis|Evidence) = P(H).P(E|H) / P(E)
+                          
+     *  +  +  +  +  +  +  +     *  -> P(H) = 5/40       prior.
+     *  +  +  +  +  +  +  +
+     *  +  +  +  +  +  +  +
+     *  +  +  +  +  +  +  +
+     *  +  +  +  +  +  +  +
+     
+     *  +  +  +  +  +  +  +     *   -> P(H)   =  5/40    prob. that hip holds.
+     *  +  +  +  +  +  +  +     +   -> P(¬H)  = 35/40
+     *  +  +  +  +  +  +  +    ( )  -> P(E)   =  9/40
+    (*) +  +  +  +  +  +  +    (*)/*-> P(E|H) =  2/5     evidence given hipot.
+    (*)(+)(+)(+)(+)(+)(+)(+)            P(E|H) = P(E n H) / P(H)  "likelihood"
+                               (+)/+ -> P(E|¬H)=  7/35
+    
+    (*)/( ) = * . (*)/* / ( )
+        -> P(H|E) = P(H).P(E|H) / P(E) = P(H n E) / P(E)
+                  = P(H).P(E|H) / P(H)P(E|H) + P(¬H)P(E|¬H)
+                  =    (*)      /    (*)     +     (+)
+                  =    (*)      /           ( )
+
+        +----+-----------+
+        |    |           |
+        |    |           |
+        |    |           |
+        +----+           |
+ P(E|H) |(*) +-----------+
+        |    |    (+)    | P(E|¬H)
+        +----+-----------+
+         P(H)    P(¬H)
+
+
+
+
 
 
 
