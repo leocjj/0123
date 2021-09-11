@@ -5,8 +5,8 @@ semicolo        ;
 )   the closing parenthesis
 [   the opening square bracket
 ]   the closing square bracket
-{   the opening curly brace
-}   the closing curly brace
+{   the opening curly brace - left brace
+}   the closing curly brace - right brace
 ^   the caret
 |   the vertical bar or pipe symbol
 !   exclamation point
