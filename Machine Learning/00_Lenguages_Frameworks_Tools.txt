@@ -101,6 +101,9 @@ OTHERS (SW)         www.determined.ai
                     github.com/openml/openml-docker-dev
                     github.com/IDSIA/sacred
                     https://copilot.github.com/
+                    https://openai.com
+                    GPT-2 (instead of GPT-3)
+                    https://www.tabnine.com
 
 pypy.org
 PyPy is a fast, compliant alternative implementation of the Python language.
