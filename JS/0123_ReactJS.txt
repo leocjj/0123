@@ -9,16 +9,40 @@ https://softwarecrafters.io/react/tutorial-react-js-introduccion/   # Tutorial
 
 https://codepen.io/pen                                      # Playgrounds
 https://codesandbox.io/s/new
+https://codesandbox.io/s/new?file=/src/App.js
 https://jsfiddle.net/boilerplate/react-jsx
+https://stackoverflow.com/posts/43846584/edit
 
 https://devhints.io/react                                   # Cheatsheet
 https://code.visualstudio.com/docs/nodejs/reactjs-tutorial  # VS Code
 https://reactjs.org/docs/add-react-to-a-website.html        # Add to a website
 
+https://react-bootstrap.github.io/components/alerts         # Packages for components
+https://www.npmjs.com/
+https://material-ui.com/
+
+https://github.com/Genymobile/scrcpy                        # Mobile screen copy to PC.
+
+https://caniuse.com/css-filters#:~:text=Filter%20functions%20include%20blur%2C%20brightness,%2C%20opacity%2C%20sepia%20and%20saturate
+
 
 *******************************************************************************
                             INSTALL DEV ENVIRONMENT
 *******************************************************************************
+
+To install node in WLS
+    https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl
+    https://code.visualstudio.com/docs/remote/wsl#_getting-started
+    In VS Code, click on icon in left buttom corner,
+        select Remote-WLS / Open folder in WSL, folder \\wsl$\Ubuntu-18.04\home\
+    Clone repo and (manually) follow steps for installation.
+
+To access WLS files from Windows (in PowerSherll)
+     wsl --list --running
+     cd \\wsl$\<DistributionName>   or put path this in File Explorer.
+
+lsb_release -dc
+sudo apt update && sudo apt upgrade
 
 docker-compose.yml
     version: "3.9"
@@ -83,7 +107,7 @@ ReactJS environment for DEV with Docker:
     2$ cd devel-env/                    # (e.g. Firebase credentials) into this file.
     2$ docker-compose exec react sh     # to start and keep service running.
       # cd app/
-      # npm install                   # Install all dependencies.
+      # npm install                     # Install all dependencies.
       # npm start                       # Start server.
     ...                                 # WAIT for development server to start.
 
@@ -94,7 +118,20 @@ ReactJS environment for DEV with Docker:
     Open http://localhost:3000/
 
 
-EDIT FILES IN HOST VOLUME, CHANGES WILL BE AUTOMATICALLY SYNCHRONIZED WITH THE CONTAINER.
+                            EDIT FILES IN HOST VOLUME,
+            CHANGES WILL BE AUTOMATICALLY SYNCHRONIZED WITH THE CONTAINER
+    BUT ‘npm start’ IS STILL REQUIRED TO COMPILE THE CHANGES (SECOND CONSOLE).
+
+Daily
+    Start Docker
+    Git in project directory
+        cd devel-env/
+        docker-compose up -d
+        docker-compose exec react sh
+        cd app/
+        npm start
+    Check http://localhost:3000/
+    Open VS Code
 
 
 
@@ -110,10 +147,69 @@ On the code:
 SAVE FILES WITH LINUX EOL (LF only) TO RUN THEM WELL IN A LINUX CONTAINER.
 
 
+Extension for VS Code style: Prettier - Code formatter (esbenp.prettier-vscode)
+Usage:
+    1) Change extension settings the first time:
+        Enable for the workspace the option: Prettier: Jsx Single Quote
+        Enable for the workspace the option: Prettier: Single Quote
+    2) CTRL + Shift + P, then type: Format Document
+    .vscode/settings.json
+        {
+        "prettier.singleQuote": true,
+        "prettier.jsxSingleQuote": true
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.formatOnSave": true
+        }
+
 
 *******************************************************************************
                                     Basics
 *******************************************************************************
+
+JSX
+    Valid JS expression inside the curly braces.
+        const name = 'Josh Perez';
+        const element = <h1>Hello, {name}</h1>;
+
+        ReactDOM.render(
+          element,
+          document.getElementById('root')
+        );
+
+Split JSX over multiple lines for readability.
+    Recommend wrapping it in parentheses to avoid automatic semicolon insertion.
+        const element = (
+          <h1>
+            Hello, {formatName(user)}!
+          </h1>
+        );
+
+JSX is an Expression Too
+    function getGreeting(user) {
+      if (user) {
+        return <h1>Hello, {formatName(user)}!</h1>;
+      }
+      return <h1>Hello, Stranger.</h1>;
+    }
+
+Attributes with JSX
+    quotes (for string values) or curly braces (for expressions)
+        const element = <div tabIndex="0"></div>;
+        const element = <img src={user.avatarUrl}></img>;
+
+Rendering an Element into the DOM
+    HTML file
+        <div id="root"></div>
+    App.js
+        const element = <h1>Hello, world</h1>;
+        ReactDOM.render(element, document.getElementById('root'));
+
+    Only Updates What’s Necessary
+    Compares the element and its children to the previous one, and only applies
+        the DOM updates necessary to bring the DOM to the desired state.
+    Thinking about how the UI should look at any given moment,
+        rather than how to change it over time
+
 
 https://softwarecrafters.io/react/tutorial-react-js-introduccion/
 
@@ -123,6 +219,7 @@ COMPONENT ORIENTED PROGRAMING
     Components are classes, these inherate from Component class.
     Render method define its content
     It's recomended to use JSX, i.e. HTML tags inside JS code.
+    React DOM uses camelCase
 
         class MyComponent extends React.Component {
           render() {
@@ -132,11 +229,102 @@ COMPONENT ORIENTED PROGRAMING
           }
         }
 
+*******************************************************************************
+                                ITERATIONS
+*******************************************************************************
+https://stackoverflow.com/questions/35191336/how-to-map-a-dictionary-in-reactjs
+
+
+var dict = this.props.dict;
+var arr = [];
+for (var key in dict) {
+  arr.push(dict[key]);
+}
+
+var dict = this.props.dict;
+for (var key in dict) {
+  // Do stuff. ex: console.log(dict[key])
+}
+
+const obj = {
+  foo: 'bar',
+  baz: 42
+}
+console.log('Object.entries')
+console.log(
+  Object.entries(obj)
+)
+console.log('Mapping')
+console.log(
+  Object.entries(obj)
+  .map( ([key, value]) => `My key is ${key} and my value is ${value}` )
+)
+
+  <div>
+  {
+    Object.entries(buttonCaptions)
+    .map( ([key, value]) => <button key={key}>{value}</button> )
+  }
+  </div>
+  
+console.log(
+  Object.entries({key: 'value'})
+  .map( ([key, value]) => `${key}: ${value}` )
+)
+    
+console.log(
+  Object.entries({key: 'value'})
+  .map(keyValuePair => `${keyValuePair[0]}: ${keyValuePair[1]}`)
+)
+
+
+
+
+
+if (isLoggedIn) {
+  button = <LogoutButton onClick={this.handleLogoutClick} />;
+} else {
+  button = <LoginButton onClick={this.handleLoginClick} />;
+}
+
+true && expression always evaluates to expression
+false && expression always evaluates to false.
+
+condition ? true : false.
+<div>
+  The user is <b>{isLoggedIn ? 'currently' : 'not'}</b> logged in.
+</div>
+
+To check if object exists in array you can use some() that returns true/false
+const myArray = [{key1: "value1", key2: "value2"}, {key1: "value4", key2: "value8"}, {key1: "value1", key2: "value3"}, {key1: "value1", key2: "value32"}]
+if(myArray.some(e => e.key1 == 'value1')) {
+  console.log('Exists');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 CREATING APPS
     https://github.com/facebook/create-react-app            # Full
     https://reactjs.org/docs/add-react-to-a-website.html    # Just add react
 
+JSON Schema
+    https://json-schema.org/implementations.html
+    https://www.liquid-technologies.com/online-json-to-schema-converter
+    https://www.altova.com/xmlspy-xml-editor/download#
+    https://dashjoin.github.io/#/schema
+    
 
+https://reactjs.org/docs/hooks-state.html#tip-what-do-square-brackets-mean
 
 
 
