@@ -1,24 +1,84 @@
 
-MongoDB
+*******************************************************************************
+                              MongoDB container
+*******************************************************************************
+
+docker create --name mongo \
+  -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
+  -e MONGO_INITDB_ROOT_PASSWORD=secret \
+  -e MONGO_INITDB_DATABASE=analytics_dev \
+  --publish=27017:27017 \
+  mongo:4-bionic
+
+
+
+*******************************************************************************
+                                MongoDB Shell
+*******************************************************************************
+
+Install mongo shell (deprecated)
+    https://www.mongodb.com/try/download/community?tck=docs_server
+    $ wget https://fastdl.mongodb.org/linux/
+        mongodb-shell-linux-x86_64-ubuntu2004-5.0.2.tgz
+    $ tar xvzf mongodb-shell-linux-x86_64-ubuntu2004-5.0.2.tgz
+    $ cp mongodb-linux-x86_64-ubuntu2004-5.0.2/bin/mongo /usr/bin
+
+Install mongodb shell (mongosh)
+    https://docs.mongodb.com/mongodb-shell/
+    https://docs.mongodb.com/mongodb-shell/install/#std-label-mdb-shell-install
+
+
+
+*******************************************************************************
+                                MongoDB
+*******************************************************************************
+
+mongo mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/{dbname}
+mongodb+srv://<username>:<password>@cluster0.h8fp0.mongodb.net/test
+
+If locally:
+    sudo service mongod start = Start Service
+    mongo = Run mongo locally
+
+mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:27017
+mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/{MONGO_DBNAME}
+mongo mongodb://mongoadmin:secret@localhost:27017
 
 https://docs.mongodb.com/manual/
 https://university.mongodb.com/
 https://docs.mongodb.com/manual/applications/drivers/
 
-mongodb+srv://<username>:<password>@cluster0.h8fp0.mongodb.net/test
-
-https://github.com/jzamora5
-
 Database that have collections (folders) that have files (jsons)
 Python packages: pymongo, ODMS: mongoose
 
-use <new/old_db_name>
-db                              # Shows db in use
+use <new/old_db_name>       # Create / Use database. Set current database
+db                          # shows db in use
+show databases              # Shows available databases
+show collections            
+help                        # interactive help
+db.help()                   # help on db methods
+db.<collection_name>.help() # help on collection methods
+db.stats()
+db.dropDatabase()           # Drops the database that is currently being used
+show databases              # show dbs
+show collections            # db.getCollectionNames()
+show users
+db.mycoll.count( query = {}, <optional params> )
+db.mycoll.find()            # list objects in collection mycoll
+db.mycoll.findOne([query], [fields], [options], [readConcern])
+db.mycoll.find(...).count()
+db.mycoll.find(...).limit(n)
+db.mycoll.find(...).skip(n)
+db.mycoll.find(...).sort(...)
+db.mycoll.find( { a : 1 } ) # list objects in mycoll where a == 1
+.pretty() = Can be added to queries in order to get a better looking result
+
+
 db.<collection_name>.insertOne({name: "Larry"})
     _id:"añslkdfjñaslkfjsañl"   # Hex id gererated automaticaly
 
 id = objectId("añslkdfjñaslkfjsañl")    # Real id
-show databases
+
 
 db.<collection_name>.find({name: "Larry"})  # .pretty()  optional
 db.<collection_name>.find({_id: "añslkdfjñaslkfjsañl"})
@@ -43,28 +103,11 @@ db.<collection_name>.deleteMany(     # Delete several coincidences
 
 db.<collection_name>.help
 
+
+
 *******************************************************************************
-
-If locally:
-
-sudo service mongod start = Start Service
-
-mongo = Run mongo locally
-
-*** General ***
-
-show databases              # Shows available databases
-use <db_name>               # Create / Use database
-db.<collection_name>.help() # Shows operations that can be done with a collection
-
-db = Shows database being used currently
-
-db.dropDatabase() = Drops the database that is currently being used
-
-.pretty() = Can be added to queries in order to get a better looking result
-
-
-**** CRUD =======================================================================================
+                                CRUD
+*******************************************************************************
 
 With mydb as database and participants as collection
 
@@ -111,7 +154,8 @@ db.participants.insertOne(
         pdata: {phone: "123456789", address: "Buena Vibra Street"} }
 )
 
-ALTERNATIVE INSERT WITH insert (Deprecated in some programming languages drivers)
+ALTERNATIVE INSERT WITH insert
+(Deprecated in some programming languages drivers)
 
 
 *** READ DATA ***
