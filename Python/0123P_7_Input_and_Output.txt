@@ -209,16 +209,16 @@ mode: string, the way in which the file will be used.
 
     'r'     when the file will only be read (default). synonym of 'rt'
     'w'     for only writing, existing file with the same name will be erased.
-    'a' 	open for writing, appending to the end of the file if it exists
+    'a'     open for writing, appending to the end of the file if it exists
     'r+'    opens the file for both reading and writing.
-    'x' 	open for exclusive creation, failing if the file already exists
+    'x'     open for exclusive creation, failing if the file already exists
 
-    'b' 	binary mode. return contents as bytes objects without any decoding.
-    't' 	text mode (default). the contents are returned as str, the bytes
+    'b'     binary mode. return contents as bytes objects without any decoding.
+    't'     text mode (default). the contents are returned as str, the bytes
             having been first decoded using a platform-dependent encoding or
             using the specified encoding if given.
 
-    '+' 	open a disk file for updating (reading and writing)
+    '+'     open a disk file for updating (reading and writing)
     'w+b'   binary read-write access, opens and truncates the file to 0 bytes.
     'r+b'   opens the file without truncation.
 
