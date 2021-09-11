@@ -6,40 +6,42 @@ https://www.python-course.eu/python3_lambda.php
 https://github.com/techqueria/data-structures-and-algorithms
 
 *******************************************************************************
-***************************** 5.1. More on Lists ******************************
+                            5.1. More on Lists 
+*******************************************************************************
 
-list.append(x)		a[len(a):] = [x]	Add an item to the end of the list.
-list.extend(L)		a[len(a):] = L  	Extend list, append items in list.
-list.insert(i, x) 	Insert an item at a given position.
-					i is index of the element before which to insert
-					a.insert(0, x)	inserts at the front of the list
-					a.insert(len(a), x)  is equivalent to a.append(x).
-list.remove(x)		Remove the first item from the list whose value is x.
-					It is an error if there is no such item.
+list.append(x)      a[len(a):] = [x]    Add an item to the end of the list.
+list.extend(L)      a[len(a):] = L      Extend list, append items in list.
+list.insert(i, x)   Insert an item at a given position.
+                    i is index of the element before which to insert
+                    a.insert(0, x)    inserts at the front of the list
+                    a.insert(len(a), x)  is equivalent to a.append(x).
+list.remove(x)      Remove the first item from the list whose value is x.
+                    It is an error if there is no such item.
 
-list.pop([i])		Remove item at i and return it
-					a.pop() removes and returns the last item.
-					list[n:n+1] = []. Delete item at posición n.
-list.clear()    	Remove all items from the list. Equivalent to del a[:].
-list.index(x)		Return index of the first item whose value is x
-					It is an error if there is no such item.
-list.count(x)		Return the number of times x appears in the list.
-sort(*, key=None, reverse=False)	// Sort the items of the list in place.
-list.reverse()  	a[::-1]. Reverse the elements of the list in place. 
-list.copy()	a[:]	Return a shallow copy of the list.
+list.pop([i])       Remove item at i and return it
+                    a.pop() removes and returns the last item.
+                    list[n:n+1] = []. Delete item at posición n.
+list.clear()        Remove all items from the list. Equivalent to del a[:].
+list.index(x)       Return index of the first item whose value is x
+                    It is an error if there is no such item.
+list.count(x)       Return the number of times x appears in the list.
+sort(*, key=None, reverse=False)    // Sort the items of the list in place.
+list.reverse()      a[::-1] Reverse the elements of the list in place. 
+list.copy()         a[:]    Return a shallow copy of the list.
 
 methods like insert, remove or sort that only modify the list return None. 
 
 
-************************** 5.1.1. Using Lists as Stacks ***********************
+***
+5.1.1. Using Lists as Stacks
 
 The last element added is the first element retrieved (“last-in, first-out”).
-append()	//To add an item to the top of the stack, use .
-pop()		//To retrieve an item from the top of the stack, use without an
-				explicit index. 
+append()            To add an item to the top of the stack, use .
+pop()               To retrieve an item from the top of the stack, use without
+                    an explicit index. 
 
-
-************************** 5.1.2. Using Lists as Queues ***********************
+***
+5.1.2. Using Lists as Queues
 
 The first element added is the first element retrieved (“first-in, first-out”)
 lists are not efficient for this. While appends and pops from the end of list
@@ -58,101 +60,120 @@ appends and pops from both ends.
 deque(['Michael', 'Terry', 'Graham'])
 
 
-*************************** 5.1.3. List Comprehensions ************************
+***
+5.1.3. List Comprehensions
 
-Concise way to create lists. Common applications are to make new lists where each element is the result of some operations applied to each member of another sequence or iterable, or to create a subsequence of those elements that satisfy a certain condition.
+Concise way to create lists. Common applications are to make new lists where
+each element is the result of some operations applied to each member of another
+sequence or iterable, or to create a subsequence of those elements that satisfy
+a certain condition.
+
 For example, assume we want to create a list of squares, like:
->>> squares = []
->>> for x in range(10):
-...     squares.append(x**2)
->>> squares
-[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
-Note that this creates (or overwrites) a variable named x that still exists after the loop completes. We can calculate the list of squares without any side effects using:
+    >>> squares = []
+    >>> for x in range(10):
+    ...     squares.append(x**2)
+    >>> squares
+    [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
 
-squares = list(map(lambda x: x**2, range(10)))		or, equivalently:
-squares = [x**2 for x in range(10)]			which is more concise and readable.
+Note that this creates (or overwrites) a variable named x that still exists
+after the loop completes. We can calculate the list of squares without any side
+effects using:
 
-A list comprehension consists of brackets containing an expression followed by a for clause, then zero or more for or if clauses. The result will be a new list resulting from evaluating the expression in the context of the for and if clauses which follow it. For example, this listcomp combines the elements of two lists if they are not equal:
+    squares = list(map(lambda x: x**2, range(10)))  # or, equivalently:
+    squares = [x**2 for x in range(10)]         # is more concise and readable.
 
->>> [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
-[(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
-and it’s equivalent to:
->>> combs = []
->>> for x in [1,2,3]:
-...     for y in [3,1,4]:
-...         if x != y:
-...             combs.append((x, y))
+A list comprehension consists of brackets containing an expression followed by
+a for clause, then zero or more for or if clauses.
 
-Note how the order of the for and if statements is the same in both these snippets.
-If the expression is a tuple (e.g. the (x, y) in the previous example), it must be parenthesized.
->>>
->>> vec = [-4, -2, 0, 2, 4]
->>> # create a new list with the values doubled
->>> [x*2 for x in vec]
-[-8, -4, 0, 4, 8]
->>> # filter the list to exclude negative numbers
->>> [x for x in vec if x >= 0]
-[0, 2, 4]
->>> # apply a function to all the elements
->>> [abs(x) for x in vec]
-[4, 2, 0, 2, 4]
->>> # call a method on each element
->>> freshfruit = ['  banana', '  loganberry ', 'passion fruit  ']
->>> [weapon.strip() for weapon in freshfruit]
-['banana', 'loganberry', 'passion fruit']
->>> # create a list of 2-tuples like (number, square)
->>> [(x, x**2) for x in range(6)]
-[(0, 0), (1, 1), (2, 4), (3, 9), (4, 16), (5, 25)]
->>> # the tuple must be parenthesized, otherwise an error is raised
->>> [x, x**2 for x in range(6)]
-  File "<stdin>", line 1, in ?
-    [x, x**2 for x in range(6)]
-               ^
-SyntaxError: invalid syntax
->>> # flatten a list using a listcomp with two 'for'
->>> vec = [[1,2,3], [4,5,6], [7,8,9]]
->>> [num for elem in vec for num in elem]
-[1, 2, 3, 4, 5, 6, 7, 8, 9]
+The result will be a new list resulting from evaluating the expression in the
+context of the for and if clauses which follow it. For example, this listcomp
+combines the elements of two lists if they are not equal:
+
+    >>> [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
+    [(1, 3), (1, 4), (2, 3), (2, 1), (2, 4), (3, 1), (3, 4)]
+    and it’s equivalent to:
+    >>> combs = []
+    >>> for x in [1,2,3]:
+    ...     for y in [3,1,4]:
+    ...         if x != y:
+    ...             combs.append((x, y))
+
+Note how the order of the for and if is the same in both these snippets.
+If the expression is a tuple (e.g. the (x, y) in the previous example),
+it must be parenthesized.
+    >>>
+    >>> vec = [-4, -2, 0, 2, 4]
+    >>> # create a new list with the values doubled
+    >>> [x*2 for x in vec]
+    [-8, -4, 0, 4, 8]
+    >>> # filter the list to exclude negative numbers
+    >>> [x for x in vec if x >= 0]
+    [0, 2, 4]
+    >>> # apply a function to all the elements
+    >>> [abs(x) for x in vec]
+    [4, 2, 0, 2, 4]
+    >>> # call a method on each element
+    >>> freshfruit = ['  banana', '  loganberry ', 'passion fruit  ']
+    >>> [weapon.strip() for weapon in freshfruit]
+    ['banana', 'loganberry', 'passion fruit']
+    >>> # create a list of 2-tuples like (number, square)
+    >>> [(x, x**2) for x in range(6)]
+    [(0, 0), (1, 1), (2, 4), (3, 9), (4, 16), (5, 25)]
+    >>> # the tuple must be parenthesized, otherwise an error is raised
+    >>> [x, x**2 for x in range(6)]
+      File "<stdin>", line 1, in ?
+        [x, x**2 for x in range(6)]
+                   ^
+    SyntaxError: invalid syntax
+    >>> # flatten a list using a listcomp with two 'for'
+    >>> vec = [[1,2,3], [4,5,6], [7,8,9]]
+    >>> [num for elem in vec for num in elem]
+    [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 List comprehensions can contain complex expressions and nested functions:
->>> from math import pi
->>> [str(round(pi, i)) for i in range(1, 6)]
-['3.1', '3.14', '3.142', '3.1416', '3.14159']
+    >>> from math import pi
+    >>> [str(round(pi, i)) for i in range(1, 6)]
+    ['3.1', '3.14', '3.142', '3.1416', '3.14159']
 
 
-************************* 5.1.4. Nested List Comprehensions *******************
+***
+5.1.4. Nested List Comprehensions
 
-The initial expression in a list comprehension can be any arbitrary expression, including another list comprehension.
-Consider the following example of a 3x4 matrix implemented as a list of 3 lists of length 4:
->>>
->>> matrix = [
-...     [1, 2, 3, 4],
-...     [5, 6, 7, 8],
-...     [9, 10, 11, 12],
-... ]
+The initial expression in a list comprehension can be any arbitrary
+expression, including another list comprehension.
+Consider the following example of a 3x4 matrix implemented as a list of 3 lists
+of length 4:
+    >>>
+    >>> matrix = [
+    ...     [1, 2, 3, 4],
+    ...     [5, 6, 7, 8],
+    ...     [9, 10, 11, 12],
+    ... ]
+
 The following list comprehension will transpose rows and columns:
->>>
->>> [[row[i] for row in matrix] for i in range(4)]
-[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+    >>>
+    >>> [[row[i] for row in matrix] for i in range(4)]
+    [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 
-As we saw in the previous section, the nested listcomp is evaluated in the context of the for that follows it, so this example is equivalent to:
->>>
->>> transposed = []
->>> for i in range(4):
-...     transposed.append([row[i] for row in matrix])
->>> transposed
-[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+As we saw in the previous section, the nested listcomp is evaluated in the
+context of the for that follows it, so this example is equivalent to:
+    >>>
+    >>> transposed = []
+    >>> for i in range(4):
+    ...     transposed.append([row[i] for row in matrix])
+    >>> transposed
+    [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 
 which, in turn, is the same as:
->>> transposed = []
->>> for i in range(4):
-...     # the following 3 lines implement the nested listcomp
-...     transposed_row = []
-...     for row in matrix:
-...         transposed_row.append(row[i])
-...     transposed.append(transposed_row)
->>> transposed
-[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
+    >>> transposed = []
+    >>> for i in range(4):
+    ...     # the following 3 lines implement the nested listcomp
+    ...     transposed_row = []
+    ...     for row in matrix:
+    ...         transposed_row.append(row[i])
+    ...     transposed.append(transposed_row)
+    >>> transposed
+    [[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]]
 
 In the real world, you should prefer built-in functions to complex flow
 statements. The zip() function would do a great job for this use case:
@@ -163,31 +184,35 @@ statements. The zip() function would do a great job for this use case:
 See Unpacking Argument Lists for details on the asterisk in this line.
 
 
+
 *******************************************************************************
-************************ 5.2. The del statement *******************************
+                        5.2. The del statement
+*******************************************************************************
 
 A way to remove an item from a list given its index instead of its value:
-	del statement, this differs from the pop() method which returns a value.
-	can also be used to remove slices from a list or clear the entire list
-	(which we did earlier by assignment of an empty list to the slice).
->>> del a[0]		//delete item at index 0
->>> del a[2:4]		//delete items 2 through 3
->>> del a[:]		//delete the list 
+    del statement, this differs from the pop() method which returns a value.
+    can also be used to remove slices from a list or clear the entire list
+    (which we did earlier by assignment of an empty list to the slice).
+>>> del a[0]        //delete item at index 0
+>>> del a[2:4]      //delete items 2 through 3
+>>> del a[:]        //delete the list 
 
-del a				//delete entire variables
+del a               //delete entire variables
+
 
 
 *******************************************************************************
-************************* 5.3. Tuples and Sequences ***************************
+                        5.3. Tuples and Sequences
+*******************************************************************************
 
 Another standard sequence data type. ARE INMUTABLES. Values separated by commas
 
 t = 12345, 54321, 'hello!'
-t[0]	--> 12345
-t	--> (12345, 54321, 'hello!')
-u = t, (1, 2, 3, 4, 5)	--> ((12345, 54321, 'hello!'), (1, 2, 3, 4, 5))  nested
+t[0]    --> 12345
+t    --> (12345, 54321, 'hello!')
+u = t, (1, 2, 3, 4, 5)  --> ((12345, 54321, 'hello!'), (1, 2, 3, 4, 5))  nested
 
-v = ([1, 2, 3], [3, 2, 1])	//can contain mutable objects such as lists
+v = ([1, 2, 3], [3, 2, 1])    //can contain mutable objects such as lists
 
 Tuples are enclosed in parentheses, to be interpreted correctly.
 
@@ -198,29 +223,31 @@ LISTS are mutable, and their elements are usually homogeneous and are accessed
 by iterating over the list.
 
 construction of tuples containing 0 or 1 items.
-empty = ()		//Empty tuples
-singleton = ('hello',)	//trailing comma
-x, y, z = tuples	//The reverse operation is also possible
-			//sequence unpacking and works for any sequence
+empty = ()        //Empty tuples
+singleton = ('hello',)    //trailing comma
+x, y, z = tuples    //The reverse operation is also possible
+            //sequence unpacking and works for any sequence
 Sequence unpacking requires as many variables on the left side as elements in
 the sequence. Multiple assignment is tuple packing and sequence unpacking.
 
 
+
 *******************************************************************************
-******************************* 5.4. Sets *************************************
+                                    5.4. Sets
+*******************************************************************************
 
 An unordered collection with no duplicate elements.
 For membership testing and eliminating duplicate entries.
 Support operations union, intersection, difference, and symmetric difference.
 
 Curly braces or the set() function can be used to create sets.
-set()		//Empty set, not {}; the latter creates an empty dictionary.
+set()        //Empty set, not {}; the latter creates an empty dictionary.
 
 basket = {'apple', 'orange', 'apple', 'pear', 'orange', 'banana'}
-print(basket)                      	
-{'orange', 'banana', 'pear', 'apple'}	//duplicates have been removed
-'orange' in basket	-->True		//fast membership testing
-'crabgrass' in basket	-->False
+print(basket)                          
+{'orange', 'banana', 'pear', 'apple'}    //duplicates have been removed
+'orange' in basket    -->True        //fast membership testing
+'crabgrass' in basket    -->False
 
 //Set operations on unique letters from two words
 a = set('abracadabra')
@@ -467,7 +494,7 @@ Define
 
 Index
  item       a[i]        a[i]        a[i]        avoid a['key']  N/P
-                                                use a.get(key)
+                                                use a.get(key [, default_val])
  slice      a[i:j]      a[i:j]      a[i:j]      N/P             N/P
 
 Item
@@ -502,6 +529,10 @@ Special     a           a+='Hi'                                 | Union
 N/P: Not Permited
 P/U: Permited but useless
 All built-in inmutable types are hashable
+
+Dictionaries keys cannot be changed.
+    add a new key with the modified value then remove the old one
+    or create a new dict with a dict comprehension or the like.
 
 for a, b in {'key': 1}.items():
 ...  print(a,b)
