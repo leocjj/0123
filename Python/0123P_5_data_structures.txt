@@ -537,6 +537,8 @@ Dictionaries keys cannot be changed.
 for a, b in {'key': 1}.items():
 ...  print(a,b)
 
+a = [*temp]                     # a = list(temp.keys())
+
 a, b = b, a                     # Swap two variables
 
 words = ["Hello", "world"]
