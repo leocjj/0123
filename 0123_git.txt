@@ -1,91 +1,164 @@
-https://github.com/leocjj/			//Main git
-https://github.com/leocjj/0123		//Repository for notes
 
-https://github.com/shiftkey/desktop/releases/	     //Github desktop for Linux
-
+https://github.com/leocjj/                      # Main git
+https://github.com/leocjj/0123                  # Repository for notes
+https://github.com/shiftkey/desktop/releases/   #Github desktop for Linux
 https://ohshitgit.com/
 
--------------------------------- WORKING IN ORIGIN ---------------------------------
+
+*******************************************************************************
+                                WORKING IN ORIGIN
+*******************************************************************************
+
 First, create a repository in github.com
 In a local folder:
-$ git clone url_of_your_remote_repository   # Clone a repository from a remote repository  
-$ git add file1 file2    # will add those two files to the index if they were modified  
-$ git commit -m "Meaningful commit message"   # will commit those two files (locally)  
-$ git add .   # will add all of the modified files to the index at once  
-$ git commit -m "Other meaningful commit message"   # will commit all of those files together  
-$ git push origin master   # send all commit to the remote server
+    $ git clone url_remote_repo     # Clone a repository from a remote repo.
+    $ git add file1 file2           # will add those two files to the index if
+                                    # they were modified
+    $ git commit -m "commit msg"    # will commit those two files (locally)
+    $ git add .                     # will add all of modified files to index
+    $ git commit -m "Other msg"     # will commit all of those files together  
+    $ git push origin master        # send all commit to the remote server
 
-In a non-Git directory in local computer, to turn it into a Git repository, it's that easy:
-First, create a repository in github.com
-echo "Readme" >> README.md
-$ git init   					# You're done!
-$ git add README.md
-$ git commint -m "Readme file"
-$ git remote add origin url_of_your_git_server	# So that you can push your code somewhere.  
-$ git push -u origin master
+In a non-Git directory in local computer, to turn it into a Git repository,
+to create a repo from command line
+    First, create a repository in github.com
+    echo "Readme" >> README.md
+    git init                        # To create local repo
+    git add README.md
+    git commit -m "Readme file"
+    git branch -M master
+    git remote add origin url_of_your_git_server # To push your code somewhere.
+    [git remote add origin https://github.com/<user>/<repo.git>]
+    git push -u origin master
 
 Or just
-$ git init					# You're done!  
-$ git remote add origin url_of_your_git_server	# So that you can push your code somewhere.  
+    $ git init                      # You're done!
+    $ git remote add origin url_of_your_git_server
 
 
 
--------------------------------- WORKING IN A BRANCH - FIRST TIME ---------------------------------
-$ git branch my_feature   # Creating the branch  
-$ git checkout my_feature   # Changing the codebase so that we're on that branch now  
-$ git checkout -b my_feature   # This does the two previous operations in one ;)  
-$ git add file1 file2  
-$ git commit -m "Meaningful commit message"   # We didn't just commit this on the master branch like last time, but on the my_feature one  
-$ git add .  
-$ git commit -m "Other meaningful commit message"  
-$ git push origin my_feature   # Notice: we're not pushing master anymore, you just create a new remote branch
+*******************************************************************************
+                        WORKING IN A BRANCH - FIRST TIME
+*******************************************************************************
+
+$ git branch my_feature         # Creating the branch  
+$ git checkout my_feature       # Changing the codebase to that branch now
+$ git checkout -b my_feature    # This does the two previous ops in one ;)
+$ git add file1 file2
+$ git commit -m "commit msg"    # We didn't just commit this on the master
+                                # Branch like last time, but on the my_feature
+$ git add .
+$ git commit -m "commit msg"
+$ git push origin my_feature    # Pushing to new remote branch, not master.
 
 
--------------------------------- WORKING IN A BRANCH - NEXT TIME ---------------------------------
-$ git checkout my_feature   # Just making sure you're currently on the right branch!  
-$ git pull origin my_feature   # Pulling what your coworkers have done so far.  
+
+*******************************************************************************
+                        WORKING IN A BRANCH - NEXT TIME
+*******************************************************************************
+
+git checkout my_feature       # Making sure you're on the right branch!  
+git pull origin my_feature    # Pulling what your coworkers have done so far.
+
+And when you're done with the whole feature and want to send it to the branch
+    git push origin my_feature
 
 And when you're done with the whole feature and want to merge it to master:
-$ git checkout master  
-$ git merge my_feature  
+    git checkout master
+    git merge my_feature
 
 
----------------------------------- OTHERS ------------------------------------------
-$ git status  		//List of files modified
 
-echo '*~'>>.gitignore	//To ignore temp files.
+*******************************************************************************
+                    WORKING WITH OTHERS BRANCH - NEXT TIME
+*******************************************************************************
 
-git config --global credential.helper cache --45000	//To avoid put pass and user for every git push
+https://stackify.com/git-checkout-remote-branch/
+$ git clone <repo>
+$ git fetch [origin]
+$ git checkout <others_branch>
+$ git pull origin <others_branch>  # Pulling what your coworkers have done.
 
-git config --list      //To verify, ~/.gitconfig
+# And when you're done with the whole feature and want to send it to the branch
+$ git push origin <others_branch>
 
+# And when you're done with the whole feature and want to merge it to master.
+$ git checkout master
+$ git merge <others_branch>
+
+
+
+*******************************************************************************
+                                    OTHERS
+*******************************************************************************
+
+git status          # List of files modified
+                    # Shows working-dir and staging-area
+git diff --name-only --diff-filter=M [HEAD] # List only modified files.
+git status | grep modified
+git annotate
+git show <commit_num>
+
+git log             # Commits history and points of head(local), master(local),
+                    # origin/master(remote)
+
+git branch -a       # Shows branch list
+    master          # Branch in local repo
+    origin          # Remote repo name
+    origin/master   # Branch in remote repo
+
+git config -l       # To check config of local repository.
+git remote -v       # To show remote repos
+
+echo '*~'>>.gitignore           # To ignore temp files.
+
+git config --global credential.helper wincred        # will store credentials.
+git config --global credential.helper cache --45000
+                                # To avoid put pass and user for every git push
+git config --list               # To verify, ~/.gitconfig
 git config --global user.name "leocjj"
 git config --global user.email "leocj@hotmail.com"
 
+git add --chmod=+x -- 4.py      # To upload files as executable
 
------------------------ SUBMODULES --------------------------------------------
+
+
+
+https://github.com/INFINITY-RUBER/CURSO_GITHUB.github.io/blob/master/
+    NOTA_COMANDOS.md
+
+
+
+*******************************************************************************
+                                    SUBMODULES
+*******************************************************************************
+
 https://github.blog/2016-02-01-working-with-submodules/#adding-a-submodule
-Allows to have the repository code, available int forder_name proyect
+Allows to have the repository code, available in folder_name proyect
 
 git submodule add url_repository folder_name
 
 git submodule update --init --recursive	//if forlder_name isn't sincronized
 
 git status
-	.gitmodules
-	folder_name
+    .gitmodules
+    folder_name
 
-git add .				//to add .gitmodules and folder_name
-git add --chmod=+x -- 4.py					# To upload files as executable
-git commint -m "submodules"
+git add .                       # To add .gitmodules and folder_name
+git add --chmod=+x -- 4.py      # To upload files as executable
+git commit -m "submodules"
 git push origin master
 
-git clone --recursive <project url>	//For clone all including submodules
+git clone --recursive <project url>     #For clone all including submodules
 
-git pull				//Inside folder_name to update files
+git pull                        # Inside folder_name to update files
 
 
------------------------ SCRIPT TO UPLOAD A FILE -------------------------------
+
+*******************************************************************************
+                            SCRIPT TO UPLOAD A FILE
+*******************************************************************************
+
 #!/bin/bash
 #./g 'File_to_push' 'Commit message'
 git add $1
@@ -93,8 +166,302 @@ git commit -m $2
 git push origin master
 
 
-Git provides many more abilities, such as rewriting pieces of the history of the project if you feel the commits were not meaningful enough, displaying the history in visually meaningful ways,
-For instance, you should run this right now, and see how a complex history can be viewed really nicely: 
-$ git clone [https://github.com/loverajoel/jstips.git](https://github.com/loverajoel/jstips.git)   # You will need a GitHub account for this to work  
-$ cd jstips   # changing your directory into the one you just downloaded  
-$ git log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative  
+Git provides many more abilities, such as rewriting pieces of the history of
+the project if you feel the commits were not meaningful enough, displaying the
+history in visually meaningful ways,
+
+For instance, you should run this right now, and see how a complex history
+can be viewed really nicely: 
+    git clone [https://github.com/loverajoel/jstips.git]
+    (https://github.com/loverajoel/jstips.git)
+    # You will need a GitHub account for this to work
+    cd jstips   # changing your directory into the one you just downloaded
+    git log --graph --pretty=tformat:'%Cred%h%Creset -%C(yellow)%d%Creset %s
+    %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative  
+
+
+
+*******************************************************************************
+                        EOL - LINE ENDINGS IN FILES
+*******************************************************************************
+
+https://docs.github.com/en/free-pro-team@latest/github/using-git/
+    configuring-git-to-handle-line-endings
+https://stackoverflow.com/questions/5787937/git-status-shows-files-as-changed-
+    even-though-contents-are-the-same
+If for example a file was modified in windows, and then copied to Linux,
+
+git ls-files --eol                      # to quickly see if eol is involved
+
+$ git config --global core.autocrlf true
+# Configure Git to ensure checkout files line endings are correct for Windows.
+# For compatibility, line endings are converted to Unix style when you commit.
+
+$ git config --global core.autocrlf input
+# Configure Git to ensure checkout files line endings are correct for Linux.
+
+
+
+*******************************************************************************
+                                WORKING DIRS
+*******************************************************************************
+
+Working-Dir   (untracked files)
+ |              /\                      /\
+ | git add .    |                       |
+\/              |                       |
+Staging-Area  (changes to be commited in local repo)
+ |              |                       |
+ | git commit   |git merge FETCH_HEAD   |
+ |              |                       | git clone /
+\/              |                       | git pull
+Local-Repo                              |
+ |              /\                      |
+ | git push     | git fetch             |
+\/              |                       |
+Remote Repo
+
+
+git clone <repo>                    # Send remote repo to working-dir
+(add/modify/delete files)           
+    git restore <files>             # Discard changes(untracked) in working-dir
+git add .                           # Send untracked files to staging area
+    git restore --staged <file>     #   to unstage
+    git rm --cached <files>         #   to unstage
+git commit                          # Send staged files to local repo
+    git checkout <past_commit_id>   #   Go back to past state.
+    git switch -c <new_branch>      #   To retain commits in this new state.
+        git switch -                #       undo
+git push                            # Send local repo to remote repo
+    git reset --hard <commit_id>    #   Go back local repo to a past commit
+    git push --force                #   Send new local repo to remote repo
+
+
+
+*******************************************************************************
+                                NEW BRANCHES
+*******************************************************************************
+
+            !!! NEW BRANCHES HAVE TO BE CREATED IN MASTER !!!
+
+git checkout master                 # If we don’t want to have previous commits
+                                    # pushed with this new brand also
+
+git checkout -b <new_branch>        # -b to create branch if it doesn’t exist
+[Modify/add/delete files]
+git diff | git log
+    git restore <file>              # to discard changes in working directory
+                                    # for files tracked with previous git add,
+                                 # but not staged for commit (changes pending).
+    git checkout -- <file>          # to discard changes in working directory.
+    git checkout HEAD <filename>    # undo deletion
+git add/rm <file>                   # git rm file if I’m deleting a file or
+                                    # git add if a file was created/modified.
+                                    # git add -p, adds specific lines.
+    git restore --staged <file>     # To unstage, undo add/rm, KEEP CHANGES
+    git reset <file>                # To unstage, undo add/rm, KEEP CHANGES
+git commit -m "Message..."
+    git reset [--hard] HEAD~1       # To unstage, undo commit/add, KEEP CHANGES
+    git reset <commit>              # Go to past commit. options soft/mix/hard
+    git log -- <filename>           # check the history of a file
+    git checkout <commit hash> -- <filename>
+                                    # returns a file to a specific commit
+    git checkout <deletion commit hash>~1 -- <filename>
+                                    # returns a file to one commit before a
+                                    # specific commit
+git push origin <new_branch>
+    git revert --no-commit <commit> # To revert a commit w/o creating a new one
+        git revert --continue
+        git push
+
+Go to github.com, look for the branch an create a new pull request and review:
+    from
+    to
+    message
+    approver
+    related commits
+    create button (PR/draft)
+
+List of commits can be squashed with merge button.
+
+https://www.git-tower.com/learn/git/faq/restoring-deleted-files/
+
+https://github.community/t/
+    github-pull-requests-showing-invalid-diff-for-already-merged-branch/559
+
+
+
+*******************************************************************************
+                                STASH
+*******************************************************************************
+
+git status 
+git stash [push]    # If some changes are not staged for commit,
+                    # send them apart (to stash)
+git stash pop       # To return changes from stash. I’ll appear with git status
+
+
+
+*******************************************************************************
+                            COMMITS HISTORY
+*******************************************************************************
+
+TO MODIFY COMMITS HISTORY
+git checkout branch
+[git log --oneline]         # To review commits history
+git rebase -i master        # Comment commits we don’t want to be in the PR
+git log --oneline           # To verify just wanted commits are in the history
+git push -f origin branch   # Send (forced) the change to github
+
+
+
+*******************************************************************************
+                       REBASE - UPDATE A FORKED REPO
+*******************************************************************************
+
+HOW TO UPDATE A FORKED REPO
+This  allows you to sync changes made in the original repository with the fork.
+1.  Open Git Bash in local project.
+2.  List the current configured remote repository for your fork.
+    git remote -v
+    > origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
+    > origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
+3.  Specify a new remote upstream repository that will be synced with the fork.
+    git remote add upstream https://<user>@github.com/ORIG_OWNER/ORIG_REPO.git
+4.  Verify the new upstream repository you've specified for your fork.
+    git remote -v
+    > origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
+    > origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
+    > upstream  https://github.com/ORIGIN_OWNER/ORIGIN_REPOSITORY.git (fetch)
+    > upstream  https://github.com/ORIGIN_OWNER/ORIGIN_REPOSITORY.git (push)
+5.  Fetch all branches of remote upstream (Fetch all the branches of that
+    remote into remote-tracking branches, such as upstream/master)
+    git fetch upstream
+    git checkout master|branch  // in case we need to merge in master or branch
+6.  Rewrite your master with upstream’s master using git rebase.
+    git rebase [-–strategy-option ours/theirs] upstream/master
+        //ours take the upstrem repo
+    //git checkout -b <new_branch> // in case we need to merge in a branch
+    //git merge [--strategy-option theirs] upstream/master
+    //git git status; git add/rm; git merge --continue
+    //git checkout -b <new_branch>
+    //git push origin <new_branch>
+    fix conflicts and then run "git rebase --continue")
+        git status; git add .; git rebase --continue
+    (use "git rebase --skip" to skip this patch)
+
+How to push your updates:
+
+1.  To master. You may need to force the push with “--force”.
+    git push origin master --force
+
+2.  To branch:
+    [git checkout master]
+    git push origin branch
+        or
+    git checkout -b <new_branch>
+    ADD/MODIFY/DELETE FILES
+    DO TESTS
+    git add .
+    git commit -m "commit message for new branch"
+    git push origin <new_branch>
+
+
+
+*******************************************************************************
+                      SSH AUTHENTICATION
+*******************************************************************************
+
+If you have GitHub Desktop installed, you can use it to clone repositories and
+not deal with SSH keys.
+
+$ ls -al ~/.ssh     # Lists the files in your .ssh directory, if they exist.
+# Check the directory listing to see if you already have a public SSH key.
+$ ssh-keygen -t ed25519 -C "your_email@example.com"     # Create key pair.
+[ssh-keygen -t rsa -b 4096 -C "your_email@example.com"]
+# start the ssh-agent in the background
+$ eval `ssh-agent -s`           $ eval $(ssh-agent)
+> Agent pid 59566               > Agent pid 59566
+                                $ ssh-add ~/.ssh/<private_key_file>
+
+# Copies the contents of the ~/.ssh/id_ed25519.pub file.
+Go to: github / settings / SSH and GPG keys / New SSH key / Add SSH key
+# Check the email in the ssh key entered, and add the new SSH key
+$ git clone git@github.com:leocjj/0123.git 0123
+
+$ ssh -T git@hostname
+# Attempts to ssh to GitHub Enterprise Server
+https://docs.github.com/en/enterprise-server@2.22/github/
+authenticating-to-github/testing-your-ssh-connection
+
+https://docs.github.com/en/enterprise-server@2.22/github/
+authenticating-to-github/working-with-ssh-key-passphrases
+
+https://www.w3schools.com/git/git_revert.asp
+
+
+
+*******************************************************************************
+                            DELETE A BRANCH
+*******************************************************************************
+
+git branch  --> list of branches
+
+For deleting the remote branch:
+    git push origin --delete <your_branch>
+
+For deleting the local branch, you have three ways:
+    1: git branch --delete  <branch_name>        # Error on unmerge, same as -d
+    2: git branch -D <branch_name>
+    3: git branch --delete --force <branch_name> # Same as -D
+
+
+
+*******************************************************************************
+                                ADVANCED
+*******************************************************************************
+
+git commit      # Creates a commit with added files and opend text editor to 
+                # Put larger commit messages, several lines. -m is for one line
+
+To change author of a commit
+    git commit --amend --author="name < e@mail.com > " -m "commit message"
+
+List of actual available branches
+    git branch
+
+Tool to check commit history visually
+    sudo apt install tig
+    tig --all
+
+Return to previous branch
+    git checkout -
+
+    git diff dev...HEAD
+    git diff dev..HEAD
+
+
+
+*******************************************************************************
+                            Troubleshooting (problemas)
+*******************************************************************************
+
+ssh: Could not resolve hostname github.com: Name or service not known
+fatal: The remote end hung up unexpectedly
+https://stackoverflow.com/questions/9393409/ssh-could-not-resolve-hostname-
+    github-com-name-or-service-not-known-fatal-th
+Options:
+    rebooting
+    ping github.com
+    sudo vim /etc/resolv.conf, the add: nameserver 8.8.8.8 nameserver 8.8.4.4
+    sudo service network-manager restart
+    ssh -T git@github.com
+    service nscd restart
+    git remote -v
+    Create a new ssh key, add it to github and test it using
+        ssh -T git@github.com
+
+
+echo "foo
+asdf
+asdfasdf" > bar.txt
