@@ -241,6 +241,13 @@ while start_date <= end_date:
     print(start_date.strftime("%Y-%m-%d"))
     start_date += delta
 
+datetime.now(tz=timezone.utc).isoformat(timespec='seconds')
+
+from datetime import datetime, timezone
+dt = datetime.now()
+dt = dt.replace(tzinfo=timezone.utc)
+print(dt.isoformat())
+# '2017-01-12T22:11:31+00:00'
 
 
 *******************************************************************************
@@ -361,8 +368,13 @@ f-strings o literals strings. Runtime evaluated.
 from dataclasses import dataclass, asdict, field
 @dataclass  #over a class
 asdict(<instance>)  --> Convert the instance properties in a dictionary
+    @dataclass
+    class Media:
+        url: str
+        meta: {}
+    record = asdict(record: Media)
 
-dict(_id=5)       --> {_id: 5}
+dict(_id=5, name='Leo')       --> {_id: 5, name:'Leo'}
 
 How to copy all properties of an object to another object
 destination.__dict__.update(source.__dict__)
@@ -371,6 +383,10 @@ Formating and Style:
     Mypy (type checking)
     Black ¿?
     Pylint  # http://pylint.pycqa.org/en/latest/user_guide/ide-integration.html
+
+Selecting/Choosing between two options
+    [sys.stdout, sys.stderr][params.get('logtostderr', False)]
+    [optFalse, optTrue][False/True]
 
 3.8+
     class names(Enum):
@@ -382,7 +398,21 @@ Formating and Style:
     def parseV(value: Optional[str] = None) -> Optional[bool]:
     # Optional[str] means value can be type str or None
 
+from collections import defaultdict
+    results_total = defaultdict(int)    # Useful to count items, init in zero.
+    results_total[var1] += 5            # creates key var1 and add value of 5.
+    # There is no need to specify all the keys, they will be added and counted.
 
+from typing import Dict, List, Optional, Set, Iterable, Any
+    def get_connections(name: str, fields: Optional[List[str]] = None,
+        query_args: Optional[Dict[str, Any]] = None,) -> Dict:
+        # -> List[Dict[str, Any]]:
+
+
+How to set python3 as default
+    $ python --version
+    $ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+    $ python --version
 
 *******************************************************************************
                                 Logging
@@ -392,6 +422,44 @@ import logging
 
 logging.basicConfig(format="%(asctime)-15s  %(message)s")
 logger = logging.getLogger(__name__)
+
+
+
+*******************************************************************************
+                            retry retries
+*******************************************************************************
+https://realpython.com/primer-on-python-decorators/
+https://stackoverflow.com/questions/50246304/using-python-decorators-to-retry-request
+
+no_of_retries = 3
+def make_request(url):
+    for i in range(0,no_of_retries):
+        try:
+            result = requests.get(url, auth=HTTPBasicAuth(COMMON_USERNAME, COMMON_PASSWORD)).json()
+            if 'error' not in result:
+                return result
+            else:
+                continue
+        except Exception as e:
+            continue
+    return result
+def check_status():
+    result = make_request("http://something/status")
+def load_file():
+    result = make_request("http://something/file")
+
+download_retries = 5
+with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    for _ in range(download_retries):  # Because sometimes connection fails.
+        try:
+            errors = ydl.download([url_to_download])
+            if not errors:
+                break
+            sleep(5)
+        except:
+            sleep(5)  # Wait for connection restore.
+if errors:
+    return None
 
 
 *******************************************************************************
@@ -445,9 +513,17 @@ https://www.activestate.com/blog/top-10-python-tools-to-make-your-life-easier/
 5. Docutils: The Documentation Utilities project exists to create a set of tools to easily process plaintext documents into more useful file formats such as HTML, XMS, or LaTeX.
 7. Pytest: Testing code fidelity 
 
+To download video/audio files:
+    8. youtube-dl
+    # https://yt-dl.org/update
+    # https://github.com/ytdl-org/youtube-dl#embedding-youtube-dl
+    # https://github.com/ytdl-org/youtube-dl/blob/3e4cedf9e8cd3157df2457df7274d0c842421945/youtube_dl/YoutubeDL.py#L137-L312
+
 https://stackoverflow.com/questions/1060279/iterating-through-a-range-of-dates-in-python
 http://labix.org/python-dateutil
 
+https://unikraft.org/   # unikernels
+mattheus@fullstacklabs.co
 
 # How to import a parent package. Add it to PYTHONPATH
 https://www.geeksforgeeks.org/python-import-from-parent-directory/
@@ -455,4 +531,9 @@ https://www.geeksforgeeks.org/python-import-from-parent-directory/
     path.append("<dir>")
     import <module_in_dir> as mid
 
+
+
+https://medium.com/tech-carnot/understanding-multiprocessing-in-aws-lambda-with-python-6f50c11d57e4
+https://aws.amazon.com/blogs/compute/parallel-processing-in-python-with-aws-lambda/
+https://iotespresso.com/threading-in-aws-lambda-with-python/
 
