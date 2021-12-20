@@ -414,6 +414,14 @@ How to set python3 as default
     $ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
     $ python --version
 
+How to change file permissions
+    from pathlib import Path
+    file_name = Path("file_name")
+    with open(file_name, "w") as file:
+        file.write(str_content)
+    file.chmod(0o444) # Octal number
+
+
 *******************************************************************************
                                 Logging
 *******************************************************************************
@@ -514,10 +522,11 @@ https://www.activestate.com/blog/top-10-python-tools-to-make-your-life-easier/
 7. Pytest: Testing code fidelity 
 
 To download video/audio files:
-    8. youtube-dl
+    8. youtube-dl and yt-dlp
     # https://yt-dl.org/update
     # https://github.com/ytdl-org/youtube-dl#embedding-youtube-dl
     # https://github.com/ytdl-org/youtube-dl/blob/3e4cedf9e8cd3157df2457df7274d0c842421945/youtube_dl/YoutubeDL.py#L137-L312
+    # https://github.com/yt-dlp/yt-dlp/
 
 https://stackoverflow.com/questions/1060279/iterating-through-a-range-of-dates-in-python
 http://labix.org/python-dateutil
