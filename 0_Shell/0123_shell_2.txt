@@ -1,20 +1,25 @@
 
-			Bash Guide for Beginners
-			Chapter 9. Repetitive tasks
+            Bash Guide for Beginners
+            Chapter 9. Repetitive tasks
 
 http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_01.html
 
 
-********************************************************************************
-********************************** SSH KEY *************************************
+
+*******************************************************************************
+                                SSH KEY
+*******************************************************************************
 https://askubuntu.com/questions/61557/how-do-i-set-up-ssh-authentication-keys
 
 ssh-keygen -t rsa
 
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEjl82acqEJk0zUWsHL4Bn2QvuyRbDST/yuA5jJSZDbRvbyddfw9/K+cPJFBF7uarXVHr4h6JEKFD4k6IwmptITVIAukoFmwqdOh3VNNwzITkKgYOzf1bZFdfOh7IyolxyYoZ06CUK0tpA3Fex7e9HDXds2HKMhDRcYdZeRr47hZ9Tg2TYZhyxJsAmFAvs20Di0C276wqucIfr6ls2RwjRrI1EybDNu8xqAfZ28x7l53MuUSs7L4ZmegjO+RvCMP2Dzo8AKUmtIa8bSZ8NR80CApyY3PlvhfOGG+Ya3L7fzPZVm4SKEwze0fk9RbtgiyDV5TmGJ046onaslSB4C45f vagrant@vagrant-ubuntu-trusty-64
 
-********************************************************************************
-********************** SHELL SCRITPS STYLE *************************************
+
+
+*******************************************************************************
+                            SHELL SCRITPS STYLE
+*******************************************************************************
 
 sudo apt-get install shellcheck
 
@@ -25,23 +30,26 @@ https://www.shellcheck.net/
 $ shellcheck FILENAME
 
 
-********************************************************************************
-***************************** SHEBANG ******************************************
 
-#!/bin/sh		// Default if no shebang in script file.
-#!/bin/bash		// Absolute path to the Bash interpreter.
-#!/usr/bin/perl		//
-#!/usr/bin/python3	// #!/usr/bin/env python3 to make it portable 
+*******************************************************************************
+                                SHEBANG
+*******************************************************************************
+
+#!/bin/sh           # Default if no shebang in script file.
+#!/bin/bash         # Absolute path to the Bash interpreter.
+#!/usr/bin/perl		#
+#!/usr/bin/python3	# #!/usr/bin/env python3 to make it portable 
 
 #!/usr/bin/env bash
 Run a program in a modified environment. It makes scripts portable.
 Advantage: it will use whatever bash executable appears first in the running
-	user's $PATH variable. 
+    user's $PATH variable. 
+
 
 
 ********************************************************************************
-************************ SCRIPT COMMANDS ***************************************
-
+                            SCRIPT COMMANDS
+********************************************************************************
 
 ********************************************************************************
 *********************** 7.1. Test Constructs ***********************************
@@ -424,6 +432,26 @@ env [OPTION]... [-] [NAME=VALUE]... [COMMAND [ARG]...]
 -0, --null		end each output line with 0 byte rather than newline
 -u, --unset=NAME	remove variable from the environment
 
+******************************** scripts  **************************************
+
+
+#!/bin/bash
+set -e  # exit on command error
+set -u  # exit on undefined variable
+set -o pipefail  # exit on error in pipeline command
+
+If you are executing your files like sh 1.sh or ./1.sh Then you are executing it in a sub-shell.
+If you want the changes to be made in your current shell, you could do:
+. 1.sh
+# OR
+source 1.sh
+
+tmux
+    ...run script that wont die when shell close.
+    (ctrl+b) + d
+tmux attach -t 0
+(ctrl+b) + d
+
 
 
 ********************************************************************************
@@ -516,3 +544,24 @@ CTRL+Z # stops the current command, resume with fg in the foreground or bg in th
 
 
 
+control operators
+
+&& means execute the statement which follows only if the preceding statement executed successfully (returned exit code zero).
+|| means execute the statement which follows only if the preceding statement failed (returned a non-zero exit code).
+& means execute the preceding statement in the background.
+; means execute the preceding statement and, after it completes, proceed to the next statement.
+| means execute the preceding statement and connect its stdout the to stdin of the statement which follows.
+
+Combining && and ||
+&& and || can be combined to make an alternative to if-then-else. Consider:
+
+if some_command
+then
+    echo yes
+else
+    echo no
+fi
+The above is similar to:
+
+some_command && echo yes || echo no
+I said "similar" rather than identical because the two are different in the case that the echo yes command fails. If the echo yes command were to fail (exit with a non-zero return code) then the echo no command is executed. This would not happen with the if-then-else-fi version. The echo command will only fail, though, if there is a write-error on the terminal. Consequently, this difference rarely matters and the && and || form is often used as a short-cut.
