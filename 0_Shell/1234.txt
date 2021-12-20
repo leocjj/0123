@@ -1,3 +1,21 @@
+https://www.youtube.com/watch?v=3hLmDS179YE     # AWS 4h full
+https://www.youtube.com/channel/UC1szFCBUWXY3ESff8dJjjzw
+
+https://www.youtube.com/watch?v=qsA8zREbt6g     # Hiding yourserlf 13 minutes
+https://www.youtube.com/watch?v=jHlpKLhUOL4     # Kali 17 minutes
+https://www.youtube.com/watch?v=wX75Z-4MEoM     # VM 27 minutes
+https://www.youtube.com/watch?v=2q7n27sJhMM     # Kali linux
+https://www.youtube.com/watch?v=8VL0K0rFgxw     # After installing Kali linux
+https://www.youtube.com/watch?v=TDVM-BUChpY     # Wifi hacking with Kali
+
+https://www.youtube.com/watch?v=HbgzrKJvDRw     # Linux directories
+https://go.itpro.tv/NetworkChuck        
+https://www.youtube.com/watch?v=ae7IsG7v9nY
+https://www.youtube.com/watch?v=80vIin4xGp8
+https://www.youtube.com/watch?v=E03gh1huvW4
+https://www.youtube.com/watch?v=9eH16Fxeb9o
+https://www.youtube.com/watch?v=1DvTwuByjo0
+
 *******************************************************************************
         Linux Essentials for Ethical Hackers - Full InfoSec Course
 *******************************************************************************
@@ -20,7 +38,7 @@ https://www.thecybermentor.com/
 https://www.youtube.com/watch?v=lZAoFs75_cs
 
 VMWare:     https://www.vmware.com/co/products/workstation-player.html
-
+https://www.kali.org/
 
 
 
