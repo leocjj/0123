@@ -18,6 +18,9 @@ PYTHON IMPLEM.:     CPython
                     cython.org (faster Python modules),
                     https://www.lfd.uci.edu/~gohlke/pythonlibs/#cython
                     Pythran(¿?).
+                    unikraft.org/ minikernel unikernel
+
+CICD:               Kubeflow + Rok + Kale
 
 MATH:               NumPy - multidimensional arrays
                      |-> scipy.weave, numexpr, Numba
@@ -34,6 +37,7 @@ DATA (ETL):         Pandas - data analysis
                     Airflow - data engineering tool
                     Luigi - data engineering tool
                     Dask - data engineering tool
+                    https://cloud.google.com/dataprep
 
 STORE & DB:         HDF5 - store and manipulate data
                     PyTables - manage HDF5 datasets
@@ -57,6 +61,13 @@ DEEP LEARNING:      TensorFlow (FW) -> Keras(FW) -> tflearn.org
 BIG DATA:           Scala (PL), Apache Spark (FW), Hadoop (FW), XGBoost
 
 NLP:                NLTK, Spacy, Pattern
+                    http://hunterheidenreich.com/blog/intro-to-word-embeddings/
+                    https://fasttext.cc/
+                    https://radimrehurek.com/gensim/
+                    https://pypi.org/project/gensim/
+                    https://www.tensorflow.org/tutorials/text/word2vec
+                    word2vec, GloVe, ELMo, Probabilistic FastText
+                    trax, gpt-3 (openai.com)
 
 Computer Vision     OpenCV
 
