@@ -1,6 +1,9 @@
 https://www.youtube.com/watch?v=3hLmDS179YE     # AWS 4h full
 https://www.youtube.com/channel/UC1szFCBUWXY3ESff8dJjjzw
 
+https://www.youtube.com/channel/UC9x0AN7BWHpCDHSm9NiJFJQ    # Good channel.
+https://www.youtube.com/watch?v=VbEx7B_PTOE
+
 https://www.youtube.com/watch?v=qsA8zREbt6g     # Hiding yourserlf 13 minutes
 https://www.youtube.com/watch?v=jHlpKLhUOL4     # Kali 17 minutes
 https://www.youtube.com/watch?v=wX75Z-4MEoM     # VM 27 minutes
@@ -21,10 +24,13 @@ https://www.youtube.com/watch?v=1DvTwuByjo0
 *******************************************************************************
                                   New user
 *******************************************************************************
+https://linuxize.com/post/how-to-create-users-in-linux-using-the-useradd-command/
+
+cat /etc/os-release
 
 sudo useradd -m leocjj
 [sudo userdel leocjj]
-sudo useradd -m leocjj
+sudo useradd -m leocjj    # -m creates home directory
 ls -la /home/leocjj/
 sudo passwd leocjj
 su - leocjj
@@ -34,6 +40,7 @@ su - leocjj
 *******************************************************************************
 https://www.youtube.com/watch?v=qsA8zREbt6g
 
+$ [sudo apt install proxychains tor]	# Not needed in kali linux
 $ locale proxychains
 $ nano /etc/proxychains.conf            # First entry
         Enable dynamic_chain            # Disable static_chain
@@ -46,9 +53,29 @@ $ proxychains nmap -sT -p 80,443 <ip>   # -sT scan TCP, -Pn do not ping first
 free proxy server list --> spys.com 
 
 
+
+https://www.youtube.com/watch?v=NN9fQwiomAU
+
+
+
 *******************************************************************************
                                 Virtual Machines
 *******************************************************************************
+https://www.youtube.com/watch?v=wX75Z-4MEoM
+
+Enable hardware virtualización for CPU in the bios (only for 64-bits)
+Download ISO images for all OS to run in VM
+Install https://www.virtualbox.org/wiki/Downloads
+    VirtualBox 6.1.30 platform packages
+    VirtualBox 6.1.30 Oracle VM VirtualBox Extension Pack
+
+
+https://youtu.be/wX75Z-4MEoM?t=902
+https://www.youtube.com/watch?v=ZhMw53Ud2tY
+https://www.youtube.com/watch?v=A3G-3hp88mo
+https://www.youtube.com/watch?v=m-i2JBtG4FE
+https://www.youtube.com/watch?v=NN9fQwiomAU
+https://www.youtube.com/watch?v=S4E4yAktjug
 
 
 
@@ -75,8 +102,7 @@ https://www.youtube.com/watch?v=lZAoFs75_cs
 
 VMWare:     https://www.vmware.com/co/products/workstation-player.html
 https://www.kali.org/
-
-
+On WSL:     https://www.youtube.com/watch?v=AfVH54edAHU
 
 
 
