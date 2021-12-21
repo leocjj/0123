@@ -30,9 +30,14 @@ $ nano /etc/proxychains.conf            # First entry
         [ProxyList] ...                 # Setup proxys
 $ proxychains <command_to_hide>
 $ proxychains firefox google.com        # Searching what's my ip in google.
-$ proxychains nmap -sT -p 80,443 <ip>   # -sT scan TCP
+$ proxychains nmap -sT -p 80,443 <ip>   # -sT scan TCP, -Pn do not ping first
 
 free proxy server list --> spys.com 
+
+
+*******************************************************************************
+                                Virtual Machines
+*******************************************************************************
 
 
 
