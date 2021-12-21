@@ -19,6 +19,17 @@ https://www.youtube.com/watch?v=1DvTwuByjo0
 
 
 *******************************************************************************
+                                  New user
+*******************************************************************************
+
+sudo useradd -m leocjj
+[sudo userdel leocjj]
+sudo useradd -m leocjj
+ls -la /home/leocjj/
+sudo passwd leocjj
+su - leocjj
+
+*******************************************************************************
                                 Proxy Chains
 *******************************************************************************
 https://www.youtube.com/watch?v=qsA8zREbt6g
