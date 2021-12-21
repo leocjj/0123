@@ -17,6 +17,19 @@ https://www.youtube.com/watch?v=E03gh1huvW4
 https://www.youtube.com/watch?v=9eH16Fxeb9o
 https://www.youtube.com/watch?v=1DvTwuByjo0
 
+
+*******************************************************************************
+                                Proxy Chains
+*******************************************************************************
+https://www.youtube.com/watch?v=qsA8zREbt6g
+
+$ locale proxychains
+$ nano /etc/proxychains.conf            # First entry
+        Enable dynamic_chain            # Disable static_chain
+        Enable proxy_dns
+        [ProxyList] ...                 # Setup proxys
+$ proxychains <command_to_hide>
+
 *******************************************************************************
         Linux Essentials for Ethical Hackers - Full InfoSec Course
 *******************************************************************************
