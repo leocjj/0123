@@ -29,6 +29,12 @@ $ nano /etc/proxychains.conf            # First entry
         Enable proxy_dns
         [ProxyList] ...                 # Setup proxys
 $ proxychains <command_to_hide>
+$ proxychains firefox google.com        # Searching what's my ip in google.
+$ proxychains nmap -sT -p 80,443 <ip>   # -sT scan TCP
+
+free proxy server list --> spys.com 
+
+
 
 *******************************************************************************
         Linux Essentials for Ethical Hackers - Full InfoSec Course
