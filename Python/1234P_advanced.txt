@@ -242,12 +242,22 @@ while start_date <= end_date:
     start_date += delta
 
 datetime.now(tz=timezone.utc).isoformat(timespec='seconds')
+week_ago = (datetime.now() - timedelta(7)).replace(microsecond=0).isoformat()
+week_ago = (datetime.now() - timedelta(7)).strftime("%Y-%m-%dT%H:%M:%SZ")
+datetime.fromtimestamp(timestamp/1000.0).isoformat()    # Converts timestamp to isoformat
 
 from datetime import datetime, timezone
 dt = datetime.now()
 dt = dt.replace(tzinfo=timezone.utc)
 print(dt.isoformat())
 # '2017-01-12T22:11:31+00:00'
+
+def daterange(start_date_str, end_date_str):
+    start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+    end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+    for n in range(int((end_date - start_date).days) + 1):
+        yield start_date + timedelta(n)
+
 
 
 *******************************************************************************
@@ -422,6 +432,17 @@ How to change file permissions
     file.chmod(0o444) # Octal number
 
 
+
+*******************************************************************************
+                                RegEx
+*******************************************************************************
+https://python-course.eu/advanced-python/regular-expressions.php
+
+# A 24-digits unique identifier composed of 0-9, a-z, A-Z, - and _
+if not channel or not re.match(r"^[a-zA-Z0-9\-_]{24,24}$", channel, re.M):
+    return None, 400, {"Content-Type": "application/json"}
+    
+
 *******************************************************************************
                                 Logging
 *******************************************************************************
@@ -456,6 +477,7 @@ def check_status():
 def load_file():
     result = make_request("http://something/file")
 
+
 download_retries = 5
 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
     for _ in range(download_retries):  # Because sometimes connection fails.
@@ -468,6 +490,63 @@ with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             sleep(5)  # Wait for connection restore.
 if errors:
     return None
+
+
+https://keestalkstech.com/2021/03/python-utility-function-retry-with-exponential-backoff/
+
+def retry_with_backoff(fn, *args, retries=5, backoff_in_ms=200):
+    """Do retries for function fn with exponential backoff.."""
+    for x in range(retries):
+        try:
+            return fn(*args)
+        except:
+            if x == retries - 1:
+                raise
+            else:
+                sleep((backoff_in_ms * 2 ** x + uniform(0, 1) * 200) / 1000)
+
+import random, time
+def retry_with_backoff(fn, retries = 5, backoff_in_seconds = 1):
+  x = 0
+  while True:
+    try:
+      return fn()
+    except:
+      if x == retries-1:
+        raise
+      else:
+        sleep = (backoff_in_seconds * 2 ** x + random.uniform(0, 1))
+        time.sleep(sleep)
+        x += 1
+
+
+def retry_with_backoff(retries = 5, backoff_in_seconds = 1):
+    def rwb(f):
+        def wrapper(*args, **kwargs):
+          x = 0
+          while True:
+            try:
+              return f(*args, **kwargs)
+            except:
+              if x == retries:
+                raise
+              else:
+                sleep = (backoff_in_seconds * 2 ** x +
+                         random.uniform(0, 1))
+                time.sleep(sleep)
+                x += 1
+                
+        return wrapper
+    return rwb
+@retry_with_backoff(retries=6)
+def f() -> int:
+  global i
+  i = i + 1
+  print("  i     :", i);
+  if i < 6 or i % 2 != 0:
+    raise Exception("Invalid number.")
+  return i
+
 
 
 *******************************************************************************
