@@ -511,6 +511,7 @@ Append      a+=b        a+=['H']    a+=(2,)     a['key']='val'  a |= {2}
 Length      len(a)      len(a)      len(a)      len(a)          len(a)
 Merge two   a.join(b)                           a.update(dic2)  a.update(b)
                         [*l1, *l2]  =           {**x, **y}      =
+                        l1 += [*l2]
 
 Copies
 (ref.)      b=a  *P/U   b=a         b=a  *P/U   b=a             b=a
