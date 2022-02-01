@@ -1,4 +1,20 @@
 
+alternativeto.net
+
+MongoDB GUI
+    Compass
+    3T, Robo3T, Studio 3T
+    https://www.jetbrains.com/datagrip
+    https://www.jetbrains.com/help/idea/mongodb.html
+    https://mingo.io/
+    https://dbeaver.com/databases/mongo/
+    https://www.aquafold.com/dbspecific/mongodb_client/
+    https://marketplace.visualstudio.com/items?itemName=mongodb.mongodb-vscode
+    client from InteliJ
+    https://tableplus.com/
+    https://www.beekeeperstudio.io/
+    https://alternativeto.net/software/mongodb-compass/
+
 *******************************************************************************
                               MongoDB container
 *******************************************************************************
