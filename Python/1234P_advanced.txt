@@ -1,4 +1,6 @@
 
+recipes: https://code.activestate.com/recipes/langs/python/
+
 
 *******************************************************************************
                                 PEP8 (STYLE)
@@ -141,6 +143,8 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod()
 
+
+
 *******************************************************************************
 
 https://docs.python.org/3/tutorial/index.html		# informal definition
@@ -152,6 +156,7 @@ https://docs.python.org/3/library/index.html
 		https://docs.python.org/3/library/itertools.html
 		https://docs.python.org/3/library/functools.html
 		https://docs.python.org/3/library/operator.html
+
 
 
 ****************************** pipenv *****************************************
@@ -197,6 +202,36 @@ Where, in most typical cases;
 zip(*iterables)
 The zip() function returns an iterator of tuples based on the iterable objects.
 
+
+
+*******************************************************************************
+                        time - clock - delta
+*******************************************************************************
+https://www.webucator.com/article/python-clocks-explained/
+
+time.get_clock_info("process_time")
+    Clock               Adjustable* Monotonic   Resolution      Tick Rate**
+    time.time           True        False       0.015625        64
+    time.monotonic      False       True        0.015625        64
+    time.perf_counter   False       True        4.66530626e-07  2,143,482
+    time.process_time   False       True        1e-07           10,000,000
+
+*   Adjustable: the clock can be changed by the system administrator.
+**  Tick Rate:  the number of ticks per second.
+
+According to the PEP 0418
+time.monotonic()
+    timeout and scheduling, not affected by system clock updates. Use it in
+    several modules (could) use for multiprocessing, concurrent.futures, queue,
+    subprocess, telnet and threading for timeout implementation.
+time.perf_counter()
+    benchmarking, most precise clock for short period. timeit uses by default.
+time.process_time()
+    profiling, CPU time of the process. Returns the sum of the system and user
+    CPU time of the current process. It only counts time spent on the process
+    in question. Results will not vary based on how busy the computer is
+    running unrelated processes.
+
 https://docs.python.org/3/library/timeit.html
 
 https://hakibenita.com/fast-load-data-python-postgresql
@@ -226,7 +261,9 @@ Measuring Time
         any given process. This counter shouldn’t count the time the cpu is
         running anything else.
 
-Most cases perf_counter is probably preferable but process_time can be useful if you want to compare code efficiency.
+Most cases perf_counter is probably preferable
+    but process_time can be useful if you want to compare code efficiency.
+
 Measuring Memory
     To measure memory consumption, we are going to use the package memory-profiler.
     $ python -m pip install memory-profiler
@@ -302,6 +339,9 @@ print("PATH:", os.environ.get('PATH'))
 https://recursospython.com/guias-y-manuales/obtener-lista-numeros-primos/
 
 
+
+*******************************************************************************
+                        configparser - config file
 *******************************************************************************
 
 properties.ini
@@ -363,17 +403,22 @@ if __name__ == '__main__':
     doctest.testmod()
 
 
+
 *******************************************************************************
                             New features & 3.6+
 *******************************************************************************
 
 
-Python 3.6+
 f-strings o literals strings. Runtime evaluated.
     course = 'Python'
     feature = 'f-strings'
     print(f"The new {course.upper()} feature is {feature} !")
 
+    >>> width = 10
+    >>> precision = 4
+    >>> value = decimal.Decimal("12.34567")
+    >>> f"result: {value:{width}.{precision}}"  # nested fields
+    'result:      12.35'
 
 from dataclasses import dataclass, asdict, field
 @dataclass  #over a class
@@ -386,13 +431,28 @@ asdict(<instance>)  --> Convert the instance properties in a dictionary
 
 dict(_id=5, name='Leo')       --> {_id: 5, name:'Leo'}
 
+packing unpacking
+    >>> print(*[1], *[2], 3, *[4, 5])
+    1 2 3 4 5
+    >>> {**{'a': 1, 'c': 3}}
+    {'a': 1, 'c': 3}
+
 How to copy all properties of an object to another object
-destination.__dict__.update(source.__dict__)
+    destination.__dict__.update(source.__dict__)
 
 Formating and Style:
     Mypy (type checking)
-    Black ¿?
+        def greeting(name: str) -> str:
+            return 'Hello ' + name
+    Black for pep8
     Pylint  # http://pylint.pycqa.org/en/latest/user_guide/ide-integration.html
+
+Approximate equality
+    >>> import math
+    >>> a = 5.0
+    >>> b = 4.99998
+    >>> math.isclose(a, b, rel_tol=1e-5)
+    True
 
 Selecting/Choosing between two options
     [sys.stdout, sys.stderr][params.get('logtostderr', False)]
@@ -413,7 +473,7 @@ from collections import defaultdict
     results_total[var1] += 5            # creates key var1 and add value of 5.
     # There is no need to specify all the keys, they will be added and counted.
 
-from typing import Dict, List, Optional, Set, Iterable, Any
+from typing import Dict, List, Optional, Set, Iterable, Any, NoReturn
     def get_connections(name: str, fields: Optional[List[str]] = None,
         query_args: Optional[Dict[str, Any]] = None,) -> Dict:
         # -> List[Dict[str, Any]]:
@@ -443,14 +503,39 @@ if not channel or not re.match(r"^[a-zA-Z0-9\-_]{24,24}$", channel, re.M):
     return None, 400, {"Content-Type": "application/json"}
     
 
+def sanitize_filename(str1) -> str:
+    return re.sub(r"[^a-zA-Z0-9_.-]", "_", str1)
+
+
+
 *******************************************************************************
                                 Logging
 *******************************************************************************
 
 import logging
-
 logging.basicConfig(format="%(asctime)-15s  %(message)s")
 logger = logging.getLogger(__name__)
+
+logging.basicConfig(filename='/tmp/python.log',
+    level=logging.INFO)
+
+def create_log_entry(msg: str):
+    """Store message received in a log file and also print it in console."""
+    if not msg:
+        return
+    with open("log.txt", "a", encoding="utf-8") as file:
+        file.write(msg + "\n")
+    print(msg)
+
+
+
+*******************************************************************************
+                                    CSV
+*******************************************************************************
+
+with open("file.csv", "a") as f:
+    writer = csv.writer(f, delimiter="|")
+    writer.writerows(rows)
 
 
 
@@ -459,6 +544,18 @@ logger = logging.getLogger(__name__)
 *******************************************************************************
 https://realpython.com/primer-on-python-decorators/
 https://stackoverflow.com/questions/50246304/using-python-decorators-to-retry-request
+
+def exec_with_retries(fn, *args, with_exception=False, retries=3, backoff_in_ms=200):
+    caught_exception = None
+    for _ in range(retries):
+        try:
+            return func()
+        except exception:
+            caught_exception = exception
+        sleep((backoff_in_ms * 2 ** x + uniform(0, 1) * backoff_in_ms) / 1000)
+    if caught_exception and with_exception:
+        raise caught_exception
+    return None
 
 no_of_retries = 3
 def make_request(url):
@@ -493,6 +590,19 @@ if errors:
 
 
 https://keestalkstech.com/2021/03/python-utility-function-retry-with-exponential-backoff/
+
+def exec_with_retries(fn, *args, with_exception=False, retries=3, backoff_in_ms=200):
+    """Do retries for function fn with exponential backoff.."""
+    for x in range(retries):
+        try:
+            return fn(*args)
+        except:  # pylint: disable=bare-except
+            if x == retries - 1:
+                if with_exception:
+                    raise
+                return None
+            sleep((backoff_in_ms * 2 ** x + uniform(0, 1) * backoff_in_ms) / 1000)
+    return None
 
 def retry_with_backoff(fn, *args, retries=5, backoff_in_ms=200):
     """Do retries for function fn with exponential backoff.."""
@@ -548,6 +658,24 @@ def f() -> int:
   return i
 
 
+result = None
+url = f"https://www.facebook.com/{pageid}"
+for _ in range(2):
+    request = get(url, "html.parser")
+    sleep(0.200)
+    if request.status_code != 200:
+        continue
+    index = request.text.find("count")
+    if index < 0:
+        continue
+    try:
+        result = int(request.text[index : index + 30].split(":")[1].split(",")[0])
+        break
+    except:
+        continue
+return result
+
+
 
 *******************************************************************************
                                 Packages
@@ -585,7 +713,7 @@ Requests:   sends HTTP requests. HTTP clients.
 MoviePy:    videos. Common tasks, importing, modifying, and exporting.
 Pillow:     images. Common tasks, importing, modifying, and exporting.
 OpenCV:     images and videos. Mor advanced.
-Pendulum:   datetime replacement.
+Pendulum:   datetime replacement. Arrowm, Delorean, Pendulum, udatetime
 
 https://www.activestate.com/blog/top-10-python-tools-to-make-your-life-easier/
 #1 Simple Web Frameworks with Flask
@@ -624,4 +752,201 @@ https://www.geeksforgeeks.org/python-import-from-parent-directory/
 https://medium.com/tech-carnot/understanding-multiprocessing-in-aws-lambda-with-python-6f50c11d57e4
 https://aws.amazon.com/blogs/compute/parallel-processing-in-python-with-aws-lambda/
 https://iotespresso.com/threading-in-aws-lambda-with-python/
+
+
+
+*******************************************************************************
+                                cron
+*******************************************************************************
+https://crontab.guru/#*_*_*_*_*
+https://towardsdatascience.com/how-to-schedule-python-scripts-with-cron-the-only-guide-youll-ever-need-deea2df63b4e
+https://stackoverflow.com/questions/373335/how-do-i-get-a-cron-like-scheduler-in-python
+
+if __name__ == "__main__":
+    time_to_trigger = 13
+    while True:
+        try:
+            if datetime.now().hour == time_to_trigger:
+                main()
+            print(f"\nIt's {datetime.now()}, spleeping for one hour... waiting for the hour {time_to_trigger}.")
+            print("If running on a tmux server, detach with: ctrl+b, d ")
+            print("To stop this process, press: ctrl+c and follow the instructions.")
+            sleep(60 * 60)
+        except (KeyboardInterrupt, EOFError):
+            try:
+                answer = input("Are you sure you want to stop this process? (yes/no): ")
+                if answer == "yes":
+                    break
+            except (KeyboardInterrupt, EOFError):
+                pass
+
+https://docs.python.org/3/library/sched.html
+
+https://pypi.org/project/schedule/
+    pip install schedule
+    import schedule
+    import time
+    def job():
+        print("I'm working...")
+    schedule.every(10).seconds.do(job)
+    schedule.every(10).minutes.do(job)
+    schedule.every().hour.do(job)
+    schedule.every().day.at("10:30").do(job)
+    schedule.every(5).to(10).minutes.do(job)
+    schedule.every().monday.do(job)
+    schedule.every().wednesday.at("13:15").do(job)
+    schedule.every().minute.at(":17").do(job)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+https://github.com/kipe/pycron
+    pip install pycron[==3.0.0]
+    import pycron
+    pycron.is_now('*/5 * * * *')  # True every 5 minutes
+    pycron.is_now('0 * * * *')    # True every hour, on minute 0
+
+https://pypi.org/project/croniter/
+    pip install croniter
+
+
+
+*******************************************************************************
+                                Notes
+*******************************************************************************
+
+The default value for a function argument is only evaluated once, at the time
+that the function is defined, so confusion when the default value is mutable!!!
+    >>> def foo(bar=[]):      # bar is optional, defaults [] if not specified.
+    ...    bar.append("baz")  # but this line could be problematic...
+    ...    return bar
+    >>> foo()
+    ["baz"]
+    >>> foo()
+    ["baz", "baz"]
+    >>> foo()
+    ["baz", "baz", "baz"]
+
+Classes with multiple inheritances
+    >>> class A(object):
+    ...     x = 1
+    >>> class B(A):
+    ...     pass
+    >>> class C(A):
+    ...     pass
+    >>> print A.x, B.x, C.x
+    1 1 1
+    >>> B.x = 2
+    >>> print A.x, B.x, C.x
+    1 2 1
+    >>> A.x = 3
+    >>> print A.x, B.x, C.x
+    3 2 3
+
+To catch multiple exceptions, specify the first parameter as a tuple
+    >>> try:
+    ...     l = ["a", "b"]
+    ...     int(l[2])
+    ... except ValueError, IndexError:  # To catch both exceptions, right?
+    ...     pass
+    Traceback (most recent call last):
+      File "<stdin>", line 3, in <module>
+    IndexError: list index out of range
+    >>> try:
+    ...     l = ["a", "b"]
+    ...     int(l[2])
+    ... except (ValueError, IndexError) as e:  
+    ...     pass
+    >>>
+
+Scope resolution based on LEGB rule (Local, Enclosing, Global, Built-in)
+
+Modifying a list when it is been used in a for loop:
+    >>> odd = lambda x : bool(x % 2)
+    >>> numbers = [n for n in range(10)]
+    >>> for i in range(len(numbers)):
+    ...     if odd(numbers[i]):
+    ...         del numbers[i]  # BAD: Deleting item from a list while iterating over it
+    >>> numbers[:] = [n for n in numbers if not odd(n)]  # ahh, the beauty of it all
+    >>> numbers
+    [0, 2, 4, 6, 8]
+
+Read the value of a dict safe/secure way
+    try:
+        account_index = int(event.get("account_index"))
+    except (TypeError, ValueError):
+        account_index = 0
+
+
+
+*******************************************************************************
+                            AWS lambda function
+*******************************************************************************
+
+https://aws.amazon.com/blogs/aws/announcing-aws-lambda-function-urls-built-in-https-endpoints-for-single-function-microservices/
+    import json
+    import requests
+
+    url = "https://a1b2c3d4e5.lambda-url.us-west-2.on.aws/"
+    headers = {'SignatureHeader': 'XYZ', 'Content-type': 'application/json'}
+    payload = json.dumps({'type': 'payment-succeeded'})
+    querystr = {'myCustomParameter': 'squirrel'}
+
+    r = requests.post(url=url, params=querystr, data=payload, headers=headers)
+    print(r.json())
+
+
+""" If not finished, invoke a new lambda from where it is left.
+    if not local_run and ai < len(ACCOUNTS) - 1:
+        print(f"Finishing this lambda successfully in account_index {ai},")
+        print("but invoking a new lambda to continue with the rest accounts!")
+        awslambda = client("lambda")
+        lambda_name = context.function_name
+        event = {"account_index": ai}
+        bytes_payload = dumps(event).encode("utf-8")
+        awslambda.invoke(
+            FunctionName=lambda_name,
+            InvocationType="Event",
+            Payload=bytes_payload,
+        )"""
+
+# Default lambda return
+    import json
+    def lambda_handler(event, context):
+        # TODO implement
+        return {
+            'statusCode': 200,
+            'body': json.dumps('Hello from Lambda!')
+        }
+
+from boto3 import client
+# AWS Systems Manager - Parameter Store Names
+ssm_get = client("ssm").get_parameter
+user_location = "/app01/user"
+pass_location = "/app01/password"
+user=ssm_get(Name=user_location)["Parameter"]["Value"]
+password=ssm_get(Name=pass_location, WithDecryption=True)["Parameter"]["Value"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
