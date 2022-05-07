@@ -1,4 +1,8 @@
 
+Main guide from python.org:  https://devguide.python.org/gitbootcamp/
+
+https://gitexplorer.com/
+
 https://github.com/leocjj/                      # Main git
 https://github.com/leocjj/0123                  # Repository for notes
 https://github.com/shiftkey/desktop/releases/   #Github desktop for Linux
@@ -268,6 +272,54 @@ git commit -m "Message..."
     git checkout <deletion commit hash>~1 -- <filename>
                                     # returns a file to one commit before a
                                     # specific commit
+
+    https://stackoverflow.com/questions/4114095/
+        how-do-i-revert-a-git-repository-to-a-previous-commit
+
+    # This will destroy any local modifications.
+    # Don't do it if you have uncommitted work you want to keep.
+    git reset --hard 0d1d7fc32      # DELETE CHANGES AND COMMITS
+
+    # Alternatively, if there's work to keep:
+    git stash
+    git reset --hard 0d1d7fc32
+    git stash pop
+    # This saves the modifications, then reapplies that patch after resetting.
+    # You could get merge conflicts, if you've modified things which were
+    # changed since the commit you reset to.
+
+    Temporarily switch to a different commit
+    If you want to temporarily go back to it, fool around, then come back to
+        where you are, all you have to do is check out the desired commit:
+    # This will detach your HEAD, that is, leave you with no branch checked out
+        git checkout 0d1d7fc32
+    Or if you want to make commits while you're there, go ahead and make a new
+        branch while you're at it:
+    git checkout -b old-state 0d1d7fc32
+
+    Undo published commits with new commits
+    On the other hand, if you've published the work, you probably don't want to reset the branch, since that's effectively rewriting history. In that case, you could indeed revert the commits. With Git, revert has a very specific meaning: create a commit with the reverse patch to cancel it out. This way you don't rewrite any history.
+
+    # This will create three separate revert commits:
+    git revert a867b4af 25eee4ca 0766c053
+
+    # It also takes ranges. This will revert the last two commits:
+    git revert HEAD~2..HEAD
+
+    #Similarly, you can revert a range of commits using commit hashes (non inclusive of first hash):
+    git revert 0d1d7fc..a867b4a
+
+    # Reverting a merge commit
+    git revert -m 1 <merge_commit_sha>
+
+    # To get just one, you could use `rebase -i` to squash them afterwards
+    # Or, you could do it manually (be sure to do this at top level of the repo)
+    # get your index and work tree into the desired state, without changing HEAD:
+    git checkout 0d1d7fc32 .
+
+    # Then commit. Be sure and write a good message describing what you just did
+    git commit
+
 git push origin <new_branch>
     git revert --no-commit <commit> # To revert a commit w/o creating a new one
         git revert --continue
@@ -464,3 +516,39 @@ Options:
 echo "foo
 asdf
 asdfasdf" > bar.txt
+
+
+
+*********************************************************************************
+                            Empty /blank folder / directory
+*********************************************************************************
+
+https://stackoverflow.com/questions/115983/
+    how-can-i-add-a-blank-directory-to-a-git-repository
+https://stackoverflow.com/questions/115983/
+    how-can-i-add-a-blank-directory-to-a-git-repository/58543445#58543445
+https://gitlab.com/empty-repo/empty
+
+
+
+*********************************************************************************
+                           Create a new (dev) branch in GitHub
+*********************************************************************************
+
+When a new repo is created, the main branch is the only one, so do this for dev:
+    $ git checkout -b dev
+    $ git push origin dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
