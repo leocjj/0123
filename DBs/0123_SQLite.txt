@@ -1,0 +1,91 @@
+
+*******************************************************************************
+                        Python Built-In Database
+*******************************************************************************
+
+https://towardsdatascience.com/do-you-know-python-has-a-built-in-database-d553989c87bd
+
+Python relational database management system
+
++ Application file format
++ Data transfer format
++ File archive and/or data container
++ Replacement for ad hoc disk files
++ Embedded devices and the internet of things
++ Websites
++ Education and Training: just copy the sqlite3 or sqlite3.exe executable
++ Data analysis
++ Cache for enterprise data
++ Internal or temporary databases
++ Stand-in for an enterprise database during demos or testing
++ Server-side database
+    using separate database files for different subdomains
+    separate SQLite database for each user, each DB only used by one connection
+
+- Client/Server Applications
+- High-volume Websites
+- Very large datasets (> 256 tibibytes or > OS filesystem limit)
+- High Concurrency: unlimited simultaneous readers 
+    BUT only allow one writer, writers queue up.
+
+
+import sqlite3 as sl
+con = sl.connect('my-test.db')      #  [created the database and] connected it.
+
+CREATE TABLE
+    with con:
+        con.execute("""
+            CREATE TABLE USER (
+                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                name TEXT,
+                age INTEGER
+            );
+        """)
+
+INSERT
+    sql = 'INSERT INTO USER (id, name, age) values(?, ?, ?)'
+    data = [
+        (1, 'Alice', 21),
+        (2, 'Bob', 22),
+        (3, 'Chris', 23)
+    ]
+    with con:
+        con.executemany(sql, data)
+
+SELECT
+    with con:
+        data = con.execute("SELECT * FROM USER WHERE age <= 22")
+        for row in data:
+            print(row)
+
+Connect to SQLite DB from SQL Client (DBeaver)
+    create a new connection and select SQLite as DB type
+
+PANDAS DATAFRAMES
+    df_skill = pd.DataFrame({
+        'user_id': [1,1,2,2,3,3,3],
+        'skill': ['Network Security', 'Algorithm Development',
+        'Network Security', 'Java', 'Python', 'Data Science', 'ML']
+    })
+
+    df_skill.to_sql('SKILL', con)   # No need to create the table in advance,
+                                    # column data types and length - inferred.
+
+    df = pd.read_sql('''
+        SELECT s.user_id, u.name, u.age, s.skill 
+        FROM USER u LEFT JOIN SKILL s ON u.id = s.user_id
+    ''', con)
+
+    df.to_sql('USER_SKILL', con)    # write the results to a new table
+
+
+
+
+
+
+
+
+
+
+
+
