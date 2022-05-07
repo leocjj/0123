@@ -1,0 +1,61 @@
+https://docs.python.org/3/library/asyncio.html
+https://www.youtube.com/watch?v=t5Bo1Je9EmE
+https://www.youtube.com/watch?v=9zinZmE3Ogk
+https://www.youtube.com/watch?v=5nXmq1PsoJ0
+
+https://gist.github.com/miguelgrinberg/f15bc03471f610cfebeba62438435508
+https://greenlet.readthedocs.io/en/latest/
+https://pypi.org/project/greenlet/
+https://github.com/gevent/gevent
+
+
+CONCURRENCY is about DEALING with lots of things at once but
+PARALLELISM is about DOING   lots of things at once.
+
+general concurrent models
+    Petri nets, process calculi, the parallel random-access machine model,
+    the actor model and the Reo Coordination Language.
+
+Program    ->    Process[es]    ->    Thread[s]
+   1       ->       1...n       ->     1...n*m
+   
+
+Program: passive collection of instructions, e.g. stored in a file on disk
+    The same program can have several processes running.
+Process: instance of a program
+    Executed by one or many threads.
+    "process" (or task) is "something that takes up time", as opposed to
+    "memory", which is "something that takes up space"
+    Multitasking: method to allow multiple processes to share resources.
+        Each CPU (core) executes a single task at a time.
+        Appearance of many processes executing simultaneously (i.e. in parallel)
+Thread: of execution: smallest sequence of programmed instructions that can
+    be managed independently by a scheduler
+    Single-threaded process:
+    Multithreading model:
+        Single processor: use time slicing, CPU switches between SW threads.
+        Multiprocessor (multi-core): multiple threads execute in parallel, with
+        every processor or core executing a separate thread simultaneously;
+        SW threads can be executed concurrently by separate HW threads.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
