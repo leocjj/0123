@@ -47,6 +47,16 @@ Lightsail               # SaaS - Static server always running... WordPress, ,
                         # Django, LAMP, Node, Nginx, Magento, MEAN, GitLAB, etc
 
 Lambda          # F(unc)aaS - Serverless - Ephimeral jobs (code) triggered.
+    CloudWatch
+    X-ray
+    Lambda power tuning
+    Async invocation of the lambda
+    External orchestrator: Step Functions
+    Implement async processes (sqs queue?)
+    Filter/select before ask/receive
+    Use SAM or Serverless Framework
+    Clasify CPU-Bound vs Memory-Bound vs Network-Bound
+    ARM-64 is better than x86
 Serverless Repo # Pre-built functions ready to deploy with a click
 
 Outposts        # Run AWS APIs on the own infrastructure.
