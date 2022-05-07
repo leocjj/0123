@@ -765,9 +765,56 @@ Make sure that UFW is allowing connections on port 3306 (default MySQL port)
 
 
 *******************************************************************************
+Boolean
+https://www.databasestar.com/sql-boolean-data-type/
+
+Autoincrement
+https://www.w3schools.com/sql/sql_autoincrement.asp
+
+
+*******************************************************************************
+                            Comparison operators
+*******************************************************************************
+https://hazloexpress.com/mysql-operadores-comparacion/
+
+=           Igual
+<=>         Igual (Compara con seguridad valores NULL)
+<>          Diferente
+!=          Diferente
+>           Mayor Que
+>=          Mayor o Igual Que
+<           Menor Que
+<=          Menor o Igual Que
+IN ( )      Valores que Coinciden en una Lista
+NOT         Negar una Condición
+BETWEEN     Valores en un Rango (incluye los extremos)
+IS NULL     Verifica si el Valor es NULL
+IS NOT NULL Verifica si el Valor es diferente de NULL
+LIKE        Definir un patrón de búsqueda y utiliza % y _
+EXISTS      La condición se cumple si la subconsulta devuelve al menos una fila
+
+
+
+*******************************************************************************
                                 Backup-Restore
-***************************************************************
+*******************************************************************************
 
 
 https://www.databasejournal.com/features/mssql/
     developing-a-sql-server-backup-strategy.html
+
+
+
+*******************************************************************************
+                            SELECT A JSON FIELD POSTGRES
+*******************************************************************************
+
+The operator -> returns JSON object field by key.
+The operator ->> returns JSON object field by text.
+
+SELECT info -> 'key1' ->> 'subkey1'
+SELECT info -> 'key1' -> 'subkey1'
+https://www.postgresqltutorial.com/postgresql-json/
+
+
+
