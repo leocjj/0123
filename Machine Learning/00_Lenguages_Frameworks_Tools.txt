@@ -30,8 +30,9 @@ MATH:               NumPy - multidimensional arrays
 
 VISUALIZATION:      Matplotlib
                     Seaborn (stat visualization)
+                    https://plotly.com/python/
                     ggplot2
-                    Bokeh
+                    Bokeh   https://docs.bokeh.org/en/latest/docs/first_steps.html
 
 DATA (ETL):         Pandas - data analysis
                     Airflow - data engineering tool
@@ -184,3 +185,59 @@ applications for mobile, web, and desktop from a single codebase.
 
 
 *******************************************************************************
+                        Other links
+*******************************************************************************
+
+https://towardsdatascience.com/understanding-generative-adversarial-networks-gans-cd6e4651a29
+Open AI: Solving (Some) Formal Math Olympiad Problems
+    https://openai.com/blog/formal-math/
+    https://arxiv.org/pdf/2202.01344.pdf
+    https://arxiv.org/abs/2202.01344
+    https://github.com/openai/miniF2F
+Python D-Tale Library:
+    https://towardsdatascience.com/d-tale-one-of-the-best-python-libraries-you-have-ever-seen-c2deecdfd2b
+Convert a Jupyter Notebook on a page with parameters:
+    https://github.com/man-group/notebooker
+https://towardsdatascience.com/understanding-generative-adversarial-networks-gans-cd6e4651a29
+https://openai.com/blog/formal-math/
+https://arxiv.org/abs/2202.01344
+https://github.com/openai/miniF2F
+
+
+Dashboard tips
+    https://towardsdatascience.com/pandasgui-analyzing-pandas-dataframes-with-a-graphical-user-interface-36f5c1357b1d
+    https://towardsdatascience.com/how-to-build-effective-and-useful-dashboards-711759534639
+    https://www.datapine.com/blog/dashboard-design-principles-and-best-practices/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
