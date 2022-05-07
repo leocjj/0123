@@ -1,0 +1,175 @@
+
+https://confluence.endava.com/display/CTO/Docker+Desktop+Alternatives
+
+*******************************************************************************
+                            Docker Desktop Alternatives
+*******************************************************************************
+
+Developer/engineering tooling, including but not limited to
+    Docker engine - Open source
+    Docker CLI - Open Source
+    Docker Desktop - Proprietary to Docker, Inc and closed source
+    minikube, podman, rancher desktop and more generally VS code, Eclipse, etc.
+
+https://docs.docker.com/engine/install/binaries/
+https://code.visualstudio.com/docs/containers/overview
+
+
+WSL2 and Podman
+Rancher Desktop
+Podman + Minikube
+VM + IDE
+WSL2, Ubuntu and Docker + Docker CLI on Windows
+
+
+*******************************************************************************
+                            WSL2, Ubuntu and Docker
+*******************************************************************************
+
+Install WSL
+    c:\> wsl -l -v
+    c:\> wsl --install
+    c:\> wsl –set-default-version 2
+    c:\> wsl uname -a
+    c:\> [wsl --set-version <dist_name> 2]  # wsl --set-version Ubuntu-20.04 2
+
+Install a Distro
+    c:\> wsl -l -o
+    c:\> wsl --install -d <Distro>
+
+Installation of dockerd in Ubuntu 20.04 LTS
+    https://dev.to/_nicolas_louis_/
+        how-to-run-docker-on-windows-without-docker-desktop-hik
+    [$ apt install sudo]
+    grep -E 'sudo|wheel' /etc/group         # Check if your user is a sudoer
+        usermod -aG sudo myusername         # to add a user to the sudoer group
+    sudo grep -E '%sudo|%wheel' /etc/sudoers
+    $ sudo apt update && sudo apt upgrade   # Update your Ubuntu distro
+    $ sudo apt remove docker docker-engine docker.io containerd runc
+                            # Remove residue from previous docker installations
+    $ source /etc/os-release   # Debian/Ubuntu package repository configuration
+    $ curl -4fsSL https://download.docker.com/linux/${ID}/gpg |
+        sudo apt-key add -
+    $ echo "deb [arch=amd64] https://download.docker.com/linux/${ID}        
+        ${VERSION_CODENAME} stable" | 
+        sudo tee /etc/apt/sources.list.d/docker.list
+    $ sudo apt -o Acquire::ForceIPv4=true update
+    $ sudo apt -o Acquire::ForceIPv4=true install docker-ce docker-ce-cli 
+        containerd.io
+    $ sudo usermod -aG docker $USER
+    Then close that WSL window, and launch WSL again. You should see docker when you run the command groups to list group memberships.
+    Get IP address in WSL2:
+        $ hostname -I | cut -d' ' -f1
+        172.29.160.48   # if you don't see the IP please restart the Windows.
+    $ sudo dockerd -H `hostname -I | cut -d' ' -f1`     # Launch dockerd
+    $ docker -H `hostname -I | cut -d' ' -f1` run --rm hello-world  # TEST
+
+
+*******************************************************************************
+                            Docker CLI on Windows
+*******************************************************************************
+
+Installing Docker.exe on Windows
+    Download exe: https://github.com/StefanScherer/docker-cli-builder/releases
+    Put it in c:\docker
+    Add this directory in the path for executables:
+        System Properties\Environment Variables\System Variables\Path
+    C:\> docker -–version
+    C:\> docker -H tcp://172.29.160.48 run --rm hello-world
+    Change IP with IP from WSL!
+
+
+*******************************************************************************
+                            WSL2 and Podman
+*******************************************************************************
+https://podman.io/
+https://podman.io/getting-started/
+https://opensource.com/article/21/10/podman-windows-wsl
+
+https://www.redhat.com/sysadmin/podman-windows-wsl2
+Windows 10 version 2004 and higher (Build 19041 and higher).
+Install WSL2 https://docs.microsoft.com/en-us/windows/wsl/install
+Install Podman in Ubuntu distro
+    # Ubuntu 20.10 and newer
+        sudo apt-get -y update
+        sudo apt-get -y install podman
+    # Linuxmint 20.x
+        $ sudo apt update
+        $ sudo sh -c "echo 'deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x${NAME}_${VERSION_ID}/ /' > /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list"
+        $ wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x${NAME}_${VERSION_ID}/Release.key -O Release.key
+        $ sudo apt-key add - < Release.key
+        $ rm Release.key
+        $ sudo apt-get update
+        $ [sudo apt-get -y upgrade]
+        $ sudo apt install podman
+        $ alias docker=podman
+
+
+*******************************************************************************
+                Deploy a lambda container in WSL2 with Podman
+*******************************************************************************
+
+# Create a repository in Amazon ECR (only the first time)
+$ aws ecr create-repository --repository-name youtube-revenue --image-scanning-configuration scanOnPush=true --image-tag-mutability MUTABLE
+
+***
+
+$ mkdir app   # Put the code here
+AWS base images provide the following environment variables:
+    LAMBDA_TASK_ROOT=/var/task
+    LAMBDA_RUNTIME_DIR=/var/runtime
+
+# Create the Dockerfile
+    FROM public.ecr.aws/lambda/python:3.8
+    COPY *.py ${LAMBDA_TASK_ROOT}       # Copy function code
+    COPY requirements.txt  .            # Install the function's dependencies
+    RUN  pip3 install [-q --no-cache-dir] -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
+    CMD [ "app.handler" ]               # Set the CMD to your handler
+
+# Create the container image
+$ podman build -t image-name .
+
+# Run and test container locally (optional)
+[$ podman run -p 9000:8080 image-name]
+[https://docs.aws.amazon.com/lambda/latest/dg/images-test.html]
+[curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{}']
+[podman images; podman ps; podman run -ti <image_id> bash]
+
+# Tag your image to match your repository name
+podman tag  youtube-revenue:latest 945204924800.dkr.ecr.us-east-2.amazonaws.com/youtube-revenue:latest
+
+# Deploy the image to Amazon ECR
+podman push 945204924800.dkr.ecr.us-east-2.amazonaws.com/youtube-revenue:latest
+
+Code changes:
+    podman build -t youtube-revenue .
+    podman tag  youtube-revenue:latest 945204924800.dkr.ecr.us-east-2.amazonaws.com/youtube-revenue:latest
+    podman push 945204924800.dkr.ecr.us-east-2.amazonaws.com/youtube-revenue:latest
+    aws --region us-east-2 \
+        lambda update-function-code \
+        --function-name $LAMBDA_NAME \
+        --image-uri 945204924800.dkr.ecr.us-east-2.amazonaws.com/youtube-revenue:latest
+
+      export LAMBDA_NAME=youtube-revenue
+      export ECR_REPOSITORY=945204924800.dkr.ecr.us-east-2.amazonaws.com/$LAMBDA_NAME
+      podman build -t $LAMBDA_NAME .
+      podman tag  $LAMBDA_NAME:latest $ECR_REPOSITORY/$LAMBDA_NAME:latest
+      # Authenticate the Docker CLI to your Amazon ECR registry (only when is needed)
+      $ aws ecr get-login-password --region us-east-2 | podman login --username AWS --password-stdin 945204924800.dkr.ecr.us-east-2.amazonaws.com
+      podman push $ECR_REPOSITORY/$LAMBDA_NAME:latest
+      aws --region us-east-2 \
+          lambda update-function-code \
+          --function-name $LAMBDA_NAME \
+          --image-uri $ECR_REPOSITORY:latest
+
+
+
+
+
+
+
+
+
+
+
+
