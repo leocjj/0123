@@ -35,6 +35,27 @@ ls -la /home/leocjj/
 sudo passwd leocjj
 su - leocjj
 
+
+*******************************************************************************
+                                password
+*******************************************************************************
+https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
+https://keepass.info/
+
+</dev/urandom tr -dc '1234567890!@#$%qwertQWERTasdfgASDFGzxcvbZXCVByuiopYUIOPhjklHJKLnmNM.' | head -c32
+openssl rand -base64 32
+date +%s | sha256sum | base64 | head -c 32 ; echo
+< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-32};echo;
+tr -cd '[:alnum:]' < /dev/urandom | fold -w30 | head -n1
+strings /dev/urandom | grep -o '[[:alnum:]]' | head -n 30 | tr -d '\n'; echo
+< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c6
+dd if=/dev/urandom bs=1 count=32 2>/dev/null | base64 -w 0 | rev | cut -b 2- | rev
+randpw(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16};echo;}
+     # put this into your ~/.bashrc file.
+date | md5sum
+
+
+
 *******************************************************************************
                                 Proxy Chains
 *******************************************************************************
