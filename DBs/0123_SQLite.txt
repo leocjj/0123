@@ -1,11 +1,19 @@
 
+
+May you do good and not evil
+May you find forgiveness for yourself and forgive others
+May you share freely, never taking more than you give.
+
 *******************************************************************************
                         Python Built-In Database
 *******************************************************************************
 
-https://towardsdatascience.com/do-you-know-python-has-a-built-in-database-d553989c87bd
+https://towardsdatascience.com/ do-you-know-python-has-a-built-in-database-d553989c87bd
+https://www.sqlite.org/whentouse.html
 
 Python relational database management system
+C-language library that implements a small, fast, self-contained,
+    high-reliability, full-featured, SQL database engine.
 
 + Application file format
 + Data transfer format
@@ -21,26 +29,63 @@ Python relational database management system
 + Server-side database
     using separate database files for different subdomains
     separate SQLite database for each user, each DB only used by one connection
-
 - Client/Server Applications
 - High-volume Websites
 - Very large datasets (> 256 tibibytes or > OS filesystem limit)
 - High Concurrency: unlimited simultaneous readers 
     BUT only allow one writer, writers queue up.
 
+++ Manifest typing
+  Most SQL DB use static typing: a datatype associated with each column
+  SQLite relaxes this restriction by using manifest typing:
+    datatype is a property of the value itself, not of the column
+    thus allows the user to store any value of any datatype into any column
+    some exceptions: An INTEGER PRIMARY KEY may only store integers, and
+    attempts to coerce values into the declared datatype of column when it can.
+  e.g.: a column with datatype "INTEGER" and the application inserts a string
+    if one inserts '1234' that value is converted into an integer 1234,
+    but, if you insert 'wxyz' does not throw an error. stores the string value.
+  If strict is required (https://www.sqlite.org/stricttables.html):
+    CREATE TABLE t1(a ANY) STRICT;          CREATE TABLE t1(a ANY);
+    INSERT INTO t1 VALUES('000123');        INSERT INTO t1 VALUES('000123');
+    SELECT typeof(a), quote(a) FROM t1;     SELECT typeof(a), quote(a) FROM t1;
+    -- result: text '000123'                -- result: integer 123
+
+
+++ Variable-length records
+  Use only the amount of disk space actually needed to store info in a row.
+  If only one char in a VARCHAR(100) column, only one byte of space is consumed
+
+
+*******************************************************************************
+    choose client/server
+        If the data is separated from the application by a network,
+        Many concurrent writers, or
+        Big data
+    Otherwise → choose SQLite!
+*******************************************************************************
+
+
 
 import sqlite3 as sl
-con = sl.connect('my-test.db')      #  [created the database and] connected it.
+con = sl.connect('my-test.db')  # [created the database and] connected it.
 
-CREATE TABLE
+CREATE TABLE                    
+    # Optional Datatype (no needed): CREATE TABLE t1(a,b,c,d);
+    # Optional (no needed): id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    #   Use case-independent names: "rowid", "oid", or "_rowid_" 
+    #   64-bit signed int key, uniquely identifies the row within its table.
+    #   PRIMARY KEY is really just a UNIQUE index
+    #   "INTEGER PRIMARY KEY" in ordinary SQLite tables is an alias of rowid
+    # Table WITHOUT ROWID, can work faster an use less disk space.
+    #   for tables that have non-integer or composite PRIMARY KEYs and that
+    #   do not store large strings or BLOBs ) average size of a single row
+    #   should be less than about 1/20th the size of a database page.
+
     with con:
         con.execute("""
-            CREATE TABLE USER (
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                name TEXT,
-                age INTEGER
-            );
-        """)
+            CREATE TABLE [IF NOT EXISTS] USER (name TEXT, age INTEGER);
+        """) [WITHOUT ROWID] # If WITHOUT ROWID, table must have a PRIMARY KEY.
 
 INSERT
     sql = 'INSERT INTO USER (id, name, age) values(?, ?, ?)'
@@ -57,6 +102,7 @@ SELECT
         data = con.execute("SELECT * FROM USER WHERE age <= 22")
         for row in data:
             print(row)
+        data = con.execute("SELECT * FROM USER;").fetchall()  # List of tuples.
 
 Connect to SQLite DB from SQL Client (DBeaver)
     create a new connection and select SQLite as DB type
