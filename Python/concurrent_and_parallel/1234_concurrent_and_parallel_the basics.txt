@@ -22,6 +22,7 @@ Program    ->    Process[es]    ->    Thread[s]
 
 Program: passive collection of instructions, e.g. stored in a file on disk
     The same program can have several processes running.
+
 Process: instance of a program
     Executed by one or many threads.
     "process" (or task) is "something that takes up time", as opposed to
@@ -29,6 +30,7 @@ Process: instance of a program
     Multitasking: method to allow multiple processes to share resources.
         Each CPU (core) executes a single task at a time.
         Appearance of many processes executing simultaneously (i.e. in parallel)
+
 Thread: of execution: smallest sequence of programmed instructions that can
     be managed independently by a scheduler
     Single-threaded process:
@@ -40,15 +42,81 @@ Thread: of execution: smallest sequence of programmed instructions that can
 
 
 
+*******************************************************************************
+                    CPython implementation detail: 
+*******************************************************************************
+
+    In CPython, due to the GIL, only one thread can execute Python code at once
+    (even though certain performance-oriented libraries might overcome this
+    limitation).
+    
+    If you want your application to make better use of the
+    computational resources of multi-core machines, you are advised to use
+    multiprocessing or concurrent.futures.ProcessPoolExecutor.
+    
+    However, threading is still an appropriate model if you want to run
+        multiple I/O-bound tasks simultaneously.
 
 
 
+*******************************************************************************
+                            Thread Pool Executor
+*******************************************************************************
+
+https://docs.python.org/3.8/library/concurrent.futures.html#
+    concurrent.futures.ThreadPoolExecutor
+
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import urllib.request
+
+URLS = ['http://www.foxnews.com/',
+        'http://www.cnn.com/',
+        'http://europe.wsj.com/',
+        'http://www.bbc.co.uk/',
+        'http://some-made-up-domain.com/']
+
+def load_url(url, timeout):
+    with urllib.request.urlopen(url, timeout=timeout) as conn:
+        return conn.read()
+
+# We can use a with statement to ensure threads are cleaned up promptly
+with ThreadPoolExecutor(max_workers=5) as executor:
+    result = {}
+    # Start the load operations and mark each future with its URL
+    future_to_url = {executor.submit(load_url, url, 60): url for url in URLS}
+    for future in as_completed(future_to_url):
+        url = future_to_url[future]
+        try:
+            result[url] = future.result()
+        except Exception as exc:
+            print(f"{url} generated an exception: {exc}")
+        else:
+            print(f"{url} page is {len(result[url])} bytes")
 
 
 
+*******************************************************************************
+                            Process Pool Executor
+*******************************************************************************
 
+from concurrent.futures import ProcessPoolExecutor,
+import urllib.request
 
+URLS = ['http://www.foxnews.com/',
+        'http://www.cnn.com/',
+        'http://europe.wsj.com/',
+        'http://www.bbc.co.uk/',
+        'http://some-made-up-domain.com/']
 
+def load_url(url, timeout):
+    with urllib.request.urlopen(url, timeout=timeout) as conn:
+        return conn.read()
+
+with ProcessPoolExecutor() as executor:
+    result = {}
+    for url, load in zip(URLS, executor.map(load_url, URLS)):
+        result[url] = load
+        print(f"{url} page is {len(load)} bytes")
 
 
 
