@@ -1,0 +1,183 @@
+
+https://pypi.org/project/snowflake-connector-python/
+https://docs.snowflake.com/en/user-guide/python-connector.html
+https://docs.snowflake.com/en/user-guide/python-connector-install.html#step-1-install-the-connector
+https://docs.snowflake.com/en/user-guide/python-connector-pandas.html
+https://docs.snowflake.com/en/user-guide/python-connector-example.html
+https://docs.snowflake.com/en/user-guide/python-connector-api.html
+https://docs.snowflake.com/en/user-guide/sqlalchemy.html
+
+--------------------------------------------------------------------------------
+pip install -r https://raw.githubusercontent.com/snowflakedb/snowflake-connector-python/v2.7.6/tested_requirements/requirements_38.reqs
+pip install snowflake-connector-python==2.7.6
+
+pip install "snowflake-connector-python[pandas]" # So pyarrow isn't required.
+
+--------------------------------------------------------------------------------
+# Test, gets the version
+    #!/usr/bin/env python
+    import snowflake.connector
+    conn = snowflake.connector.connect(
+        user=USER,
+        password=PASSWORD,
+        account=ACCOUNT,
+        warehouse=WAREHOUSE,
+        database=DATABASE,
+        schema=SCHEMA
+        )
+    cur = conn.cursor()
+    try:
+        cur.execute("USE "db"."schema"")
+        cur.execute("SELECT current_version()")
+        one_row = cur.fetchone()
+        print(one_row[0])
+    finally:
+        cur.close()
+    conn.close()
+
+--------------------------------------------------------------------------------
+Connecting to Snowflake
+    # Connecting to Snowflake using the context manager
+        with snowflake.connector.connect(
+          user=USER,
+          password=PASSWORD,
+          account=ACCOUNT,
+          autocommit=False,
+        ) as con:
+            con.cursor().execute("INSERT INTO a VALUES(1, 'test1')")
+            con.cursor().execute("INSERT INTO a VALUES(2, 'test2')")
+            con.cursor().execute("INSERT INTO a VALUES(not numeric value, 'test3')")
+    # Connecting to Snowflake using try and except blocks
+        con = snowflake.connector.connect(...)
+        try:
+            con.cursor().execute(...)
+        except Exception as e:
+            con.rollback()
+            raise e
+        finally:
+            con.close()
+
+--------------------------------------------------------------------------------
+Execute a long-running query asynchronously.
+    from snowflake.connector import ProgrammingError
+    cur.execute_async('select count(*) from table(generator(timeLimit => 25))')
+    # Wait for the query to finish running and raise an error
+    # if a problem occurred with the execution of the query.
+    try:
+        query_id = cur.sfqid
+        while conn.is_still_running(conn.get_query_status_throw_if_error(query_id)):
+            time.sleep(1)
+    except ProgrammingError as err:
+        print('Programming Error: {0}'.format(err))
+    # Get the results from a query.
+    cur.get_results_from_sfqid(query_id)
+    results = cur.fetchall()
+    print(f'{results[0]}')
+
+--------------------------------------------------------------------------------
+Canceling a Query by Query ID
+    try:
+      cur.execute(r"SELECT SYSTEM$CANCEL_QUERY('queryID')")
+      result = cur.fetchall()
+      print(len(result))
+      print(result[0])
+    finally:
+      cur.close()
+
+--------------------------------------------------------------------------------
+Fetch Values with cursor
+    for (col1, col2) in con.cursor().execute("SELECT col1, col2 FROM testtable"):
+        print('{0}, {1}'.format(col1, col2))
+
+    col1, col2 = con.cursor().execute("SELECT col1, col2 FROM testtable").fetchone()
+    print('{0}, {1}'.format(col1, col2))
+
+    cur = con.cursor().execute("SELECT col1, col2 FROM testtable")
+    ret = cur.fetchmany(3)
+    print(ret)
+    while len(ret) > 0:
+        ret = cur.fetchmany(3)
+        print(ret)
+
+--------------------------------------------------------------------------------
+To set a timeout for a query
+    conn.cursor().execute("begin")
+    try:
+        # long query
+        conn.cursor().execute(
+            "insert into testtbl(a,b) values(3, 'test3'), (4,'test4')",
+            timeout=10)
+    except ProgrammingError as e:
+       if e.errno == 604:
+          print("timeout")
+          conn.cursor().execute("rollback")
+       else:
+          raise e
+    else:
+       conn.cursor().execute("commit")
+
+
+--------------------------------------------------------------------------------
+To Fetch Values by Column Name
+    # Querying data by DictCursor
+    from snowflake.connector import DictCursor
+    cur = con.cursor(DictCursor)
+    try:
+        cur.execute("SELECT col1, col2 FROM testtable")
+        for rec in cur:
+            print('{0}, {1}'.format(rec['COL1'], rec['COL2']))
+    finally:
+        cur.close()
+
+
+
+--------------------------------------------------------------------------------
+----------------------------- DEFINITIONS FOR STAGING --------------------------
+--------------------------------------------------------------------------------
+-- https://docs.snowflake.com/en/sql-reference-commands.html
+-- https://docs.snowflake.com/en/sql-reference/data-types.html
+-- https://docs.snowflake.com/en/sql-reference/data-types-semistructured.html
+-- VARCHAR(16777216) default, no impact in SF perforformance, but client maybe.
+-- CREATE INDEX ... is no needed, automatic micro-partitions with statistics.
+-- Without double quotes, all is converted to uppercase
+-- Constraint Properties
+--   https://docs.snowflake.com/en/sql-reference/sql/create-table-constraint.html#usage-notes
+--   For compatibility provides constraint properties.
+--   These properties are provided to facilitate migrating from other databases. 
+--   They are not enforced or maintained by Snowflake.
+--   This means that the defaults can be changed for these properties,
+--   but changing the defaults results in Snowflake not creating the constraint.
+--   e.g. CONSTRAINT "uuid_key" UNIQUE ("uuid") doesn't work as expected
+-- NOT NULL is the only constraint enforced by Snowflake.
+--   It can be specified only as an inline constraint within the column definition.
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+USE "db"."schema";
+
+CREATE OR REPLACE TABLE "table_name" (
+    "id" INTEGER AUTOINCREMENT(1,1) PRIMARY KEY,
+    "uuid" VARCHAR(36) NOT NULL UNIQUE,
+    "is_admin" BOOLEAN NOT NULL,
+    "array" ARRAY NULL,
+    "metadata" VARIANT NOT NULL, -- Try with OBJECT instead of VARIANT
+    "created_at" TIMESTAMP_TZ NOT NULL
+    CONSTRAINT "id_fkey" FOREIGN KEY ("user_id") REFERENCES "user_table"("id")
+);
+-- Test for autoincrement
+INSERT INTO "table_name" VALUES
+    (DEFAULT, '9b1deb4d-', True, Null, CURRENT_TIMESTAMP);
+
+INSERT INTO "table_name"
+    ("id","uuid","is_admin","array", "metadata", "created_at")
+    SELECT 1, '9b1deb4d-', True, 
+        array_construct(12, 20),
+        parse_json('{"key1":"value1","key2":"value2"}'),
+        CURRENT_TIMESTAMP;
+
+SELECT * FROM "table_name";
+TRUNCATE TABLE "table_name";
+
+SHOW COLUMNS IN TABLE "table_name";
+
