@@ -42,6 +42,9 @@ Thread: of execution: smallest sequence of programmed instructions that can
 
 
 
+https://github.com/volker48/python-concurrency
+
+
 *******************************************************************************
                     CPython implementation detail: 
 *******************************************************************************
