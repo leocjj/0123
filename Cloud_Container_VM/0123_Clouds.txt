@@ -1,0 +1,5 @@
+
+Google Cloud, AWS, Azure
+
+Databricks, Snowflake, Firebolt, BigQuery, 
+https://www.getdbt.com/
