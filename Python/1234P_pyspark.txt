@@ -1,0 +1,147 @@
+
+
+* Python Spark API developed by Apache Spark group to use Python with Spark
+* Framework for working with massive datasets.
+* Real-time and fast computations, excellent cache and disk persistence,
+   parallel application, fault tolerance, requires a lot of RAM. runs in-memory
+   ANSI SQL compatibility in Spark,
+
+RDD (Resilient Distributed Dataset)
+    Immutable distributed collection of data elements,
+    partitioned across nodes in a cluster can operate in parallel.
+    Can be used with many cluster managers (Spark, Yarn, Mesos e.t.c).
+    Can process data from Hadoop HDFS, AWS S3, and many file systems.
+    Use it if:
+        1. low-level actions on dataset
+        2. data is unstructured
+        3. don’t care about imposing a schema
+        4. can forgo optimization benefits from DataFrames and Datasets
+
+DataFrames (and Datasets) are built on top of RDDs:
+    Supports parallelization, has multiple nodes
+    Lazy Execution
+    DataFrame is Immutable.
+    faster for a large amount of data
+    for building a scalable application
+    Assures fault tolerance.
+    DataFrame and Spark SQL share the same execution engine
+    Data in a does not preserve the natural order by default.
+        The natural order can be preserved by setting compute.ordered_head
+        option but it causes a performance overhead with sorting internally.
+
+Python: for implementing Machine Learning algorithms
+Scala: to implement Data Engineer technologies rather than Machine Learning
+
+
+https://spark.apache.org/docs/latest/api/python/index.html
+https://spark.apache.org/docs/latest/api/python/getting_started/index.html
+https://notebooks.gesis.org/binder/jupyter/user/apache-spark-szi1x889/notebooks
+    /python/docs/source/getting_started/quickstart_df.ipynb
+
+
+https://spark.apache.org/docs/latest/api/python/user_guide/index.html
+https://spark-packages.org/
+
+https://sparkbyexamples.com/pyspark-tutorial/
+https://github.com/apache/spark/tree/master/examples/src/main/python
+
+
+*******************************************************************************
+                                COMPONENTS
+*******************************************************************************
+
+    Spark Core: provides an RDD and in-memory computing capabilities.
+    Spark SQL:  DataFrame(abstraction), can act as distributed SQL query engine
+    pandas API: same codebase can works with pandas (tests, smaller datasets)
+                and with Spark (distributed datasets).
+    Streaming:  enables powerful interactive and analytical applications across
+                both streaming and historical data.
+    MLlib: a scalable machine learning library to create and tune ML  pipelines
+    GraphFrames (GraphFrames)
+    PySpark Resource (pyspark.resource) It’s new in PySpark 3.0
+
+
+
+*******************************************************************************
+                                installation
+*******************************************************************************
+
+https://spark.apache.org/docs/latest/api/python/getting_started/install.html
+
+conda create -n pyspark_env
+conda activate pyspark_env
+conda install -c conda-forge pyspark python=3.8 plotly    # Can take a while
+
+pip install pyspark
+pip install pyspark[sql]
+pip install pyspark[pandas_on_spark] plotly
+
+
+(pyspark) leocjj@EN911367:~$ pyspark
+    Python 3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:04:10)
+    [GCC 10.3.0] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    22/05/12 16:09:22 WARN Utils: Your hostname, EN911367 resolves to a loopback address: 127.0.1.1; using 172.20.9.158 instead (on interface eth0)
+    22/05/12 16:09:22 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+    WARNING: An illegal reflective access operation has occurred
+    WARNING: Illegal reflective access by org.apache.spark.unsafe.Platform (file:/home/leocjj/miniconda3/envs/pyspark/lib/python3.8/site-packages/pyspark/jars/spark-unsafe_2.12-3.2.1.jar) to constructor java.nio.DirectByteBuffer(long,int)
+    WARNING: Please consider reporting this to the maintainers of org.apache.spark.unsafe.Platform
+    WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+    WARNING: All illegal access operations will be denied in a future release
+    Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+    Setting default log level to "WARN".
+    To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+    22/05/12 16:09:24 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+    Welcome to
+          ____              __
+         / __/__  ___ _____/ /__
+        _\ \/ _ \/ _ `/ __/  '_/
+       /__ / .__/\_,_/_/ /_/\_\   version 3.2.1
+          /_/
+
+    Using Python version 3.8.13 (default, Mar 25 2022 06:04:10)
+    Spark context Web UI available at http://172.20.9.158:4040
+    Spark context available as 'sc' (master = local[*], app id = local-1652389765722).
+    SparkSession available as 'spark'.
+
+
+
+*******************************************************************************
+                            Python Package Management
+*******************************************************************************
+
+To run your PySpark application on a cluster such as YARN, Kubernetes, Mesos...
+    make sure the code and all used libraries are available on the executors.
+
+conda create -y -n pyspark_conda_env -c conda-forge pyarrow pandas conda-pack
+conda activate pyspark_conda_env
+conda pack -f -o pyspark_conda_env.tar.gz
+
+After that, you can ship it together with scripts or in the code by using the --archives option or spark.archives configuration (spark.yarn.dist.archives in YARN). It automatically unpacks the archive on executors.
+
+In the case of a spark-submit script, you can use it as follows:
+
+export PYSPARK_DRIVER_PYTHON=python # Do not set in cluster modes.
+export PYSPARK_PYTHON=./environment/bin/python
+spark-submit --archives pyspark_conda_env.tar.gz#environment app.py
+Note that PYSPARK_DRIVER_PYTHON above should not be set for cluster modes in YARN or Kubernetes.
+
+If you’re on a regular Python shell or notebook, you can try it as shown below:
+
+import os
+from pyspark.sql import SparkSession
+from app import main
+
+os.environ['PYSPARK_PYTHON'] = "./environment/bin/python"
+spark = SparkSession.builder.config(
+    "spark.archives",  # 'spark.yarn.dist.archives' in YARN.
+    "pyspark_conda_env.tar.gz#environment").getOrCreate()
+main(spark)
+For a pyspark shell:
+
+export PYSPARK_DRIVER_PYTHON=python
+export PYSPARK_PYTHON=./environment/bin/python
+pyspark --archives pyspark_conda_env.tar.gz#environment
+
+
+
