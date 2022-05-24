@@ -532,14 +532,25 @@ https://gitlab.com/empty-repo/empty
 
 
 *********************************************************************************
-                           Create a new (dev) branch in GitHub
+                           Create a new (dev/main) branch in GitHub
 *********************************************************************************
 
 When a new repo is created, the main branch is the only one, so do this for dev:
     $ git checkout -b dev
     $ git push origin dev
+    
+    In dev branch,
+    $ git checkout dev
+    $ git branch -d main        # Deletes actual main
+    $ git checkout -b main      # Creates new main
+    $ git push origin main      # Now main and dev are the same
 
 
+*********************************************************************************
+                                VS CODE EXTENSION
+*********************************************************************************
+
+GitLens supercharges
 
 
 
