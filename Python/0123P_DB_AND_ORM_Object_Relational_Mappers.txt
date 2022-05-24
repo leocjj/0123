@@ -1,9 +1,14 @@
 
 https://www.fullstackpython.com/databases.html
 s
+
 SQLite is a database that is stored in a single file on disk.
 PostgreSQL and MySQL are two of the most common open source databases
 
+Software
+    DBeaver - Open source - db in general
+    PGadmin - Postgres
+    
 
 *******************************************************************************
                                 DBs
@@ -416,11 +421,291 @@ def write_records(records: Iterable[VideoRecord]):
 
 
 
+*******************************************************************************
+                            Select with SQLAlcheny
+*******************************************************************************
+
+https://towardsdatascience.com/sqlalchemy-python-tutorial-79a577141a91
+https://docs.sqlalchemy.org/en/14/tutorial/data_select.html?highlight=select
+
+def last_video_in_page(page_id: int):
+    session = Session(engine)
+    table_name = FacebookVideo.__table__
+
+    # select video_id from facebook_video
+    # where page_id = page_id
+    # order by created_time desc 
+    # limit 1;
+    result = session.execute(
+        select([table_name.columns.video_id])
+        .where(table_name.columns.page_id == page_id)
+        .order_by(desc(table_name.columns.created_time))
+    ).fetchmany(1)  # can used inside a loor or .fetchall() to get all results.
+
+    # Perform one request to DB with all statements stored in session
+    session.commit()
+    session.close()
+    return result
+
+
+*******************************************************************************
+                            Disconnect Handling
+*******************************************************************************
+
+https://docs.sqlalchemy.org/en/14/core/pooling.html#pool-disconnects
+https://docs.sqlalchemy.org/en/14/faq/connections.html#faq-execute-retry
+https://docs.sqlalchemy.org/en/14/core/connections.html#dbapi-autocommit
+
+engine = create_engine(
+    DB_URL,
+    future=True,  # this opts-in to most current (2.0) ORM conventions
+    pool_size=10,
+    max_overflow=SIMULTANEOUS_CONNECTIONS,
+    pool_pre_ping=True,  # tests connections for liveness upon each checkout
+)
+
+from sqlalchemy import create_engine, exc
+e = create_engine(...)
+c = e.connect()
+try:
+    # suppose the database has been restarted.
+    c.execute(text("SELECT * FROM table"))
+    c.close()
+except exc.DBAPIError, e:
+    # an exception is raised, Connection is invalidated.
+    if e.connection_invalidated:
+        print("Connection was invalidated!")
+# after the invalidate event, a new connection
+# starts with a new Pool
+c = e.connect()
+c.execute(text("SELECT * FROM table"))
+
+
+
+*******************************************************************************
+                                Session
+*******************************************************************************
+
+https://docs.sqlalchemy.org/en/14/orm/session_basics.html#using-a-sessionmaker
+
+https://docs.sqlalchemy.org/en/14/core/pooling.html#pool-disconnects
+https://docs.sqlalchemy.org/en/14/faq/connections.html#faq-execute-retry
+
+
+# In a module (global)
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+# an Engine, which the Session will use for connection resources
+engine = create_engine(
+    'postgresql://scott:tiger@localhost/',
+    future=True,  # this opts-in to most current (2.0) ORM conventions
+    pool_size=10,
+    max_overflow=SIMULTANEOUS_CONNECTIONS,
+    pool_pre_ping=True,  # tests connections for liveness upon each checkout
+)
+# a sessionmaker(), also in the same scope as the engine 
+Session = sessionmaker(engine)
+
+# In a script
+# Construct a Session() and include begin()/commit()/rollback() at once
+with Session.begin() as session:  # commits the transaction, closes the session
+    session.add(some_object)
+    session.add(some_other_object)
 
 
 
 
 
+CAST ( expression AS target_type );
+expression::type
+
+
+""" Module with functions to access FB tables in postgres database """
+
+from typing import Any, Iterable, List, Dict
+from dataclasses import asdict
+from orm.models import engine  # pylint: disable=import-error
+from sqlalchemy.orm import Session
+from orm.models.fb import (  # pylint: disable=import-error, ungrouped-imports
+    FacebookVideoPost,
+    FacebookVideo,
+)
+from sqlalchemy import inspect, select, desc
+from sqlalchemy.dialects.postgresql import insert
+from analytics_models import AnalyticsVideoRecord
+
+
+def write_video_records_to_postgresql(video_records: Iterable[AnalyticsVideoRecord]):
+    """Store insights of video post in the facebook_video_post table using UPSERT."""
+
+    # Create session and add objects, inner context calls session.commit()
+    # If there were no exceptions, outer context calls session.close()
+    with Session(engine) as session, session.begin():
+        insp = inspect(engine)
+        table_name = FacebookVideoPost.__table__
+        table_constraint = insp.get_unique_constraints(table_name)[0]["name"]
+
+        for record in video_records:
+            record_dict = asdict(record)
+            # Changing _id (used in MongoDB) by metric_sample_id used in fb table.
+            record_dict.update({"metric_sample_id": record_dict["_id"]})
+            del record_dict["_id"]
+            # PostgreSQL INSERT…ON CONFLICT (Upsert)
+            insert_stmt = insert(table_name).values(record_dict)
+            update_columns = {
+                col.name: col
+                for col in insert_stmt.excluded
+                if col.name not in ("id", "metric_sample_id")
+            }
+            update_statement = insert_stmt.on_conflict_do_update(
+                constraint=table_constraint, set_=update_columns
+            )
+            # Store in session all statements to be executed
+            session.execute(update_statement)
+
+
+def write_videos_list_to_postgresql(videos_list: List):
+    """Store a list of videos in the facebook_video table using UPSERT."""
+
+    if not videos_list:
+        return
+
+    # Create session and add objects, inner context calls session.commit()
+    # If there were no exceptions, outer context calls session.close()
+    with Session(engine) as session, session.begin():
+        insp = inspect(engine)
+        table_name = FacebookVideo.__table__
+        # This UNIQUE constrain is used to compare in case of insert conflicts,
+        # so the UPSERT operation can be executed (i.e if a page_video_id already exists
+        # in DB, an UPDATE is executed instead of an INSERT).
+        table_constraint = insp.get_unique_constraints(table_name)[0]["name"]
+
+        for record in videos_list:
+            # PostgreSQL INSERT…ON CONFLICT (Upsert)
+            insert_stmt = insert(table_name).values(record)
+            update_columns = {
+                col.name: col
+                for col in insert_stmt.excluded
+                if col.name not in ("id", "page_video_id")
+            }
+            update_statement = insert_stmt.on_conflict_do_update(
+                constraint=table_constraint, set_=update_columns
+            )
+            # Store in session all statements to be executed
+            session.execute(update_statement)
+
+
+def last_created_time_in_page(page_id: int) -> int:
+    """Retrieve the created_time of the most recent video in a fb page (page_id) and
+    returns the equivalent POSIX timestamp (integer) or zero if no records exist."""
+
+    # Create session and add objects, inner context calls session.commit()
+    # If there were no exceptions, outer context calls session.close()
+    with Session(engine) as session, session.begin():
+        table_name = FacebookVideo.__table__
+
+        # SQL query to execute:
+        #   SELECT video_id FROM facebook_video
+        #   WHERE page_id = page_id
+        #   ORDER BY created_time desc
+        #   LIMIT 1;
+        # Use .scalar when the result contains only single value.
+        # Change to .fetchmany(int n) to load optimal number of rows.
+        # Change to .fetchall() to load all rows.
+        result = session.execute(
+            select(table_name.columns.created_time)
+            .where(table_name.columns.page_id == page_id)
+            .order_by(desc(table_name.columns.created_time))
+        ).scalar()
+
+    if result:
+        return int(result.timestamp())
+    # This means there are no records for this page_id, so we gather all
+    # from the beginning of times.
+    return 0
+
+
+def get_videos_list_from_db(page_id: int) -> List[Dict[str, Any]]:
+    """Retrieve the data of all videos for fb page (page_id) from the database"""
+
+    # Create session and add objects, inner context calls session.commit()
+    # If there were no exceptions, outer context calls session.close()
+    with Session(engine) as session, session.begin():
+        table_name = FacebookVideo.__table__
+
+        # SQL query to execute:
+        #   SELECT * FROM facebook_video
+        #   WHERE page_id = page_id;
+        # Use .scalar when the result contains only single value.
+        # Change to .fetchmany(int n) to load optimal number of rows.
+        # Change to .fetchall() to load all rows.
+        result = session.execute(
+            select(table_name).where(table_name.columns.page_id == page_id)
+        )
+
+    # Return a list of dictionaries where each item has the columns as keys.
+    return list(result.mappings().fetchall())
+
+
+*******************************************************************************
+                WHERE/FILTER A JSON FIELD
+*******************************************************************************
+
+https://docs.sqlalchemy.org/en/13/core/type_basics.html?highlight=json#sqlalchemy.types.JSON
+
+SELECT COUNT(*) FROM table1
+WHERE field1 = 'con' AND json_field#>>'{metadata,URL}' LIKE 'http%http%';
+"""
+with engine.connect() as conn:
+    metadatas = conn.execute(
+        select(Table1.json_field)
+        .where(Table1.field1 == "con")
+        .filter(
+            text(
+                "json_field#>>'{metadata,wURL}' LIKE 'http%http%'"
+            )
+        )
+    ).fetchall()
+
+
+JSON-Specific Expression Operators
+
+The JSON datatype provides these additional SQL operations:
+
+Keyed index operations:
+data_table.c.data['some key']
+
+Integer index operations:
+data_table.c.data[3]
+
+Path index operations:
+data_table.c.data[('key_1', 'key_2', 5, ..., 'key_n')]
+
+Data casters for specific JSON element types, subsequent to an index or path operation being invoked:
+data_table.c.data["some key"].as_integer()
+
+
+
+*******************************************************************************
+                    update
+*******************************************************************************
+
+    with engine.connect() as conn:
+        conn.execute(
+            update(table1)
+            .where(table1.id == i)
+            .values(request_body_json=new_metadata)
+        )
+        conn.commit()
+
+
+*******************************************************************************
+                    raw query - text
+*******************************************************************************
+
+t = text("select response_status_code from ugc_upload_notification where id= 31217;")
+with engine.connect() as conn:
+    metadatas = conn.execute(t)
 
 
 
