@@ -542,6 +542,7 @@ with open("file.csv", "a") as f:
 *******************************************************************************
                                 zip map
 *******************************************************************************
+
 PRIMES = [
     112272535095293,
     112582705942171,
@@ -550,6 +551,39 @@ PRIMES = [
 for number, prime in zip(PRIMES, map(is_prime, PRIMES)):
     print("%d is prime: %s" % (number, prime))
 
+
+
+*******************************************************************************
+                            performance test
+*******************************************************************************
+
+https://pyperformance.readthedocs.io/
+
+python3 -m pip install pyperformance
+pyperformance run -o py310.json
+pyperformance run -o py311.json
+pyperf compare_to py310.json py311.json --table
+
+
+*******************************************************************************
+                                post request 
+*******************************************************************************
+
+def post_request(url: str, body: dict) -> str:
+    """Execute a post request, validate for errors and return response. 
+    url -- Endpoint to request
+    body -- Request body to be sent."""
+    r = requests.post(
+        url,
+        headers=HEADERS,
+        json=body,
+        timeout=TIMEOUT_SECONDS,
+    )
+    r.raise_for_status()
+    if r.status_code in (200, 201, 202):
+        return json.loads(r.text)["id"]
+
+    return None
 
 
 *******************************************************************************
@@ -761,6 +795,10 @@ https://www.geeksforgeeks.org/python-import-from-parent-directory/
     import <module_in_dir> as mid
 
 
+Python in FRONT - javascript
+    pyscript.net
+    pyodide.org
+
 
 https://medium.com/tech-carnot/understanding-multiprocessing-in-aws-lambda-with-python-6f50c11d57e4
 https://aws.amazon.com/blogs/compute/parallel-processing-in-python-with-aws-lambda/
@@ -942,17 +980,83 @@ password=ssm_get(Name=pass_location, WithDecryption=True)["Parameter"]["Value"]
 
 
 
+*******************************************************************************
+                            Quality/Testing	
+*******************************************************************************
+
+Debugging (pdb, VS Code debug)
+    https://code.visualstudio.com/docs/python/debugging
+Code quality tools (including PEPs 20, 8, 257)
+    https://realpython.com/python-code-quality/
+typing and type checkers	mypy, pytype, pyright / pylance, pyre
+    https://docs.python.org/3/library/typing.html
+    https://code.visualstudio.com/docs/python/linting"
+time	monotonic, perf_counter (timeit), process_time
+    https://docs.python.org/3/library/time.html
+retry / retries		
+logging
+    https://docs.python.org/3/library/logging.html
+pydoc / doctest / assert
+    https://docs.python.org/3/library/doctest.html
+Unit Testing
+    https://docs.python.org/3/library/unittest.html
+Integration Testing		
+Pytest		
+Automation (PyAutoGUI, Selenium)		
 
 
 
+*******************************************************************************
+                            Concurrent execution
+*******************************************************************************
+
+https://docs.python.org/3/library/concurrent.futures.html
+
+Intensive CPU/IO tasks (CPU bound vs IO bound)
+Program, process, threads, GIL, async function.
+ThreadPoolExecutor (Intensive IO tasks)
+ProcessPoolExecutor (Intensive CPU tasks)
+Future objects, module functions, exceptions
+
+threading           https://docs.python.org/3/library/threading.html
+multiprocessing     https://docs.python.org/3/library/multiprocessing.html
+async/await		
+sched               https://docs.python.org/3/library/sched.html
+queue               https://docs.python.org/3/library/queue.html
 
 
 
+*******************************************************************************
+                            Good practices
+*******************************************************************************
 
+List: never remove items from a list while you are iterating through it.
+    # comprehensions create a new list object
+        filtered_values = [value for value in sequence if value != x]
+    # generators don't create another list
+        filtered_values = (value for value in sequence if value != x)
 
+Modifying original list can be risky if there are other variables referencing it
+But you can use slice assignment if you really want to do that.
+    # replace the contents of the original list
+        sequence[::] = [value for value in sequence if value != x]
 
+To create a new list object and leave the original alone:
+    a = [3, 4, 5]
+    b = a
+    # assign the variable "a" to a new list without changing "b"
+    a = [i + 3 for i in a]
 
+# needlessly allocates a list of all (gpa, name) entires in memory
+    valedictorian = max([(student.gpa, student.name) for student in graduates])
+# Good, use a generator instead
+    valedictorian = max((student.gpa, student.name) for student in graduates)
 
+List comprehensions when really need to create a second list,
+    e.g. need to use the result multiple times.
+If complicated logic, use generator function (yield) instead of generator.
+
+Dict use, 'key' in dic01 or dict01.get('key', 'default_value')
 
 
 
