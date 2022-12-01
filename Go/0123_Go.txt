@@ -22,6 +22,12 @@ GoLand IDE
     https://www.jetbrains.com/go/
     File/Settings/ GOROOT, GOPATH, Go Modules (Enable Go modules integration).
 
+Go Style
+    https://google.github.io/styleguide/go/
+
+Go usefull libraries
+    https://github.com/avelino/awesome-go
+
 Go distribution includes:
     go run      shortcut for building and executing code
     go build    builds Go binaries using only the source files themselves
