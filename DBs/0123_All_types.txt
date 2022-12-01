@@ -1,0 +1,57 @@
+
+
+https://www.sql-practice.com/
+https://towardsdatascience.com/10-quick-sql-tips-after-writing-daily-in-sql-for-3-years-37bdba0637d0
+
+
+1. Key-value: Redis, Memcash
+    Like python dictionary
+    redis> SET user:23:bio "i like redis"
+    redis> GET user:23:bio
+    All in memory --> FAST, LIMITED SPACE, NO QUERIES
+    For caching, pub/sub, leaderboards, real-time delivery, on top of other db
+
+2. Wide column: cassandra, habase
+    row key - several columns
+    SCHEMA-LESS, NO RELATIONAL, NO JOINS
+    For time-series, historical records, high-write, low-read
+
+3- Document: MongoDB, Firestore, DynamoDB
+    Collection | Documents (container for ke-value pairs, i.e.: JSON)
+    For apps, games, iot, content management, NO FOR GRAPHS, DONT HAVE JOINS
+
+4- Relational: PostgreSQL, MySQL, SQL server
+    Joins, primary keys, foreing keys (reference date in a different table)
+    Schema required, are ACID complient
+    For most apps, NOT for unstructured data.
+
+5- Graph: neo4j, dgraph
+    Nodes (data) connected by edges (relationships)
+    For graphs, knowledge graphs, recommendation engines,
+    alternative to a lot of joins, use CYPHER
+
+6- Search: elactic search, meilisearch
+    For search engines, typeahead seach box
+
+7- Multi-model: FaunaDB
+    Graphql schema --> Select the best: document, relational, graph db type.
+
+Others: data warehouse db, time-series db
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
