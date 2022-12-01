@@ -181,8 +181,35 @@ https://www.fast.ai/
 
 
 
+*******************************************************************************
+                    Training Options on the market:
+*******************************************************************************
 
+Free:
+    Endava University: Data Academy:
+    Ramp Up & Challenges (Data discipline paths)
+    Materials Data Academy: DATA Learning Topics 
+    Data Academy Playlist: https://endava.university/playlists/121134
+    Kaggle Learn: https://www.kaggle.com/learn (Check micro-courses)
 
+Paid:
+    DataCamp: https://app.datacamp.com/learn ( Check paths by skills or role)
+    Udemy: https://www.udemy.com/ (specific topics)
+    PluralSight: https://www.pluralsight.com/ (check paths more for development)
+    Coursera: https://www.coursera.org/. => (check GCP, AWS, Azure training paths) and Deeplearning.ai paths
+    EdX: Harvard University: https://www.edx.org/es
+    Platzi: https://platzi.com/ (Check paths and careers)
+    Correlation One: Data Science for All - DS4A: 
+    https://www.correlation-one.com/blog/data-science-for-all-colombia-graduates-500-new-data-professionals
+    LinkedIn Learning: https://www.linkedin.com/learning/ (specific topics)
+    Salesforce: (Tableau, Slack, Mule soft): https://trailhead.salesforce.com/es-MX/. (Check by the trailhead, trail mixes)
+
+Cloud providers: Endava Partnerships: 
+    APN Portal - AWS: https://partnercentral.awspartner.com/APNLogin
+    SageMaker: https://studiolab.sagemaker.aws/
+    Partner GCP - Google Cloud Platform: https://partner.cloudskillsboost.google/
+    Microsoft Azure: https://docs.microsoft.com/es-es/learn/ 
+    Microsoft Build Challenge 2022: https://www.microsoft.com/en-US/cloudskillschallenge/build/registration/2022
 
 
 
