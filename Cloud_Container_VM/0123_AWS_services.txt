@@ -8,6 +8,14 @@ QUBO - Quadratic Unconstrained Binary Optimization
 https://www.youtube.com/watch?v=JIbIYCM48to
 
 
+*******************************************************************************
+                            DEVELOPMENT TOOLS
+*******************************************************************************
+Visualize cloud architecture, create smart AWS diagrams
+
+https://www.cloudcraft.co/
+
+
 
 *******************************************************************************
                             DEVELOPMENT TOOLS
