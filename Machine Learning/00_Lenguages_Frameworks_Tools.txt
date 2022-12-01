@@ -33,12 +33,19 @@ VISUALIZATION:      Matplotlib
                     https://plotly.com/python/
                     ggplot2
                     Bokeh   https://docs.bokeh.org/en/latest/docs/first_steps.html
+                    https://marketplace.visualstudio.com/items?itemName=Iterative.dvc
 
 DATA (ETL):         Pandas - data analysis
                     Airflow - data engineering tool
                     Luigi - data engineering tool
                     Dask - data engineering tool
                     https://cloud.google.com/dataprep
+
+Excel replacements  Spreadsheets in Python! 
+                    https://medium.com/geekculture/goodbye-excel-hello-spreadsheets-in-python-df41408dafd4
+                    Mito        https://docs.trymito.io/getting-started/installing-mito
+                    Bamboolib   
+                    
 
 STORE & DB:         HDF5 - store and manipulate data
                     PyTables - manage HDF5 datasets
@@ -95,6 +102,14 @@ Image sets:         http://yann.lecun.com/exdb/mnist/
                     ILSVRC uses a subset of ImageNet
                     MS COCO, Pascal VOC, VQA challenge
                     https://www.kaggle.com/c/dogs-vs-cats/data
+
+Image generators:   Stable Diffusion
+                    DALL-E 2
+                    Midjourney
+                    DALL-E mini
+                    Parti
+                    Meta-a-sense
+                    MS Nuwa
 
 Cloud:              gradient.paperspace.com/free-gpu
                     cloud.google.com/automl
@@ -204,10 +219,17 @@ https://arxiv.org/abs/2202.01344
 https://github.com/openai/miniF2F
 
 
+https://wesmckinney.com/book/       # Python for Data Analysis, 3E
+
+https://www.youtube.com/c/DotCSV    # IA channel, Stable Diffusion vs DALL-E 2
+
 Dashboard tips
     https://towardsdatascience.com/pandasgui-analyzing-pandas-dataframes-with-a-graphical-user-interface-36f5c1357b1d
     https://towardsdatascience.com/how-to-build-effective-and-useful-dashboards-711759534639
     https://www.datapine.com/blog/dashboard-design-principles-and-best-practices/
+
+
+https://medium.com/whispering-data/the-state-of-data-engineering-2022-d6ef0f7cf607
 
 
 
