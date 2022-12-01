@@ -1,0 +1,35 @@
+PRs to dev/staging
+
+for releases to dev/staging:
+read the story, and make a quick check validating that the code covers all the goals of the story.
+regarding new functions, classes, settings: do they have a proper name? it should be a name that explains the role of that setting, and not just what that setting is; for example, PORTAL_INCOMING_UGC_S3_BUCKET_NAME, instead of just S3_BUCKET_NAME.
+
+sql migrations
+who's their ancestor? it should be the most recent migration from the most recent version of the dev branch; you can get that ID using alembic history.
+are there any other stories in progress that also involve schema migrations? coordinate.
+are you performing bulk SELECTs to a table, and some related tables? are you introducing a N+1 problem with this?
+timing constraints: does this code complete execution within its time budget?
+for HTTP requests, this should be 5 seconds or less; anything that takes longer should be handled with asynchronous tasks.
+for general lambda execution: check the lambda timeout setting, and don't exceed 15 minutes.
+did you add proper mypy type signatures? did you attend to all its warnings?
+idempotency: code in a lambda function should be idempotent (do the right thing if called multiple times); this is because on lambda failure, the aws framework retries things automatically, so our code should be prepared for that retry (which just re-runs the function again with the same input).
+requests to external systems: did you define a timeout for it. ALWAYS define a timeout, or else you expose yourself to waiting "forever" for an operation to complete.
+logs/error messages: put yourself in the shoes of the future reader of this log message you are adding:
+they don't have the same context/concepts in mind, that you have right now; improve your message considering that.
+
+error handling
+try blocks should be as small as possible
+except blocks should only catch exceptions we expect; they should NOT catch all exceptions/exceptions too broad, because that would hide unexpected errors.
+in general, it's a bad idea to perform retries; retry should be done at the "execute the lambda level", not at the "inner function" level, because that way (lambda level) people in eng. see the error, aws lambda takes care of the retries, etc.
+
+PRs for master/production
+are there new settings? are they in place in SSM/environment variables?
+
+any DB schema changes?
+do they alter current columns, for example with a casting? does that update cause data loss?
+do they destroy data? e.g., deleting a column, or a table. If that's the case, reformulate them.
+is all required data in place? for example, if we start working with sports, is the list of sports in the DB up-to-date? is it up-to-date in iconik?
+have you already updated the changelog?
+
+for UGC Pipelines: Changelog 
+for Social Media: Changelog for social media analytics pipelines 
