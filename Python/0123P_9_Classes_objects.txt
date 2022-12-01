@@ -307,6 +307,7 @@ Each value is an object, and therefore has a class (also called its type).
 It is stored as object.__class__.
 
 
+
 *******************************************************************************
                             9.5. Inheritance
 *******************************************************************************
