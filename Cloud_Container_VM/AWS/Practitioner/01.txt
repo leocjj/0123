@@ -1,0 +1,650 @@
+
+Glossary
+    https://docs.aws.amazon.com/general/latest/gr/glos-chap.html
+
+Services list
+    https://d1.awsstatic.com/whitepapers/aws-overview.pdf
+
+Hands-on 
+    https://aws.amazon.com/getting-started/hands-on/
+
+IN AWS EVERYTHING IS AN API CALL, FOR: PROVISION, CONFIGURE, MANAGE.
+
+
+*****************************************************************************************
+                            Cloud Computing Models
+*****************************************************************************************
+
+Agility - Speed - Scale - Innovation - Productivity: infrastructure, security, automation
+    Highly available, cost-efficient, pay-as-you-go, Go global in minutes, energy-efficiency
+Secure, extensive, reliable,
+
+Benefits:
+    *** Focus energy on bussines rather that on your IT hardware ***
+    1. Stop spending money running and maintaining data centers.
+    2. Increase speed and agility
+    3. Stop guessing capacity
+    4. Benefit from massive economies of scale: cost, energy, security, innovations
+    5. Go global in minutes
+    6. Trade capital expense for variable expense
+
+
+Infrastructure as a Service (IaaS)
+
+Platform as a Service (PaaS)
+
+Software as a Service (SaaS)
+
+Deployment Models: cloud, hibrid, on-premises
+
+Multi-tier apps
+    Three-tier applications:
+        Modular client-server architecture
+        + client(presentation tier)
+        + server (logic/app tier)
+        + database (data tier)
+
+
+*****************************************************************************************
+                                Jobs in the Cloud
+*****************************************************************************************
+
+Before:
+    IT Solutions Architect      -->     AWS Cloud Architect
+    System Administrator        -->     AWS System Operations (SysOps)
+    Network/security Admin      -->     AWS Security Administrator role.
+    Desktop Administrator       -->     AWS System Operations (SysOps)
+    Application Administrator   -->     DevOps Administrator
+    Database Administrator      -->     DevOps Administrator
+
+Now, shared responsibility model:
+    AWS is responsible for security OF the cloud:
+        Manage components from the host OS to the physical security
+    Customer is responsible for security IN the cloud:
+        Guest OS, updates, patches, software, fil system, data, encryption, networking,
+        identity, access, firewall, configuration, applications.
+
+Recomendations:
+    * Determine external and internal security and compliance requirements.
+    * Consider AWS Cloud Adoption Framework (CAF) and Well-Architected best practices.
+    * Review the security functionality and configuration options of each service.
+        https://docs.aws.amazon.com/security/
+    * Evaluate the AWS Security, Identity, and Compliance services
+    * Review third-party audit attestation documents
+        https://aws.amazon.com/artifact/
+    * Provide your audit teams with cloud-specific learning.
+    * Perform a Well-Architected Review for security, reliability, and performance.
+    * Explore solutions in the AWS Marketplace digital catalog.
+    * Explore AWS Security Competency Partners offering expertise
+
+New roles:
+
+    Cloud Architect:
+        Supervises deployment and application architecture for all (SME).
+            - Understands how services are connected and the integration of services.
+            - Understands Amazon CloudWatch and logging.
+            - Understands AWS IAM and the security involved.
+        Learning Plans are available here:
+            Cloud Essentials Learning Plan
+            Solutions Architect Learning Plan
+        certifications you can consider:
+            AWS Cloud Practitioner Foundational
+            AWS Solutions Architect Associate
+            AWS Solutions Architect Professional
+
+    System Administrator:
+        Responsible for overall performance of cloud systems.
+            - Proficient with hands-on tasks and detailed configuration changes.
+            - Understands configuration management.
+            - Proficient with requirement gathering and translating to deployments.
+        Learning Plans are available here:
+            Cloud Essentials Learning Plan
+            Systems Operator Learning Plan
+        certifications you can consider:
+            AWS Cloud Practitioner Foundational
+            AWS Solutions Architect Associate 
+            AWS SysOps Administrator Associate
+            AWS Advanced Networking Specialty
+
+    Security Administrator:
+        Responsible for security in the cloud
+            - Defines security requirements for enterprise-level businesses based 
+            - Understands security rules and requirements
+            - Communicates security rules down to engineers and up to decision makers
+            - Resourceful because it is not possible to memorize all requirements
+            - Researches and is resourceful to determine an answer to address security.
+        Learning Plans are available here:
+            Cloud Essentials Learning Plan
+            Security Learning Plan
+        Certifications you can consider:
+            AWS Solutions Architect Associate
+            AWS Security Administration
+
+    DevOps Administrator:
+        Optimizes the use of the AWS Cloud, manages the release cycle, conducts tests
+        and backs out changes if there are issues.
+            - Applies programming scripting languages with proficiency
+            - Understands and applies QA and testing
+            - Understands operations and manages developers
+            - Orchestrates the many tools and stages in the pipeline
+        Learning Plans are available here:
+            Cloud Essentials Learning Plan
+            DevOps Engineer Learning Plan
+        Certifications you can consider:
+            AWS Cloud Practitioner Foundational
+            AWS Solutions Architect Associate
+            AWS Developer Associate
+            AWS DevOps Engineer Professional
+            AWS Database Specialty
+
+Planning cloud strategy
+    https://www.gartner.com/smarterwithgartner/6-steps-for-planning-a-cloud-strategy
+    Step 1: Design cloud strategies for speed and business value
+    Step 2: Prioritize a primary provider in multicloud architectures
+    Step 3: Build resilience into application architecture
+    Step 4: Enable hybrid architectures with distributed cloud
+    Step 5: Optimize for cloud-native with containers and serverless
+    Step 6: Grow public cloud skills internally to bridge the talent gap
+
+
+
+*****************************************************************************************
+                                    AWS Solutions (Library)
+*****************************************************************************************
+
+Gold standard reference architectures, patterns and consulting offers.
+Collection of cloud-based solutions for technical and business problems.
+
+Solutions Reference Architectures:
+    https://aws.amazon.com/architecture/reference-architecture-diagrams/
+    I want to browse a library of AWS-vetted architecture diagrams as a reference for my project
+    Collection of architecture diagrams, created by AWS.
+
+Solutions Implementations:
+    https://aws.amazon.com/solutions/implementations/
+    I want to deploy vetted architecture directly into my AWS account
+    Collection of technical reference implementations designed to solve common problems
+    and enable to build faster effective, secure, and cost efficient workloads.
+        + Architecture diagram
+        + Detailed deployment guide
+        + AWS CloudFormation template
+        + Downloadable source codes.
+
+Solutions Constructs:
+    https://aws.amazon.com/solutions/constructs/
+    https://github.com/awslabs/aws-solutions-constructs
+    I want to combine pre-built, well-architected multi-service patterns foy own solution
+    Extensions of the AWS (CDK) that provide multi-service, pre-built well-architected
+    patterns for solutions in code to create predictable and repeatable infrastructure.
+
+Professional Services and Partner Offers:
+    https://aws.amazon.com/solutions/consulting-offers/
+    End-to-end cloud solutions provided by AWS Partners.
+
+
+
+*****************************************************************************************
+                                Compute in the Cloud
+*****************************************************************************************
+
+Selection criterias:
+    Full access to the OS, traditional apps                     --> EC2
+    Short running, service-oriented, even driven, serverless    --> Lambda
+    Docker container-based workloads:
+        Orchestrator tool   --> ECS     
+                                EKS
+        Platform to run on  --> EC2
+                                Fargate
+Escalation:
+    Vertical: resizing instances, bigger, powerfull compute resources.
+    Horizontal: adding more same instances.
+
+EC2 (Elastic Compute Cloud)
+    Each instances is a virtual server, runs applications in the Cloud, running on a host
+    Types:
+        https://aws.amazon.com/ec2/instance-types/
+        General purpose
+        Compute optmized:
+            for compute intense task, high-performance processors, gaming,
+            high performance computing, scientific, batch processing workload
+        Memory optimized:
+            memory intensive tasks, process large datasets in memory.
+        Accelerated computing:
+            floating point, graphics, use hardware accelerators, GPUs
+        Storage optimized:
+            I/O intensive, for locally stored data
+        HPC Optimized
+        High performance computing (HPC):
+            Complex simulations and deep learning workloads
+    Features:
+        Fixed Performance instance families (e.g. M6, C6, and R6)
+        Burstable Performance Instance families (e.g. T3) using CPU Credits.
+        Multiple Storage Options:
+            EBS, is durable, attach to a single EC2. For data that requires updates (db)
+            General Purpose (SSD), Provisioned IOPS (SSD), and Magnetic
+        EBS-optimized Instances:
+            for applications with high storage I/O requirements.
+        Cluster Networking:
+            when launched into a common cluster placement group.
+            For high performance analytics, especially MPI library (parallel programming)
+    Pricing / Purchase options:
+        On-demand:
+            for short-term, irregular workloads that cannot be interrupted, pay for time.
+        Savings plans:
+            Committing a compute usage for a 1-year or 3-year term.
+            Usage beyond the commitment is charged at regular On-Demand rates.
+        Reserved instances:
+            Discount applied to the use of On-Demand, purchase for a 1-year or 3-year.
+        Spot instances:
+            Use unused EC2 capacity, offer savings up to 90% off of On-Demand prices.
+            Background processing job that can start and stop as needed.
+        Dedicated hosts:
+            Physical servers with EC2 instance capacity fully dedicated to use.
+
+EC2 Auto Scaling
+    Automatically add or remove Amazon EC2 instances. Use dinamic, predictive or both!!!
+    Dynamic scaling:
+        Responds to changing demand. 
+    Predictive scaling:
+        Automatically schedules the EC2 instances based on predicted demand.
+    Create an Auto Scaling group: min, desired, max instances.
+
+Elastic Load Balancing
+    Runs at regional level. Decouple architected.
+    Automatically distributes incoming traffic across multiple resources, such as EC2.
+    Single point of contact for all incoming traffic to the Auto Scaling group.
+    High performance, cost-efficient, highly available, automatically scalable.
+
+                            +--Auto Scaling Group---+
+                            |                       |
+    Requests -->  ELB --+-------->  EC2             |
+                        |   |                       |
+                        +-------->  EC2             |
+                            +-----------------------+
+
+SQS (Simple Queue Service)
+    To decouple services.
+    A message queuing service. Can send, store, and receive messages between software
+    components, without losing messages or requiring other services to be available.
+
+                    +--SQS------+           Service_2
+    Service_1       | msg queue |       Retrieve a message
+     send_msg ----->| m2, m1 ...|---->  Process it
+                    +-----------+       Delete it from the queue
+
+SNS (Simple Notification Service)
+    https://aws.amazon.com/sns/
+    To send messages.
+    Publish/subscribe service. Using SNS topics, a publisher publishes messages
+    to subscribers. Subscribers can be web servers, email addresses, Lambda functions etc
+
+EventBridge
+    https://pages.awscloud.com/AWS-Learning-Path-How-to-Use-Amazon-EventBridge-to-Build-Decoupled-Event-Driven-Architectures_2020_LP_0001-SRV.html?pg=ln&cp=bn
+    Serverless event bus to connect (AWS and SaaS) applications together.
+    Decoupling, simplify event routing, improve availability, third party integration.
+    EventBridge Event Bus:
+        Serverless event bus that helps you receive, filter, transform, route, and deliver events.
+    EventBridge Pipes:
+        Serverless point-to-point integration resource that helps you connect event
+        producers to event consumers with optional filtering, enrichment, and transformation capabilities.
+    EventBridge Scheduler:
+        Schedule tasks and events at scale.
+
+Serverless Computing
+    https://serverlessland.com/
+    Code runs on servers, but you do not need to provision or manage these servers.
+    Lambda:
+        Stateless. Designed to run code under 15 minutes.
+        Configure max concurrency for an SQS event source (trigger) 
+        https://aws.amazon.com/blogs/compute/introducing-maximum-concurrency-of-aws-
+            lambda-functions-when-using-amazon-sqs-as-an-event-source/
+    Step Functions:
+        Coordinate components of distributed apps/microservices using visual workflows.
+    ECS (Elastic Container Service):
+        A highly scalable, high-performance container management system to run and scale
+        containerized apps on AWS. Supports Docker containers. Run on top of EC2.
+        To package application's code and dependencies into a single object.
+        Can use API calls to launch and stop Docker-enabled applications.
+    EKS (Elastic Kubernetes Service):
+        Similar to Amazon ECS, fully managed service to run Kubernetes on AWS.
+    Fargate:
+        A serverless compute engine for containers. ECS and EKS can run on top of:
+        EC2 - you need access to the underlying OS.
+        Fargate - you do not need to provision or manage servers.
+
+FULL LIST
+    Instances (Virtual machines)
+        EC2: Secure and resizable compute capacity (virtual servers).
+        EC2 Spot Instances: Run fault-tolerant workload for up to 90% off.
+        EC2 Autoscaling: Automatically add or remove compute capacity to meet demand.
+        Lightsail: Easy-to-use platform to build an application or website.
+        Batch: Fully managed batch processing at any scale.
+    Containers:
+        ECS: Highly secure, reliable, and scalable way to run containers.
+        ECS Anywhere: Run containers on customer-managed infrastructure.
+        ECR: Easily store, manage, and deploy container images.
+        EKS: Fully managed Kubernetes service.
+        EKS Anywhere: Create and operate Kubernetes clusters on your own infrastructure.
+        Fargate: Serverless compute for containers.
+        App Runner: Build and run containerized applications on a fully managed service.
+    Serverless:
+        Lambda: Run code without thinking about servers.
+    Edge and hybrid:
+        Outposts: Run AWS infrastructure and services on premises.
+        Snow Family: Physical edge computing and storage devices for rugged or disconnected.
+        Wavelength: Delivery ultra-low latency application for 5G devices
+        VMware Cloud on AWS: Preferred service for all vSphere workloads.
+        Local Zones: Run latency sensitive applications closer to end-users
+    Cost and capacity management:
+        Savings Plan: Flexible pricing model that provides savings on compute usage.
+        Compute Optimizer: Recommends optimal Compute resources for your workloads.
+        Elastic Beanstalk: Easy-touse service for deploying/scaling web apps and services
+        EC2 Image Builder: Build and maintain secure Linux or Windows Server images.
+        ELB: Automatically distribute incoming application traffic across multiple targets
+    New:
+        AWS Nitro System:   https://aws.amazon.com/ec2/nitro/
+        Blogs:              https://aws.amazon.com/blogs/compute/
+
+
+*****************************************************************************************
+                            Infrastructure and Reliability
+*****************************************************************************************
+
+Regions             availability zones              edge locations
+        local zones                 regional services           wavelength zones.
+https://aws.amazon.com/about-aws/global-infrastructure/regions_az/
+
+Region (e.g. us-east-1)
+    A physical location around the world where AWS clusters data centers.
+    How to select the region:
+        - Compliance: any legal requirement to hava date in one place?
+        - Proximity: to the customers/users.
+        - Feature availability: not all services are available in all regios.
+        - Pricing: each region has different prices.
+    
+Availability Zone - AZ (e.g. us-east-1a, us-east-1b, us-east-1c)
+    A single data center or a group of data centers within a Region.
+    Each Region consists of multiple isolated and physically separate AZ.
+    ALWAYS DEPLOY INFRASTRUCTURE ACROSS AT LEAST 2 AZ.
+
+Regional services
+    Run synchronously across multiple AZs out of the box: ELB, Amazon SQS, Amazon SNS.
+    https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/
+
+CloudFront
+    A content delivery service. It uses a network of edge locations to store cached
+    copies of your content closer to your customers for faster delivery.
+
+Edge Locations or points of presence (POPs):
+    Run CloudFront, endpoints for caching as Content delivery network (CDN).
+    Also runs Rout56 for DNS. Used for very low latency.
+    Edge computing in Edge Locations:
+        Amazon CloudFront Functions
+        Lambda@Edge
+
+Local Zones 
+    Is an extension of an AWS Region. Allows to use services like compute, storage, db
+    closer to end-users. Highly-demanding latencies, single-digit millisecond.
+
+Outposts
+    AWS Installed in your own building. To run infrastructure in a hybrid cloud approach.
+    Extend AWS infrastructure and services to your on-premises data center.
+    AWS installs a fully operational mini Region, right inside your own data center,
+    owned and operated by AWS, but isolated within your own building.
+
+Wavelength
+    Brings AWS services to the edge of the 5G network, minimizing the latency to connect
+    to an application from a mobile device.
+
+
+News:   https://aws.amazon.com/blogs/networking-and-content-delivery/
+
+
+*****************************************************************************************
+                                Provision Resources
+*****************************************************************************************
+
+Management Console:
+    Web-based interface for accessing and managing AWS services (testing, monitoriong...)
+
+AWS CLI:
+    To control AWS services directly, automate actions with some commands/scripts.
+
+CloudShell:
+    A browser-based shell that provides CLI access to AWS resources.
+
+SDKs:
+    Allow you to interact with AWS resources through Python, Java, JS, Go, .NET, Ruby.
+
+IDEs and toolkits:
+    include AWS Cloud9, IntelliJ, PyCharm, VS, VS Code, Azure DevOps, Rider, and WebStorm
+
+Elastic Beanstalk:
+    To provision Web apps and services in declaratively mode: code and config settings.
+    Deploys the resources necessary to perform the following tasks:
+        Adjust capacity
+        Load balancing
+        Automatic scaling
+        Application health monitoring
+
+CloudFormation:
+    An infrastructure as code tool. To define a wide variety of AWS resources
+    in a declarative way using JSON or YAML text-based documents, CloudFormation template
+
+CDK (Cloud Development Kit):
+    A framework for defining cloud infrastructure in code and provisioning it through
+    AWS CloudFormation. Write infrastructure code in your a language(C#, Javascript,
+    Typescript, Python and Go) instead of using YAML file.
+
+
+*****************************************************************************************
+                                Developer services
+*****************************************************************************************
+
+https://aws.amazon.com/developer/tools/
+
+RUN
+        Compute, storage and 100+ services
+        CloudShell:
+            Browser-based shell to manage, explore, and interact w/resources
+        CodeArtifact:
+            Artifact repository to store, publish, and share soft. packages
+        Fault Injection Simulator:
+            Stress an application (performance, observability, and resiliency)
+        X-Ray:
+            Identify and troubleshoot the root cause of performance issues and errors
+
+RELEASE
+        CodeCommit:
+            source control service
+        CodeBuild:
+            compiles, runs tests, and produces sw packages to deploy.
+        CodeDeploy:
+            automates code deployments to any instance.
+        CodePileline:
+            continuous delivery service to automate release pipelines 
+            Automates the build, test, and deploy phases of your release.
+        CodeStart: quickly develop, build, and deploy applications
+            Manage dev activities
+            Set up continuous delivery toolchain 
+            Manage access and add owners, contributors, and viewers
+            Management dashboard with issue tracking (JIRA)
+            Track progress from backlog to deployments
+
+CREATE
+        SDK:
+            boto3 for python, 
+        AWS Toolkit (plugins) for:
+            PyCharm, VS Code
+        Cloud9 (web IDE)
+            + to avoid setup local dev environments
+            + Easy to collaborate, supply serverless needs, terminall access
+        CodeGuru:
+            Automate code reviews and optimize apps performance with ML recommendations.
+            Recommendations to improve code quality and identify expensive lines of code.
+        Codewhisperer:
+            ML-powered coding companion.
+
+
+*****************************************************************************************
+                                    Networking
+*****************************************************************************************
+
+Stateless: no requiere un sistema de almacenaje persistente.
+Stateful:  sí requiere un sistema de almacenaje persistente.
+
+Microservicios
+    Orquestación: sistema centralizado, llama y esperarespuesta para poder transmitirla.
+    Coreografía: cada servicios implementado puede trabajar de una manera independiente.
+
+
+VPC (Virtual Private Cloud):
+    Logically isolated virtual network
+
+    Subnets:
+        Public: publicly available (e.g. public website)
+        Private: not publicly available (e.g. sensitive data)
+
+    Internet Gateway:
+        Door to allow traffic from the public internet to flow into and out of your VPC.
+
+    VPN Gateway:
+        Safely access internal resources from a private network, encrypted VPN connection
+
+    Network ACL (Network Access Control List):
+        VPC component. Control access to subnets. Virtual firewall at the subnet level.
+        Are stateless, check every filter in and out.
+        Default: allows all inbound and outbound traffic.
+
+    Security Groups:
+        Control access to each specific AWS resource.
+        Are stateful, remember who entered only (not on it’s way out)
+        Default: deny all inbound and allow all return traffic.
+
+
+                  +--- VPC -------------------------------------------+
+                  |                  +---Public Subnet------------+   |
+                Internet             |                            |   |
+            +->  gateway --[ELB]--> ACLs  Sec. group  Sec. group  |   |
+            |    (IGW)               |    +--------+  +--------+  |   |
+            |     |                  |    |   EC2  |  |   EC2  |  |   |
+    Client -|     |                  |    +--------+  +--------+  |   |
+            |     |                  +----------------------------+   |
+           VPN    |                                                   |
+            |     |                  +---Private Subnet-----------+   |
+            |  Virtual Private       |                            |   |
+            +-> Gateway ----------> ACLs  Sec. group  Sec. group  |   |
+            |     |                  |    +--------+  +--------+  |   |
+         Direct   |                  |    |   EC2  |  |   RDS  |  |   |
+        Connect   |                  |    +--------+  +--------+  |   |
+            |     |                  +----------------------------+   |
+    HQ -----+     +---------------------------------------------------+
+
+
+Route 56:
+    DNS service: translates a domain to an IP address
+    Connects user requests to infrastructure running in AWS
+    Can register new domain names directly in Route 53
+    Can transfer DNS records for existing domain names managed by others.
+
+CloudFront:
+    Content Delivery Network(CDN)
+    Globally-distributed network of proxy servers that cache content
+    https://imagekit.io/blog/ultimate-guide-to-http-caching-for-static-assets/
+    https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching
+
+AWS Direct Connect
+    Private, dedicated fiber connection from a corporate data center to AWS.
+
+
+
+*****************************************************************************************
+                                        Storage
+*****************************************************************************************
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Storage.html
+
+Instance Store volumes:
+    EC2 instance local storage, ephemeral, physically attached to the host.
+    Stop, hibernate, or terminate an instance any data on instance store volumes is lost.
+    For temp files, scratch data, data easily recreated.
+
+Block device mapping:
+    To add/map more storage to an EC2 instance.
+
+EBS (Elastic Block Store):
+    Virtual hard drives, can be attached to EC2
+    Stored in a single Availability Zone, both (EC2 and EBS) must reside in the same AZ.
+    Types: General Purpose (SSD), Provisioned IOPS (SSD) (high IO), and Magnetic (cheaper)
+    Aren't tied directly to the EC2.
+    Allow snapshots, data can be restored from a snapshot in the same or another EBS.
+
+EFS (Elastic File System)
+    Stores data in multiple Availability Zones.
+    Enables access concurrently from all the AZ in the Region
+
+S3 (Simple Storage Service)
+    Object storage (images, videos, text files, etc.)
+    Key - Data - Metadata
+    Buckets, Unlimited storage, Max size 5 TB, Control visibility and access to objects
+    Object level versioning, Server Side Encryption (SSE), Store static websites
+    Classes: standar, infrequent, Intelligent, glacier.
+
+
+
+*****************************************************************************************
+                                    Databases
+*****************************************************************************************
+
+RDS (Relational Database Service)
+    Run DBs, automates hardware provisioning, database setup, patching, and backups.
+    Supported DBs:
+        Amazon Aurora (compatible with MySQL and PostgreSQL)
+        PostgreSQL, MySQL, MariaDB, Oracle Database, MS SQL Server
+
+DynamoDB
+    NoSQL Database, Serverless, Automatic scaling, Highly available
+    Server side encryption(SSE), DynamoDB Accelerator (DAX)
+
+DMS (Database Migration Service)
+
+Redshift
+    Data warehousing for big data analytics.
+    To collect data from many sources and understand relationships and trends across data
+
+DocumentDB
+    Document db that supports MongoDB workloads.
+
+Neptune
+    Graph db to build and run applications that work with highly connected datasets
+    such as recommendation engines, fraud detection, and knowledge graphs.
+
+QLDB (Quantum Ledger Database)
+    To review a complete history of all the changes that have been made to your data
+
+Managed Blockchain
+    To create and manage blockchain networks with open-source frameworks
+    Blockchain is a distributed ledger system that lets multiple parties run transactions
+    and share data without a central authority.
+
+ElastiCache
+    Adds caching layers on top of dbs to help improve the read times of common requests.
+    It supports two types of data stores: Redis, Memcached
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
