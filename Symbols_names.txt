@@ -1,4 +1,4 @@
-ellipsis        ...
+ellipsis        ... or three vertical dots 
 semicolo        ;
 .   the period or dot 
 (   the opening parenthesis
