@@ -483,6 +483,11 @@ Sequence:               Iterable which supports efficient element access
 Iterable    Yes         Yes         Yes         Yes             Yes       Yes
 Sequence    Yes         Yes         Yes         No              No        Yes
 
+#python tip: Generally,
+    Lists are for looping; tuples for structs.
+    Lists are homogeneous; tuples heterogeneous.
+    Lists for variable length.
+
 Mutable     No          Yes         No          Yes             Yes       No
 Unique val  No          No          No          No              Yes
 Slicing     Yes         Yes         Yes         No              No
@@ -493,13 +498,17 @@ Define
  general    a='abd'     a=[1,2,3]   a=(1,2,3)   a={'key': 1}    a=set(b)
 
 Index
- item       a[i]        a[i]        a[i]        avoid a['key']  N/P
-                                                use a.get(key [, default_val])
+ item       
+   noisy    a[i]        a[i]        a[i]        avoid a['key']  N/P
+   silent                                       use a.get(key [, default_val])
  slice      a[i:j]      a[i:j]      a[i:j]      N/P             N/P
 
 Item
  assignment N/P         a[i:J]='H'  N/P         a['key']='val'  N/P
- delete     N/P         del a[i:J]  N/P         del a['key']    a -= {2}
+ delete
+   noisy    N/P         del a[i:J]  N/P         del a['key']    a.remove()
+   silent                                       d.pop(k, None)  set.discard()
+                                                                a -= {2}
 
 Iterable    a           a           a           a / a.keys      a
                                                 a.values()
