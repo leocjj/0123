@@ -7,6 +7,34 @@ https://docs.snowflake.com/en/user-guide/python-connector-example.html
 https://docs.snowflake.com/en/user-guide/python-connector-api.html
 https://docs.snowflake.com/en/user-guide/sqlalchemy.html
 
+
+-- https://docs.snowflake.com/en/user-guide/python-connector.html
+--------------------------------------------------------------------------------
+----------------------------- DEFINITIONS FOR STAGING --------------------------
+--------------------------------------------------------------------------------
+-- https://docs.snowflake.com/en/sql-reference-commands.html
+-- https://docs.snowflake.com/en/sql-reference/data-types.html
+
+-- https://docs.snowflake.com/en/sql-reference/data-types-semistructured.html
+--   Array, Variant, Object
+-- VARCHAR(16777216) default, no impact in SF perforformance, but client maybe.
+-- CREATE INDEX ... is no needed, automatic micro-partitions with statistics.
+-- Without double quotes, all is converted to uppercase
+-- Constraint Properties
+--   https://docs.snowflake.com/en/sql-reference/sql/create-table-constraint.html#usage-notes
+--   For compatibility provides constraint properties.
+--   These properties are provided to facilitate migrating from other databases. 
+--   They are not enforced or maintained by Snowflake.
+--   This means that the defaults can be changed for these properties,
+--   but changing the defaults results in Snowflake not creating the constraint.
+--   e.g. CONSTRAINT "uuid_key" UNIQUE ("iconik_uuid")
+--      doesn't work as expected
+
+-- NOT NULL is the only constraint enforced by Snowflake.
+--   It can be specified only as an inline constraint within the column definition.
+
+
+
 --------------------------------------------------------------------------------
 pip install -r https://raw.githubusercontent.com/snowflakedb/snowflake-connector-python/v2.7.6/tested_requirements/requirements_38.reqs
 pip install snowflake-connector-python==2.7.6
