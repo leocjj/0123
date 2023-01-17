@@ -1,0 +1,101 @@
+
+Reader-focused: easy to write, read and maintain
+
+1. Developer is an author, write a text, write a compelling story.
+2. It is foundational, code will be highly modular and easier to read and test.
+3. Deliberate and regular focus, activities, patterns and techniques.
+4. Reading code is hard.
+5. Technical debt is expensive.
+
+General rules:
+    * Follow standard conventions.
+    * Keep it simple.
+    * Leave the campground cleaner than I found it.
+    * Always look for the root cause of a problem, avoid just patchs.
+
+Design rules:
+    * Keep configurable data at high levels.
+    * Prefer polymorphism to if/else or switch/case.
+    * Separate multi-threading code.
+    * Prevent over-configurability (too many parameters).
+    * Use dependency injection.
+    * A class should know only its direct dependencies.
+
+Understandability rules:
+    * Be consistent, do all similar things in the same way.
+    * Use explanatory variable names.
+    * Encapsulate boundary conditions. Behaviors/variables in the same context.
+    * Prefer objects over primitive types.
+    * Avoid logical dependency: when a method depends on things outside its
+        definition (encapsulamiento), dependencies should be parameters.
+    * Avoid negative conditionals.
+
+Name rules:
+    * Descriptive and unambiuous names.
+    * Meaningful distinction.
+    * Pronounceable names.
+    * Searchable names.
+    * Replace magic numbers/strings with named constants.
+    * Avoid encodings, don´t append info into names.
+
+Functions rules:
+    * Small, break down the code. Functions lines below 30, 40 or 50 lines.
+    * Do one thing.
+    * Descriptive names.
+    * Fewer arguments, use data-transfer-object instead.
+    * Have no side effects.
+    * Don't use flag arguments, behaviour depends on flags passed,
+        unpredictible, prefer two functions instead without the flag.
+
+Object and data structures:
+    * Hide internal structure.
+    * Prefer data structures over objects.
+    * Avoid hybrids structures (half object, half data structure)
+    * Should be small.
+    * Do one thing.
+    * Small number of instance variables.
+    * Base class should know nothing about their derivatives.
+    * Better to have many functions than pass some code into one function to
+        select its behaviour internaly.
+    * Prefer non-static methods to static methods.
+
+When to worry:
+    * Rigidity, difficult to change, small change causes a cascade of changes.
+    * Fragility, breaks in many places due to a single change.
+    * Inmobility, can't reuse parts of the code in other projects.
+    * Needless complexity, do you really need it?
+    * Needless repetition, do abstraction of repeated code.
+    * Opacity, difficult to read.
+
+IN A PROJECT:
+    USE LINTERS AND FOLLOW RECOMENDATIONS.
+    HAVE CRITERIAS FOR THE PULL REQUESTS.
+    TOOL TO EVALUATE COMPLEXITY.
+    INTEGRATE IN THE CI/CD PIPELINES.
+
+Making it easy to read makes it easier to write!!!
+Clean code always looks written by someone who cares!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
