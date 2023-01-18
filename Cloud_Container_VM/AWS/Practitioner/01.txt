@@ -490,60 +490,96 @@ CREATE
                                     Networking
 *****************************************************************************************
 
+https://aws.amazon.com/products/networking/
+
 Stateless: no requiere un sistema de almacenaje persistente.
 Stateful:  sí requiere un sistema de almacenaje persistente.
 
 Microservicios
-    Orquestación: sistema centralizado, llama y esperarespuesta para poder transmitirla.
+    Orquestación: sistema centralizado, llama y espera respuesta para poder transmitirla.
     Coreografía: cada servicios implementado puede trabajar de una manera independiente.
+
+CIDR notation (Classless Inter-Domain Routing)
+    IPv4 CIDR block (a range of private IPv4 addresses), e.g.: 10.0.0.0/16
+    IPv6 CIDR block (IPv6 addresses are globally unique), e.g.: 2001:db8:1234:1a00::/56.
 
 
 VPC (Virtual Private Cloud):
-    Logically isolated virtual network
+    https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html
+    Logically isolated virtual network.
+    Can have specified an IP address range
+    Can add subnets, gateways, and associate security groups
+
+    Route table:
+        Controls the routing for from target to destination.
+        Can be associated to a VPC, Gatway or Subnet
+        Destination:
+            range of IP addresses where you want traffic to go (destination CIDR).
+            e.g. an external corporate network with the CIDR 172.16.0.0/12.
+        Target: the gateway, network interface, or connection through which to send
+            the destination traffic; for example, an internet gateway.
+        Route table association:
+            between a route table and a subnet or a gateway.
 
     Subnets:
+        Is a range of IP addresses in the VPC.
         Public: publicly available (e.g. public website)
         Private: not publicly available (e.g. sensitive data)
+        Can route traffic to and from your subnets using route tables.
 
-    Internet Gateway:
-        Door to allow traffic from the public internet to flow into and out of your VPC.
-
-    VPN Gateway:
-        Safely access internal resources from a private network, encrypted VPN connection
+    Gateways:
+        Internet Gateway:
+            VPC component that allows communication between your VPC and the internet.
+        VPN Gateway:
+            Safely access to internal resources from a private network, encrypted.
+        Transit gateway:
+            
 
     Network ACL (Network Access Control List):
         VPC component. Control access to subnets. Virtual firewall at the subnet level.
-        Are stateless, check every filter in and out.
-        Default: allows all inbound and outbound traffic.
+        Are stateless, check every filter in and out,
+            teturn traffic must be explicitly allowed by the rules.
+        There is a default ACL, it allows all inbound and outbound traffic.
+        For custom ACLs all inbound and outbound traffic is denied by default.
 
     Security Groups:
-        Control access to each specific AWS resource.
-        Are stateful, remember who entered only (not on it’s way out)
-        Default: deny all inbound and allow all return traffic.
+        Control access to each specific service it is assigned to.
+        Virtual firewall that controls inbound and outbound traffic for services.
+        Authorize only specific IAM principals to create/modify security groups.
+        Create the minimum security groups needed. Do not open large port ranges.
+        Use each one to manage access to resources with similar functions/requirements.
+        Can associate it only with resources in the VPC for which it was created.
+        Consider creating network ACLs with rules similar to your security groups.
+        Are stateful, remember allowed requests so return traffic is allowed, regardless of the rules
+        Default: deny all inbound and allow all return traffic,
+            allows inbound traffic from services assigned to the same security group.
 
 
-                  +--- VPC -------------------------------------------+
-                  |                  +---Public Subnet------------+   |
-                Internet             |                            |   |
-            +->  gateway --[ELB]--> ACLs  Sec. group  Sec. group  |   |
-            |    (IGW)               |    +--------+  +--------+  |   |
-            |     |                  |    |   EC2  |  |   EC2  |  |   |
-    Client -|     |                  |    +--------+  +--------+  |   |
-            |     |                  +----------------------------+   |
-           VPN    |                                                   |
-            |     |                  +---Private Subnet-----------+   |
-            |  Virtual Private       |                            |   |
-            +-> Gateway ----------> ACLs  Sec. group  Sec. group  |   |
-            |     |                  |    +--------+  +--------+  |   |
-         Direct   |                  |    |   EC2  |  |   RDS  |  |   |
-        Connect   |                  |    +--------+  +--------+  |   |
-            |     |                  +----------------------------+   |
-    HQ -----+     +---------------------------------------------------+
+                  +--- VPC ----------------------------------------------+
+                  |             +--- Availability Zone----------------+  |
+                  |             |     +---Public Subnet------------+  |  |
+                Internet        |     |                            |  |  |
+            +->  gateway -[ELB]--> Network Sec. group  Sec. group  |  |  |
+            |    (IGW)          |   ACLs   +--------+  +--------+  |  |  |
+            |     |             |     |    |   EC2  |  |   EC2  |  |  |  |
+    Client -|     |             |     |    +--------+  +--------+  |  |  |
+            |     |             |     +----------------------------+  |  |
+           VPN    |             |                                     |  |
+            |     |             |     +---Private Subnet-----------+  |  |
+            |  Virtual Private  |     |                            |  |  |
+            +-> Gateway ---------> Network Sec. group  Sec. group  |  |  |
+            |     |             |   ACLs   +--------+  +--------+  |  |  |
+         Direct   |             |     |    |   EC2  |  |   RDS  |  |  |  |
+        Connect   |             |     |    +--------+  +--------+  |  |  |
+            |     |             |     +----------------------------+  |  |
+            |     |             +-------------------------------------+  |
+    HQ -----+     +------------------------------------------------------+
 
 
 Route 56:
     DNS service: translates a domain to an IP address
-    Connects user requests to infrastructure running in AWS
+    Connects user requests to infrastructure running in AWS.
+    Can route users to infrastructure outside of AWS.
     Can register new domain names directly in Route 53
     Can transfer DNS records for existing domain names managed by others.
 
@@ -553,8 +589,14 @@ CloudFront:
     https://imagekit.io/blog/ultimate-guide-to-http-caching-for-static-assets/
     https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching
 
-AWS Direct Connect
+Direct Connect
     Private, dedicated fiber connection from a corporate data center to AWS.
+
+PrivateLink
+    Establish connectivity between VPCs and services w/o exposing data to the internet.
+
+Transit Gateway
+    Easily connect VPCs, AWS accounts, and on-premises networks to a single gateway.
 
 
 
@@ -565,30 +607,61 @@ AWS Direct Connect
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Storage.html
 
 Instance Store volumes:
-    EC2 instance local storage, ephemeral, physically attached to the host.
-    Stop, hibernate, or terminate an instance any data on instance store volumes is lost.
+    EC2 instance local storage, ephemeral, physically attached to the AWS host.
+    Stop, hibernate?, or terminate an instance any data on instance store volumes is lost.
     For temp files, scratch data, data easily recreated.
 
 Block device mapping:
     To add/map more storage to an EC2 instance.
 
 EBS (Elastic Block Store):
-    Virtual hard drives, can be attached to EC2
+    Virtual hard drives, can be attached to EC2. Sizes up to 16 TiB
     Stored in a single Availability Zone, both (EC2 and EBS) must reside in the same AZ.
     Types: General Purpose (SSD), Provisioned IOPS (SSD) (high IO), and Magnetic (cheaper)
     Aren't tied directly to the EC2.
-    Allow snapshots, data can be restored from a snapshot in the same or another EBS.
+    Allow snapshots (incremental backups), data can be restored from a snapshot.
 
 EFS (Elastic File System)
     Stores data in multiple Availability Zones.
     Enables access concurrently from all the AZ in the Region
 
 S3 (Simple Storage Service)
-    Object storage (images, videos, text files, etc.)
-    Key - Data - Metadata
-    Buckets, Unlimited storage, Max size 5 TB, Control visibility and access to objects
-    Object level versioning, Server Side Encryption (SSE), Store static websites
-    Classes: standar, infrequent, Intelligent, glacier.
+    Object storage ~ files (images, videos, text files, etc.). Max 5 TB each object.
+    In buckets ~ directories. Unlimited storage, control visibility and access to objects
+    Key (unique identifier) - Data - Metadata
+    Regionally distributed, is a backup strategy.
+    Object level versioning, Server Side Encryption (SSE), Store static websites.
+    Tiers/Classes:
+        How often you plan to retrieve your data?
+        How available you need your data to be?
+        Standar:
+            Frequently access, stores data in a minimum of three Availability Zones.
+        Standard-Infrequent Access (S3 Standard-IA):
+            For critical backups.
+            Infrequently access, stores data in a minimum of three Availability Zones.
+            Lower storage price but higher retrieval price.
+        One Zone-Infrequent Access (S3 One Zone-IA):
+            For non-critical backups.
+            Infrequently access, stores data in a single Availability Zones.
+            Lower storage price but higher retrieval price.
+            For data easily reproducible in the event of the Availability Zone failure.
+        Intelligent:
+            Unknown or changing access patterns, monthly fee per object.
+            Monitors objects’ access patterns:
+                If object haven’t for 30 days, it is moved to S3 Standard-IA
+                If object is accessed, it is moved to S3 Standard.
+        Glacier Instant Retrival:
+            Archived data, retireve objects within a few milliseconds.
+        Glacier Flexible Retrival:
+            Archived data, retireve objects within a few minutes to hours.
+        Glacier Instant Retrival:
+            Archived data, retireve objects within 12 to 48 hours.
+            Stored across at least 3 geographically dispersed Availability Zones.
+        S3 Outpost:
+            Creates S3 buckets on Amazon S3 Outposts
+
+S3 Lifecycle management:
+    Move data automatically between tiers.
 
 
 
