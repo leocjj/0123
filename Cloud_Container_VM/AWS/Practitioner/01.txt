@@ -361,11 +361,14 @@ Region (e.g. us-east-1)
         - Proximity: to the customers/users.
         - Feature availability: not all services are available in all regios.
         - Pricing: each region has different prices.
-    
+
 Availability Zone - AZ (e.g. us-east-1a, us-east-1b, us-east-1c)
     A single data center or a group of data centers within a Region.
     Each Region consists of multiple isolated and physically separate AZ.
+
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     ALWAYS DEPLOY INFRASTRUCTURE ACROSS AT LEAST 2 AZ.
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Regional services
     Run synchronously across multiple AZs out of the box: ELB, Amazon SQS, Amazon SNS.
@@ -606,6 +609,9 @@ Transit Gateway
 
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Storage.html
 
+https://aws.amazon.com/products/storage/ *************************************************************************
+https://aws.amazon.com/getting-started/hands-on/?awsf.getting-started-category=category%23storage&awsf.getting-started-content-type=content-type%23hands-on&getting-started-all.sort-by=item.additionalFields.content-latest-publish-date&getting-started-all.sort-order=desc&awsf.getting-started-level=*all
+
 Instance Store volumes:
     EC2 instance local storage, ephemeral, physically attached to the AWS host.
     Stop, hibernate?, or terminate an instance any data on instance store volumes is lost.
@@ -616,20 +622,23 @@ Block device mapping:
 
 EBS (Elastic Block Store):
     Virtual hard drives, can be attached to EC2. Sizes up to 16 TiB
+    Updates by BLOCKS (breaks files down to blocks), delta updates.
     Stored in a single Availability Zone, both (EC2 and EBS) must reside in the same AZ.
     Types: General Purpose (SSD), Provisioned IOPS (SSD) (high IO), and Magnetic (cheaper)
     Aren't tied directly to the EC2.
     Allow snapshots (incremental backups), data can be restored from a snapshot.
 
-EFS (Elastic File System)
-    Stores data in multiple Availability Zones.
-    Enables access concurrently from all the AZ in the Region
+EFS (Elastic -linux- File System)
+    Stores data in multiple Availability Zones (Regional resource).
+    Enables access CONCURRENTLY from all the AZ in the Region.
+    Automatically scales.
 
 S3 (Simple Storage Service)
     Object storage ~ files (images, videos, text files, etc.). Max 5 TB each object.
+    Updates by objects (entire object), no delta updates.
     In buckets ~ directories. Unlimited storage, control visibility and access to objects
     Key (unique identifier) - Data - Metadata
-    Regionally distributed, is a backup strategy.
+    Regionally distributed, is a backup strategy, is serverless
     Object level versioning, Server Side Encryption (SSE), Store static websites.
     Tiers/Classes:
         How often you plan to retrieve your data?
@@ -668,31 +677,57 @@ S3 Lifecycle management:
 *****************************************************************************************
                                     Databases
 *****************************************************************************************
+https://aws.amazon.com/products/databases/
+
+https://aws.amazon.com/getting-started/deep-dive-databases/ *************************************************************
 
 RDS (Relational Database Service)
-    Run DBs, automates hardware provisioning, database setup, patching, and backups.
+    Run DBs, automates hardware provisioning, database setup, patching, and backups,
+        have also redundancy, failover, disaster recovery.
     Supported DBs:
         Amazon Aurora (compatible with MySQL and PostgreSQL)
+            1/10 of the cost, up to 3-5 times faster.
+            Data replicated (6 copies across 3 AZ), up to 15 read replicas.
+            Continuous backup to S3, point-in-time recovery.
         PostgreSQL, MySQL, MariaDB, Oracle Database, MS SQL Server
 
-DynamoDB
-    NoSQL Database, Serverless, Automatic scaling, Highly available
-    Server side encryption(SSE), DynamoDB Accelerator (DAX)
+DynamoDB (~firebase?)
+    SERVERLESS NoSQL Database, Automatic scaling, Highly available (several copies).
+    Server side encryption(SSE), DynamoDB Accelerator (DAX).
+    Single-digit millisecond performance at any scale. Scaling up to 10 trillion requests
+    Tables -> Data -> item -> atributes (values) -> key-value pairs.
+                                Key   | Value
+                                1012  | Name: John Doe
 
-DMS (Database Migration Service)
-
-Redshift
-    Data warehousing for big data analytics.
+Redshift (~snowflake?)
+    Data warehousing as a service, for big data analytics.
     To collect data from many sources and understand relationships and trends across data
 
-DocumentDB
+DocumentDB (~MongoDB?)
+    JSON document database. For content management, catalogs, user profiles.
     Document db that supports MongoDB workloads.
+    Replicates 6 copies of data across 3 AZs. With up to 15 low latency read replicas.
+
+DocumentDB Elastic Clusters
+    To handle millions of writes and reads per second, allowing customers to scale their
+    document databases in minutes.
+
+DMS (Database Migration Service)
+    Homogenous databases: schema -> data types -> db code
+        From: on-premises, EC2, RDS  -> To: EC2, RDS
+    Heterogenous databases:
+        1. Schema conversion tool
+        2. Migrate data
+    For:    Migrations between environments (prod -> dev)
+            DB consolidation
+            Continuous db replication: send copies to other target sources.
 
 Neptune
     Graph db to build and run applications that work with highly connected datasets
-    such as recommendation engines, fraud detection, and knowledge graphs.
+    such as recommendation engines, fraud detection, and knowledge graphs, social network
 
 QLDB (Quantum Ledger Database)
+    Immutable ledger, system of record where any entry can never be removed from audits.
     To review a complete history of all the changes that have been made to your data
 
 Managed Blockchain
@@ -702,7 +737,30 @@ Managed Blockchain
 
 ElastiCache
     Adds caching layers on top of dbs to help improve the read times of common requests.
-    It supports two types of data stores: Redis, Memcached
+    It supports two types of data stores: Redis, Memcached. Milliseconds to microseconds.
+
++---------------+-----------------------------------------------------------------------+
+| Database type |  Use cases / AWS service                                              |
++---------------+-----------------------------------------------------------------------+
+| Relational    | Traditional applications, enterprise resource planning (ERP),         |
+|               | customer relationship management (CRM), ecommerce                     |
+|               |   --> Aurora, RDS, Redshift                                           |
+| Key-value     | High-traffic web applications, ecommerce systems, gaming applications |
+|               |   --> DynamoDB                                                        |
+| In-memory     | Caching, session management, gaming leaderboards, geospatial apps     |
+|               |   --> ElastiCache, MemoryDB for Redis                                 |
+| Document      | Content management, catalogs, user profiles                           |
+|               |   --> DocumentDB (with MongoDB compatibility)                         |
+| Wide column   | High-scale industrial apps for equipment maintenance,                 |
+|               | fleet management, and route optimization.                             |
+|               |   --> Keyspaces                                                       |
+| Graph         | Fraud detection, social networking, recommendation engines            |
+|               |   --> Neptune                                                         |
+| Time series   | Internet of Things (IoT) applications, DevOps, industrial telemetry   |
+|               |   --> Timestream                                                      |
+| Ledger        | Systems of record, supply chain, registrations, banking transactions  |
+|               |   --> Ledger Database Services (QLDB)                                 |
++---------------+-----------------------------------------------------------------------+
 
 
 
