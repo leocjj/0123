@@ -35,6 +35,9 @@ VISUALIZATION:      Matplotlib
                     Bokeh   https://docs.bokeh.org/en/latest/docs/first_steps.html
                     https://marketplace.visualstudio.com/items?itemName=Iterative.dvc
 
+GUI:                
+                    https://pypi.org/project/dearpygui/
+
 DATA (ETL):         Pandas - data analysis
                     Airflow - data engineering tool
                     Luigi - data engineering tool
@@ -45,7 +48,6 @@ Excel replacements  Spreadsheets in Python!
                     https://medium.com/geekculture/goodbye-excel-hello-spreadsheets-in-python-df41408dafd4
                     Mito        https://docs.trymito.io/getting-started/installing-mito
                     Bamboolib   
-                    
 
 STORE & DB:         HDF5 - store and manipulate data
                     PyTables - manage HDF5 datasets
@@ -93,6 +95,7 @@ SKILLS:             Math, Statistics, data visualization (Tableau, Metabase),
                     https://workera.ai/
 
 Data generation:    https://www.mockaroo.com/
+                    https://pypi.org/project/Faker/
 
 Image sets:         http://yann.lecun.com/exdb/mnist/
                     https://www.cs.toronto.edu/~kriz/cifar.html
