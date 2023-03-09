@@ -1,0 +1,38 @@
+
+https://docs.github.com/en/copilot
+autocomplete-style suggestions from an AI pair programmer as you code
+
+
+Prerequisites
+    Have an active GitHub Copilot subscription:
+        https://docs.github.com/en/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot
+    VS Code installed: https://code.visualstudio.com/Download
+
+Installing VS Code extension:
+    https://docs.github.com/en/copilot/getting-started-with-github-copilot/getting-started-with-github-copilot-in-visual-studio-code
+    Install GitHub Copilot extension
+        https://marketplace.visualstudio.com/items?itemName=GitHub.copilot
+    Messages to: login with github, approve permissions, connect to github copilot
+    Reload editor
+
+
+https://docs.github.com/en/copilot/configuring-github-copilot/configuring-github-copilot-settings-on-githubcom#enabling-or-disabling-duplication-detection
+
+
+Works best
+    Divide code into small functions
+    Use meaningful names for functions parameters
+    Write good docstrings and comments as you go.
+
+Use cases:
+    Navigate unfamiliar libraries or frameworks.
+
+
+
+
+
+
+
+
+
+
