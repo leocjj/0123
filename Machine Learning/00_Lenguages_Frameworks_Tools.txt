@@ -38,7 +38,15 @@ VISUALIZATION:      Matplotlib
 GUI:                
                     https://pypi.org/project/dearpygui/
 
-DATA (ETL):         Pandas - data analysis
+DATA (ETL):         DTale - 
+                        conda install dtale -c conda-forge
+                        pip install dtale
+                        import dtale
+                        import pandas as pd
+                        df = pd.read_csv('data.csv')
+                        dtale.show(df)
+                        dtale.show(df).open_browser()
+                    Pandas - data analysis
                     Airflow - data engineering tool
                     Luigi - data engineering tool
                     Dask - data engineering tool
