@@ -495,7 +495,7 @@ Slicing     Yes         Yes         Yes         No              No
 Define
  empty      a=''        a=[]        a=()        a={}            a=set()
  1 item     a='c'       a=['H']     a=(1,)      a={'key': 1}    a={1}
- general    a='abd'     a=[1,2,3]   a=(1,2,3)   a={'key': 1}    a=set(b)
+ general    a='abd'     a=[1,2,3]   a=(1,2,3)   a={'key': 1}    a=set([1,2])
 
 Index
  item       
