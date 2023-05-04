@@ -63,8 +63,20 @@ https://github.com/volker48/python-concurrency
 
 
 *******************************************************************************
+                            Threads - Basic
+*******************************************************************************
+https://www.pythontutorial.net/python-concurrency/python-threading/
+
+new_thread = Thread(target=func_name,args=params_tuple)
+new_thread.start()
+new_thread.join()   # Wait until finish
+
+
+*******************************************************************************
                             Thread Pool Executor
 *******************************************************************************
+
+https://www.pythontutorial.net/python-concurrency/python-threadpoolexecutor/
 
 https://docs.python.org/3.8/library/concurrent.futures.html#
     concurrent.futures.ThreadPoolExecutor
