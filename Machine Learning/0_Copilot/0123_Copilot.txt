@@ -23,10 +23,19 @@ Works best
     Divide code into small functions
     Use meaningful names for functions parameters
     Write good docstrings and comments as you go.
+    
 
 Use cases:
+    Generate user-defined functions
+    Generate documentation
+    Generate test cases
+    Generate standard functions (sort, find, ...)
+    Code improvement
+    Contextual text improvement (no code)
+    Translate/use other programming lenguages
     Navigate unfamiliar libraries or frameworks.
-
+    
+    
 
 
 
