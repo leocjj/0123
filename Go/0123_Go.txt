@@ -2,6 +2,21 @@
                                 Go lang
 *******************************************************************************
 
+1) Download installer from https://go.dev/dl/
+    Instructions in https://go.dev/doc/install 
+    For Linux or WSL
+        $ wget https://go.dev/dl/go1.20.5.linux-amd64.tar.gz
+        $ sudo rm -rf /usr/local/go
+        $ sudo tar -C /usr/local -xzf go1.20.5.linux-amd64.tar.gz
+        $ export PATH=$PATH:/usr/local/go/bin  --> THIS IS THE GOROOT
+        $ go version
+2) Start learning from
+    https://go.dev/doc/
+    https://go.dev/learn/
+
+
+google.github.io/styleguide/go/decisions
+
 https://en.wikipedia.org/wiki/Go_(programming_language)
 
 Add to PATH environment variable
