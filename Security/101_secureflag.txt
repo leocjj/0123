@@ -1,0 +1,1104 @@
+
+https://www.secureflag.com/
+
+********************************************************************************
+                                Cyber Fundamentals
+********************************************************************************
+
+How the door is opened
+    Phishing attacks
+        For organizations, tools to prevent the email from reaching the user.
+        Training programs that help users more easily spot the telltale signs
+    Social Engineering
+        Empower users not to feel pressured by social engineering tactics.
+    Unsafe home-working practices
+    Poor Password Hygiene
+    Over-sharing personal details
+
+Security is a shared responsibility
+    Protect your data
+    Be cautious with emails
+    Strengthen your accounts
+        strong and unique passwords for all of your accounts
+        implement two-factor authentication
+    Adhere to any security-policy frameworks that have been implemented
+
+
+********************************************************************************
+                                Account Takeover
+********************************************************************************
+
+Attack in which an adversary commandeers a user account to manipulate or extract
+    confidential information or use it for additional exploits in a network.
+
+The way in...
+    Phishing Emails
+    Credential Stuffing, stolen or involved in a data breach
+    Brute Force,  operate and inadequacies in login portal implementations
+        e.g.: don't set a limit on the number of times one can try to log in.
+
+What can we do, for Organizations
+    Password regime
+    Password Rotation
+    Multi-Factor Authentication
+    An up-to-date and comprehensive password checker at registration to block
+        both simple and previously compromised passwords at registration.
+    Integrate technology to scan for exposed passwords,
+        identify any that link to your organization,
+        and force account resets upon credential discovery.
+    Deploy monitoring tools to identify login / failed login anomalies in
+        accordance with parameters configurable to your environment.
+        A tool should check for:
+            Overly numerous login attempts.
+            Excessive password resets.
+            Login attempts from an atypical geographical location.
+            Logins from previously unknown IP addresses.
+    Deploy device tracking measures that indicate login coordinates.
+    Deploy a correctly configured Web Application Firewall (WAF) that recognizes
+        and repels instances of botnet probing and brute force attacks.
+    Educate your employees!
+        Identify and avoid 'clicking that link'.
+
+What can we do, for Individuals
+    Be on the lookout for suspicious emails.
+    Set up Multi-Factor Authentication (MFA).
+    Strong & Unique Passwords. Consider using a Password Manager
+
+Mistakes occur, but sheer negligence and the wilful misuse of technology
+    should not be tolerated.
+
+
+********************************************************************************
+                                DATA BREACH
+********************************************************************************
+
+When someone accesses or steals sensitive information
+What to do:
+    Being careful about giving out personal information online
+    Using strong and unique passwords for all your accounts.
+    Avoid sharing/storing sensitive information on mobile devices or in cloud.
+    Using encryption software to protect your data.
+    Keep your computer, phone, and other devices updated.
+    Freezing your credit reports and reviewing them regularly.
+
+
+********************************************************************************
+                                Ransomware
+********************************************************************************
+
+When someone encrypts files on a victim's device
+What to do for organizations:
+    Ensure devices are properly configured with security features enabled.
+    Regularly patch and update software, including anti-malware software.
+    Ensure security best practices are strictly adhered to for remote services
+        such as RDP, and disable all unnecessary ports and protocols.
+    Implement Multi-Factor Authentication (MFA) and log RDP login attempts.
+    Disable or block the outbound Server Message Block (SMB) protocol, disable
+        versions 1 & 2, and upgrade to SMBv3 with associated signing.
+    Consider the supply chain and ensure all organizations providing services
+        that require access to part of the network are comprehensively audited
+        and abide by third party obligations.
+
+What to do for individual users:
+    Maintaining offline, encrypted backups. Does not prevent, mitigate damage.
+    Always use your phone's official app store.
+    Avoid clicking links in emails or unfamiliar websites.
+    Check all sites are https (green padlock).
+    Observe who the email is from and confirm the email address.
+    Even if the email is from an apparently legitimate user, i.e., a friend or
+        a colleague, consider the request, check for spelling errors, consider
+        if the tone is out of character for the individual.
+    Contact the sender by other means if you are unsure.
+    Never open an attachment that asks you to enable macros.
+    Never use unfamiliar USB's and other devices
+
+
+********************************************************************************
+                            CEO Impersonation Fraud
+********************************************************************************
+
+A criminal impersonates a company executive
+    Hacking email: forced entry and take over of an email address
+    Spoofing email: forging an email address
+    Impersonation email: registering a similar-looking email address
+
+What to do:
+    check this whenever an email, phone call, etc. is received that involves
+    payments, regardless of whether it is from 'the boss':
+      * Keep your cool and stay rational in the face of the time pressure and
+        urgency of the email.
+      * Call the IT, security or the executive to double check transactions.
+      * Carefully scrutinize the email address
+          Is there anything at all wrong with it?
+          Is there an '0' where there is normally an 'O'
+          Escalate to the IT department immediately if in doubt.
+      * It is better to be late for a correct payment than wrong for a
+        fraudulent one, double-check via an alternate means of communication.
+
+
+********************************************************************************
+                            Data Protection and GDPR
+********************************************************************************
+
+GDPR - General Data Protection Regulation
+    Legal framework, affords substantial consumer data protection and rights
+    by enforcing how businesses can collect and handle customer data
+
+Individuals have the right
+    To be informed about the collection and use of their personal data.
+    Businesses must provide details for any data processing, including:
+        the reason for acquiring and storing data in the first place
+        the associated retention period
+        who/which other entities the data may be shared with
+    To access the data and must be furnished with a copy of their personal data upon request,
+    To rectify any outdated or inaccurate information upon request
+    To erasure, a.k.a., the right to be forgotten
+    To request the restriction or suppression of their personal data, i.e.,
+        the company may store but not use the data
+    To move, copy, or transfer their personal data in a safe and secure way.
+    To object to this use, individuals that are against the manner in which
+    their data are being processed in certain circumstances, direct marketing.
+    In relation to automated decision-making and profiling (Article 22).
+
+Forms that explicitly detail how any data will be used are necessary,
+    and more importantly, so is the consent of the user a necessity.
+
+It is mandatory to report a breach to consumers and authorities within 72 hours.
+
+
+********************************************************************************
+                            Online Self Defense
+********************************************************************************
+
+Knowledge and tools to to navigate the digital world safely.
+    Online privacy and security, spotting and avoiding scams and phishing
+    attempts, and responding to online threats.
+
+What to do:
+    Use Secure Passwords (combination of letters, numbers, special characters)
+    Avoid using the same password for multiple accounts.
+    Enable MFA (multi-factor authentication)
+    Be Aware of Fake Websites
+    safebrowsing.google.com/
+        Activate Enhanced Safe Browsing for Google Accounts
+            https://myaccount.google.com/account-enhanced-safe-browsing
+            Go to Google Account / Security / Enhanced Safe Browsing...
+        Activate Enhanced Protection for Safe Browsing in Chrome
+            chrome://settings/security
+            Settings / Privacy and Security / Safe Browsing
+        Check sites in:
+            https://transparencyreport.google.com/safe-browsing/search
+        For developers
+            https://developers.google.com/safe-browsing/
+    Be Careful on Social Media
+        Avoid sharing sensitive information, address or phone numbers.
+    Keep Software Up-to-date
+        Always run the latest version of: OS, browser, and other software.
+    Beware Phishing Attacks
+        Avoid Unsolicited/unexpected messages, never click on links
+        or enter information without verifying the identity of the sender.
+        Avoid fake websites!  www.fakebook.com   www.gooogle.com
+    Only enter information in https sites
+        Sites with https (green padlock) are a secure connection, but
+        it doesn't mean it is genuine website.
+
+        
+********************************************************************************
+                                Password Security
+********************************************************************************
+
+What to do:
+    Choose different passwords for different accounts.
+    Change your passwords every 90 days or so.
+    Use Multi-Factor Authentication (MFA), preferably application-based
+        although if unfeasible, with your phone number.
+    Use a Password Manager:
+        Has robust encryption, allow to store all we need with one master password.
+        Has a Password Generator, use it for each site. 
+    If you don't opt for using a Password Generator:
+        Try using Passphrases, which are phrases formed of multiple words
+        nonsensically connected, for example, Correct Horse Battery Staple
+        Intersperse passphrases with non-alphabetic and uppercase letters.
+        Do not use consecutive keyboard combinations, like 'qwerty' or 'asdfg'.
+        Do not use sequential numbers, like the above mentioned '123456789'.
+        Don't use your name or the names of those close to you.
+        Don't use any information about yourself that may be gleaned from your
+            online footprint, like birthday, school, sports, etc.
+        Don't use the same password for multiple accounts or recycle old ones.
+
+
+********************************************************************************
+                                Identity Theft
+********************************************************************************
+
+Most common is phishing emails but also through social media information,
+answer security questions and gain access to your accounts.
+
+What to do:
+    Verify the legitimacy of any request before providing any sensitive data.
+        Sender - Content - Address - Mistrust
+    Keep your devices and software up-to-date.
+    Avoid using public Wi-Fi networks
+    Use unique, complex passwords for each accounts with password manager.
+    Ensure your devices and cards are protected:
+        Use two-factor authentication whenever possible
+        Regularly monitor your bank and credit card statements
+        Enable biometric authentication on your devices
+
+
+********************************************************************************
+                                Credit Card Fraud
+********************************************************************************
+
+Credit card or credit card information to make purchases or withdraw cash
+
+What to do:
+    Card Theft: keep it in a safe place and to monitor your accounts regularly.
+    Phishing: trick you to provide credit card information
+        Be suspicious of unsolicited emails or messages and never click on links
+        or provide personal information to an unsolicited message.
+    ID Theft:   steals personal information, and uses it to open credit a card
+        Be careful about giving out personal information online.
+        Monitor credit reports regularly to check for unauthorized accounts.
+    Card Skimming:  scammers use a small device attached to a card reader
+        Be wary of ATMs that look suspicious.
+        Always cover the keypad when entering your PIN.
+    Social Engineering: tricking people into giving away their information.
+        Be suspicious of unsolicited phone calls or emails and never provide
+        information unless you're certain of the identity of the person.
+    Use a strong and unique password for your credit card account or
+    opt for two-factor authentication options.
+    Consider freezing your credit reports and reviewing them regularly.
+    Always keep your credit card in view while making a payment, and if in doubt
+    don't hesitate to contact your bank or credit card company directly.
+    Only communicate with your bank using official security channels.
+    
+
+********************************************************************************
+                                Online Shopping
+********************************************************************************
+
+Using fraudulent e-commerce websites, phishing e-mails, and spoofed applications
+to steal personal information and money from unsuspecting shoppers.
+
+What to do:
+    Fake E-Commerce Websites: look like legitimate online stores
+        Verify the URL of the website you're visiting.
+        Check URL starts with "https" and has a padlock symbol in the address.
+        Be aware of websites with strange or "too good to be true" prices.
+    Phishing E-mails: appear to be from legitimate banks or online retailers.
+        Always be cautious of unsolicited messages, double-check the sender.
+            especially ones that ask for personal information or payment.
+        Never click on links or enter personal information without verifying.
+    Spoofed Applications: fake versions of apps
+        Download apps from official app stores only.
+        Check the app's reviews to identify if the app is trustworthy.
+    Use a secure password and multi-factor authentication on online accounts.
+    Be cautious of unsolicited e-mails and messages
+    Don't connect to public wifi networks
+    
+
+********************************************************************************
+                            Social Media Security
+********************************************************************************
+
+Potential for leaking sensitive data.
+Contact you by direct messages or friend requests to trick you into giving away
+    personal information or downloading malware.
+
+What to do:
+    Be selective about the information you share and with who you share it.
+    Use strong and unique passwords and enable two-factor authentication.
+    Avoid over-sharing, don't post sensitive information online,
+        such as your home address or phone number.
+    Be wary of messages from people you don't know, and never click on links or
+        enter personal information without verifying the identity of the sender.
+    Update your settings regularly, check your privacy settings and update them
+        as needed to reflect your current preferences.
+
+
+********************************************************************************
+                                Social Engineering
+********************************************************************************
+
+To manipulate people into giving away personal information or performing certain
+    actions, such as clicking on a link or downloading malware.
+Human vulnerabilities: fear, curiosity, greed, trust, or sympathy
+
+What to do:
+    1) Slow Down, assess the content carefully, be cautious of unsolicited 
+        emails and messages, if asking for personal information or payment.
+    2) Ask questions first, take your time to read, understand, and ask
+        Who is sending? What do they want? email and links match?
+    3) Navigate manually typing the URL, don't use links from anyone!!!
+      * If you are suspicious of a website someone suggested visiting,
+        type it manually on the browser instead of clicking a link.
+    4) Always verify the sender's identity trhough a different platform
+        before giving away personal information or performing specific actions.
+    5) Be wary of messages that seem too good to be true, it is!!!
+    !!! Don't trust anyone, no matter how convincing they may seem!!!
+    !!! Use anti-phishing software for emails & links!!!
+    
+
+********************************************************************************
+                                Passphrases
+********************************************************************************
+
+Longer phrases made up of multiple words, more robust and memorable passwords.
+
+Choose words unrelated to your personal life, names of random objects or places.
+Length matters, at least 12 characters, and consider going up to 20.
+Combinate uppercase and lowercase letters, numbers, and special characters.
+Avoid common phrases, use random workds, don't reuse passphrases.
+Regularly changing your passphrases is also a good idea.
+Use a passwork manager!
+
+
+********************************************************************************
+                        Web Security with OWASP Top 10
+********************************************************************************
+
+"Budgets to replace tired technologies are often lacking. Even when financial
+ constraints are circumvented via the utilization of free or cost-effective
+ services, the knowhow to implement effectively and securely is often still
+ left wanting."
+
+PREVENTION
+
+First and foremost, clarify the contractual liabilities with the website
+    hosting provider or the IT company enlisted to manage the digital affairs,
+    where roles begin and end, and the Service Level Agreements (SLAs).
+
+Second, review, upgrade, monitor, and implement security controls around
+    the following topics:
+
+    Check Domain Name Systems (DNS): reviewing and hardening the DNS setup.
+    User accounts: ensure passwords are not left as default, and MFA) is used.
+        Assign and maintain the user accounts' access-level configurations.
+        The Principle of Least Privilege needed to perform their job functions.
+    Stay abreast of the latest vulnerabilities: implement processes that enforce
+        automatic security scanning and expedite critical and high-level
+        vulnerabilities patching accordingly.
+    Secure data:
+        For data in transit must adheres to encryption best practice,
+            enforce secure protocols, providing SSH to access servers,
+            disabling and upgrading weak/deprecated ciphers is crucial
+        For data at rest: BACK IT UP... automatic and continuous backups,
+            contain all critical data and configurations,
+            and are stored in a safe, ideally physically remote environment.
+    Secure your web applications: staying up-to-date with the latest defensive
+        technologies and techniques, i.e. OWASP Foundation
+    Know (and secure) your assets:
+        Having an asset inventory, automated updates, and patching.
+        Adhere to security best practices for each service, e.g. servers, dbs.
+            installing updates and patches, limiting access, monitoring,
+            performing periodic auditing, and replacing legacy equipment.
+        Design organizations' networks to enforce segregation.
+        Implement demilitarized Zones (DMZs) that shield the internal corporate
+            network from traffic digested by the web server.
+
+https://www.cisa.gov/topics/cybersecurity-best-practices
+
+
+********************************************************************************
+                                OWASP top 10
+********************************************************************************
+
+Awareness document! AppSec risks!
+Is the bare minimum and just a starting point!
+
+https://owasp.org/Top10/        Open Web Application Security Project®
+
+Orgs and devs to incorporate Application Security (AppSec) development.
+Stalwart technological best-practice layer
+
+01 Broken Authorization / Broken Access Control / Privilege Escalation
+    Weaknesses in the implementation of authorization checks performed by apps
+    when a user attempts to access a resource or perform an action.
+    Horizontal Authorization Control bypass: act as other user w/same privileges
+    Vertical Authorization Control bypass: act as other user w/more privileges
+
+02 Cryptographic Failures
+    Fallout arising from an application inadequately protecting sensitive
+    information. Title focus more on the root cause of the issue.
+
+03 Injection
+    Injection occurs when the app accepts untrusted data as part of a command or
+    query, allowing to execute arbitrary code within the context of the app.
+
+04 Insecure Design
+    Come from the necessity of 'security by design', without security in the
+    design, with well thought out threat models, secure architecture, etc.,
+    the design is 'broken' by design.
+    Weaknesses: Generation of Error Message Containing Sensitive Information,
+    Unprotected Storage of Credentials, and Insufficiently Protected Credentials
+
+05 Security Misconfiguration
+    Configurations on security and logging devices may be incomplete or lacking;
+    insecure default configurations, HTTP headers may lack appropriate security
+    configuration, S3 buckets exposed. Previous name XML External Entities (XXE)
+
+06 Vulnerable and Outdated Components
+    Libraries and frameworks from third-party with unpatched vulnerabilities.
+    If a component is exploited, it may compromise the application.
+
+07 Broken Authentication / Identification and Authentication Failures
+    Borne of the inadequate implementation of authentication and session
+    management applications, compromise keys, passwords, and session tokens,
+    leading to exploitation of users' identities or complete control.
+
+08 Software and Data Integrity Failures
+    Encapsulates the folly of placing trust in software updates, CI/CD pipelines,
+    and critical data without verifying data integrity initially and adequately.
+    Previous name: Insecure Deserialization.
+
+09 Security Logging & Monitoring Failures
+    Insufficient Logging & Monitoring encompassing substandard, or nonexistent,
+    installation and configuration of security tools and defensive systems,
+    --> deficiencies in the ability to identify anomalies and/or intrusions
+    attacker with more time undetected, persistence, and likelihood of exfiltration
+
+10 Server-Side Request Forgery (SSRF)
+    Wherein a malicious actor can manipulate a parameter on the web application
+    to create or control requests from a vulnerable server.
+    Attackers often use these attacks to target internal systems that are
+    inaccessible from the external network due to the use of a firewall.
+    Exploit one of the foundations of robust security - trust - by exploiting
+    existing trust relationships (e.g., leveraging a server's privileges by
+    performing HTTPS requests to third parties) to escalate attacks from
+    applications against other back-end systems or even the server itself.
+
+Next steps:
+    https://owasp.org/Top10/A11_2021-Next_Steps/
+
+Adhere to the relevant risk-mitigation OWASP guidelines,
+make an effort to be active within the community, and never stop learning!
+
+OWASP Builders Community - GREEN
+    With the common goal of security in the area of application development.
+    
+OWASP Breakers Community - RED
+    With the common goal of security in the area of security testing.
+
+OWASP Defenders Community - BLUE
+    With the common goal of security in the area of application defense,
+        tools and techniques for detection and response to app layer attacks.
+
+
+********************************************************************************
+                        OWASP Proactive Controls
+********************************************************************************
+
+What to do:
+    https://owasp.org/www-project-proactive-controls/
+    https://github.com/OWASP/www-project-proactive-controls/
+
+    C1: Define Security Requirements
+    C2: Leverage Security Frameworks and Libraries
+    C3: Secure Database Access
+    C4: Encode and Escape Data
+    C5: Validate All Inputs
+    C6: Implement Digital Identity
+    C7: Enforce Access Controls
+    C8: Protect Data Everywhere
+    C9: Implement Security Logging and Monitoring
+    C10: Handle All Errors and Exceptions
+
+Check other projects:
+    https://owasp.org/www-project-developer-guide/draft/
+        https://github.com/OWASP/www-project-developer-guide
+    https://owasp.org/www-project-cheat-sheets/
+        https://cheatsheetseries.owasp.org/
+    https://owasp.org/www-project-pytm/
+    https://owasp.org/www-project-go-secure-coding-practices-guide/
+
+    https://owasp.org/www-project-dependency-track/
+    https://owasp.org/www-project-juice-shop/
+    https://owasp.org/www-project-modsecurity-core-rule-set/
+    https://owasp.org/www-project-integration-standards/
+    https://owaspsamm.org/about/
+    https://mas.owasp.org/
+    https://owasp.org/www-project-web-security-testing-guide/
+    https://www.troyhunt.com/test-data-done-right-with-sql-data/
+    https://www.troyhunt.com/heres-how-i-verify-data-breaches/
+
+    https://owasp.org/projects/
+    hashes.org/
+    HaveIBeenPwned.com
+    www.defectdojo.org/
+
+
+********************************************************************************
+                                OWASP ASVS
+********************************************************************************
+
+OWASP Application Security Verification Standard 
+    Framework of security requirements/tests and controls...
+    for modern web apps/services, agile practices and DevSecOps.
+    Use it as a blueprint to create a Secure Coding Checklist specific to your
+        application, platform or organization
+
+https://github.com/OWASP/ASVS/releases/download/v4.0.2_release/
+
+MASVS   Mobile Application Security Verification Standard 
+IoT     Preview of the  in Appendix C
+SAMM    Software Assurance Maturity Model
+OPC     OWASP Proactive Controls
+OCSS    OWASP Cheat Sheet Series
+
+CWSS    Common Weakness Scoring System, will help prioritize controls
+CWE     Common Weakness Enumeration
+        https://cwe.mitre.org/data/index.html
+
+Tailoring the ASVS to your use cases will increase the focus on the
+security requirements that are most important to project and envs.
+
+ASVS Level 1 - First steps, bare minimum.
+    Adequately defends against vulnerabilities easy to discover,
+    and included in the OWASP Top 10 and similar.
+    Can be checked automatically or manually without access to source code.
+
+Replace penetration tests with source code led (hybrid) penetration tests
+    with full access to code, developers, app, and documentation 
+
+ASVS Level 2 - Most applications, standard level.
+    Adequately defends against most of the software risks today.
+
+ASVS Level 3 - For the most critical applications, advanced level.
+    Apps that perform high value transactions, contain sensitive medical data
+    or requires the highest level of trust.
+
+Requirements: v<version>-<chapter>.<section>.<requirement> (e.g.:v4.0.3-1.11.3)
+
+
+********************************************************************************
+                            01/10 Broken Authorization
+********************************************************************************
+https://owasp.org/Top10/A01_2021-Broken_Access_Control/
+
+Broken Authorization / Broken Access Control / Privilege Escalation
+    Weaknesses in the implementation of authorization checks (used to designate
+    user access privileges) performed by apps when a user attempts to access a
+    resource or perform an action.
+    Horizontal Authorization Control bypass: act as other user w/same privileges
+    Vertical Authorization Control bypass: act as other user w/more privileges
+
+e.g: http://vulnerableapp.com/user/account?accountId=7801 can use 7802 too.
+    Insecure Direct Object References (IDOR)
+e.g: http://vulnerableapp.com/user/account can use
+     http://vulnerableapp.com/admin/panel
+
+Access control design decisions are made not by technology, but by humans
+
+What to do:
+    An appraisal of an application's access control requirements,
+        then an appropriate security policy congruent with the findings.
+    Include an access control matrix
+    A policy of what types of users can access the system,
+        and what these users can and can't do with their access.
+    Use role-based access control (RBAC) to enforce the roles at the
+        appropriate boundaries.
+    For web applications, make sure that the access control mechanism is
+        enforced correctly at the server side on every page and API endpoint.
+    Users should not be able to access any unauthorized functionality or
+        information by simply requesting direct access to the page or object.
+    Principle of least privilege exists
+        users should only be able to access functions, data files, URLs,
+        controllers, services, and other resources, for which they possess
+        specific authorization.
+    OWASP ASVS: 4.1, 4.2
+
+https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+
+
+********************************************************************************
+                        02/10 Cryptographic Failures
+********************************************************************************
+https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
+
+Fallout arising from an application inadequately protecting sensitive info.
+
+What to do:
+    Implement modern (not deprecated) security-community accepted standars.
+    Use well-known crypto libraries.
+    Don't reuse initialization vectors (IVs), keys, or nonces ¿?
+    Use key management solutions, those tied with your OS, HW, or cloud provider
+    Get code reviewed by a trusted party!
+
+Secure Hash algorithms published by NIST.
+
+Hash Functions
+    one-way conversion algorithm of any bytes into a byte array of a fixed size.
+    Output "hash" or "hash value" is a fingerprint of the original data.
+    Strong hash functions:
+        Any change to the data will result in an uncorrelated hash value
+        Pre-image Resistant: difficult to reverse a hash to its pre-hashed form.
+        Second Pre-Image Resistant: difficult to find a different input with
+            the same hash given an input and a hash.
+        Collision Resistant: difficult to identify two different inputs of
+            arbitrary length that result in identical hashes.
+        Note: every hashing algorithm permits collisions, make this as remote!
+    RIPEMD-160/256/320: with different levels of security, all considered robust
+    BLAKE2/3: purportedly faster than SHA-1/2/3 and immune to length extension.
+    SHA-2: all variants publicly resistant to collision attacks,
+        and most variants resistant to length extension attacks.
+    SHA-3: publicly resistant to collision and length extension attacks.
+
+Hash Functions for passwords (additional requirements):
+    Computing the hash must be computationally intense to avoid brute force and
+        dictionary attacks.
+    Data to be hashed should incorporate a salt so, even if the input is the
+        same, the algorithm will produce a different hash.
+    bcrypt: the default password hash algorithm used in many systems.
+    scrypt: designed to be computationally intense to mitigate the bruteforcing.
+    argon2: the computational intensiveness of the process can be fine-tuned.
+    PBKDF2: a key derivarion algorithm recommended by NIST.
+
+Salt:
+    value randomly generated for each password. The salt and the password
+    (or its version after key stretching) are concatenated, hashed, and the
+    output hash value is then stored with the salt in a database, e.g.:
+    Username    Salt value          String to be hashed
+    user1       D;%yL9TS:5PalS/d    password123D;%yL9TS:5PalS/d
+
+Pepper (secret salt):
+    Secret added to an input/password before hashing. Is kept separate from the
+    password hash in some other medium, such as a Hardware Security Module.
+
+In any case, use an appropriate work factor,
+    i.e., a high enough iteration count.
+
+https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+https://www.nist.gov/news-events/news/2023/08/
+    nist-standardize-encryption-algorithms-can-resist-attack-quantum-computers
+OWASP ASVS: 6.2.5
+
+
+*******************************************************************************
+                        03/10 SQL Injection (SQLi)
+*******************************************************************************
+https://www.securityjourney.com/post/
+how-to-prevent-sql-injection-vulnerabilities-how-prepared-statements-work
+
+https://owasp.org/Top10/A03_2021-Injection/
+https://owasp.org/www-community/attacks/SQL_Injection
+https://cheatsheetseries.owasp.org/cheatsheets/
+    SQL_Injection_Prevention_Cheat_Sheet.html
+https://cwe.mitre.org/data/definitions/89.html
+
+PENTESTING
+    An attacker can inject SQL commands into a SQL statement, e.g.
+    query = "SELECT * FROM users WHERE name='"+user+"' AND pass='"+pass+"'";
+    If name=jane and pass=x' OR '1'='1 then the WHERE clause is always true.
+    or with name="admin --"
+    
+    Where do you look for SQLi?
+     * Any web application input that would do a database lookup or insert.
+     * The data may be entered as part of a URL, part of an input field, or
+       by modifying an API call.
+    
+    Test SQLi vulnerability
+        Enter a SQL special character for the password, such single quote (')
+        If Internal Server Error, there is may be a SQLi vulnerability.
+
+PREVENTION
+    * Try to avoid using input sanitization as much as possible.
+      Instead, use prepared statements or stored procedures.
+    * Make sure you always enforce least privilege for the query.
+
+    1) Stored Procedures
+    When implemented correctly, produce the same results as prepared statements
+    SQL code is saved in the database itself and called from the application,
+    while prepared statements are prepared every time you need to execute one.
+    Make sure they do not include any unsafe dynamic SQL generation.
+
+    2) Prepared statements (using ORMs)
+    Placeholder replacement with the user’s data occours when the query is
+    already pre-compiled (Binding), so the final query will not go through
+    compilation phase again, the user-provided data will always be interpreted
+    as a simple string and cannot modify the original query’s logic.
+    The query will be immune to SQL Injection vulnerabilities for that data.
+    
+    3) Validation Allow list of safe values.
+    Enforcing strict input validation rules.
+    
+    4) Query concatenation should be avoided.
+    
+    5) Minimize unnecessary SQL account privileges.
+    
+    6) WAF - Web application Firewall
+    Employed as further defence in depth.
+
+Python
+    If you are using MySQL or PostgreSQL, use %s (even for numbers and other
+    non-string values!) and if you are using SQLite use ?. If you are using
+    ODBC to connect to the DB, regardless of which DB it is, use ?.
+    (https://bobby-tables.com/python)
+    Vulnerable:
+        cursor.execute("SELECT * FROM users WHERE username = '%s' AND
+            password = '%s'" % (username, password))
+    Parameterized query
+        PyMySQL, MySQL-python, MySQL connector, PyGreSQL, Psycopg, pymssql
+        cursor.execute("SELECT * FROM users WHERE username = %s AND
+            password = %s", (username, password))
+        SQLAlchemy
+        stmt = sqlalchemy.sql.text("SELECT * FROM users WHERE
+            username = :username and password = :password")
+        conn.execute(stmt, {"username": username, "password": password })
+        sqlite3, pyodbc
+        cursor.execute("SELECT * FROM users WHERE username = ? AND
+            password = ?", (username, password))
+
+
+Go lang
+    (https://bobby-tables.com/go)
+    age := 27
+    rows, err := db.Query("SELECT name FROM users WHERE age=?", age)
+
+    OWASP ASVS: 5.3.5
+    OWASP Testing Guide: Testing for SQL Injection
+
+
+********************************************************************************
+                            04/10 Insecure Design
+********************************************************************************
+https://owasp.org/Top10/A04_2021-Insecure_Design/
+
+Come from the necessity of 'security by design', without security in the
+design, with well thought out threat models, secure architecture, etc.,
+the design is 'broken' by design.
+Weaknesses:
+    Generation of Error Message Containing Sensitive Information,
+    Unprotected Storage of Credentials, and Insufficiently Protected Credentials
+    Lack of input validation controls
+    Sensitive information disclosure
+    Missing secure communication layers.
+
+What to do:
+    Revision in accordance with best practices, is the most cost-efficient way.
+    Secure architectural patterns are well-studied. External expertise can be
+        leveraged if the in-house team is not knowledgeable enough or a second
+        opinion is warranted.
+    Threat Modeling to be used as a structured approach to map potential threat
+        scenarios and identify application weaknesses.
+    Ensuring that appropriate policies, standards, and documentation are in
+        place. Documentation is vital as it gives development teams guidelines
+        and policies they can follow.
+    The design is to be implemented securely using industry standards and
+        methods. There is no point in having a secure design if it is not
+        implemented correctly.
+    Unit and integration tests to be developed together with the application.
+    Security language and mindset to be a part of non-security practitioners'
+        stories. Secure by design is not the sole responsibility of the
+        designer; rather, it is a team effort that demands all those working
+        across the SDLC be au fait with the need to consider security as a key
+        to a successful delivery to production.
+    Threat modeling:
+        Identify, communicate, and understand threats and mitigations.
+        Methodologies: STRIDE, PASTA, TRIKE, or OCTAVE.
+    Simplified process:
+        Trust boundary: line that separates areas with different security
+            policies or levels of trust.
+        Threats: potential negative action or events that could compromise a
+            system's security, integrity, or availability, capec.mitre.org
+        Security control: safeguard or countermeasure implemented to mitigate
+            identified threats.
+        1) Define the trust boundaries in the target system by analyzing its
+            constituent parts to understand how they interact with each
+            other and external entities.
+        2) Identify the threats that could attack the application.
+        3) Identify the security controls to mitigate the threat level.
+
+OWASP ASVS: 1
+OWASP Testing Guide: Definition and Design
+https://owaspsamm.org/model/design/threat-assessment/
+
+
+********************************************************************************
+                        5/10 Security Misconfiguration
+********************************************************************************
+https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
+
+Like:
+    Redundant features left enabled.
+    Accounts with default login and password.
+    Disabled or incorrectly configured security features.
+    Unpatched or out-of-date software.
+    Weak or guessable passwords.
+    Missing or misconfigured security headers
+    Directory listings not disable on the server.
+    Applications from dev/test left in production envs.
+    Misconfigured, inprotected filesystems and directories.
+    Insecure local services.
+    Leaked cloud credentials
+    Misconfigured cloud services.
+    
+What to do:
+    Implement repeatable secure installation procedures
+    Remove unnecessary features.
+    Correctly configure & patch across the stack
+    Automate where applicable.
+    Ensure correct security header configuration and deployment.
+    Segment your application architecture.
+
+
+5.1/10 Insecure Functionality Exposed
+
+Insecure back door code
+    POST /auth:  user=admin&pass=wrong&debug=1
+
+What to do:
+    Remove all debugging and test functionality, eliminate debug features,
+        developer consoles, and unintended security disclosures
+    Build procedures must include steps to remove all files and features which
+        are unnecessary for a production deployment.
+    Security processes and controls should confirm this has occurred
+    Developers must adhere to this hardening process.
+
+OWASP ASVS: 14.3.2
+OWASP Testing Guide: Test Application Platform Configuration
+
+
+********************************************************************************
+        https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
+********************************************************************************
+
+
+
+********************************************************************************
+    7/10 Broken Authentication / Identification and Authentication Failures
+********************************************************************************
+https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures/
+
+GET /panel?admin=true   -->   200 OK
+
+Borne of the inadequate implementation of authentication and session
+management applications, compromise keys, passwords, and session tokens,
+leading to exploitation of users' identities or complete control.
+    Insufficient authentication controls
+    Broken object-level protection mechanisms
+    Session fixation
+    Improperly validated session logouts
+    Broken credentials management
+        credential stuffing: use credentials stolen from other sites.
+        brute force attacks: attemp a lot of passwords until success.
+        password spraying: attemp to access a lot of accounts with common pass.
+
+What to do (via Session Management):
+    Use popular open source authentication frameworks.
+    Test the correctness of the authentication mechanism.
+    Rotate and invalidate session IDs.
+
+What to do (via Credential Management):
+    Don't permit weak passwords.
+    Use breached-password protection.
+    Enforce Multi-Factor authentication.
+
+Prevention
+  * Implement session ID rotation following successful logins and ensure rules
+    around session ID invalidation during logout or inactivity are correctly
+    implemented.
+  * Test authentication correctness in addition to the functional aspects of the
+    application.
+  * Implement an effective password policy that disallows the use of weak or
+    overused/common passwords.
+  * Implement password retry lockout.
+  * Implement perimeter access control security such as IP allow-list and use of
+    bastion hosts.
+
+OWASP ASVS: 1.2
+OWASP Testing Guide: Authentication Testing
+
+
+********************************************************************************
+                        Use of dangerous functions
+********************************************************************************
+
+What to do:
+    Build and maintain secure coding skills.
+    Refer to safe practice documentation.
+    Prohibit the use of dangerous functions.
+    Continually harden, test and review processes.
+
+
+********************************************************************************
+                    Insufficient Transport Layer Security
+********************************************************************************
+Concerning communication interception, enabling Transport Layer Security,
+    typically involving HTTPS and its security layers;
+    Transport Layer Security (TLS) and deprecated Secure Sockets Layer (SSL).
+    TLS: cryptographic protocol to render secure communication over a network,
+        providing privacy, data integrity, and authentication between.
+
+What to do:
+    Every network service should enforce Transport Layer Security.
+
+Configuring TLS
+
+Server configuration
+    Only Support Strong Protocols:
+        TLS 1.2 and TLS 1.3, all other disabled.
+    Only Support Strong Ciphers:
+        Where possible, only enable GCM ciphers.
+        For legacy clients it may require enabling other ciphers, at a minimum,
+        disabled: "Null ciphers", "Anonymous ciphers", and "EXPORT ciphers".
+    Use Strong Diffie-Hellman Parameters:
+        Where ciphers that use the ephemeral Diffie-Hellman key exchange are in
+        use, deploy at least a 2048 bit-prime parameter.
+    Disable Compression:
+        TLS compression should be disabled to protect against
+        CRIME vulnerability.
+    Patch Cryptographic Libraries:
+        Ensure your TLS libraries are kept up to date with the latest patches.
+    Test the Server Configuration:
+        Tools to validate server configuration: SSLyze, testssl.sh, tls-scan.
+
+Certificates
+    Use Strong Keys:
+        The private key to generate the cipher key must be at least 2048 bits.
+    Protect The Keys:
+        Filesystem permissions and other controls should be implemented to
+        protect the private key from unauthorized access.
+    Use Strong Cryptographic Hashing Algorithms:
+        Certificates should use SHA-256 rather than MD5 and SHA-1.
+    Use Correct Domain Names:
+        The domain name (or subject) of the certificate must match the fully
+        qualified name of the server presenting the certificate. This name is
+        stored in the "commonName" (CN) attribute of the certificate and,
+        recently, in the "subjectAlternativeName" (SAN) attribute.
+    Carefully Consider the use of Wildcard Certificates:
+        Wildcard Certificates violate the principle of least privilege,
+        as a single certificate is valid for all subdomains of a domain and
+        should only be used where there is a genuine need.
+    SSL Pinning:
+        Storing commonly used certificates locally to compare against the
+        advertised one from the host, helping to prevent MITM attacks.
+
+Web Applications
+    Do Not Mix TLS and Non-TLS Content:
+        TLS should be used for all pages; external resources that load over
+        unencrypted HTTP (such as JavaScript or CSS) should be programmed to
+        load over HTTPS.
+    Use the "Secure" Cookie Attribute:
+        All cookies should be marked with the "Secure" attribute, which
+        instructs the browser to only send them over encrypted HTTPS connections.
+    Use HTTP Strict Transport Security:
+        HTTP Strict Transport Security (HSTS) instructs the user's browser to
+        always request the site over HTTPS and prevents the user from bypassing
+        certificate warnings.
+    Consider the use of Client-Side Certificates:
+        High-value apps or APIs should enforce client-side authentication.
+
+OWASP ASVS: 9
+OWASP Testing Guide: Testing for Weak Cryptography
+
+
+********************************************************************************
+    https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
+********************************************************************************
+
+
+
+********************************************************************************
+                    9/10 Insufficient logging & monitoring
+********************************************************************************
+https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
+https://cwe.mitre.org/data/definitions/778.html
+
+Security Logging & Monitoring Failures
+    resulting in inherent deficiencies in the ability to identify anomalies
+    and/or intrusions within an environment
+
+SIEMs: Security Information and Event Management systems,
+    identify and display activity and flag anomalous or malicious behavior,
+    to gauge its security status.
+
+Occurs when:
+    SIEMs are not configured correctly, unable to process/flag relevant events.
+    Logs of apps, devices, and/or APIs are not monitored for anomalous behavior.
+    Warnings that are generated serve to confuse, rather than clarify, threats.
+    Logs are not adequately protected and may be at risk of tampering/deletion
+        by malicious actors covering their tracks.
+    Logins, failed logins, and high-value transactions are not logged due to
+        misconfiguration, leading to difficulties in auditing processes.
+    Logs are only stored locally with no redundancy.
+
+What to do:
+    Log application errors, runtime errors, connectivity issues, file system
+        errors, and configuration alterations.
+    Log server-side input validation, login, and access control failures,
+        with sufficient detail of the user.
+    Log high-risk functionality, including access to payment cardholder data,
+        key changes, data-encrypting key use, all actions by administrative
+        user accounts, token addition or deletion, etc.
+    Ensure inter-departmental collaboration and clarity concerning legal and
+        compliance needs within the organization and the relevant logging and
+        monitoring required to comply with any regulatory frameworks, such as
+        Sarbanes-Oxley, PCI-DSS, or HIPAA.
+    Converge the log streams to an auditable and centralized logging system
+        with adequate redundancy.
+    Ensure audit trails and additional security provisions are implemented to
+        prevent log tampering.
+    Create an incident response plan that ensures logs can be furnished in the
+        event of a post-breach audit.
+
+OWASP ASVS: 7.2
+OWASP Testing Guide: Test Application Platform Configuration
+
+
+********************************************************************************
+                    10/10 Server-Side Request Forgery (SSRF)
+********************************************************************************
+https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/
+
+Wherein a malicious actor can manipulate a parameter on the web application
+to create or control requests from a vulnerable server.
+
+Attackers often use these attacks to target internal systems that are
+inaccessible from the external network due to the use of a firewall.
+
+Exploit one of the foundations of robust security - trust - by exploiting
+existing trust relationships (e.g., leveraging a server's privileges by
+performing HTTPS requests to third parties) to escalate attacks from
+applications against other back-end systems or even the server itself.
+
+What to do:
+    If a list of permitted URLs is known, developers should implement a hostname
+    or IP address allow list for the application.
+    The URLs should never be validated against a deny list.
+    Disable unused URL schemas if HTTP and HTTPS are the only active protocols the application utilizes to make requests.
+        https://en.wikipedia.org/wiki/List_of_URI_schemes
+    When sending a request to another server, the raw response is never
+        returned as-is to the client application.
+    When SSRF happens, the main defense-in-depth approach is to lower the trust
+        in the server. This can usually be implemented through firewall rules
+        at the inbound end (e.g., the other server receiving the request), but
+        it's much harder to implement firewall rules at the outbound end due to
+        the nature of TCP.
+
+OWASP ASVS: 5.2.6
+OWASP Testing Guide: Testing for Server-Side Request Forgery
+
+
+
+********************************************************************************
+                        Lab01 - OS Command injection
+********************************************************************************
+Do not use the shell option, and pass the command as a list of arguments to
+avoid injections:
+
+Vulnerable
+    cmd = 'ping -c 3 %s' % (address)
+    p = Popen(cmd, shell=True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, /
+        close_fds=True)
+
+Protected
+    cmd = ['ping', '-c', '3', address]            
+    p = Popen(cmd, shell=False, stdin=PIPE, stdout=PIPE, stderr=STDOUT, /
+        close_fds=True)
+
+
+
+
+********************************************************************************
+https://owasp.org/Top10/A11_2021-Next_Steps/
