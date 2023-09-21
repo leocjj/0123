@@ -1,0 +1,230 @@
+
+https://www.secureflag.com/
+
+********************************************************************************
+                            Injections attacks
+********************************************************************************
+
+With Python, if you are using MySQL or PostgreSQL, use %s (even for numbers and
+other non-string values!) and if you are using SQLite use ?.
+If you are using ODBC to connect to the DB, regardless of which DB it is, use ?.
+    (https://bobby-tables.com/python)
+Vulnerable:
+    cursor.execute("SELECT * FROM users WHERE username = '%s' AND
+        password = '%s'" % (username, password))
+Parameterized query
+    PyMySQL, MySQL-python, MySQL connector, PyGreSQL, Psycopg, pymssql
+    cursor.execute("SELECT * FROM users WHERE username = %s AND
+        password = %s", (username, password))
+    SQLAlchemy
+    stmt = sqlalchemy.sql.text("SELECT * FROM users WHERE
+        username = :username and password = :password")
+    conn.execute(stmt, {"username": username, "password": password })
+    sqlite3, pyodbc
+    cursor.execute("SELECT * FROM users WHERE username = ? AND
+        password = ?", (username, password))
+
+
+********************************************************************************
+                        XSS - Cross-Site scripting
+********************************************************************************
+
+Allows a malicious actor to manipulate a legitimate user's interactions with a
+    vulnerable web application, to bypass the same-origin policy.
+    Attacker give this link to the user
+        https://vulnerable.com/?name=<script>pay()</script>
+    Server receive this variable and return it.
+        msg = getVariable('name')
+    Response with the injected code
+        returnPage("page.html", message=msg)
+
+Occurs in web apps when data is received in the form of a web request, and the
+    data is reflected back in the HTTP response to the user without validation.
+    Which show_page func. generates a web page with user-controlled parameters.
+
+Reflected XSS
+    When a web server reflects injected script, such as a search result,
+    an error message, or any other response that includes some or all of the
+    input sent to the server as part of the request.
+
+    The attack is then delivered to the victim through another route (e.g.,
+    e-mail or an alternative website), thus tricking the user into clicking on
+    a malicious link. The injected code travels to the vulnerable website, which
+    reflects the attack payload back to the user's browser.
+    The browser then executes the code because it came from a "trusted" server.
+
+Stored XSS
+    Injected script is stored on the target application as legitimate content,
+    such as a message in a forum or a comment in a blog post. The injected code
+    is stored in the database and sent to the users when it is retrieved, thus
+    executing the attack payload in the victim's browser.
+
+DOM-based XSS
+    The JS in a page takes user-provided data from a source in the HTML, such as
+    the document.location, and passes it to a JavaScript function that allows
+    JavaScript code to be run, such as innerHTML(). The classic attack delivers
+    the payload to the victim through another route (e.g., e-mail or an
+    alternative website) and thus tricks the user into visiting a malicious link.
+    The exploitation is client-side, and the code is immediately executed in the
+    user's browser.
+
+What to do:
+    Perform appropriate server-side validation and escaping.
+        Input Validation
+        Exact Match: Only accept values from a finite list of known values.
+        Allow list: If a list of all the possible values can't be created,
+            accept only known good data and reject all unexpected input.
+        Deny list: If an allow-list approach is not feasible (on free form text
+            areas, for example), reject all known bad values.
+    Performe Output Encoding (e.g., using an escape syntax)
+        for the type of HTML context into which untrusted data is reflected.
+        Output Encoding
+        Converts untrusted input into a safe form where the input is displayed
+        as data to the user without executing as code in the browser.
+        Output Encoding is performed when the data leaves the application to a
+        downstream component.
+
+Possible downstream contexts where untrusted input could be used and encoding:
+    Context         Code
+    HTML Body	    <div>USER-CONTROLLED-DATA</div>
+    HTML Attribute	<input type="text" value="USER-CONTROLLED-DATA">
+    URL Parameter	<a href="/search?value=USER-CONTROLLED-DATA">Search</a>
+    CSS	            <div style="width: USER-CONTROLLED-DATA;">Selection</div>
+    JavaScript	    <script>var lang ='USER-CONTROLLED-DATA';</script>
+                    <script>setLanguage('USER-CONTROLLED-DATA');</script>
+
+Output encoding methods to mitigate XSS:
+    HTML Entity Convert &to &amp;   Convert <to &lt;    Convert >to &gt;
+                      Convert "to &quot;  Convert 'to &#x27;  Convert /to &#x2F;
+    HTML Attr.  Except for alphanumeric characters, escape all characters with
+                the HTML Entity &#xHH; format including spaces. (HH = Hex Value)
+    JavaScript  Except for alphanumeric characters, escape all characters with
+                the \uXXXX unicode escaping format (XX = Integer)
+    CSS Hex     CSS escaping supports \XX and \XXXXXX. Using a two-character
+                escape can cause problems if next character continues sequence:
+                - Add a space after the CSS escape
+                - Use the full amount of CSS escaping by zero padding the value.
+    URL Encoding	www.w3schools.com/tags/ref_urlencode.asp
+                only to encode parameter values, not the entire URL or fragments
+
+Defense in Depth
+    Content Security Policy (CSP)
+    A browser mechanism that enables the creation of source allow lists for
+    client-side resources of web applications, e.g., JavaScript, CSS, images,
+    etc. CSP via a special HTTP header instructs the browser to only execute or
+    render resources from those sources.
+    For example:
+        Content-Security-Policy: default-src: 'self';
+        script-src: 'self' static.domain.tld
+    The above CSP will instruct the web browser to load all resources only from
+    the page's origin and JavaScript source code files from static.domain.tld.
+    For more details: https://content-security-policy.com/
+
+    X-XSS-Protection Header
+    This HTTP response header enables the Cross-Site Scripting (XSS) filter
+    built into some modern web browsers. The header is usually enabled by
+    default anyway, so its role is to re-enable the filter for a particular
+    website if it was disabled by the user.
+
+    Content Types
+    To prevent non-HTML HTTP responses from embedding data which might be
+    dangerously interpreted as HTML or JavaScript, it is recommended to always
+    send the Content-Type header in the HTTP response to ensure that browsers
+    interpret it in the way it's intended.
+
+    Modern Frameworks
+    JavaScript frameworks (e.g., Angular, React) or server-side templating
+    systems (e.g., Go Templates) have robust built-in protections against
+    Reflected Cross-Site Scripting.
+
+OWASP ASVS: 5.3.1, 5.3.3
+OWASP Testing Guide: Testing for Reflected Cross Site Scripting, Testing for Stored Cross Site Scripting, Testing for DOM-Based Cross Site Scripting
+
+
+********************************************************************************
+                    Unrestricted file download (../ attack)
+********************************************************************************
+
+Allow to access/download internal files, exposure of sensitive files.
+    e.g.:   user input  "../../../etc/passwd"
+            server      return("/data/catalog" + user_input)
+    i.e.:   http://www.vulnerableapp.com/?pageId=../../../etc/passwd
+
+What to do:
+    Do not build file path strings with user-provided input!
+    If passing user-supplied input to a filesystem API
+        Validate the user input by strictly accepting well-known, reputable
+            candidates against an allow list
+        If allow list isn't possible validate only permitted content contained.
+    Never run a server component with root or SYSTEM privileges, use a
+        less-privileged user with no access to critical system files.
+
+OWASP ASVS: 12.3.1
+OWASP Testing Guide: Testing for Local File Inclusion,
+    Testing Directory Traversal File Include
+
+
+********************************************************************************
+                    Code injection (Remote code execution - RCE)
+********************************************************************************
+
+OS Command Injection (shell injection): commands injected are executed as system
+    commands on the host operating system.
+    filename = "x; cat password.txt #"
+    system("zip archive.zip " + filename)
+
+Code Injection: add code to be executed by the application.
+
+What to do:
+    Use structured mechanisms to enforce the separation between data and code.
+    Stringently avoid OS Command call outs from the application layer.
+    If is unavoidable, not to use functions that call out using a single string,
+        opt for functions that require a list of individual arguments.
+        These functions perform appropriate quoting and filtering of arguments.
+
+OWASP ASVS: 5.3.8
+OWASP Testing Guide: Testing for Command Injection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
