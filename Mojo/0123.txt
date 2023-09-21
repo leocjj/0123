@@ -1,0 +1,25 @@
+
+Mojo
+
+https://developer.modular.com/download
+
+Install VS Code, the WSL extension, and the Mojo extension.
+Install Ubuntu 22.04 for WSL and open it.
+curl https://get.modular.com | \
+  MODULAR_AUTH=mut_bd1a50aeee6b47d5b131419ca10bd196 \
+  sh -
+modular install mojo
+
+echo 'export MODULAR_HOME="$HOME/.modular"' >> ~/.bashrc
+echo 'export PATH="$MODULAR_HOME/pkg/packages.modular.com_mojo/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+
+mojo --help
+code .
+
+https://docs.modular.com/mojo
+https://docs.modular.com/mojo/manual/basics/
+https://docs.modular.com/mojo/manual/get-started/packages.html
+https://docs.modular.com/mojo/programming-manual.html
+https://docs.modular.com/mojo/lib.html
+
