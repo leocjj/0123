@@ -98,6 +98,12 @@ $ git merge <others_branch>
 git status          # List of files modified
                     # Shows working-dir and staging-area
 git diff --name-only --diff-filter=M [HEAD] # List only modified files.
+    git diff                    # diff between Index and working dir (untracked)
+    git diff HEAD               # diff between HEAD and working dir (untracked)
+    git diff <commit or branch
+    git diff --staged [<commit>]    # between Head and Index
+    git diff -- cached [<commit>]   # between Head and Index
+    
 git status | grep modified
 git annotate
 git show <commit_num>
@@ -209,16 +215,16 @@ $ git config --global core.autocrlf input
                                 WORKING DIRS
 *********************************************************************************
 
-Working-Dir   (untracked files)
+Working-Dir (untracked files)
  |              /\                      /\
- | git add .    |                       |
+ | git add      |                       |
 \/              |                       |
-Staging-Area  (changes to be commited in local repo)
+Staging-Area (index)                    |
  |              |                       |
  | git commit   |git merge FETCH_HEAD   |
  |              |                       | git clone /
 \/              |                       | git pull
-Local-Repo                              |
+Local Repo   (Head)                     |
  |              /\                      |
  | git push     | git fetch             |
 \/              |                       |
@@ -226,7 +232,7 @@ Remote Repo
 
 
 git clone <repo>                    # Send remote repo to working-dir
-(add/modify/delete files)           
+(add/modify/delete files)
     git restore <files>             # Discard changes(untracked) in working-dir
 git add .                           # Send untracked files to staging area
     git restore --staged <file>     #   to unstage
@@ -255,7 +261,7 @@ git checkout -b <new_branch>        # -b to create branch if it doesn’t exist
 git diff | git log
     git restore <file>              # to discard changes in working directory
                                     # for files tracked with previous git add,
-                                 # but not staged for commit (changes pending).
+                                    # but not staged for commit (changes pending).
     git checkout -- <file>          # to discard changes in working directory.
     git checkout HEAD <filename>    # undo deletion
 git add/rm <file>                   # git rm file if I’m deleting a file or
@@ -367,7 +373,7 @@ git push -f origin branch   # Send (forced) the change to github
 
 
 *********************************************************************************
-                       REBASE - UPDATE A FORKED REPO
+                        REBASE - UPDATE A FORKED REPO
 *********************************************************************************
 
 HOW TO UPDATE A FORKED REPO
@@ -420,7 +426,7 @@ How to push your updates:
 
 
 *********************************************************************************
-                      SSH AUTHENTICATION
+                                SSH AUTHENTICATION
 *********************************************************************************
 
 If you have GitHub Desktop installed, you can use it to clone repositories and
@@ -453,7 +459,7 @@ https://www.w3schools.com/git/git_revert.asp
 
 
 *********************************************************************************
-                            DELETE A BRANCH
+                                DELETE A BRANCH
 *********************************************************************************
 
 git branch  --> list of branches
@@ -551,15 +557,4 @@ When a new repo is created, the main branch is the only one, so do this for dev:
 *********************************************************************************
 
 GitLens supercharges
-
-
-
-
-
-
-
-
-
-
-
 
