@@ -1,0 +1,77 @@
+pipenv
+
+https://pipenv-es.readthedocs.io/es/latest/
+
+
+For packages: abstract dependencies with install_requires in setup.py.
+For Apps: define dependencies and where to get them in Pipefile
+          define concrete dependencies in Pipfile.lock. idempotent environment. Source of truth
+
+https://pipenv-es.readthedocs.io/es/latest/install.html#instalando-pipenv
+https://pipenv.pypa.io/en/latest/installation.html#installing-pipenv
+$ pip install --user pipenv
+$ pip install --user --upgrade pipenv
+
+Usage:
+pipenv [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --where                         Output project home information.
+  --venv                          Output virtualenv information.
+  --py                            Output Python interpreter information.
+  --envs                          Output Environment Variable options.
+  --bare                          Minimal output.
+  --man                           Display manpage.
+  --support                       Output diagnostic information for use in
+                                  GitHub issues.
+  --clear                         Clears caches (pipenv, pip).  [env var:
+                                  PIPENV_CLEAR]
+  -q, --quiet                     Quiet mode.
+
+$ cd myproject
+$ pipenv --python 3.7       Create a new project
+$ pipenv install <package>  Installs provided packages and adds them to Pipfile.
+$ pipenv install --dev <pkg>Installs packages in [dev-packages] category.
+$ pipenv install            Installs all packages from Pipfile, recreates env.
+$ pipenv install --dev      Install all dependencies (including dev)
+$ pipenv --rm               Remove project virtualenv (current directory)
+$ pipenv lock --pre         Create a lockfile containing pre-releases:
+$ pipenv graph              Show a graph of your installed dependencies:
+$ pipenv check              Check dependencies for vulnerabilities
+$ pipenv install -e .       Install a local setup.py into your virtual env/Pipfile:
+$ pipenv run pip list       Use a lower-level pip command
+$ pipenv run python main.py Activate the virtualenv and run the python code
+
+Commands:
+  uninstall     Uninstalls a provided package and removes it from Pipfile.
+  clean         Uninstalls all packages not specified in Pipfile.lock.
+  update        Runs lock, then sync.
+  upgrade       Resolves provided packages and adds them to Pipfile, or (if no
+                packages are given), merges results to Pipfile.lock
+
+  open          View a given module in your editor.
+  run           Spawns a command installed into the virtualenv.
+  shell         Spawns a shell within the virtualenv (activate the environment).
+  scripts       Lists scripts in current environment config.
+
+  requirements  Generate a requirements.txt from Pipfile.lock.
+  sync          Installs all packages specified in Pipfile.lock.
+  verify        Verify the hash in Pipfile.lock is up-to-date.
+
+
+$ pipenv –rm; pipenv install    To move or rename a directory
+$ PIPENV_VENV_IN_PROJECT=1      In your .env or .bashrc/.zshrc for creating the
+                                virtualenv inside your project’s directory.
+$ pipenv install -r path/to/requirements.txt    Importing from requirements.txt
+
+
+Recommendations
+    Keep both Pipfile and Pipfile.lock in version control.
+    pipenv install adds specifiers to Pipfile and rebuilds the lock file 
+    Not all the required sub-dependencies need be in Pipfile, instead only
+        add specifiers that make sense for the stability of your project.
+    Consider specifying your target Python version 
+    Considering making use of named package categories to further isolate dependency
+        install groups for large monoliths.
+
+
