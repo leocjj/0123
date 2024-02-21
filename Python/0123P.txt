@@ -236,7 +236,8 @@ to call iter() or deal with iterator objects yourself.
 The for statement does that automatically for you, creating a temporary unnamed
 variable to hold the iterator for the duration of the loop. See also iterator,
 sequence, and generator.
- 
+
+Secuence:
 An iterable (object capable of returning its members one at a time.) which
 supports efficient element access using integer indices via the __getitem__()
 special method and defines a __len__() method that returns the length of the
