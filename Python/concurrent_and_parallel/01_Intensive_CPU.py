@@ -81,40 +81,49 @@ def is_prime(n):
     return True
 
 
-elapsed = monotonic()
-result = []
-for prime in PRIMES:
-    result.append(is_prime(prime))
-print(f"for loop calling a function: {monotonic() - elapsed}")
-
-elapsed = monotonic()
-result = [is_prime(prime) for prime in PRIMES]
-print(f"List comprehension calling a function: {monotonic() - elapsed}")
-
-elapsed = monotonic()
-result = list(map(is_prime, PRIMES))
-print(f"list map calling a function: {monotonic() - elapsed}")
-
-elapsed = monotonic()
-with ProcessPoolExecutor() as executor:
+def calculate_one_by_one():
+    elapsed = monotonic()
     result = []
-    for number, prime in zip(PRIMES, executor.map(is_prime, PRIMES)):
-        result.append(prime)
-        print(f"{number} is prime: {prime}")
-print(f"Process Pool Executor calling a function: {monotonic() - elapsed}")
+    for prime in PRIMES:
+        result.append(is_prime(prime))
+    print(f"for loop spent: {monotonic() - elapsed}")
 
-elapsed = monotonic()
-with ThreadPoolExecutor() as executor:
-    future_if_prime = {executor.submit(is_prime, prime): prime for prime in PRIMES}
-    result = []
-    for future in as_completed(future_if_prime):
-        number = future_if_prime[future]
-        try:
-            result.append(future.result())
-        except Exception as exc:
-            print(f"{number} generated an exception: {exc}")
-        else:
-            print(f"{number} is prime: {result[-1]}")
-print(f"Thread Pool Executor calling a function: {monotonic() - elapsed}")
+def calculate_with_list_comprehension():
+    elapsed = monotonic()
+    result = [is_prime(prime) for prime in PRIMES]
+    print(f"List comprehension spent: {monotonic() - elapsed}")
 
-print()
+def calculate_with_list_map():
+    elapsed = monotonic()
+    result = list(map(is_prime, PRIMES))
+    print(f"list map spent: {monotonic() - elapsed}")
+
+def calculate_with_process_pool():
+    elapsed = monotonic()
+    with ProcessPoolExecutor() as executor:
+        result = []
+        for number, prime in zip(PRIMES, executor.map(is_prime, PRIMES)):
+            result.append(prime)
+    print(f"Process Pool Executor spent: {monotonic() - elapsed}")
+
+def calculate_with_thread_pool():
+    elapsed = monotonic()
+    with ThreadPoolExecutor() as executor:
+        future_if_prime = {executor.submit(is_prime, prime): prime for prime in PRIMES}
+        result = []
+        for future in as_completed(future_if_prime):
+            number = future_if_prime[future]
+            try:
+                result.append(future.result())
+            except Exception as exc:
+                print(f"{number} generated an exception: {exc}")
+    print(f"Thread Pool Executor spent: {monotonic() - elapsed}")
+
+
+if __name__ == "__main__":
+    print(f"Calculating {len(PRIMES)} primes...")
+    calculate_one_by_one()
+    calculate_with_list_comprehension()
+    calculate_with_list_map()
+    calculate_with_process_pool()
+    calculate_with_thread_pool()
