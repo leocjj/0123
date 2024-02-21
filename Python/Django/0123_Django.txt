@@ -1,14 +1,36 @@
 
+*******************************************************************************
+								Django
+*******************************************************************************
 
+Model:    manage info
+Template: how to show the info
+View:     link between model-template (controler).
+          what info to show and which template to use.
+
+ORM (Object-Relational Mapping)
+    Support Postgres, MySQL, SQLite, and Oracle
+    e.g.: Products.objects.filter(name="product 1")
+
+Apps:
+    admin: UI to manage Django
+    allauth: user authorization
+    simple-history, etc.
+    Toolbar: monitor, statistics
+
+Cache:
+    Memcached, Database caching, ...
+
+Rest Framework: build API's
+
+docs.djangoproject.com/4.2
 
 *******************************************************************************
 								ORM
 *******************************************************************************
 
 https://www.fullstackpython.com/object-relational-mappers-orms.html
-
 https://docs.sqlalchemy.org/en/13/orm/tutorial.html
-
 https://www.sqlalchemy.org/
 	The Python SQL Toolkit and Object Relational Mapper
 https://flask-sqlalchemy.palletsprojects.com/en/2.x/
@@ -19,7 +41,6 @@ ORM				| SQLAlchemy		SQLAlchemy		SQLAlchemy |	Django ORM
 				|_____________________________________[+ ORM]__|
 DB CONNECTOR	(builtin stdlib)	MySQL-python	psycopg			psycopg
 relational DB	SQLite				MySQL			PostgreSQL		PostgreSQL
-
 
 Python ORM Implementations:
 	SQLAlchemy		https://www.fullstackpython.com/sqlalchemy.html
@@ -36,16 +57,22 @@ Python ORM Implementations:
 *******************************************************************************
 
 https://docs.djangoproject.com/en/3.0/topics/
-
 https://docs.djangoproject.com/en/3.0/topics/install/
 
-pip3 install Django					// pip3 install Django==3.0.7
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+conda create -n django
+conda activate django
+pip install django
 python3
+>>> import django
 >>> print(django.get_version())		// python3 -m django --version
-3.0.7
+django-admin
+mkdir project1; cd project1
+django-admin startproject ecommerce
+python3 manage.py
+python3 manage.py runserver
 
-UNINSTALL
-pip3 uninstall Django
 
 pip3 freeze | grep Django
 pip3 show -f Django
@@ -72,7 +99,6 @@ django-admin startproject mysite
 $ django-admin <command> [options]				// Alternatives to django-admin
 $ manage.py <command> [options]
 $ python3 -m django <command> [options]
-
 
 Put your code in some directory outside of the document root (/var/www),
 such as /home/mycode.
