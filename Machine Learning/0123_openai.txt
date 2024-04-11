@@ -1,0 +1,352 @@
+OpenAI
+
+!pip install --upgrade openai
+import openai
+
+
+
+######################################################################
+                            OPENAI_API_KEY
+######################################################################
+
+### Option 1
+import os
+os.environ['OPENAI_API_KEY'] = ''
+openai.api_key = os.getenv('OPENAI_API_KEY')
+
+### Option 2
+from dotenv import dotenv_values
+config = dotenv_values(".env")
+config["OPENAI_API_KEY"]
+
+
+
+######################################################################
+                            Completion Request
+######################################################################
+
+response = openai.Completion.create(
+   model="text-davinci-003",
+   prompt="The color of the car was "
+   # echo=True                  prompt with the completion word
+)
+print(response["choices"][0]["text"])
+
+
+
+######################################################################
+                            Chat Completion
+######################################################################
+
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        # {"role": "system", "content": "You are an social media expert"},
+        {"role": "user", "content": "Write a one line tweet about generative ai"},
+        # max_tokens=100
+        # stop="6."
+        # stop=[".6", "Leo"]    stop if reach sixth item or "Leo"
+        # n=3                   number of results/answers/choices
+        # echo=True
+        # temperature=0.8       change randomes of the anwer
+        # frequency_penalty=-1  default is 0, from -2 to 2, 
+        # frequency_penalty=-1  default is 0, from -2 to 2, 
+        # stream=True
+        # top_p=20%             tow answers probabilities with sum equals to 20%
+    ]
+)
+
+######################################################################
+                            Types of learning
+######################################################################
+
+# zero-shot prompting or learning, ask something without any example
+# one-shot prompting or learning, ask something giving one example
+# few-shot prompting or learning, ask something giving a few examples
+# Avoid many shots, lear like a person, and have lower costs.
+
+# zero-shot prompting or learning
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You understand Enligh and German."},
+            {"role": "user", "content": """
+                Translate the sentence below into German: \
+                ### /
+                Hello, how are you doing today? \
+                ### \
+                """
+            },
+        ],
+    )
+
+# few-shot prompting or learning
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You understand Enligh and German."},
+            {"role": "user", "content": """
+                Use the format below: \
+                ### \
+                English:  The car is blue. \
+                German:  Das Auto ist blau. \
+                English:  The house is large \
+                German:  das haus ist groß \
+                English:  The smartphone is expensive. \
+                German: \
+                ### \
+                """
+            },
+        ],
+    )
+
+response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "You understand Enligh and German."},
+        {"role": "user", "content": "English:  The car is blue."},
+        {"role": "assistant", "content": "German:  Das Auto ist blau."},
+        {"role": "user", "content": "English:  The smartphone is expensive."},
+    ],
+)
+
+
+
+######################################################################
+                            Word Embeddings
+######################################################################
+
+# !pip install numpy
+# import numpy
+input_string = 'cup'.replace('\n', ' ')
+response = openai.Embedding.create(
+    input=input_string,
+    model='text-embedding-ada-002',
+)
+print(response['data'][0]['embedding'])
+
+!pip install matplotlib
+!pip install scipy
+!pip install scikit-learn
+!pip install plotly
+!pip install pandas
+import matplotlib
+import scipy
+import sklearn
+import pandas
+import plotly
+from openai.embeddings_utils import get_embedding
+get_word_embedding = get_embedding(
+                        'blue',
+                        engine='text-embedding-ada-002')
+
+
+
+######################################################################
+                            Sentiment analysis
+######################################################################
+
+# Detects the "tone" of the message.
+Objective insights, return on investment, customer service, maket
+
+# Drawbacks
+Sarcarsm, clarity, negation, slang and idiomns, ambiguos communication
+
+def get_sentiment(feedback):
+    response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system",
+             "content": """You are a system that determines the sentiment \
+             of comments and feedback. \
+             Express the sentiment with either postive, negative or neutral. \
+             Also include an emoji.  Analyze the sentiment of the comment \
+             delimited by ###.
+             """},
+            {"role": "user", "content": feedback}
+        ]
+    )
+    return response['choices'][0]['message']['content']
+
+feedback = f"###{comment}###"
+sentiment_result = get_sentiment(prompt)
+
+
+
+######################################################################
+                            ChatApp
+######################################################################
+
+def chat_system(messages):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
+    return response.choices[0]['message']['content']
+print("Type 'exit' to close the chat.\n")
+message_history = []
+message_history.append({
+    'role': 'system', 'content': 'You are a personal assistant.
+    Your tone is kind.
+    The response must be consice and not exceed one sentence'
+})
+user_input = ''
+while user_input != 'exit':
+    user_input = input("You: ")
+    message_history.append({"role": "user", "content": user_input})
+    response = chat_system(message_history)
+    print("VA:", response)
+    # print(message_history)
+
+
+
+######################################################################
+                            Blog Creator
+######################################################################
+
+def create_blog_post(topic, length=300, tone=1):
+    if tone == 1:
+        tone_description = 'funny'
+    elif tone == 2:
+        tone_description = 'serious'
+    else:
+        tone_description = 'neutral'
+    prompt = f''' 
+    Write a blog about {topic}. Limit it to no more than {length} words.
+    The tone is {tone_description}. Write in the active voice. 
+    Write at a 5th grade level.
+    Create an interesting title for the blog.  
+    Create section headings.
+    Write a one or two sentence summary of the blog post.
+    
+    
+    Also, translate the title and blog tet
+    into HTML.
+    
+    Use the following format for the blog:
+
+    Title: <title of the blog>
+    Date: <current date>
+    Summary: <one or two sentence summary of the blog post>
+    Blog: <the text of the blog>
+    HTML version: <HTML of the title and blog text>
+    ''' 
+
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are an expert blog writer",
+            "role": "user", "content": prompt},
+        ],
+        # max_tokens=length
+    )
+    
+    return response.choices[0]['message']['content']
+
+print("Welcome to the Blog Creator!\n")
+topic = input("Enter a topic for the blog: ")
+length = int(input("Enter the maximum length: "))
+tone = int(input("Enter the tone: 1=funny, 2=serious, 3=neutral"))
+blog_text = create_blog_post(topic, length, tone)
+print(blog_text)
+
+
+
+######################################################################
+                            Semantic Search
+######################################################################
+
+import openai
+import os
+import pandas as pd
+import numpy as np
+from openai.embeddings_utils import get_embedding
+from openai.embeddings_utils import cosine_similarity
+
+df = pd.read_csv("dataset.csv")
+df["embedding"] = df["Word"].apply(lambda x: get_embedding(x, engine="text-embedding-ada-002"))
+df.to_csv("dataset_embeddings.csv", index=False)
+df = pd.read_csv("dataset_embeddings.csv")
+df["embedding"] = df["embedding"].apply(eval).apply(np.array)
+search_word = input("Enter a a word to search: ")
+search_vector = get_embedding(search_word, engine="text-embedding-ada-002")
+print(search_vector)
+df["cosine"] = df["embedding"].apply(lambda x:  cosine_similarity(x, search_vector))
+df = df.sort_values("cosine", ascending=False)
+
+#!pip install tiktoken
+import tiktoken
+encoding = tiktoken.get_encoding('cl100k_base')
+print(len(encoding.encode('How many tokens?')))
+
+
+
+######################################################################
+                            Fine tunning
+######################################################################
+
+AI Process, Data preparation and wranging, Analysis, Extraction
+
+import openai
+import os
+import pandas as pd
+import json
+os.environ['OPENAI_API_KEY'] = ''
+openai.api_key = os.getenv('OPENAI_API_KEY')
+
+# {"prompt": "<prompt text>", "completion": "<completion text>"}
+# {"prompt": "<prompt text>", "completion": "<completion text>"}
+training_data = pd.read_csv("training_data.csv")
+
+prompts = training_data["Prompt"]
+completions = training_data['Completion']
+
+json_format = [{"prompt":prompt,"completion":completion} for prompt,completion in zip(prompts,completions)]
+with open("training_data.json", "w") as f:
+    for item in json_format:
+        f.write(json.dumps(item))
+        f.write('\n')
+
+$ pip install --upgrade openai
+$ export OPENAI_API_KEY=
+$ openai tools fine_tunes.prepare_data -f "training_data.json"
+$ openai api fine_tunes.create -t "training_data_prepared.jsonl" -m ada
+// openai api finetunes.cancer -i <fine_tune_id>
+// openai api fine_tunes.follow -i <model id>
+// get the Uploaded model name
+// can use openai file delete/list
+
+openai_model = "ada:ft-personal-2023-06-16-15-08-13"
+response = openai.Completion.create(
+    model=openai_model,
+    prompt="Not too thrilled with the blog ->",
+        max_tokens=1,
+        temperature=0
+)
+print(response)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
