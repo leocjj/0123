@@ -1,0 +1,960 @@
+
+https://www.secureflag.com/
+
+********************************************************************************
+********************************************************************************
+                    Software Development Life Cycle (SDLC)
+********************************************************************************
+********************************************************************************
+
+
+*******************************************************************************
+                    SDL - Secure Developmente Lifecycle
+*******************************************************************************
+
+  * Educational training
+  * Security requirements
+  * Threat modeling: identify, analyze, mitigate issues
+  * Third-party vulnerabilities risk prevention
+  * Automated security testing
+  * Penetration testing
+  * Product security incident response
+
+  Cisco SDL
+    * Plan     (blue)   threat modeling & security requirements
+    * Develop  (green)  secure modules & static analysis
+    * Validate (orange) security vulnerability testing
+    * Launch   (blue)   security release criteria
+    * Operate  (gray)   secops, management process
+    * Monitor  (black)  continuous monitoring and updates.
+
+  Infosec wheel
+    * 
+
+
+********************************************************************************
+                                1a - Core concepts
+********************************************************************************
+
+Implement appropriate policies and standards from the outset
+    to ensure the design and creation process is in line with
+    secure design best practices.
+
+Core concepts
+
+    CIA Triad
+        Confidentiality:  safeguards info from unauthorized access,
+            in transity, in processing, in storage.
+            e.g: access controls like pins, strong pass, MFA with encryption
+                effective secret management systems
+                protect sensitive data and privacy or masking
+                    PII - Personal Identity Info
+                    PHI - Personal Health Info
+                    PCI - Payment Card Industry
+                    Company propietary data (salary, proposals, mergers, confi)
+
+        Integrity:  ensures that info remains accurate and unaltered.
+            Protect against unauthorized data or software modifications.
+            e.g: reliable libraries and protocols, hashing, checksums.
+                Error handling: capturing and loggin errors, handled gracefully
+                Input validation: ensures well-formed, correct input data
+                Hashing and code checks:
+                    parity bit checking
+                    cyclic redundancy checking (CRC)
+                    code signing (signing commits),
+                    checksums (verify integrity of data - transmition errors),
+                    hash (unique digital fingerprint of the data),
+                    download or host data on external systems
+
+        Availability:  (and resiliency management) allows users to access info
+            and systems. Protection against disruption to business operations.
+            e.g: backups, failover, High Availability, replication
+                Service uptime, response time, criticality, user req/s, latency
+                Remove Single Points of Failure (SPOF)
+                Implement Business Continuity and Disaster Recovery Plans
+                Implement Failover
+                Test before deployment
+                Autoscaling and Load balancing
+                
+    Authentication:
+        Validating that users are who they claim to be.
+        Protect accessby validationt users claim.
+        e.g.: pins, auth apps, strong pass, Single-Sign-On, biometrics, MFA,
+            certificates, smart cards.
+            Something: you know (pin), you have (card), about you (fingerprint)
+
+    Authorization:
+        Granting (or restricting) access to resources or functions.
+        Protect access by validationg the user's permission access to resources.
+        (same as access control or client privilege)
+        e.g.: Validate the permissions on every request
+            Deny by default
+            Enforce least privileged
+
+    Accountability:
+        Individual is entrusted to safeguard and control something.
+        and is answerable for the lost or misuse. Aids is audits.
+        How we track and secure our actions within the app.
+        e.g: logging, monitoring, tracing activities/access, timestamps.
+    
+    Non-Repudiation:  assurance someone cannot deny the validity of something.
+        e.g.: public Key Infrastructure (PKI), use digital signatures
+            Certification Authority (CA)
+            Registration Authority (RA)
+            Certificate Database
+            Certificate Store
+            Key Archive Server
+
+    Encription:  encoding data, decode it only with the correct key.
+        Symmetric key algorithms: use only one key to encryption and decryption.
+            Efficient, used to encrypt a large amount of data.
+            How to share the single key between parties.
+        Asymmetric cryptography: use to keys, one to encrypt, one to decrypt.
+            Each participant in secure communications owns a UNIQUE PAIR OF KEYS
+            a public key and a private key.
+            Sender:    use a recipient's public key (to encrypt a message)
+            Recipient: uses their private key       (to decrypt the message)
+
+
+
+********************************************************************************
+                        1b - Secure Software Design - Principles
+********************************************************************************
+
+Least privilege:
+    Ensure users, services and apps receive only specific permissions required,
+    for their tasks. Provide access to the minimun necesary resources.
+    Reviewed through regular audits of accounts and privileges.
+
+Separation (segregation) of duties: "compartmentalization"
+    Have more than one person required to complete a task.
+    Administrative control to prevent one person can do all.
+    Limits specific resource access to certain individuals.
+    e.g.: one starts a transaction, and another approves.
+
+Defense in depth:
+    Layered defense, to delay the advance of an attack rather than defeat it.
+    Physical controls: security guards, biometrics, proximity readers.
+    Technical controls: firewalls, proxies, logic controls, intrusion detection,
+        endpoint protection software and network segmentation.
+    Admin controls: classifications, policies and procedures.
+
+Fail safe / Fail secure:
+    Planning for failure
+    Fail safe: minimum harm when systems fail.
+    Fail secure: minimum robery when systems fail. Locks doors in case of alert
+    e.g.: Denied access by default, locked out after max number of attempts.
+          Files are accesible only to file owner, in case of authorization
+            error, other users can't view the files.
+          Explicit handled error and exceptions with non-verbose error msgs,
+            to avoid disclosing system information to the public.
+
+Economy of mechanism:
+    Simplicity in security designs, KISS principle, fewer points of failure
+    --> Standardization, reduce complexity, new vulnerabilities, overhead.
+        Better, stronger, more predictable security.
+    Challenges:
+        Vendor lock in, common vulnerabilites, lack of flexibility,
+        so reduce vendor dependency. e.g.: using open-source technology.
+    --> Implement simplicity while maintaining flexibility and security.
+
+Complete mediation:
+    Ensure ALL requests are authorized to ensure that they are allowed.
+    Checks are performed at every request!
+    EVERY REQUEST REQUIRES TO VALIDATE AUTHORIZATION!!!
+    Vulnerability: TOCTOU, race condition vulnerability between
+        Time-of-check to time-of-use.
+    --> e.g.: use lock semaphore to avoid a tranfer twice without founds.
+
+Open design:
+    Improving sw through collaboration, to reduce risks later.
+    Challenges:
+        Level of experience of each member, level of collaboration,
+        personal disputes, time constraints.
+
+Least common mechanism:
+    Mechanisms used to access resources should not be shared.
+    --> Security boundaries. Segregation to ensure resilience and security.
+
+Psychological acceptability:
+    Security controls need not be so difficult.
+    They should be accepted, not bypassed
+
+Leverage existing components:
+    Encourage components reuse, reduce attack surface.
+    Reusing proven components reduces potential vulnerabilites
+
+Single point of failure:
+    Anything that can cause an outage, can be:
+        an object, resource, service, process, network...
+    e.g.: Secundary DNS server, load balancing.
+          Datacenter well protected,
+          Hardware redundancy: multiple disks, ports, routes,
+          Data redundancy: copies in different mediums or locations,
+          Network redundancy: multiple network paths, diverse geographical areas
+          Backup power sources
+          Databases replication
+          RAID (redundant array of independent disks)
+          Strategic redundancy planning
+
+
+
+********************************************************************************
+                        2 - Secure Software Requirements
+********************************************************************************
+
+
+Requirements:
+    Identify the software solution being built. COLABORATIVE EFFORT!
+    Functional: what the software should do, task, processes, outcomes.
+        Functions to accomplish. Details of behavior in respons to inputs.
+        Define a system or its component: business rules,
+            admin functions, authentication, authorization levels, reporting
+    Non-Functional: how the system operates, performance, security, reliability.
+        "App should handle 10k simultaneous users"
+        Define quality attributes:
+            usability, integrity, availability, scalability, performance
+
+Testability: confirm the requirements have been met
+
+Security requirements:
+    Core:
+        CIA:
+            Confidentiality: in transit, in processing, in storage.
+            Integrity: protections against unauthorizedmodifications (data/code)
+            Availabitily:
+                MTD: max tolerable downtime.
+                RTO: recovery time objective
+                RPO: recovery point objective (snapshot)
+        AAA:
+            Authentication
+            Authorization, models:
+                Discretionary access control (DAC): based on the user identity.
+                Role-Based Access Contro (RBAC): based on the user role.
+                Mandatory Access Control (MAC): user clearance level vs
+                    object's sensitivity level (confidential, internal use only)
+            Accountability:
+    General:
+        session management: manage user interaction (session).
+            e.g: session unique ID, terminate when user log off or close browser
+        error handling: manage unexpected situations gracefully.
+        configuration management: settings, updates
+            e.g: prevent hardcoded sensitive data, default passwords are changed
+                 secure logging when deploying to production
+    Operational, e.g.:
+        deployment, e.g.: privileges, ports, etc, in production environment
+        archiving: identify location, duration and format.
+        anti-piracy: protect intellectual property (IP)
+            e.g: obfuscation, code signing to protect agains tampering.
+    Others, e.g.:
+        sequencing and timing: ensure undesirable sequence of events are
+            accounted for. (e.g. transfer of funds). Maintain predictable behavior
+        international: legally and technologically compatibality.
+        procurement: vetting, Service Level Agreements (SLAs)
+
+Policy decomposition:
+    Policy documents: e.g. PCI-DSS
+    |__High Level objectives: e.g. confidentiality
+       |__Security requirements: e.g. data classification & handling
+          |__Software security requirements: e.g.  input validation
+
+Data classification:
+    Identify data types and data management activites, and protect data.
+    
+    Ownership:      clearly defined
+    Classification:
+    Data owner:     responsible for accuracy, privacy, and utility.
+    Data custodian: (tech side) maintaining, backuing up, accessibility.
+    Custodial chain of ownership: pinpoint roles and permissions
+                   +-------------------------------------------------+
+                   |             Access levels                       |
+       +-----------+-------------------------------------------------+
+       | Roles     | Create  Store   Use     Share   Archive Destroy |
+       +-----------+-------------------------------------------------+
+       | Owner     |   x       x       x       x       x       x     |
+       | Custodian |                   x       x       x             |
+       | Admin     |                   x               x             |
+       | User      |           x       x       x                     |
+       +-----------+-------------------------------------------------+
+
+    Labeling: assign metadata or other ids
+        Sensitive, location, compliance
+    Data types:
+        structured:   e.g. SQL schema-table system
+        unstructured: e.g. emails, posts, videos, images, raw text documents.
+        semi-structured: e.g. JSON (key-value), XML (semantic tags). NoSQL DBs
+    Lifecycle Management: Creation-Usage-Storage-Deletion
+
+Subject/object matrix (role matrix):
+    Subjects: users and roles,
+    Objects: components (hw/sw) like files, db, certificates, etc.
+    1. Enumerate use cases with subjects (roles)
+    2. Define objects
+    3. Create a subject-object matrix to identify admissible actions.
+               +-------------------------------------------------+
+               |                    Roles                        |
+   +-----------+-------------------------------------------------+
+   | Objects   | Admin  Devops  DevTeam QA_Team  Users           |
+   +-----------+-------------------------------------------------+
+   | Code_1    |  RW      R       O       R       R              |
+   | DB_1      |  O       RW      RW      RW      RW             |
+   | Server_1  |  RW      O       RW      R       -              |
+   +-----------+-------------------------------------------------+
+
+Use/misuse case modeling:
+    Identify intended behaviors, sequence of actions, security requirements
+        actors, systems and their relationships.
+    Misuse cases (Abuse cases) model the unintended behavior of systems,
+        defines interactions that result in harm to a resource, attack scenarios
+
+Regulatory and industry requirements:
+    External factors that give requirements to:
+        Establish ownership
+        Enable compliance
+        Reduce liability
+        Sponsored by leaders
+    Know regulations and consult experts.
+    e.g. Sarbanes-Oxley Act of 2002 (SOX), Basel II/III, PCI-DSS, HIPAA
+        FDA 21 CFR Part 11,
+        General Data Protection Regulation (GDPR),
+        California Consumer Privacy Act (CCPA),
+        NIST US (security standards): SP800-53/34/64/160...
+        ISO: 31000 (Risk management), 27001 ISMS (security),
+            15408 (common criteria), 27018 (PII in the cloud)
+
+Legal requirements:
+    Intelectual Property (IP): intangible assets, includes software and data.
+    a. Industrial property: patents, designs, diagrams, software
+    b. Trademark and Copyrights: logos, books, trade markings, artistic works...
+
+Privacy requirements:
+    Software must function optimally while respecting this right to privacy.
+    Privacy policy (public)
+    Personal Identifiable Information (PII)
+    Pseudonymization: replace sensitive fields with pseudonyms or identifiers,
+        random string, hash, token. Original data retained in a secure location,
+        instead of raw data, use altered, yet traceable, records.
+    User conset: explicit acceptance to use data.
+    Disposition: current state of the data, deleted, archived, available.
+    Technical controls:
+        Encription, Obfuscation, Logging, Salting or Masking, ACL, Permissions.
+    Privacy Impact Assessment (PIA):
+        Identify and mitigate potential risks.
+
+Security Requirements Traceability Matrix (SRTM): a roadmap
+    Documents the system's agreed upon security requirements from all sources,
+        the security features' implementation details and schedule, and
+        the resources required for assessment.
+    Columns: req. ID, description, source, verification method,
+        compliance requirements, security features.
+    Rows (Requirements): access control, media protection, personnel security,
+        awareness and training, audit and accountability, physical protection,
+        configuration management, risk assessment, security assessment,
+        identification and authentication, incident response, maintenance,
+        systems and communications protection, system and information integrity.
+
+
+    
+********************************************************************************
+                        3 - Secure Software Design
+********************************************************************************
+
+Principles and the mindset needed to employ the tactical measures to design
+    software securely.  "security by design" approach to developing software.
+Consider and integrate software architecture, threat models, and incorporate
+    security reviews from the outset.
+
+EMBED SECURITY FROM THE START !!!
+
+Security errors are due to:
+    Flaws (defectos): design defects
+        can be identified in Threat Modeling and Secure Design Reviews.
+    Bugs (errores): coding defects
+        can be identified through Code Reviews and Penetration Testing.
+
+Security Properties to Model:
+    properly model CIA + AAA properties
+
+Secure Design and Reusability:
+    Security requirements can often be reused.
+    e.g. Complete Mediation design principle, every access must be validated.
+    e.g. Open Design Principle, do not depend on secrecy for security.
+
+Attack Surface Evaluation:
+    Software extent to which it can be exploited.
+    Can be modelled by generating misuse cases and subject-object matrices,
+        and use these to determine how the software may be attacked.
+    It's more about identifying threat scenarios and stimating likelihood.
+
+Threat modeling:
+    Evaluate all possible threat scenarios: identify assets, threats,
+    interactions, vulnerabilites and strategize countermeasures.
+    Assets:         tangible and intangible (patent, brand)
+    Threat agent:   attempts to harm, internal/external
+    Threats:        tech and non-tech methods to gain access to assets.
+
+    1. Assets identification:
+        Which are valuable and must be protected.
+    2. Architecture overview:
+        Physical topology: where and how apps will be deployed.
+        Logical topology: logical tiers with components, services, data flows
+    3. Apps decomposition:
+        Identify features with a security impact
+        a*) Trust boundaries: where trust level or privilege changes.
+        b) Entry points: user inputs
+        c) Exit points: information display from within the system
+        d) Data flows: how accept, process and handle data accross boundaries.
+        e) Privileged functionality: allow privilege operations.
+        f) Identify actors: data access control matrix
+            Create-Read-Update-Delete
+            +---------------+-----------+-----------+-------+
+            | data \ roles  | End user  | Support   | Admin |
+            +---------------+-----------+-----------+-------+
+            | Customer data | CRUD      | R         | RUD   |
+            | product data  | R         | R         | CRUD  |
+            | Order data    | CRUD      | RUD       | -     |
+            | Payment data  | CRUD      | RUD       | -     |
+            +---------------+-----------+-----------+-------+
+    4*. Threats Identification:
+        Attact trees or categorized threat list. Methodologies: e.g. STRIDE.
+    5. Threats documentation:
+        document each threat using a template. e.g.:
+            ID              T001
+            Description     SQL injection
+            Targets         DB
+            Attack vector   Injects SQL commands throught
+            Impact          Loos of confidentiality
+            Risk            High
+    6. Threats ranking:
+        Based on the risk they pose: probability * potential damage, or
+            average values in a category.
+    7*. Security controls: to mitigate the threat level.
+    
+    STRIDE (developer focused)
+        1. Diagram the application
+        2. Identify threats using STRIDE categories
+        3. Mitigate identified vulnerabilites
+        4. Validate
+    PASTA (attacker focused)
+        Objectives - Scope - App decomposition - Threat analysis - 
+        vulnerability waakness analysis - attack modeling - risk impact analysis
+    VAST (enterprise focused)
+        Visual, Agile and Simple Threat modeling
+        Automation - Integration - Collaboration
+    TRIKE (acceptable risk focused)
+        1. Create an actor-asset-action matrix using CRUD}
+        2. Build a data flow diagrams
+        3. Identify threats
+        4. Assess risk in rank 1-5
+    OCTAVE ( practive focused)
+        1. Build Asset-based threat profile
+        2. Identify vulnerabilities
+        3. Develop security strategy and plans
+
+Attack tree:
+    Provides insight into the relationships between elements.
+    1. Attack vector is the root node:          Unrestricted file download
+    2. Children nodes are vulnerabilites:       Ineffective input validation
+    3. Grand childrens are security controls:   Only allow valid inputs
+
+Security Design Review
+    Precede coding or architecture design activities.
+    Should be standard procedure. Identiry risk areas.
+    Use checklists: OWASP, The Open Group, SANS, Cloud Security Alliance.
+    Determine and document recomendatinos.
+    Assign responsabilities to stakeholders for specific phases.
+    1. Collect disign documents: flow charts, diagrams, requirements
+    2. Design study: analize components and interactions
+        Data flows, access control, security controls, entry points of non-user
+        inputs, integrations with external services, location of configurations
+        file and data sources.
+    3. Design analysis: threat modelling the design. Observing the design from
+        an attaker's prerspective:
+        Insecure implementation: are there loopholes in the design?
+        Lack of secure implementation: have secure practices been incorporated?
+    4. Propose requirements: changes or additions to be incorporated with risks
+    5. Recommend design changes:
+        Associate and document proposed requirements with a security control:
+        Identify right security control component
+        Identify whre the component should be placed
+        Identify how to validate the control.
+    6. Discussion with the team:
+        Discuss requirements and proposed controls
+        Determine the feasibility.
+        If there are exceptions, offer recommendations.
+        Final agreement!
+    7. Design finalization:
+        Final design incorporated by development teams reviewed and finalized.
+
+Risk Management:
+    Risk = Criticality (likelihood x vulnerability) x impact
+    Identifies flaws and determines risks
+    Flaws expose assets to risk, risks are prioritized based on their impact
+    Risk mitigation: categorization of the controls that reduce the risks
+    Risk metrics: to judge the relative resilience over time.
+    Mitigation strategies:
+        Take in count:
+            Policies, legislation, regulation requirements
+            Technical requirements
+            System performance requirements
+            Timeliness requirements
+        Decide:
+            Accept: acknowledge the risk
+            Avoid: change process to avoid risk occurrence.
+            Reduce: select controls that minimize the impact of the risk
+            Transfer: change accountability/responsibility/authority
+    Risk monitoring:
+        Continually managing risk. To evaluate the project environment changes.
+        Stakeholders need to be proactive.
+        Publish reports and specify the risk issues.
+        Adjust project schedule as needed.
+        Coordinate responses.
+    Risk registers:
+        Organize know project risks.
+        Description, recognition date, probability, severity, owner,
+        mitigation strategy, status, priority.
+    
+Security architecture:
+    Unified security design, specify when and where to apply controls.
+    SHOULD BE REPRODUCIBLE!! Garantees robust, scalable and replicable controls.
+
+    Identified control  Business Risk   Security    Impact  Likelihood  Risk
+    Web app mngt        Data loss       Critical    5       5           25
+
+    Qualitative assessment: high, mid, low
+    Quantitative assessment: each breach $2200 per record, likelihood 5% / year
+
+    SABSA, TOGAF, CMMI, NIST Cyber security Framework
+
+
+
+********************************************************************************
+                        4 - Secure Software Implementation
+********************************************************************************
+
+Check common software vulnerabilites
+
+Security controls
+    Input validation:
+        Ensure only properly formed data is entering
+        Identify all types on input accepted by the application
+        Define for each source: valid chars, length, format, range.
+        Define a validation routine.
+            Exact match, Allow list, Deny list
+    Canonicalization:
+        Simplest form of data that can have multiple representations.
+        Canonicalize before output encoding can be performed
+        Decode and canonicalize inputs before performing validation.
+    Output encoding:
+        Translate special chars into a different, no dangerous but equivalent.
+        Single quotes (SQL), double periods (paths), newline (log files, HTTP)
+        semicolons and double ampersand (shells)
+        Hashing and salting
+        Encryption (NIST SP-140)
+        Tokenization: substitue sensitive data with a token. Mapping stored in
+            a secure location. No relation with the original data.
+        Random token generation:
+            Required for session IDs, passwords, keys, nonce or salts.
+            CPRNG, CSPRNG, NIST SP 800-90A
+            One-time pads are "information-theoretically secure"
+    Exception handling:
+        Record/report the condition, for diagnostic the cause.
+        In a centralized manner to avoid duplicated try/catch blocks.
+        Do not leak sensitive data.
+    Logging:
+        Encode dangerous chars to avoid log injection.
+        Do not log sensitive information.
+        Protect log integrity.
+        Forward logs to a central, secure logging service.
+    Leverage safe APIs:
+        Use library calls rather that external processes.
+            e.g. use FileReader instead of Runtime.exec() to read files.
+        Using security frameworks is easier and more efficient.
+    Memory & type safety:
+        Use memory-safe language, this guaranteed to access securely.
+        Use type-safe variables to avoid manually checking types.
+        Java, Go, Ruby, Rust.
+    Sandboxing:
+        To separate running programs, to avoid vulnerabilites spread.
+        To execute untested/untrusted/unverified code.
+        Apply of least privilege principle.
+        Unix chroot jail, AppArmor, SELinux are OS-Level sandboxing.
+    Anti-tampering:
+        Against reverse engineering and modifications
+        Code signing:
+            With a public key digital signatures, share the hash of the signed
+            code, any alteration of the code will result in another hash value.
+        Obfuscation:
+            Code hard to read, not easily readable.
+
+One-time pads
+    Side A                  |       Side B
+    Send pad1 and pad2 using public/private keys
+    Use True random number generators (hw) in both sides
+    Feature an unconditionally secure authentication mechanism: one-time MAC.
+            +--pad2---------------> 
+            |               |
+    user2 --pad2--> user1 --pad1--> Merge pad1 with pad2 to create pad3
+                      |     |
+                    pad3    |       // Both sides have pad3
+                            |
+                        <---------- Send msg + pad4
+        Send msg + pad4 ---------->
+
+1a. public/private key user1:  send a one-time pad1.
+1b. public/private key user2:  send a one-time pad2 to be merged with pad1.
+      user 2 don't know pad1
+2. with one-time pad3: send msg + pad4 ...
+
+
+Implementing Security Controls
+    * Cost/benefit analysis
+    * IT service management frameworks: TOGAF, NIST, ...
+    * Best practice policies and procedures
+    * Externally verifiable audit standards: HIPAA, PCI, SOX,...
+    * Organization defined parameters
+    * Business needs, hierarchy and decision-making
+    
+    Classification (NIST)
+        Classes:
+        - Technical
+        - Operational / administrative
+        - Management
+        Families:
+        - Access control
+        - Awareness and training
+        - Audit and accountability
+        - Security assessment and authorization
+    
+    Classification (CompTIA)
+        Classes:
+        - Physical
+        - Logical
+        - Administrative
+        Controls by function:
+        - Preventive
+        - Deterrent
+        - Detective
+        - Corrective
+        - Compensating
+    
+    Courses of Action (CoA) matrix
+        Maps the controls available for each type of function to 
+        adversary tools and tactics.
+
+    Organization that provide guidance
+        NIST, CIS, CSA, SANS, Cloud/IT Vendors
+
+
+Securing build systems
+    Source code: stored, versioned, integrated with other code and
+        then packaged to be delivered
+    Integrity of the build environment, protect: services, functions,
+        pipelines, workflows,
+
+
+
+********************************************************************************
+                        5 - Secure Software Testing
+********************************************************************************
+
+Quality Assurance
+    Checks whether software is vulnerable and test the impacts.
+    Provides evidence that systems and infor are safe and reliable.
+    Functional Testing:
+        Unit Testing, Integration Testing, Regression Testing
+    Non-Functional Testing:
+        Performance Testing, Security Testing, Disaster Recovery Testing
+    Other:
+        Privacy Testing, Compliance Testing
+
+    Testing artifacts:
+        Plan, case (specific requirement), script (validation procedure),
+        suit (collection of tets)
+
+    Testing strategies:
+        Production, Development and Test, Disaster Recovery
+
+Analizing code for vulnerabilites
+    Vulnerability:
+        code flaw, system misconfiguration, poor programing.
+    Exploit:
+        means through which hackers use a vulnerability to mount an attack.
+    Threat:
+        actual/hypothetical event in which an exploid could use a vulnerability
+    Risks:
+        Attack surface of software: is the code within the system
+            that can be abused by unauthorized parties, includes: user input
+            fields, protocols, interfaces, resource files and services.
+        Determine risk: assessment to evaluate the attack surface.
+    Testing Boxes:
+        Black box: external approach, do not know sw/hw, try to get access.
+        White box: insider approach, have access to everything.
+    Techniques:
+        Architecture reviewed
+        Threat modelling
+        Table-top exercises
+        Build/deplyment review
+        Vulnerability scanning
+        Penetration testing
+        Static code analysis (peer review or automated)
+        Third party dependency scanning
+
+Static code analysis (white box analysis)
+    Peer review: focus on logic and design
+        Data validation
+        Authentication
+        Session management
+        Authorization
+        Cryptography
+        Error handling
+        Logging
+        Security configuration
+    Automatic static code analysis tools:
+        Error detection
+        Scans vulnerabilites and bugs
+        Code reviews
+        Integration in CI/CD pipelines
+        Incremental reviews
+        Producing code that can be reuse
+        Enforce coding standards and best practices
+
+Third-party dependency scanning
+    Tools to find vulnerable external libraries in use.
+    Integrate as part of CI/CD
+
+Penetration testing (pentesting)
+    Simulates attacks.
+    Attempt active exploitation of security controls and assets
+    Frameworks: NIST, PCI-DSS
+    Phases: reconnaisance, attack & exploitation, reporting, clean-up.
+
+Fuzzing
+    Systematic application of malformed inputs to test programs responses.
+    Can we get: unexpected output or break the system?
+
+Vulnerability scanning
+    Dynamic test by an automated tool.
+    Scan the attack surface from:
+        Network perspective: exposed services, versions, ports
+        OS/Container level: is it up to date? open accounts
+        Application level: default passwords?
+        Perimeter testing
+        Internal perimeter
+        External perimeter
+        PCI DSS
+
+Cryptography validation
+    Conformance to standards,
+        ONLY USE ALGORITHMS THAT CONFORM TO FIPS 140-2
+    Don't:
+        use guessable seed values
+        use weak mode of operations
+        use weak configuration parameters
+    Ensure proper:
+        Keys generation/rotation
+        Keys exchange
+        Keys storage
+    Data validation:
+        Inspect and ensure data data should be protected is in the right form
+        (e.g. encrypted, hashed, tokenized)
+    Operations Environment Validation
+        ISO/IEC 15408 Common Criteria
+
+Results & Metrics
+    + Number of defects identified in the SDLC
+    + Time taken to fix a security defect
+    Rank security defects by severity
+    Mantain a vulnerability management program to prioritize remediation
+    Fed back to dev/QA so that:
+        Appropriate remediation actions are performed
+        Create corresponding test cases to avoid the defect arise agains
+        Appropriate training on secure coding and remediation techniques.
+
+
+
+********************************************************************************
+                        6 - Secure Software Acceptance
+********************************************************************************
+
+Software acceptance:
+    Validate that sw is functional and operationally complete:
+        Completion acceptance crieria
+    Acceptance criteria categories:
+        Functionality       Privacy
+        Performance         Security
+        Quality             Compliance
+    Assurance that the sw is secure:
+        identify bugs and these are solve or fixed
+    Transfer responsabilities from dev team to system owner, support and ops.
+    Change management:
+        is there a procedure to handle change requests
+    Approval to release from:
+        The system owner
+        All necesary authorities signed off
+    Risk acceptance and exception policy:
+        Residual risk needs exception or acceptance.
+    Software documentation:
+        Is all the required documentation in place?
+
+Completion criteria:
+    Review requirements Traceability Matrix (including security requirements)
+        Created during the requirements phase
+    Review threat modl and countermeasures
+        Created during the design phase
+    Review and approval of security architecture
+        Created during the design phase
+    Review results from source code analysis
+        Performed at the end of dev phase
+    Review results from dynamic security testing
+        Performed during the testing phase
+    Correctness and completeness of the documentation
+        Completed before the deployment phase
+
+    The existence and accurary of these deliverables need to be verified
+
+Change management
+    Strategies for facilitating changes
+    Changes could introduce new security exposures and increase risk
+    Establish processes for updates and support channels
+    Verify:
+        Changes rquests are reviewed for the impact
+        The sw inventory is updated
+        The change is formally requested and signed off
+    New releases vs updates:
+        To ensure that the level of security has not been compromised,
+            updates must be reviewed, validated and approve before deployment
+        For a first release: add it to the software assets inventory
+        For an update: updated inventory before release.
+    Software inventories:
+        should be automated
+        auto-detect changes and identify sub-components (e.g. ext dependencies)
+        this helps to identify vulnerable and outdated components.
+
+Approval to release:
+    Conduct a risk analysis and determine the residual risk
+    Communicate to the business owner
+        The results of the risk analysis
+        The steps taken to address it (mitigate or accept)
+    Needs formal and docummented approval from the sign-off authority
+
+Risk acceptance and exception policy:
+    Ensure that risk management processes are followed
+    Ensure that risk is within acceptable thresholds
+    Ensure that if risk is outside of acceptable thresholds,
+        and exception to policy needs to be established before release.
+    Use a template to document and accept risk:
+        Risk: inform the business of an exposure
+        Actions: steps taken or to be taken
+        Issues: inform the dev team technical details, how the threats could
+            materialize and be exploited
+        Decisions: provide options to consider when accepting/rejecting a risk
+    When it's not possible to mitigate the risk:
+        It can be transferred (e.g. insurance)
+        It can be avoided by discontinuing the sw (not always posible)
+        It can be accepted with a docummented exception policy, allowed only
+            if there are plans, with a timeframe, to address the risk, and
+            consult with Experts (SME) before granting the exception.
+
+Software documentation:
+    Ensure a repeatable deployment process (installing/updating)
+    Review the existance and completeness
+    Describe sw functionality and security
+    Should be updated with new versions
+    Disaster Recovery Plan (DRP)
+    Business Continuity Plan (BCP)
+    Incident Response Plan (IRP):
+        available to the security ops team,
+        users are trained and aware of how to react in the event of a breach
+    Requirement Traceability Matrix (RTM):
+        Trace functionality and security aspects to requirements
+    Threat Model
+    Risk Acceptance Document:
+        Risks mitigated, transfered, avoided
+        Residual risk below threshold
+    Exception Policy Document:
+        Residual risk beyond threshold with exception policy approved
+        Plan to address risk with exceptions
+    Change requests:
+        Documented process to request changes
+        Only approved changes deployed to production
+    Approvals:
+        Sign-offs docummented and verifiable
+    BCP and DRP:
+        Tested and docummented
+        Include security procedures to be followed in case of an event
+    IRP:
+        Defined process and plan for responding to security incidents
+    Installation guides:
+        Configuration settings defined
+    User manual
+        MAnual to inform users how to use the sw.
+
+
+
+********************************************************************************
+                        7 - Secure Software Operations
+********************************************************************************
+
+Installation and deployment
+    Security considerations for configuration management (pre and post install)
+    Hardening (OS/container/orchestration)
+        OS Hardening:
+            Update OS and third-party sw
+            Remove unnecessary sw
+            Endorce strong password policies
+            Enforce multi-factor authentication
+            Enforce account lockout (after so many attempts)
+            Remove default/unnecessary OS accounts
+            Disable ports and other peripherals
+            Encrypt drives to protect data
+            Enable centralized logging (logging service, CIS log server)
+            Protect network access to the OS (e.g. bastion host)
+            Add a NAT server as well (access only through the right services)
+            In cloud deployments:
+                Encryption, logging and MFA available out-of-the-box
+                Pre-hardened OS images available
+                Security groups allow to restrict network access
+        Container hardenig - Keep images clean
+            Use only minimized and trusted parent images
+            Unistall any unnecessary sw at build time
+            Run a single, stateless process per container
+            Remove SUID and SGID bits to executables that are often abused to
+                scalate privileges
+            Use multi-stage builds to separate untidy build phases from the
+                final image build phase. Make sure that they are remove before.
+                Untidy means that it isn't a standard process in our environment
+            Pin the version for parent images and sw versions to increase the
+                predictability of the containers being build
+            Avoid using parent images with the latest tag
+            Do not upgrade the system's packages at build time
+    Environment configuration
+    
+    Release management
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
