@@ -1,8 +1,13 @@
 OpenAI
 
+https://chat.openai.com/
+https://platform.openai.com/playground/
+
 !pip install --upgrade openai
 import openai
 
+
+https://www.credly.com/org/o-reilly-media/badge/chatgpt-and-copilot-in-4-hours
 
 
 ######################################################################
@@ -327,11 +332,147 @@ print(response)
 
 
 
+######################################################################
+                            Whisper
+######################################################################
+
+
+import openai
+import os
+
+whisper_file = open("sample.mp4","rb")
+transcript = openai.Audio.transcribe("whisper-1", whisper_file)
+print(transcript["text"])
+
+response = openai.ChatCompletion.create(
+    model='gpt-3.5-turbo',
+    messages=[
+        {'role':'system','content':'You are good at summarizing information.'},
+        {'role':'user','content':f"Summarize the the text delimited by ###. Provide as bullet points: ###{transcript['text']}###"}
+    ]
+)
+print(response)
 
 
 
+######################################################################
+                            PaLM 2 API
+######################################################################
+
+!pip install google-generativeai
+import google.generativeai as palm
+import os
+os.environ['PALM2_API_KEY'] = ''
+palm.configure(api_key=os.environ['PALM2_API_KEY'])
+prompt = """
+You are a social media expert.  Write a tweet about generative AI.
+"""
+
+completion = palm.generate_text(
+    model='models/text-bison-001',
+    prompt=prompt,
+    temperature=0,
+)
+print(completion.result)
 
 
+
+######################################################################
+                            Plugins
+######################################################################
+
+github.com/openai/chatgpt-retrieval-plugin
+
+Can be created in chat.openai.com/ with a plus account.
+Then can be install by anyone from the store.
+
+1) Create a manifest file
+    Name, logo, auth details, endpoints to use, hosting, domain,
+    domain.com/.well-know/ai-plugin.json
+2) Register pluging    
+
+https://replit.com/@TomTaulli/Chuck-Norris-Jokes?v=1#main.py
+
+
+
+######################################################################
+                            LangChain
+######################################################################
+
+!pip install langchain
+import openai
+import os
+os.environ['OPENAI_API_KEY'] = ''
+openai.api_key = os.getenv('OPENAI_API_KEY')
+from langchain.llms import OpenAI
+llm = OpenAI(model_name='text-davinci-003', temperature=1, max_tokens=100)
+response = llm('Write a tweet about large-language models.')
+print(response)
+responses = llm.generate(['what is the capital of the U.S.?', 'What is the best color?'])
+print(responses)
+from langchain.schema import(
+  AIMessage,
+  HumanMessage,
+  SystemMessage
+)
+
+from langchain.chat_models import ChatOpenAI
+response = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=1, max_tokens=100)
+
+messages = [
+  SystemMessage(content='you are a social media expert'),
+  HumanMessage(content='write a tweet about generative ai')
+]
+
+print(response(messages))
+from langchain import PromptTemplate
+template = '''
+You are a expert historian
+Write a paragraph about {event} in {year}
+'''
+
+prompt = PromptTemplate(
+ input_variables=['event', 'year'],
+ template=template
+)
+
+response = llm(prompt.format(event='war', year='1863'))
+
+print(response)
+from langchain.chains import LLMChain
+chain= LLMChain(llm=llm, prompt=prompt)
+response = chain.run({'event': 'war', 'year':'1863'})
+print(response)
+from langchain.chains import SimpleSequentialChain
+first_llm = OpenAI(model_name='text-davinci-003', temperature=0.7, max_tokens=100)
+
+first_prompt = PromptTemplate(
+input_variables=['task'],
+  template='''
+  You are a great coder.
+  Write python code to do {task}
+
+'''
+)
+
+first_chain = LLMChain(llm=first_llm, prompt=first_prompt)
+
+second_llm= ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.7)
+second_prompt = PromptTemplate(
+  input_variables=['code'],
+  template='Write an explanation for this python code: {code}'
+
+)
+
+second_chain = LLMChain(llm=second_llm, prompt=second_prompt)
+
+sequential_chain =  SimpleSequentialChain(chains=[first_chain, second_chain], verbose=True)
+
+response = sequential_chain.run('average two numbers')
+pip install wikipedia
+from langchain.utilities import WikipediaAPIWrapper
+wikipedia = WikipediaAPIWrapper()
+wikipedia.run("What is a large-language model?")   
 
 
 
