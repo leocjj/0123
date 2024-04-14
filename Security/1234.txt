@@ -1,3 +1,83 @@
+Red Team are the breakers or the ethical hackers,
+    their role is to act as Attackers and search for security holes that a
+    malicious individual can exploit.
+Blue Team are the Defenders.
+    Responsible from protective measure within an organization.
+Purple Team's are the Defenders.
+    Responsible from protective measure within an organization.
+Yellow Team are the people that build and design software, systems, and
+    integrations that make business more efficient. Their focus is usually on
+    requirements, functionality, user experience and back-end performance.
+Orange Team's main objective is to inspire Yellow Team to be more security
+    conscious, increasing their security awareness by providing education to
+    benefit software code and design implementation.
+    There should be structured and ongoing engagements between Red and Yellow
+    Team for the benefit of Yellow. You want your Orange Team to teach your
+    developers to think like attackers.
+Green Team consists of ongoing structured interactions between the Blue Team
+    and members of the software team (Yellow Team). The ultimate goal is to
+    improve code-based and design-based defense capability for detection,
+    incident response and data forensics.
+White Team members include elements of Compliance, Management, Analysts,
+    Logistics and more. These are all-knowing, neutral, third-party individuals
+    who set the rules of engagement, organize teams, set strategy, perform risk
+    assessments and sets plans and monitors progress. They’re essential for
+    every organisation, but they’re seen as “too corporate” for the developers,
+    “too demanding” for the defenders and “too much of a killjoy” for the attackers.
+
+Read more on team colors here: https://hackernoon.com/introducing-the-infosec-colour-wheel-blending-developers-with-red-and-blue-security-teams-6437c1a07700
+
+Hackers hats
+            White  (cybersecurity professionals, "ethical hackers"):
+                    disclose vulnerabilities to fix them.
+            Blue   (security consultants)
+            Purple (self-trainers in their own systems)
+legal
+----------  Gray   (former black turned white or black without malicious intent)
+            Hacktivists (Purpose-driven hackers)
+non-legal   Red    (“vigilantes") pursue black
+            Green  (“wannabe”), similar to Script Kiddies
+            Whistleblowers (Employees or insiders)
+            Black  (cybercriminals) find vulnerabilities to exploit them
+
+********************************************************************************
+
+
+https://decentsecurity.com/routerwifi-configuration
+
+
+********************************************************************************
+
+https://pauljerimy.com/security-certification-roadmap/
+https://kali.training/
+    Paths for PREVENTION
+        from https://mile2.com/role-based-certification-roadmap/
+    https://mile2.com/certified-network-principles-outline/
+    Application Security Coder
+        C)VA    https://mile2.com/vulnerability-assessor-outline/
+        C)PEH   https://mile2.com/professional-ethical-hacker/
+        C)PTE   https://mile2.com/penetration-testing-engineer-outline/
+        C)SWAE  https://mile2.com/cswae_outline/
+    Cyber Threat Analyst
+        C)VA    https://mile2.com/vulnerability-assessor-outline/
+        C)PEH   https://mile2.com/professional-ethical-hacker/
+        C)TIA   https://mile2.com/threat-analyst/
+        C)CSA   https://mile2.com/ccsa_outline/
+    Intrution Prevention Specialist
+        C)VA    https://mile2.com/vulnerability-assessor-outline/
+        C)PEH   https://mile2.com/professional-ethical-hacker/
+        C)PTE   https://mile2.com/penetration-testing-engineer-outline/
+        C)PTC   https://mile2.com/cptc_outline/
+
+https://ine.com/pricing
+
+
+https://www.vmware.com/products/workstation-player.html
+https://www.parrotsec.org/docs/virtualization/parrot-on-vmware
+
+https://academy.tcm-sec.com/p/practical-ethical-hacking-the-complete-course
+https://www.sans.org/webcasts/container-security-101/
+
 
 https://www.youtube.com/watch?v=3hLmDS179YE     # AWS 4h full
 
@@ -22,6 +102,23 @@ https://www.youtube.com/watch?v=E03gh1huvW4
 https://www.youtube.com/watch?v=9eH16Fxeb9o
 https://www.youtube.com/watch?v=1DvTwuByjo0
 
+15 cursos gratuitos de CISA!
+1. Cloud Computing Security https://lnkd.in/gMTq2z2q
+2. Cloud Security - What Leaders Need to Know https://lnkd.in/gGYj9eiP
+3. Cryptocurrency for Law Enforcement for the Public https://lnkd.in/gsXAQRV2
+4. Cyber Supply Chain Risk Management for the Public https://lnkd.in/gq-He_NB
+5. Cyberessentials https://lnkd.in/gr3euGSu
+6. Don’t Wake Up to a Ransomware Attack https://lnkd.in/gEM6a88z
+7. Foundations of Cybersecurity for Managers https://lnkd.in/gqyNA2_i
+8. Fundamentals of Cyber Risk Management https://lnkd.in/gz6VeRda
+9. Introduction to Cyber Intelligence https://lnkd.in/gEsHVTKC
+10. Securing Internet-Accessible Systems https://lnkd.in/gR94JwXm
+11. Understanding DNS Attack https://lnkd.in/gSMiGX8Y
+12. Understanding Web and Email Server Security https://lnkd.in/gxYGPAeB
+13. 101 Coding for the Public https://lnkd.in/gJJtCkKX
+14. 101 Critical Infrastructure Protection for the Public https://lnkd.in/gjBtvYEE
+15. 101 Reverse Engineering for the Public https://lnkd.in/g9NQXt5p
+
 
 *******************************************************************************
                                   New user
@@ -41,7 +138,8 @@ su - leocjj
 *******************************************************************************
                                 password
 *******************************************************************************
-https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
+https://www.howtogeek.com/howto/30184/
+    10-ways-to-generate-a-random-password-from-the-command-line/
 https://keepass.info/
 
 </dev/urandom tr -dc '1234567890!@#$%qwertQWERTasdfgASDFGzxcvbZXCVByuiopYUIOPhjklHJKLnmNM.' | head -c32
@@ -55,6 +153,43 @@ dd if=/dev/urandom bs=1 count=32 2>/dev/null | base64 -w 0 | rev | cut -b 2- | r
 randpw(){ < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16};echo;}
      # put this into your ~/.bashrc file.
 date | md5sum
+
+
+
+*******************************************************************************
+                                Wifi - wireless - Mobile
+*******************************************************************************
+
+Wireless connections:
+    PAN (personal), LAN (local), MAN (metropolitan), WAN (wide-area)
+
+What to do WIFI:
+    Change default passwords for devices with a very secure password
+    Add MAC filter list and keep a guest account in separate channel and passwd
+    Use WPA2 or WPA3(recommended)
+
+What to do Mobile:
+    OS updated and update periodicali, updated phone if needed.
+    Wifi hotspot (share internet access) with a very secure password and WPA2
+    Access password/finger
+    Uninstall anything you are not using
+    Check apps permissions before and after installing. Remove unwanted:
+        Settings / Apps & Notifictions / Permission manager, Special app access
+        Use Telegram
+    Do not connect to unknown wifi
+    Beware of phishing attacks: files, links.
+
+Passwords:
+    Use strong passwords, don't reuse, use password manager, maybe two.
+    1password.com, KeePass, do not use browser password manager, disable it.
+
+Browsers:
+    Brave
+    Firefox well configured, Chrome send data to google.
+
+
+https://www.opencre.org/
+https://www.opencre.org/chatbot
 
 
 
@@ -132,7 +267,8 @@ On WSL:     https://www.youtube.com/watch?v=AfVH54edAHU
 
 * Laptop 8GB RAM
 * Virtual Box (https://www.virtualbox.org/)  or
-* Vmware Workstation (https://www.vmware.com/es/products/workstation-pro/workstation-pro-evaluation.html)
+* Vmware Workstation
+    www.vmware.com/es/products/workstation-pro/workstation-pro-evaluation.html
 * Kali Linux VM (2022.1+)
 * https://tryhackme.com account
 
@@ -143,16 +279,136 @@ https://www.kali.org/get-kali/
         sudo apt install -y kali-linux-default
 
 VPN se encuentra funcionando desde el Kali Linux:
-1. Descargar el archivo de configuración de OpenVPN (debe tener sesión iniciada sesión en https://tryhackme.com/) se descarga un archivo con extensión .ovpn con la configuración de su usuario.
+1. Descargar el archivo de configuración de OpenVPN (debe tener sesión iniciada
+    sesión en https://tryhackme.com/) se descarga un archivo con extensión
+    .ovpn con la configuración de su usuario.
 2. Ejecutar el siguiente comando en una terminal: sudo apt install openvpn
-3. Ubicar el archivo de configuración descargado previamente, usualmente debería encontrarlo en la carpeta Downloads: cd ~/Downloads
-4. Conéctese a la plataforma utilizando OpenVPN con el siguiente comando: sudo openvpn file.ovpn
+3. Ubicar el archivo de configuración descargado previamente, usualmente
+    debería encontrarlo en la carpeta Downloads: cd ~/Downloads
+4. Conéctese a la plataforma utilizando OpenVPN con el siguiente comando:
+    sudo openvpn file.ovpn
 
 NOTA: máquina de ataque en Try Hack Me dura una hora.
 
 https://tryhackme.com/welcome
 
 https://tryhackme.com/room/adhocworshopamweek
+
+
+
+*******************************************************************************
+                OpenVas - Vulnerability Scanner
+*******************************************************************************
+
+cve.mitre.org/cve/search_cve_list.html
+
+Instalar en un Kali Linux
+Usar por ejemplo VMware Workstation
+Puede correr varias VM
+    Kali Linux
+    Metasploitable2-Linux  // for testing
+
+    apt-get update
+    sudo apt install openvas
+    gvm-feed-update     // Actualizar listas de definiciones de openvas
+    gvm-setup           // gvm-check-setup
+    * Si error puerto postgres, cambiar a puerto 5433 para escuchar
+        nano /etc/postgresql/15/main/postgresql.conf
+        systemctl restart postgresql
+    * Si error version postgres, 14 en vez de la 15
+        ls /etc/postgresql
+        systemctl stop postgresql@14-main
+        /usr/bin/pg_dropcluster --stop 14 main
+    
+*******************************************************************************
+                        Footprinting tools
+*******************************************************************************
+
+OSINT Framework
+
+BillCipher
+Maltego
+Foca
+python sherlock username  # In social networking sites
+Metagofil   # Extracts metadata
+eMailTrackerPro, Infoga, MailTrack, PoliteMail
+Traceroute, tracert, tcptraceroute
+thehavester, amass  # top-level domains and subdomains
+
+
+
+*******************************************************************************
+                        Scanning tools
+*******************************************************************************
+unifiedkillchain.com
+
+Laptop
+    nmap                By CLI or using Zenmap
+    hping3 
+    metasploit
+    NetScanTools Pro
+
+Mobile tools for scanning
+    IP Scanner      10base-t.com
+    Fing            www.fing.io
+    Network Scaner  play.google.com
+
+Host Discovery Techniques
+    To identify the active/live systems in the network
+    - ARP Ping Scan             nmap -sn -PR 10.10.10.10
+    - UDP Ping Scan             nmap -sn -PU 10.10.10.10
+    - ICMP Echo ping            nmap -sn -PE 10.10.10.10
+    - ICMP Echo Ping Sweep      nmap -sn -PE 10.10.10.10-20
+    - TCP Ping Scan (Syn, ACK)
+    - IP Protocol Ping Scan
+    - others: -sn -PS, -sn -PA, -sn -PO.
+
+Port Scanning Techniques
+    - TCP Scanning
+
+OS Discovery 
+    Wireshark
+    Unicornscan
+    nmap --script smb-os-discovery.nse 10.10.10.10
+    
+
+https://www.nvidia.com/es-la/omniverse/
+https://github.com/AdguardTeam/AdguardHome
+
+
+
+*******************************************************************************
+                        Same origin and CORS
+*******************************************************************************
+    https://www.securityjourney.com/post/
+    same-origin-policy-and-cross-origin-resource-sharing-cors
+
+
+
+*******************************************************************************
+                        EMAIL
+*******************************************************************************
+
+SSL obsolete, TSL instead
+Security Mechanisms (domain level): SPF, DKIM, DMARC
+Check email headers for this mechanisms, for x-sender, and other domains.
+
+Letters in the email address can have differenc UTF codes
+    'a' is U+0430 and U+0061, 'o' is U+03BF and U+006F
+
+
+
+
+
+
+*******************************************************************************
+
+*******************************************************************************
+    https://my.securityjourney.com/tryus/belts/1/modules/124/lesson
+
+
+
+
 
 
 
