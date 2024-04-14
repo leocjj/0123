@@ -1,0 +1,9 @@
+
+https://www.w3schools.com/cpp/default.asp
+https://cplusplus.com/doc/tutorial/
+https://codigofacilito.com/cursos/c-plus-plus
+https://www.codecademy.com/learn/learn-c-plus-plus
+https://www.geeksforgeeks.org/c-plus-plus/
+https://www.geeksforgeeks.org/c-plus-plus-online-course/
+
+https://www.w3schools.com/cpp/cpp_strings_input.asp
