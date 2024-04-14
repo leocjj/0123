@@ -1,5 +1,7 @@
 
+
 https://www.secureflag.com/
+
 
 ********************************************************************************
                                 Cyber Fundamentals
@@ -22,6 +24,7 @@ Security is a shared responsibility
         strong and unique passwords for all of your accounts
         implement two-factor authentication
     Adhere to any security-policy frameworks that have been implemented
+
 
 
 ********************************************************************************
@@ -68,6 +71,7 @@ Mistakes occur, but sheer negligence and the wilful misuse of technology
     should not be tolerated.
 
 
+
 ********************************************************************************
                                 DATA BREACH
 ********************************************************************************
@@ -80,6 +84,7 @@ What to do:
     Using encryption software to protect your data.
     Keep your computer, phone, and other devices updated.
     Freezing your credit reports and reviewing them regularly.
+
 
 
 ********************************************************************************
@@ -113,6 +118,7 @@ What to do for individual users:
     Never use unfamiliar USB's and other devices
 
 
+
 ********************************************************************************
                             CEO Impersonation Fraud
 ********************************************************************************
@@ -136,6 +142,7 @@ What to do:
         fraudulent one, double-check via an alternate means of communication.
 
 
+
 ********************************************************************************
                             Data Protection and GDPR
 ********************************************************************************
@@ -150,7 +157,8 @@ Individuals have the right
         the reason for acquiring and storing data in the first place
         the associated retention period
         who/which other entities the data may be shared with
-    To access the data and must be furnished with a copy of their personal data upon request,
+    To access the data and must be furnished with a copy of their personal data
+        upon request
     To rectify any outdated or inaccurate information upon request
     To erasure, a.k.a., the right to be forgotten
     To request the restriction or suppression of their personal data, i.e.,
@@ -164,6 +172,7 @@ Forms that explicitly detail how any data will be used are necessary,
     and more importantly, so is the consent of the user a necessity.
 
 It is mandatory to report a breach to consumers and authorities within 72 hours.
+
 
 
 ********************************************************************************
@@ -202,6 +211,7 @@ What to do:
         Sites with https (green padlock) are a secure connection, but
         it doesn't mean it is genuine website.
 
+
         
 ********************************************************************************
                                 Password Security
@@ -227,6 +237,7 @@ What to do:
         Don't use the same password for multiple accounts or recycle old ones.
 
 
+
 ********************************************************************************
                                 Identity Theft
 ********************************************************************************
@@ -244,6 +255,7 @@ What to do:
         Use two-factor authentication whenever possible
         Regularly monitor your bank and credit card statements
         Enable biometric authentication on your devices
+
 
 
 ********************************************************************************
@@ -274,6 +286,7 @@ What to do:
     Only communicate with your bank using official security channels.
     
 
+
 ********************************************************************************
                                 Online Shopping
 ********************************************************************************
@@ -297,6 +310,7 @@ What to do:
     Be cautious of unsolicited e-mails and messages
     Don't connect to public wifi networks
     
+    
 
 ********************************************************************************
                             Social Media Security
@@ -315,6 +329,7 @@ What to do:
         enter personal information without verifying the identity of the sender.
     Update your settings regularly, check your privacy settings and update them
         as needed to reflect your current preferences.
+
 
 
 ********************************************************************************
@@ -338,7 +353,8 @@ What to do:
     5) Be wary of messages that seem too good to be true, it is!!!
     !!! Don't trust anyone, no matter how convincing they may seem!!!
     !!! Use anti-phishing software for emails & links!!!
-    
+
+
 
 ********************************************************************************
                                 Passphrases
@@ -352,6 +368,7 @@ Combinate uppercase and lowercase letters, numbers, and special characters.
 Avoid common phrases, use random workds, don't reuse passphrases.
 Regularly changing your passphrases is also a good idea.
 Use a passwork manager!
+
 
 
 ********************************************************************************
@@ -398,6 +415,7 @@ Second, review, upgrade, monitor, and implement security controls around
             network from traffic digested by the web server.
 
 https://www.cisa.gov/topics/cybersecurity-best-practices
+
 
 
 ********************************************************************************
@@ -472,7 +490,7 @@ Next steps:
     https://owasp.org/Top10/A11_2021-Next_Steps/
 
 Adhere to the relevant risk-mitigation OWASP guidelines,
-make an effort to be active within the community, and never stop learning!
+    make an effort to be active within the community, and never stop learning!
 
 OWASP Builders Community - GREEN
     With the common goal of security in the area of application development.
@@ -483,6 +501,7 @@ OWASP Breakers Community - RED
 OWASP Defenders Community - BLUE
     With the common goal of security in the area of application defense,
         tools and techniques for detection and response to app layer attacks.
+
 
 
 ********************************************************************************
@@ -528,6 +547,7 @@ Check other projects:
     www.defectdojo.org/
 
 
+
 ********************************************************************************
                                 OWASP ASVS
 ********************************************************************************
@@ -571,6 +591,7 @@ ASVS Level 3 - For the most critical applications, advanced level.
 Requirements: v<version>-<chapter>.<section>.<requirement> (e.g.:v4.0.3-1.11.3)
 
 
+
 ********************************************************************************
                             01/10 Broken Authorization
 ********************************************************************************
@@ -588,12 +609,12 @@ e.g: http://vulnerableapp.com/user/account?accountId=7801 can use 7802 too.
 e.g: http://vulnerableapp.com/user/account can use
      http://vulnerableapp.com/admin/panel
 
-Access control design decisions are made not by technology, but by humans
+Access control design decisions are made not by technology, but by humans!
 
 What to do:
     An appraisal of an application's access control requirements,
         then an appropriate security policy congruent with the findings.
-    Include an access control matrix
+    Include an access control matrix.
     A policy of what types of users can access the system,
         and what these users can and can't do with their access.
     Use role-based access control (RBAC) to enforce the roles at the
@@ -606,10 +627,23 @@ What to do:
         users should only be able to access functions, data files, URLs,
         controllers, services, and other resources, for which they possess
         specific authorization.
-    OWASP ASVS: 4.1, 4.2
-VULNERABLE
-    def admin_init(request):
 
+VULNERABLE
+    # API route /admin/init, can be accessed by anyone
+    def admin_init():
+        cursor.execute("DROP DATABASE analytics")
+
+PREVENTION
+    def admin_init(request):
+        if request.user.is_superuser:
+            # Do something for authenticated users.
+
+
+OWASP ASVS: 4.1, 4.2
+
+MITRE - CWE 285 - Improper Authorization
+OWASP Top 10 2021 - Broken Access Control
+OWASP - Access Control Cheat Sheet
 
 https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
 
@@ -628,6 +662,12 @@ What to do:
     Don't reuse initialization vectors (IVs), keys, or nonces ¿?
     Use key management solutions, those tied with your OS, HW, or cloud provider
     Get code reviewed by a trusted party!
+
+Very high risk or completely broken:
+    MD5: susceptible to collision attacks since the mid-'90s.
+    SHA-1: considered insecure against well-resourced adversaries since 2005.
+    RIPEMD & RIPEMD-128: deemed insecure, with a reported collision in 2004.
+    Whirlpool: a rebound attack presented collisions in 2009.
 
 Secure Hash algorithms published by NIST.
 
@@ -672,10 +712,22 @@ Pepper (secret salt):
 In any case, use an appropriate work factor,
     i.e., a high enough iteration count.
 
+
+Python
+    # sha256sum ~/exercise/plane.jpg ~/exercise/ship.jpg
+    import hashlib
+    from hmac import compare_digest
+    h1 = hashlib.sha256(file1).digest()
+    h2 = hashlib.sha256(file2).digest()
+    compare_digest(h1, h2)
+
+
+OWASP ASVS: 6.2.5
+
 https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 https://www.nist.gov/news-events/news/2023/08/
     nist-standardize-encryption-algorithms-can-resist-attack-quantum-computers
-OWASP ASVS: 6.2.5
+
 
 
 *******************************************************************************
@@ -694,7 +746,7 @@ PENTESTING
     An attacker can inject SQL commands into a SQL statement, e.g.
     query = "SELECT * FROM users WHERE name='"+user+"' AND pass='"+pass+"'";
     If name=jane and pass=x' OR '1'='1 then the WHERE clause is always true.
-    or with name="admin --"
+    or with name="admin --", or user';--
     
     Where do you look for SQLi?
      * Any web application input that would do a database lookup or insert.
@@ -753,14 +805,15 @@ Python
         cursor.execute("SELECT * FROM users WHERE username = ? AND
             password = ?", (username, password))
 
-
 Go lang
     (https://bobby-tables.com/go)
     age := 27
     rows, err := db.Query("SELECT name FROM users WHERE age=?", age)
 
-    OWASP ASVS: 5.3.5
-    OWASP Testing Guide: Testing for SQL Injection
+
+OWASP ASVS: 5.3.5
+OWASP Testing Guide: Testing for SQL Injection
+
 
 
 ********************************************************************************
@@ -815,7 +868,11 @@ What to do:
 
 OWASP ASVS: 1
 OWASP Testing Guide: Definition and Design
+
+capec.mitre.org
+https://owasp.org/Top10/A04_2021-Insecure_Design/
 https://owaspsamm.org/model/design/threat-assessment/
+
 
 
 ********************************************************************************
@@ -829,7 +886,7 @@ Like:
     Disabled or incorrectly configured security features.
     Unpatched or out-of-date software.
     Weak or guessable passwords.
-    Missing or misconfigured security headers
+    Missing or misconfigured security headers (CSP, HSTS
     Directory listings not disable on the server.
     Applications from dev/test left in production envs.
     Misconfigured, inprotected filesystems and directories.
@@ -839,8 +896,8 @@ Like:
     
 What to do:
     Implement repeatable secure installation procedures
-    Remove unnecessary features.
-    Correctly configure & patch across the stack
+    Remove unnecessary features, frameworks, components
+    Correctly configure & patch across the stack, keep continually up-to-date
     Automate where applicable.
     Ensure correct security header configuration and deployment.
     Segment your application architecture.
@@ -861,6 +918,7 @@ What to do:
 
 OWASP ASVS: 14.3.2
 OWASP Testing Guide: Test Application Platform Configuration
+
 
 
 ********************************************************************************
@@ -914,6 +972,7 @@ OWASP ASVS: 1.2
 OWASP Testing Guide: Authentication Testing
 
 
+
 ********************************************************************************
                         Use of dangerous functions
 ********************************************************************************
@@ -923,6 +982,7 @@ What to do:
     Refer to safe practice documentation.
     Prohibit the use of dangerous functions.
     Continually harden, test and review processes.
+
 
 
 ********************************************************************************
@@ -997,6 +1057,7 @@ OWASP ASVS: 9
 OWASP Testing Guide: Testing for Weak Cryptography
 
 
+
 ********************************************************************************
     https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
 ********************************************************************************
@@ -1048,6 +1109,7 @@ What to do:
 
 OWASP ASVS: 7.2
 OWASP Testing Guide: Test Application Platform Configuration
+
 
 
 ********************************************************************************
