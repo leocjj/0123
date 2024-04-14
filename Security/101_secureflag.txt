@@ -607,8 +607,12 @@ What to do:
         controllers, services, and other resources, for which they possess
         specific authorization.
     OWASP ASVS: 4.1, 4.2
+VULNERABLE
+    def admin_init(request):
+
 
 https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html
+
 
 
 ********************************************************************************
