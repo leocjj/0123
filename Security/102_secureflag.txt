@@ -1,5 +1,7 @@
 
+
 https://www.secureflag.com/
+
 
 ********************************************************************************
                             Injections attacks
@@ -23,6 +25,7 @@ Parameterized query
     sqlite3, pyodbc
     cursor.execute("SELECT * FROM users WHERE username = ? AND
         password = ?", (username, password))
+
 
 
 ********************************************************************************
@@ -138,7 +141,18 @@ Defense in Depth
     Reflected Cross-Site Scripting.
 
 OWASP ASVS: 5.3.1, 5.3.3
-OWASP Testing Guide: Testing for Reflected Cross Site Scripting, Testing for Stored Cross Site Scripting, Testing for DOM-Based Cross Site Scripting
+OWASP Testing Guide: Testing for Reflected Cross Site Scripting,
+    Testing for Stored Cross Site Scripting, Testing for DOM-Based Cross Site
+    Scripting
+
+
+https://jinja.palletsprojects.com/en/2.11.x/templates/
+    #working-with-automatic-escaping
+    Using this in a template is not safe, is bypassing the automatic-escaping!
+    <p>{{ motd|safe }}</p>
+    So 'safe' filter should be removed.
+    <p>{{ motd }}</p>
+
 
 
 ********************************************************************************
@@ -164,6 +178,7 @@ OWASP Testing Guide: Testing for Local File Inclusion,
     Testing Directory Traversal File Include
 
 
+
 ********************************************************************************
                     Code injection (Remote code execution - RCE)
 ********************************************************************************
@@ -187,44 +202,250 @@ OWASP Testing Guide: Testing for Command Injection
 
 
 
+********************************************************************************
+        Sensitive Information Disclosure (Sensitive Data Exposure)
+********************************************************************************
+https://owasp.org/Top10/A04_2021-Insecure_Design/
+
+When an application does not adequately protect sensitive information
+    that may wind up being disclosed to others.
+Can arise in databases, operating systems, and network devices.
+
+* To permit an end user to receive the default error pages from the server,
+  can expose file system, server, third-parties, or OS info,
+  to target well-known exploits in one particular version of a component.
+* A web page rendering an error message from a SQL server for a failed query.
+  If some parameter is in control of the attacker, could use it to exfiltrate
+  arbitrary data from the database by sending specially crafted queries.
+* Anything not properly tied down containing even minimal information may
+  become the prey of a determined malicious actor.
+
+What to do:
+    Identify which data are sensitive according to the system architecture
+        and regulatory requirements.
+    Ensure data in transit or storage are encrypted.
+    Remove debugging and test functionality from production apps and systems.
+    Review the listed items to determine if a justifiable business need exists
+        for possessing each item present. Unnecessary items should be removed.
+    Defined app/system build procedures should include steps to remove the
+        files and features that are unnecessary for a production deployment,
+        processes and controls should confirm this prior to production release.
+
+OWASP ASVS: 8
+OWASP Testing Guide:
+    Review Webserver Metafiles for Information Leakage,
+    Review Webpage Content for Information Leakage,
+    Test File Extensions Handling for Sensitive Information,
+    Review Old Backup and Unreferenced Files for Sensitive Information
 
 
 
+********************************************************************************
+            Open redirects (Unvalidated redirects & forwards)
+********************************************************************************
+
+When a web app, comprised of insufficient input-validation controls,
+    is manipulated into redirecting unwitting users of the application to a
+    malicious, attacker-controlled URL.
+    Unsurprising given the false layer of trust attributed to the fact that the
+    modified link and the original site share the same server name.
+
+One of these methods is undoubtedly betting on the misplaced trust many of us
+    place in familiar server names.
+    This write-up exemplifies how even the most arguably well-known URL of all,
+    https://www.google.com, can be taken advantage of via its redirection
+    facility.
+
+In addition, Open Redirect vulnerabilities can:
+    Lead to Cross-Site Scripting (XSS) attacks if the redirect uses data: or
+        javascript: protocols;
+    Potentially circumvent Server-Side Request Forgery (SSRF) filters;
+    Nullify allow list effectiveness in some cases to bypass Content Security
+        Policy (CSP);
+    Lead to Carriage Return and Line Feed (CRLF) attacks if line breaks are
+        present in the destination parameter.
+
+Maliciuos link, using a valid url that have redirect functionality:
+    http://www.covidvaccinations.com/redirect.php?url=http://attackerwebsite.com
+
+What to do:
+    Don't use redirects and forwards!
+    If required, do not allow the URL as user input for the destination
+    If user input is unavoidable:
+        validate the supplied value
+        its appropriateness for the application
+        ensure it is authorized for the user
+    Adhere to best practices and ensure continued maintenance.
+    If possible, force the user to provide an ID or token that is mapped
+        server-side to a complete target URL;
+    Input sanitization should be implemented by creating an allow list of
+        trusted URLs determined by host or regex.
+
+OWASP ASVS: 5.1.5
 
 
 
+********************************************************************************
+                        Inadequate input validation
+********************************************************************************
+
+e.g.: web site accepting this inputs
+    https://vulnerable.com/?quantity=-1&price=-100&is_admin=1
+
+What to do:
+    Treat all data as untrusted
+    Ensure validation mechanisms are implemented correctly
+    Enforce an allow list of input where applicable
+    Do not map input directly to data
 
 
 
+********************************************************************************
+                    Server-Side Template Injection (SSTI)
+********************************************************************************
+
+Inappropriate usage of template engines and can execute code,
+    user input is concatenated into a server-side executed template
+
+Becarefull
+    Sandboxes have been built by many template engines, but not enought.
+    Regexes are not an effective defense
+
+What to do:
+    Ensure that users are not enabled to submit or modify new templates.
+    Use the template engine API as intended, ensuring the separation of logic
+        and presentation where possible by passing dynamic data as a separate
+        context argument of the rendering function.
+    Never mix variables and template strings.
+
+e.g.:
+    VULNERABLE EXAMPLE, flask web app using Jinja2 templates
+    @app.route("/page")
+    def page():
+        name = request.values.get('name')
+        output = Jinja2.from_string('Hello ' + name + '!').render()
+        return output
+
+    $ curl -g 'http://localhost:5000/page?name={{7*7}}'
+    Hello 49!
+
+e.g.:
+    VULNERABLE EXAMPLE
+        render_template_string("404 page not found %s" % request.path)
+    USE CONTEXT
+        flask.render_template_string(source, **context)
+        To pass the user-provided values as context to remediate the SSTI.
+        render_template_string("404 page not found {{path}}", path=request.path)
+
+PREVENTION
+    import Jinja2; 
+    Jinja2.from_string("Hello {{name}}!").render(name=name)
+    from mako.template import Template
+    Template("Hello ${name}!").render(name=name)
+    Tornado
+    template.Template("Hello {{ name }}!").generate(name=name)
+
+
+OWASP ASVS: 5.2.5
+OWASP Testing Guide: Testing for Server-Side Template Injection
+
+CWE - CWE-94: Improper Control of Generation of Code ('Code Injection')
+CWE - CWE-95: Improper Neutralization of Directives in Dynamically Evaluated
+    Code ('Eval Injection')
+
+https://portswigger.net/research/server-side-template-injection
+Mitigations:
+    Use a trivial template engine such as Mustache, or Python's Template.
+    Executing users' code using a sandboxed Lua environment where potentially
+        dangerous modules and functions have been outright removed (MediaWiki).
+    Ruby emulate this approach using monkey-patching.
+    Arbitrary code execution, sandbox it inside a locked-down Docker container.
+        Through the use of capability-dropping, read-only filesystems, and
+        kernel hardening it is possible to craft a 'safe' environment that is
+        difficult to escape from.
 
 
 
+********************************************************************************
+                    XML External Entity Expansion (XXE)
+********************************************************************************
 
+Applications that process XML input by exploiting XML external entity support.
+Supplying hostile XML input containing a specification of an external entity to
+    a weakly configured XML parser.
 
+The main features of XML that are relevant to understanding XXE vulnerabilities
+    XML entities (ENTITY) and Document Type Definition (!DOCTYPE).
 
+XML entities
+    Are a way of representing an item of data within an XML document
+    instead of using the data itself. e.g.: &lt; and &gt; represent < and >.
+    New entities can be defined using Document Type Definition.
 
+Document Type Definition (DTD)
+    Defines the structure of an XML document, and it is usually used for
+    validation. It can be embedded at the start of an XML document by using the
+    optional DOCTYPE element. External DTDs can be loaded from a remote URL.
 
+DoS
+    <?xml version="1.0" encoding="ISO-8859-1"?> 
+    <!DOCTYPE foo [
+      <!ELEMENT foo ANY>
+      <!ENTITY bar "SecureFlag ">
+      <!ENTITY t1 "&bar;&bar;">
+      <!ENTITY t2 "&t1;&t1;&t1;&t1;">
+      <!ENTITY t3 "&t2;&t2;&t2;&t2;&t2;">
+    ]> <foo> Join &t3; </foo>
 
+Server-Side Request Forgery Attacks
+    <?xml version="1.0" encoding="ISO-8859-1"?> 
+    <!DOCTYPE foo [
+      <!ELEMENT foo ANY>
+      <!ENTITY xxe SYSTEM "file:///etc/passwd">
+    ]> <foo> &xxe; </foo>
 
+    <?xml version="1.0" encoding="ISO-8859-1"?> 
+    <!DOCTYPE foo [
+      <!ELEMENT foo ANY>
+      <!ENTITY xxe SYSTEM "http://internal.vulnerableapp.com:8443">
+    ]> <foo> &xxe; </foo>
 
+Python
+    Native xml package (does not support advanced XML features like validation)
+    or external like https://github.com/lxml/lxml (parsing of external entities
+    is enabled by default in this library)
 
+    VULNERABLE USING lxml
+    @tools.route("/is_xml", methods=['POST'])
+    def tools_is_xml():
+    try:
+        xml_raw = request.files['xml'].read()  # read data from POST
+        parser = etree.XMLParser()  # create the XML parser
+        root = etree.fromstring(xml_raw, parser)  # parse the XML data
+        xml = etree.tostring(root, pretty_print=True, encoding='unicode')
+        return jsonify({'status': 'yes', 'data': xml})
 
+    ATTACK
+        Uploading this xml document for processing
+        <!DOCTYPE d [<!ENTITY e SYSTEM "file:///etc/passwd">]><t>&e;</t>
+    
+    PREVENTION
+        etree.XMLParser(resolve_entities=False)
+        # If only simple XML data processing is required, use the native parser.
 
+What to do:
+    Disabling the Document Type Definitions (DTDs) function 
+    Handling data using simpler formats like JSON is recommended.
+    If not possible to switch off DTDs within the business parameters
+    nor use another format, the following measures must be applied by developers
+        When the entire XML document is transmitted from an untrusted client,
+        it's not usually possible to selectively validate or escape tainted data
+        within the system identifier in the DTD.
+        Therefore, the XML processor should be configured to use a local static
+        DTD and disallow any declared DTD included in the XML document.
 
+OWASP ASVS: 5.5.2, 5.5.3
+OWASP Testing Guide: Testing for XML Injection
 
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
+OWASP - XML External Entity (XXE) Processing
+OWASP - XML External Entity Prevention Cheat Sheet
