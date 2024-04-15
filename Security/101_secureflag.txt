@@ -757,7 +757,7 @@ PENTESTING
         Enter a SQL special character for the password, such single quote (')
         If Internal Server Error, there is may be a SQLi vulnerability.
 
-PREVENTION
+What to do:
     * Try to avoid using input sanitization as much as possible.
       Instead, use prepared statements or stored procedures.
     * Make sure you always enforce least privilege for the query.
@@ -783,7 +783,7 @@ PREVENTION
     5) Minimize unnecessary SQL account privileges.
     
     6) WAF - Web application Firewall
-    Employed as further defence in depth.
+    Employed as further defense in depth.
 
 Python
     If you are using MySQL or PostgreSQL, use %s (even for numbers and other
@@ -889,7 +889,7 @@ Like:
     Missing or misconfigured security headers (CSP, HSTS
     Directory listings not disable on the server.
     Applications from dev/test left in production envs.
-    Misconfigured, inprotected filesystems and directories.
+    Misconfigured, unprotected filesystems and directories.
     Insecure local services.
     Leaked cloud credentials
     Misconfigured cloud services.
@@ -924,6 +924,7 @@ OWASP Testing Guide: Test Application Platform Configuration
 ********************************************************************************
         https://owasp.org/Top10/A06_2021-Vulnerable_and_Outdated_Components/
 ********************************************************************************
+
 
 
 
