@@ -430,7 +430,7 @@ How to push your updates:
 *********************************************************************************
 
 If you have GitHub Desktop installed, you can use it to clone repositories and
-not deal with SSH keys.
+not deal with SSH keys. Otherwise do this:
 
 $ ls -al ~/.ssh     # Lists the files in your .ssh directory, if they exist.
 # Check the directory listing to see if you already have a public SSH key.
