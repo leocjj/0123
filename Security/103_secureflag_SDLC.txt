@@ -897,30 +897,37 @@ Software documentation:
 ********************************************************************************
 
 Installation and deployment
+
     Security considerations for configuration management (pre and post install)
+
     Hardening (OS/container/orchestration)
+
         OS Hardening:
-            Update OS and third-party sw
-            Remove unnecessary sw
-            Endorce strong password policies
-            Enforce multi-factor authentication
-            Enforce account lockout (after so many attempts)
-            Remove default/unnecessary OS accounts
-            Disable ports and other peripherals
-            Encrypt drives to protect data
-            Enable centralized logging (logging service, CIS log server)
-            Protect network access to the OS (e.g. bastion host)
-            Add a NAT server as well (access only through the right services)
-            In cloud deployments:
-                Encryption, logging and MFA available out-of-the-box
-                Pre-hardened OS images available
-                Security groups allow to restrict network access
-        Container hardenig - Keep images clean
+        Update OS and third-party sw
+        Remove unnecessary sw
+        Endorce strong password policies
+        Enforce multi-factor authentication
+        Enforce account lockout (after so many attempts)
+        Remove default/unnecessary OS accounts
+        Disable ports and other peripherals
+        Encrypt drives to protect data
+        Enable centralized logging (logging service, CIS log server)
+        Protect network access to the OS (e.g. bastion host)
+        Add a NAT server as well (access only through the right services)
+        In cloud deployments:
+            Encryption, logging and MFA available out-of-the-box
+            Pre-hardened OS images available
+            Security groups allow to restrict network access
+
+        Container hardenig
+        Keep images clean (1/5)
+            To have the best images available: the latest and most secure
             Use only minimized and trusted parent images
             Unistall any unnecessary sw at build time
             Run a single, stateless process per container
-            Remove SUID and SGID bits to executables that are often abused to
-                scalate privileges
+            Remove SUID (chmod 4xxx file) and SGID bits (chmod 2xxx dir|file)
+                to executables that are often abused to scalate privileges
+                Check Sticky Bit also (chmod 1xxx directory)
             Use multi-stage builds to separate untidy build phases from the
                 final image build phase. Make sure that they are remove before.
                 Untidy means that it isn't a standard process in our environment
@@ -928,17 +935,311 @@ Installation and deployment
                 predictability of the containers being build
             Avoid using parent images with the latest tag
             Do not upgrade the system's packages at build time
+        Use a Non Root User (2/5)
+            Use a non-root user by dropping the privileges using the user
+            command in the Dockerfile
+        Protect build-time secrets (3/5)
+            Do not store secrets in Dockerfiles or app code
+            Do not pass secrets as env variables at build time
+            Use an IAM solution, Kubernetes Secrets or external vaults.
+            Sensitive material can be passed at build time (docker>=18.09)
+                Use the --secret argument
+        Do not ADD resources (4/5)
+            Avoid using ADD in Dockerfile to copy files that, unlike COPY, can
+            fetch remote resources via URL.
+        Use Docker Content Trust (5/5)
+            Docker does not verify the integrity of images in the registry
+            Content Trust supports digital signing and authentication of images
+            Consider enabling Content Trust in Docker build pipeline
+
+        Docker Runtime Hardening
+        Use the fine-grained capabilities (1/10)
+            Drop all non-essential capabilities, only enable those required.
+        Avoid privileged containers (2/10)
+            It runs with all the isolation techniques disabled
+        Do not share the host network (3/10)
+            Do not run containers with "host" network mode
+        Do not share the host PID namespace (4/10)
+            Do not run containers with "host" PID mode
+        Bind container ports to a specific host interface (5/10)
+            Bind to a specific network interfase instead of all interfaces
+        Stop linking containers (6/10)
+            Do not use linking (deprecated) to facilitate communications
+        No critical host files mounted on containers (7/10)
+            Mount the host's files and dirs avoiding exposing sensitive
+            resources of the host
+        Protect runtime secrets (8/10)
+            Use Docker secrets to manage sensitive data in your containers
+        Consider applying SELinus policies (9/10)
+            Security-Enhanced Linux allows the use of Mandatory Access Controls
+            (MAC) on system resources
+        Consider applying AppArmor policies (10/10)
+            To restrict the capabilities of individual running processes
+            by applying security profiles
+        Cloud deployments
+            Clouds expose metadata services to instances typically via
+            REST APIs then ensure network policies restrict the containers
+            access to the API metadata
+
+        Kubernetes Hardening
+        Know your cluster (1/7)
+            Maintain an asset inventory
+            Determine importance and risk level of your assets
+            Continuously scan for vulnerabilities as part of the CI/CD pipeline
+        Supply chains (2/7)
+            Public image registries and software repos pose security risk
+            Use private image registries to reduce the risk from third-parties
+        Network segmentation (3/7)
+            Model is flat, no segmentation in place
+            Pods can communicate with each other, so use a network plugin to
+            enforce network policies and configure groups of pods to communicate
+        Review default configuration (4/7)
+            Default settings often favor simplicity over security
+            Use latest version of kubernetes from cloud platforms
+        Protect your nodes (5/7)
+            Least privilege principle to grant access rights to the node
+        Set boundaries (6/7)
+            Create namespaces to leverage logical separation of resources
+            use Kubernetes Auth Plugins to define access control rules for 
+            specific namespace, containers and operations.
+        Restrict access to cloud metadata (7/7)
+            Clouds expose metadata services to instances then ensure network
+            policies restrict pod access to the API metadata
+            Avoid using provisioning data to deliver secrets.
+        
     Environment configuration
-    
+        Use an instalation checklist:
+            Do not include secrets in config files in cleartext
+            Disable directories listing of the web server
+            Remove default accounts
+            Configure admin interface removing default config settings
+            Remove unneeded services
+            Ensure third-party software dependencies are patched
+            Disable tracing/debugging which can give knowledge about the system
+
     Release management
+        Ensure a built for "release" rather than "debug", so no debug code/info
+        Maintain a formal and structured approach to documenting and maintaining
+            software configuration information
+        Use a configuration Management Database (CMDB) for all assets in the org
+        ISO/IEC 15408 (common criteria) requires that implementation, documentation
+            testing, tools including build tools to be maintained in a configuration
+            management system (CMS)
+
+
+Operations and Maintenance
+    Monitor and maintenance
+        Routine updates, addressing patch issues, chech security settings
+    Keep sesilience leveles abode acceptable risk levels
+
+Operations security includes:
+
+    Security monitoring
+        Ensure that the confidentiality, integrity and availability are not compromised
+        Detect external threats and malicious insiders
+        Verity that all security controls are in place an working as intended
+        Ensure compliance with regulations, governance requirements and other factors
+        Provide evidence for audits and assist in forensics investigations
+        Identify new threats
+        Logging should be centralized and combine:
+            Operating System logs
+            Continaer/Orchestration logs
+            Database logs
+            Application logs, record security events as:
+                Failed logins and brute forcing attempts
+                Attempts to access administrative fuctionality (vertical auth bypass)
+                Attempts to access data of another user (horizontal auth bypass)
+                Attemps of logic bypassess
+                Attemps of exploiting race conditions
+
+    Incident management
+        When we have a breach, incident or an outage
+        Restore service and operations as quickly as possible
+        Triage to validate whether an incident as occurred or not
+        Report inmediately upon the detection: technical, non-technical
+        Not everyone should have access to the incident/information:
+            Principle of least privilege
+            Need-to-know (NTK)
+        NIST's Security Incident Handling Guide
+            Preparation
+            Detection and analysis
+            Containment, eradication and recovery
+            Post-incident Analysis
+        Root cause analysis
+            Identify the underlying cuses of an incident so that the most
+                effective solutions can be identified and implemented
+            When a fix is ready, a change request should be filed for roll-out
+            Monitor how the solution is performing over time
+        Change Management
+            Strategies for facilitating changes
+            Processes and playbooks for updates and support channels
+            Untracked changes might cause unrecognized issues
+            Review for impact on the overall security
+            Update the software inventory with the new info
+            Sign off the change request by appropriate authorities
+
+
+    Patch management
+        Keep software updated to eliminate security vulnerabilites
+        Inventory apps, containers, servers, databases
+        Set up updates following vendor-specified patch cycles
+        Determine change management approvals
+        Inventory and use a software to scan and update instalations
+            Operating Systems
+            Applications: commercial and open source
+            Containers
+            Third-Party dependencies
+
+    Vulnerability management
+        Address risks proactively
+            Technical weaknesses: vulnerabilites, patches, advisories
+            Configuration weaknesses: best practice guides, setting templates
+        Align by internal security policies
+        Consider regulatory environments and external standards
+        Steps:
+        1) Identification: 
+            Identify and validate exposure and aaffected components
+        2) Analysis:
+            Calculate risk ratings considering existing controls
+                Consider importance of the affected software
+                Consider the likelihood of exploitation
+                Consider the impact of exploiting the software
+                    Tangible and intangible assets
+                Consider existing compensationg controls
+                Consider risk appetite of the organization
+        3) Response planning:
+            Sets timelines for remediation based on risk
+        4) Vulnerability control:
+            Monitor implementation, efficacy and enforce remediation timeframe
+
+    Backup, recovery and archiving
+        Availability of data to ensure business continuity
+        Backups:
+            Perform automated backups with transactional logs
+            Should be encripted, with retention period and replicated
+                to other geographies for redundancy
+        Recovery:
+            Create and test data recovery plan
+            Ensure access to backups and recovery is controlled
+        Archiving:
+            Data stored for long terms (> 1 year), for emergency recovery
+                or compliance purposes.
+            Ensure integrity using hashing and key management
+            Set retention period
+            Follow a lifecycle and classifications
+                Store on the cloud or on premise
+                Prevent early deletion
+                Secure encryption keys
+                Determine cost and ensure proper budget (e.g. cold storage)
+
+    Software disposal (decommissioning)
+        When software reaches its end of life:
+            Establish End-Of-Live (EOL) policies
+            Notify users/customers about EOF, upgrade options and support
+                duration, until EOF or beyond that
+            Ensure system migration is completed to new system (if applicable)
+            Handle info disposal and media sanitization
+            Update asset inventory databases
+        Media sanitization
+            Method used depends on the confidentiality level of the data
+            NIST's special publication 800-88
+            True media sanitation may not be possible in commercial clouds
+            Purging: degaussing, a reverse magnetic fields
+            Clearing: overwriting existing data with random data
+            Destroying: physically destroying the media: disintegration,
+                pulverization melting, incineration, shredding
 
 
 
+********************************************************************************
+                    8 - Supply chain and software acquisition
+********************************************************************************
+
+    Acquisition Lifecycle:
+        Review and analyze third party software in detail
+        1) Initial risk assessment
+        2) Contract negotiation
+        3) Testing
+        4) Acceptance: criteria, verification, validation, purchase order
+        5) Delivery: securely transfer protecting its integrity
+        6) Deployment: install and configure, validation
+        7) Operations & maintenance: 
+            Establish change configuration
+            Define access controls configuration for maintenance and support
+        8) Disposal:
+            Securely decommission: cut off access, uninstall, remove libraries,
+                remove code affiliated, turn of CRO jobs,descriptions and integrations
+            Terminate access privileges
+            Dispose/archive data
+
+    Supplier risk assessment and management
+        Type of relationships: Subcontacting, staff augmentation, sw license
+        Consider:
+            Financial history of the company
+            Potential conflict of interests
+            Presence on sactioned lists
+            Compliance with security, regulatory and privacy requirements
+            Review certifications and patents
+            Review of secure SDLC processess
+            Security track record for past vulnerabilites and incidents
+            Review of service level agreements
+            Experience and training for supplier staff
+
+    Contractual controls
+        A contract should always be in place when:
+            evaluationg, developing or acquiring software
+        Applicable law, security controls, Data protection controls, privacy
+            rights, SLAs and compensation, Acceptance criteria & warranties,
+            right to audit security controls (e.g. pentest, code review, etc.),
+            intellectual property warranties and controls, ongoing support and
+            maintenance for bugs/upgrades, metrics.
+
+    Intelectual property
+        Patents: rights to the owner of an invention
+        Copyright: owner rights over the implementation of the invention
+        Trade secret: non-public business info that provides an advantage
+        Trademark: owner of a distinctive sign exclusive rights to use them
+        Licensing: manages use and distribution of software
+        License types: closed source, open source
+
+    Service Level Agreements (SLAs)
+        Contract between a service provider an the customer
+        Should be the baseline for setting defined targets and KPIs
+        Use SMART approach: specific, measurable, agreeable, realistic, time specific
+        Common KPIs: Availability, Utilization, Resource allocation, response time
+
+    Chain of custody
+        Controlled moves from one supplier to another, each handoff requires:
+            to be authorized, transparent and verifiable
+        Secure transfer: encripted, secure protocols
+        Code escrows: code of the source code is kept by an escrow agency.
+
+    Audit of security compliance
+        Conducted by a certified security auditor from an independent third-party vendor
+        Phases: objectives, plan, perform audit, report, take necessary actions
+        Types: vulnerability assessment, code review, penetration test,
+            configuration & deployment review, policy & certification review.
+
+    Maintenance and support
+        Annual cost for upgrades and support of the software
+        Depends on: licensing model, quantity, contract length
+        Usually includes:
+            Secure installation and configuration
+            Continuous monitoring for incidents
+            Software upgrades, patches and bug updates
+            Phone/web/chat/email support for end users
+            Account manager
+            Incident management
+
+    Sustainment controls
 
 
 
-
-
+********************************************************************************
+                    Endava Security Champion - Yellow Belt
+********************************************************************************
+        
+https://confluence.endava.com/display/public/TEAM/S-SDLC+Engagement+Model
 
 
 
