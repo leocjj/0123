@@ -449,3 +449,65 @@ OWASP Testing Guide: Testing for XML Injection
 
 OWASP - XML External Entity (XXE) Processing
 OWASP - XML External Entity Prevention Cheat Sheet
+
+
+
+********************************************************************************
+                        Unrestricted File Upload
+********************************************************************************
+
+// Upload file (payload) to the server
+    POST /upload.php ? malicious.php
+// malicious[.]php
+    system($_GET['cmd']);
+// Execute the file stored in a public folder
+    http://www.vulnerableapp.com/upload_dir/malicious.php?cmd=ls%20-al
+
+Prevention
+    To determine if uploaded content is ever returned to other application users
+    and whether that is due to normal application usage or attack manipulation.
+    Consider:
+        If the application filters file extensions and the MIME type of the uploaded file.
+    If placing executable JavaScript or HTML into the file is possible.
+    If the header information is returned after the contents of a file are downloaded.
+    If the storage location for uploaded content is escapable with a crafted filename.
+
+    Steps toward a more robust upload code architecture, consider:
+        Developers must use an allow list, enforcing acceptance of only listed, non-executable file extensions.
+        Developers should ensure file names do not contain directory traversal characters such as ../ that are used to place files outside of designated directory locations.
+        Developers should alter permissions on the upload folder to ensure the files can't be executed.
+        Uploads must not be placed in directories that are accessible from the web.
+        Developers should ensure that if uploaded files are downloaded by users, they contain X-Content-Type-options: nosniff header and a Content-Disposition header that commands browsers to handle files as an attachment.
+        Uploaded files should be subject to immediate virus scanning.
+        Developers must enforce size limits on uploaded files and reject archive formats (like ZIP) from being uploaded at all.
+
+Testing
+    Verify that user-uploaded files are stored in designated directories outside
+    of the web root. If they must be displayed or downloaded from the applicationm,
+    ensure they are served by either octet-stream downloads or from an unrelated domain.
+
+OWASP ASVS: 1.12
+OWASP Testing Guide: Test Upload of Unexpected File Types, Test Upload of Malicious Files
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
