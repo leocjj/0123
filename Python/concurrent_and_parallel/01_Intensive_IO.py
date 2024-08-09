@@ -7,6 +7,7 @@ General results:
         Process Pool Executor calling a function: 12.6
         Thread Pool Executor calling a function: 7.2
 """
+
 from time import monotonic
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 import urllib.request
@@ -28,7 +29,6 @@ URLS = [
     "https://www.stanford.edu/",
     "https://home.www.upenn.edu/",
     "https://duke.edu/",
-    "https://www.columbia.edu/",
     "https://www.cornell.edu/",
     "https://www.northwestern.edu/",
     "https://www.rice.edu/",
@@ -42,8 +42,10 @@ URLS = [
     "https://www.georgetown.edu/",
 ]
 
+
 # Retrieve a single page and report the URL and contents
 def load_url(url):
+    print(f"Loading {url}")
     with urllib.request.urlopen(url, timeout=60) as conn:
         return conn.read()
 
@@ -51,7 +53,8 @@ def load_url(url):
 def load_one_by_one():
     elapsed = monotonic()
     result1 = {url: load_url(url) for url in URLS}
-    print(f"Dict comprehension spent: {monotonic() - elapsed}")
+    print(f"\nLoading one by one spent: {(monotonic() - elapsed):.2f}\n")
+
 
 def load_with_process_pool():
     elapsed = monotonic()
@@ -59,7 +62,8 @@ def load_with_process_pool():
         result2 = {}
         for url, load in zip(URLS, executor.map(load_url, URLS)):
             result2[url] = load
-    print(f"Process Pool Executor spent: {monotonic() - elapsed}")
+    print(f"\nProcess Pool Executor spent: {(monotonic() - elapsed):.2f}\n")
+
 
 def load_with_thread_pool():
     elapsed = monotonic()
@@ -73,7 +77,7 @@ def load_with_thread_pool():
                 result3[url] = future.result()
             except Exception as exc:
                 print(f"{url} generated an exception: {exc}")
-    print(f"Thread Pool Executor spent: {monotonic() - elapsed}")
+    print(f"\nThread Pool Executor spent: {(monotonic() - elapsed):.2f}\n")
 
 
 if __name__ == "__main__":
@@ -81,3 +85,5 @@ if __name__ == "__main__":
     load_one_by_one()
     load_with_process_pool()
     load_with_thread_pool()
+    print("Done!")
+    input("Press Enter to finish...")
