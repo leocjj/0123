@@ -1,0 +1,151 @@
+
+Python Intallation
+    CPython     # https://www.python.org/downloads/
+    Pypy        # https://www.pypy.org/download.html
+    Windows     # https://apps.microsoft.com/store/search/python
+    miniconda   # https://docs.conda.io/en/latest/miniconda.html
+    miniforge   # https://github.com/conda-forge/miniforge
+    WSL         # https://apps.microsoft.com/store/search/wsl
+    Docker      # https://hub.docker.com/_/python
+                # https://hub.docker.com/r/continuumio/miniconda3
+
+Package manager / dependency management
+    https://packaging.python.org/en/latest/guides/tool-recommendations/
+    pip         # https://pypi.org/project/pip/
+                # Install from https://pypi.python.org/
+                # Governed by https://www.pypa.io/
+    To generate the fully-specified application-specific dependencies,
+      when developing Python applications.
+      pip freeze > requirements.txt | pip install --no-deps -r requirements.txt
+      pip-tools # https://pypi.org/project/pip-tools/
+      pip2conda # https://pypi.org/project/pip2conda/
+
+Environment manager
+    https://stackoverflow.com/questions/41573587/
+        what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe
+    venv        # https://docs.python.org/3/library/venv.html
+    virtualenv  # https://pypi.org/project/virtualenv/
+    Docker      # https://hub.docker.com/_/python
+
+Package manager & dependency management & Environment manager
+    conda       # https://docs.conda.io/en/latest/miniconda.html
+    mamba       # https://mamba.readthedocs.io/en/latest/installation.html
+    pipenv      # https://pypi.org/project/pipenv/
+    poetry      # https://python-poetry.org/docs/
+    pdm         # https://pdm-project.org/en/latest/
+    uv          # https://github.com/astral-sh/uv
+
+Faster Python
+    Pypy        # A fast Python, https://www.pypy.org/
+    mypyc       # Python compiler, https://mypyc.readthedocs.io/en/latest/
+                # https://www.mypy-lang.org/
+    Nuitka      # Python compiler, https://nuitka.net/index.html
+    Cython
+    Numba
+    Mojo
+
+Python must-have
+    Ruff        # Linter
+                # https://pypi.org/project/ruff/
+                # pip install ruff
+                # conda install -c conda-forge ruff
+    Black       # Code Formatter
+                # https://pypi.org/project/black/
+                # pip install black
+                # conda install -c conda-forge black
+    mypy        # Type checker
+                # https://pypi.org/project/mypy/
+                # python3 -m pip install -U mypy
+                # conda install -c conda-forge mypy
+                # Has mypyc to compile Python code.
+
+New must-have
+    GUI, Web apps, Local Apps, Create installer
+    https://nicegui.io/
+
+
+Environments and Package Managers
+    https://packaging.python.org/en/latest/key_projects/
+*   https://packaging.python.org/en/latest/
+*   https://pypi.org/project/pipenv/
+*   https://docs.conda.io/en/latest/miniconda.html
+*   https://mamba.readthedocs.io/en/latest/installation.html
+
+•	https://docs.python.org/3/library/venv.html
+•	https://python-poetry.org/docs/
+•	https://github.com/pdm-project/pdm
+•	https://github.com/astral-sh/uv
+*   https://github.com/pypa/hatch
+
+Python executable
+*   pyInstaller - Cross-platform - pyinstaller.readthedocs.io/en/stable/
+*   cx_Freeze - Cross-platform - https://marcelotduarte.github.io/cx_Freeze/
+*   constructor - For command-line installers - https://github.com/conda/constructor
+*   py2exe - Windows only - http://www.py2exe.org/
+*   py2app - Mac only - https://py2app.readthedocs.io/en/latest/
+*   osnap - Windows and Mac - https://github.com/jamesabel/osnap
+*   pynsist - Windows only - https://pypi.org/project/pynsist/
+*   Chef Omnibus - For multi-component server applications
+        https://github.com/chef/omnibus#user-content--omnibus
+
+General:
+•	Numpy (array computing in Python)
+•	Pandas (dataframes and series for data)
+•	pendulum (advanced date and time handling)
+•	Pillow (Image Processing)
+•	Celery (Task Queuing)
+•	Gunicorn (WSGI HTTP Server)
+
+Visualization:
+•	Matplotlib (2D graphs)
+•	Plotly (Interactive Visualization)
+•	Bokeh (interactive charts)
+•	Seaborn (visualization)
+•	Pydot
+
+Documentation:
+•	Mkdocs (for smaller projects)
+•	Sphinx (for larger-scale projects)
+
+Web applications:
+    https://www.bitdoze.com/best-python-web-frameworks/
+•	streamlit (web applications for pilots)
+•	Taipy (The simplest Python app builder)
+•	Dash (Web Applications)
+•	Tornado (Web Development)
+*   nicegui (https://pypi.org/project/nicegui/
+*   https://bottlepy.org/
+*   https://brython.info/
+*   https://flexx.readthedocs.io/en/latest/
+
+Math and ML:
+•	scipy (mathematical computing)
+•	SymPy (Symbolic Mathematics)
+•	scikit-learn (data an Machine Learning)
+•	statsmodels
+•	Theano
+
+Games:
+•	Pygame (2D video games)
+•	Arcade (2D video games)
+
+Distributed Computing:
+•	Dask (dealing with large datasets)
+•	PySpark (Python API for Apache Spark)
+•	Polars (handle and process large datasets)
+
+Web scraping:
+•	Scrapy (web scraping)
+•	BeautifulSoup (pulling data out of XML and HTML)
+
+Visual cross platform applications:
+Web browsers and mobile applications:
+•	pyglet (games and other visually rich applications)
+•	kivy (App Development Framework)
+•	nicegui (https://pypi.org/project/nicegui/
+*   https://beeware.org/
+
+Utilities:
+*   https://boltons.readthedocs.io/en/latest/index.html
+
+
