@@ -10,10 +10,60 @@ General results:
 """
 
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
-from time import monotonic, process_time
+from time import monotonic
 from math import floor, sqrt
 
 PRIMES = [
+    112272535095293,
+    112582705942171,
+    112272535095293,
+    115280095190773,
+    115797848077099,
+    1099726899285419,
+    112272535095293,
+    112582705942171,
+    112272535095293,
+    115280095190773,
+    115797848077099,
+    1099726899285419,
+    112272535095293,
+    112582705942171,
+    112272535095293,
+    115280095190773,
+    115797848077099,
+    1099726899285419,
+    112272535095293,
+    112582705942171,
+    112272535095293,
+    115280095190773,
+    115797848077099,
+    1099726899285419,
+    112272535095293,
+    112582705942171,
+    112272535095293,
+    115280095190773,
+    115797848077099,
+    1099726899285419,
+    112272535095293,
+    112582705942171,
+    112272535095293,
+    115280095190773,
+    115797848077099,
+    1099726899285419,
+    112272535095293,
+    112582705942171,
+    112272535095293,
+    115280095190773,
+    115797848077099,
+    1099726899285419,
+    112272535095293,
+    112582705942171,
+    112272535095293,
+    115280095190773,
+    115797848077099,
+    1099726899285419,
+    115797848077099,
+    1099726899285419,
     112272535095293,
     112582705942171,
     112272535095293,
@@ -88,27 +138,31 @@ def calculate_one_by_one():
         result.append(is_prime(prime))
     print(f"for loop spent: {monotonic() - elapsed}")
 
+
 def calculate_with_list_comprehension():
     elapsed = monotonic()
     result = [is_prime(prime) for prime in PRIMES]
     print(f"List comprehension spent: {monotonic() - elapsed}")
+
 
 def calculate_with_list_map():
     elapsed = monotonic()
     result = list(map(is_prime, PRIMES))
     print(f"list map spent: {monotonic() - elapsed}")
 
-def calculate_with_process_pool():
+
+def calculate_with_process_pool(workers):
     elapsed = monotonic()
-    with ProcessPoolExecutor() as executor:
+    with ProcessPoolExecutor(max_workers=workers) as executor:
         result = []
         for number, prime in zip(PRIMES, executor.map(is_prime, PRIMES)):
             result.append(prime)
     print(f"Process Pool Executor spent: {monotonic() - elapsed}")
 
-def calculate_with_thread_pool():
+
+def calculate_with_thread_pool(workers):
     elapsed = monotonic()
-    with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor(max_workers=workers) as executor:
         future_if_prime = {executor.submit(is_prime, prime): prime for prime in PRIMES}
         result = []
         for future in as_completed(future_if_prime):
@@ -125,5 +179,7 @@ if __name__ == "__main__":
     calculate_one_by_one()
     calculate_with_list_comprehension()
     calculate_with_list_map()
-    calculate_with_process_pool()
-    calculate_with_thread_pool()
+    for workers in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]:
+        print(f"Workers: {workers}")
+        calculate_with_thread_pool(workers)
+        calculate_with_process_pool(workers)
