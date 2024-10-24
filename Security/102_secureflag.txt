@@ -9,11 +9,14 @@ https://www.secureflag.com/
 
 With Python, if you are using MySQL or PostgreSQL, use %s (even for numbers and
 other non-string values!) and if you are using SQLite use ?.
+
 If you are using ODBC to connect to the DB, regardless of which DB it is, use ?.
     (https://bobby-tables.com/python)
+
 Vulnerable:
     cursor.execute("SELECT * FROM users WHERE username = '%s' AND
         password = '%s'" % (username, password))
+
 Parameterized query
     PyMySQL, MySQL-python, MySQL connector, PyGreSQL, Psycopg, pymssql
     cursor.execute("SELECT * FROM users WHERE username = %s AND
@@ -27,6 +30,37 @@ Parameterized query
         password = ?", (username, password))
 
 
+
+********************************************************************************
+            Authentication Bypass via SQL Injection in Login Form
+********************************************************************************
+
+User name input:    administrator'--
+Password input:     any
+    SELECT * FROM users WHERE username = 'administrator'--' AND password = '
+
+User name input:    user@vulnerable.com
+Password input:     ') OR 1=1;--
+    $db->findOne("select * from USER where EMAIL='$email' and 
+        PASSWORD=md5('$password')");
+
+Prevention
+    + Use parameterized queries, specifying placeholders for parameters 
+        so that they are not considered as a part of the SQL command;
+        rather, as solely data by the database.
+    + With legacy systems, escape inputs before adding them to the query
+    + Use Object Relational Mappers (ORMs)
+    + Untrusted data needs to be validated
+    + Query concatenation should be avoided unless absolutely necessary
+    + Minimize unnecessary SQL account privileges
+
+Testing
+    Verify that where parameterized or safer mechanisms are not present,
+    context-specific output encoding is used to protect against injection
+    attacks, such as the use of SQL escaping to protect against SQL Injection.
+
+OWASP ASVS: 5.3.5
+OWASP Testing Guide: Testing for SQL Injection
 
 ********************************************************************************
                         XSS - Cross-Site scripting
