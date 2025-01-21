@@ -61,7 +61,7 @@ Python must-have
 
 New must-have
     GUI, Web apps, Local Apps, Create installer
-    https://nicegui.io/
+        https://nicegui.io/
 
 
 Environments and Package Managers
