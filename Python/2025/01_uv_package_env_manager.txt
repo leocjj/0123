@@ -1,0 +1,104 @@
+
+https://docs.astral.sh/uv/getting-started/installation/
+https://docs.astral.sh/uv/reference/cli/
+
+https://github.com/astral-sh/uv
+
+
+0. Installing uv
+    # On macOS and Linux
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    # On Windows
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+    # With pip
+    pip install uv
+
+    # Update uv
+    uv self update
+
+
+1. Create a new Python project
+
+    mkdir <project_dir>
+    cd <project_dir>
+    uv init
+
+    uv init <project_dir>
+    cd <project_dir>
+
+    # In case a different python version is needed
+    uv init <project_dir> --python 3.12
+    cd <project_dir>
+
+2. Create the environment
+
+    # It's created automatically when a Python file is executed.
+    # Doesn't need to be activated or deactivated, uv use a local .venv folder
+    uv run .\hello.py
+
+
+3. Working with dependencies
+
+    # To add a new dependency (version number is optional, install the latest)
+    uv add fastapi
+
+    # To add a new dependency, upgrade, or downgrade to a specific version
+    # Operators: ~= == != <= >= < > ===
+    uv add fastapi=='0.115'
+
+    # To export the project's lockfile to a requirements.txt file
+    uv export --format requirements-txt > requirements.txt
+    
+    # To add dependencies from a requirements.txt file to the actual project
+    uv add -r requirements.txt
+
+    # To remove a dependency (and its internal dependencies)
+    uv remove fastapi
+
+    # To view the dependency tree for the project
+    uv tree
+    
+    # A simple update for a dependency to latest compatible version
+    uv remove fastapi
+    uv add fastapi
+
+
+4. Installing and managing Python itself
+
+    # When a new project is created, uv install and assign the latest version
+    # of CPython available. If a different version is needed, install it with:
+    uv python install 3.11 3.12 pypy@3.10
+
+    # View available Python versions to use
+    uv python list
+
+    # Execution using a different Python version
+    uv run --python 3.12 -- python
+    uv run --python 3.13 <file.py>
+    uv run --python pypy@3.10 <file.py>
+
+
+5. Other options
+
+    # uv use pyproject.toml file to specify the main dependencies of the project,
+    # and the uv.lock file to specify all dependencies with hashes to create a
+    # reproducible environment always.
+
+    # The pyproject.toml file can be modified to remove dependency restrictions
+    # and attempt to update the package to the latest compatible version.
+    uv lock --upgrade-package fastapi
+
+    # Sync the project's dependencies with the environment.
+    # For example, when cloning a project we need to sync the environment.
+    uv sync
+
+    # Create a lockfile for the project's dependencies.
+    uv lock
+
+    # Build the project into distribution archives.
+    uv build
+    
+    # Publish the project to a package index.
+    uv publish
