@@ -1,0 +1,166 @@
+
+Install this:
+https://www.psycopg.org/docs/install.html
+
+And then use it:
+https://www.psycopg.org/docs/usage.html
+
+A tutorias if you need to:
+https://www.postgresqltutorial.com/postgresql-python/connect/
+
+Syntax with psycopg2
+conn = psycopg2.connect(
+    host="localhost",
+    database="suppliers",
+    user="postgres",
+    password="Abcd1234")
+
+Manual syntax to connect using console and psql command:
+psql postgresql://<user>:<password>@<host>:<port>/<dbname>
+psql postgresql://analytics_dev:XbNVYYUH@128.22.22.22:5432/analytics
+
+I you're using Windows I recommend you to
+use WSL2, install Postgres there and connect your IDE with WSL2.
+
+And other additional detailed notes.
+
+
+*******************************************************************************
+                            WSL on Windows 10
+*******************************************************************************
+https://dev.to/paddymorgan84/getting-started-with-wsl-2-ja
+
+    https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps
+
+Follow these steps to install node js on WSL
+    https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl
+
+Connect VS Code con WSL
+    WSL running as a remote server and VS Code running locally connects to WSL.
+    https://code.visualstudio.com/docs/remote/wsl#_getting-started
+
+In VS Code
+    Click on icon in left buttom corner
+    Select Remote-WLS / Open folder in WSL
+    Select folder \\wsl$\Ubuntu-18.04\home\
+
+To access WLS files from Windows
+    > wsl --list --runnin       // In PowerSherll
+    > cd \\wsl$\<DistributionName>
+    or put path this in File Explorer.
+
+To access Windows files from WLS
+    $ cd /mnt/c                 // Use quotes for windows names with spaces.
+
+
+
+*******************************************************************************
+                            PostgreSQL
+*******************************************************************************
+https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-database
+https://www.postgresql.org/download/linux/ubuntu/
+
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+psql --version
+Success. You can now start the database server using:
+    /usr/lib/postgresql/10/bin/pg_ctl -D /var/lib/postgresql/10/main -l logfile start
+
+sudo service postgresql         # list of commands.
+sudo service postgresql status  # checking the status of DB.
+sudo service postgresql start   # to start running DB.
+sudo service postgresql stop    # to stop running DB.
+
+default admin user, postgres, set a password:
+    sudo passwd postgres
+    Close and reopen your terminal.
+
+If password does not work, change it
+    https://stackoverflow.com/questions/12720967/
+    postgresql-how-to-change-postgresql-user-password/12721095#12721095
+        # sudo -u user_name psql db_name      # login without a password
+        sudo -u postgres psql
+        # ALTER USER user_name WITH PASSWORD 'new_password';
+        ALTER USER postgres WITH PASSWORD 'new_password';
+        [ALTER USER myuser RENAME TO newname;]
+
+
+Execute a command from terminal
+    su - postgres               # If the actual user is NOT created in DB
+    psql -c "\du"
+
+Using psql shell
+    sudo service postgresql start
+    sudo -u postgres psql
+    # exit with \q or ctrl + D
+
+Using pgadmin in windows with psql un WSL Ubuntu
+    https://stackoverflow.com/questions/45707319/
+    pgadmin-on-windows-10-with-postgres-when-installed-via-bash-on-ubuntu-on-windows
+    Open WSL / start postgres
+    Install pgadmin in windows https://www.pgadmin.org/download/
+    
+    Launch pgAdmin / Add New Server link.
+    Create - Server window:
+        General tab - Name: localhost
+        Connection tab - Host name/address: localhost
+        Set Password to ¿postgres?, which is the default
+        Click on Save password?
+        Save the setting
+        # if localhost does not work, chage it by 127.0.0.1
+        # if password does not work, change it
+        https://stackoverflow.com/questions/12720967/
+        postgresql-how-to-change-postgresql-user-password/12721095#12721095
+            # sudo -u user_name psql db_name      # login without a password
+            sudo -u postgres psql
+            # ALTER USER user_name WITH PASSWORD 'new_password';
+            ALTER USER postgress WITH PASSWORD 'new_password';
+            [ALTER USER myuser RENAME TO newname;]
+        Try again connection in Create - Server window
+    
+
+Commands
+    https://www.postgresql.org/docs/13/tutorial-createdb.html
+    \du             # List of users accounts
+    $ su - postgres # Change to super user [or other valid DB user]
+    $ createdb mydb
+    $ dropdb mydb
+    $ psql --help=commands
+    $ psql -l       # List databases
+    $ psql mydb     # Start using mydb. -s option puts you in single step mode.
+    mydb=> \<cmd>   # \dt           List of tables
+                    # \d            List of relations (tables + seqs)
+                    # \d <table>    Table description (cols, types,...)
+                    # \?            shows all backslash commands.
+                    # \l            List of databases.
+                    # \c[onnect] {[DBNAME|- USER|- HOST|- PORT|-] | conninfo}
+    mydb=> SELECT version();
+    mydb=> SELECT current_date;
+    mydb=> \i basics.sql
+
+    show max_connections;
+    # In AWS RDS Postgres max connections: 6 to 8388607
+    # Default value: LEAST({DBInstanceClassMemory/9531392}, 5000)
+
+    \pset expanded auto/false     # Vertical (Nice) view.
+    \pset null '(NULL)'           # Show null explicit
+
+    \conninfo                       # information about current connection from the psql command prompt
+        SELECT current_user;        # https://www.postgresql.org/docs/12/functions-info.html
+    \c - a_new_user                 # To change user
+    \c a_new_database a_new_user
+
+    \dp [table_name]    # Check tables privileges
+    SELECT table_catalog, table_schema, table_name, privilege_type FROM information_schema.table_privileges WHERE  grantee = 'user_name';
+
+
+pg_dump dbname > dumpfile   # -n schema or -t table -h host and -p port
+                            # -U option or set the environment variable PGUSER. 
+psql dbname < dumpfile      # --set ON_ERROR_STOP=on
+                            # -1 or --single-transaction
+pg_dump -h host1 dbname | psql -h host2 dbname
+
+pg_dumpall backs up each database in a given cluster,
+    and also preserves cluster-wide data such as role and tablespace definition 
+pg_dumpall > dumpfile
+psql -f dumpfile postgres
