@@ -1,0 +1,40 @@
+
+https://www.vmware.com/products/desktop-hypervisor.html
+https://www.virtualbox.org/wiki/Downloads
+
+https://www.kali.org/get-kali/#kali-virtual-machines
+download vmware virtual machine zip file
+unzip the file
+default credentials "kali/kali".
+
+Open VMWare
+    Open a virtual machine
+    Select the unziped folder
+    Edit virtual machine settings
+        Network adapter:
+            Bridged + Replicate physical network connection state
+    Power on this virtual machine
+    ctrl + alt: show mouse cursor
+
+In kali vm:
+    sudo apt update
+    sudo apt full-upgrade
+
+
+
+
+https://www.youtube.com/watch?v=HffP_bPGyvY&list=PLDDlXGEVHjAHTgUgaknJ5Bb_XOYLvpkDt&index=6
+
+https://www.youtube.com/watch?v=mHLwfI1nHHY
+
+
+
+
+
+
+
+
+
+
+
+
