@@ -2,8 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-# rather than importing the whole sklearn library,
-we will import certain modules
+# rather than importing the whole sklearn library, we will import certain modules
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.datasets import load_boston
