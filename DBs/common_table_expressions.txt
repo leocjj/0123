@@ -1,0 +1,178 @@
+----------------------------------------
+--numeros del 1 al 10
+----------------------------------------
+with recursive conteo(n) as 
+(
+  select 1
+  union all
+  select n+1
+  from conteo
+  where n<=10
+)
+select * from conteo
+;
+ 
+ 
+----------------------------------------
+--factorial
+----------------------------------------
+with recursive factorial(fact,conteo) AS
+(
+  select 1 as fact, 3 as conteo
+  union all
+  select 
+  	fact*conteo,
+  	conteo -1
+  from factorial
+  where conteo > 1
+)
+select fact from factorial
+where conteo = 1 or conteo= 0
+;
+ 
+----------------------------------------
+--fibonacci
+----------------------------------------
+with recursive fibonacci(number1, number2) as (
+  select
+  	0 as number1,
+  	1 as number2
+  union all
+  select 
+  	number2 as number1,
+  	number1 + number2 as number2
+  from fibonacci
+  where number1 <= 20
+)
+select number1 from fibonacci
+;
+ 
+----------------------------------------
+---date dimension
+----------------------------------------
+ 
+WITH RECURSIVE start_dt AS (
+    select '2024-01-01'::date s_dt
+),
+end_dt AS (
+    select '2025-01-01'::date e_dt
+),
+dates (dt) AS (
+	select	
+		s_dt dt
+    from start_dt
+	UNION ALL
+	select date_add(dt, '1 day')::date dt
+    from dates
+	WHERE dt < (select e_dt from end_dt)
+)
+select
+*
+from dates    
+ 
+;
+----------------------------------------
+---niveles
+----------------------------------------
+https://docs.aws.amazon.com/redshift/latest/dg/r_WITH_clause.html
+ 
+ 
+https://www.gennick.com/outside-the-box/understanding-the-with-clause/
+ 
+https://www.postgresql.org/docs/9.1/queries-with.html
+ 
+https://stackoverflow.com/questions/18659992/how-to-select-using-with-recursive-clause
+ 
+ 
+https://sqliteonline.com/
+----------------------------------------
+create table jerarquia
+(
+	id int,
+	parent_id int,
+	name varchar(100)
+)
+;
+ 
+insert into jerarquia values (1,null,'item 1');
+insert into jerarquia values (2,1,'subitem 1.1');
+insert into jerarquia values (3,1,'subitem 1.2');
+insert into jerarquia values (4,1,'subitem 1.3');
+insert into jerarquia values (5,3,'subsubitem 1.2.1');
+insert into jerarquia values (6,null,'item 2');
+insert into jerarquia values (7,6,'subitem 2.1');
+insert into jerarquia values (8,null,'item 3');
+ 
+select * from jerarquia
+order by id
+;
+ 
+WITH RECURSIVE fulltree(id,parent_id,level,name,path) AS (
+    SELECT id, parent_id, 1 as level, name, name||'' as path from jerarquia where parent_id is null
+UNION ALL
+    SELECT t.id, t.parent_id, ft.level+1 as level, t.name, ft.path||' / '||t.name as path
+    from fulltree ft 
+    inner join jerarquia t
+  	on t.parent_id = ft.id
+)
+SELECT * from fulltree order by path
+ 
+;
+ 
+----------------------------------------
+------ip ranges
+----------------------------------------
+create table ip_test(
+ip_ini varchar(50),
+ip_end varchar(50),
+ip_ini_int bigint,
+ip_end_int bigint
+)
+;
+ 
+insert into ip_test
+values ('12.32.24.01','12.45.255.254',203429889,204341246)
+;
+ 
+WITH RECURSIVE ip_ranges(ip_ini,ip_end,ip_ini_int,ip_end_int,current_start,current_end) AS (
+    -- first row
+    SELECT 
+        ip_ini,
+        ip_end,
+        ip_ini_int,
+        ip_end_int,
+        ip_ini_int AS current_start,
+        LEAST(
+            ip_end_int,
+            ((ip_ini_int / 65536)*65536)+65535
+        ) AS current_end
+    FROM ip_test
+    UNION ALL
+    -- recursive rows
+    SELECT 
+        ip_ini,
+        ip_end,
+        ip_ini_int,
+        ip_end_int,
+        current_end + 1 AS current_start,
+        LEAST(
+            ip_end_int,
+            (((current_end+1) / 65536)*65536)+65535
+        ) AS current_end
+    FROM ip_ranges
+	WHERE current_end < ip_end_int
+)
+SELECT 
+   ip_ini,
+   ip_end,
+   current_start / 256 / 256 / 256 || '.' ||
+    current_start / 256 / 256 % 256 || '.' ||
+    current_start / 256 % 256 || '.' ||
+    current_start % 256 as new_ip_ini,
+       current_end / 256 / 256 / 256 || '.' ||
+    current_end / 256 / 256 % 256 || '.' ||
+    current_end / 256 % 256 || '.' ||
+    current_end % 256 as new_ip_end
+FROM ip_ranges
+ORDER BY ip_ini, current_start
+;
