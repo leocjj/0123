@@ -1,0 +1,1642 @@
+
+TypeScript
+    https://softwarecrafters.io/demos/intro-reactjs
+
+Mobile screen to PC
+    https://github.com/Genymobile/scrcpy
+
+*******************************************************************************
+                    ReactJS env for DEV with Docker app
+*******************************************************************************
+
+    Install Docker Engine plus Docker Compose or install and open Docker
+        Desktop which includes both.
+        Note: in case you already have Docker, please make sure you 
+            stop all containers and deleted docker images related before.
+    If using Windows:
+        Install Git for Windows.
+        Change the global config to preserve the end-of-lines of files from
+        cloned repositories: https://github.com/LibreTime/libretime/issues/141
+            git config --global core.autocrlf input
+        A workaround for previous step is to clone the repository and then
+            change the end-of-line character for all files using this extension
+            for VS Code:
+            https://marketplace.visualstudio.com/items?itemName=
+            vs-publisher-1448185.keyoti-changeallendoflinesequence
+        Note: any new text files must be created using the ‘LF’ end-of-line character.
+    Configure your SSH key for GitHub and clone the repository you need:
+        git clone git@github.com:leocjj/0123.git 0123
+
+    Open three different consoles (Terminal in Linux, Git Bash in Windows)
+        in the project folder (e.g. mini) and follow these steps:
+
+    1$ cd devel-env/                    # Open the first console to run and keep container running.
+    1$ docker-compose up [-d]           # If -d (detached) is used, you can use 'docker-compose ps' to see what is running.
+    ...                                 # The first time takes several minutes.
+    1$ docker-compose stop              # To stop and remove everything from a container.
+    1$ docker-compose down --volumes
+
+    2$ nano .env.local                  # Open a second console and put environment variables,
+    2$ cd devel-env/                    # (e.g. Firebase credentials) into this file.
+    2$ docker-compose exec react sh     # to start and keep service running.
+      # cd app/
+      # npm install                   # Install all dependencies.
+      # npm start                       # Start server.
+    ...                                 # WAIT for development server to start.
+
+    3$ code .                           # If you have VS Code installed, this will open the repository with it.
+    3$ docker ps                        # To check the container is running and its ID.
+    3$ docker exec -it <CONT_ID> sh     # Open a shell for the continer
+
+    Open http://localhost:3000/
+
+
+Extension for VS Code style: Prettier - Code formatter (esbenp.prettier-vscode)
+Usage:
+    1) Change extension settings the first time:
+        Enable for the workspace the option: Prettier: Jsx Single Quote
+        Enable for the workspace the option: Prettier: Single Quote
+    2) CTRL + Shift + P, then type: Format Document
+    .vscode/settings.json
+        {
+        "prettier.singleQuote": true,
+        "prettier.jsxSingleQuote": true
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.formatOnSave": true
+        }
+
+
+                            EDIT FILES IN HOST VOLUME,
+            CHANGES WILL BE AUTOMATICALLY SYNCHRONIZED WITH THE CONTAINER
+    BUT ‘npm start’ IS STILL REQUIRED TO COMPILE THE CHANGES (SECOND CONSOLE).
+
+Daily
+    Start Docker
+    Git in project directory
+        cd devel-env/
+        docker-compose up -d
+        docker-compose exec react sh
+        cd app/
+        npm start
+    Check http://localhost:3000/
+    Open VS Code
+    Open ticket word document
+
+
+TESTS
+    npm test
+    if snapshots fail, these need to be updated, press 'u' option.
+    Create tests for all the code and all branches (conditionals).
+        Check the test coverage in \coverage\lcov-report\index.html
+
+Available Scripts
+In the project directory, you can run:
+
+    npm start
+    Runs the app in the development mode.
+    Open http://localhost:3000 to view it in the browser.
+    The page will reload if you make edits.
+    You will also see any lint errors in the console.
+
+    npm test
+    Launches the test runner in the interactive watch mode.
+
+    npm run build
+    Builds the app for production to the build folder.
+
+    npm run package
+    Builds and bundles the app in a zip archive that can be uploaded to
+    Snap's Puppy CMS, to create a new build and eventually a new release.
+    If zip isn't created, install it: sudo apt install zip
+
+COMMITS
+    Branches name:          features/MINI-nn
+    Commits description:    [MINI-nn]: description of the change.
+    git commit --amend --author="Leonardo Calderon < consultant.leonardo.calderon@wave.tv > " -m "[DAT-108]: style"
+    git commit
+        bug description (causes)
+        how this change fixes the bug
+        a copy of the stacktrace
+        the link to the corresponding sentry issue
+
+
+
+CLASS STYLE (INCLUDING CSS): kebab case, e.g: username-and-level
+
+
+
+
+create interface in src/types       export interface Achievement {...
+create hook use-achievements and    import { useAchievementData } from '../../hooks/use-achievements';
+use the hook in page                const [achievementData] = useAchievementData();
+give acces to data in firebase      Realtime Database / Rules, 
+retrieve the data                   {achievementData.image_url}
+
+
+
+
+Firebase...
+Item exported in JSON looks like:
+    '101_streak_5_days': {
+        image_url: 'https://wave-snapmini-gymheroes-assets.s3.us-east-2.amazonaws.com/staging/achievements/trophy_001.jpg',
+        name: 'streak_5_days',
+        order: 1,
+    }
+Item read by code, i.e. item[0]:
+    {
+        image_url: "https://wave-snapmini-gymheroes-assets.s3.us-east-…amazonaws.com/staging/achievements/trophy_001.jpg",
+        name: "streak_5_days",
+        order: 1,
+        id: "101_streak_5_days"
+    }
+Item in web interface:
+    - 101_streak_5_days
+        image_url: "https://wave-snapmini-gymheroes-assets.s3.us-east-…amazonaws.com/staging/achievements/trophy_001.jpg",
+        name: "streak_5_days"
+        order: 1
+
+
+
+.progress-page {
+  padding: 0rem;
+
+  .userNameAvatarLevel-components {
+    display: flex;
+    align-items: center;
+
+    .userName-text {
+      width: 70%;
+    }
+
+    .avatarLevel-circularBar {
+      width: 30%;
+    }
+
+    /*
+    .accept-checkbox {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+
+      .accept-checkbutton {
+        margin-right: 0.5rem;
+      }
+    }
+  */
+  }
+}
+
+
+
+*******************************************************************************
+                            WSL on Windows 10
+*******************************************************************************
+https://dev.to/paddymorgan84/getting-started-with-wsl-2-ja
+
+    https://docs.microsoft.com/en-us/windows/wsl/install-win10#manual-installation-steps
+
+Follow these steps to install node js on WSL
+    https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl
+
+Connect VS Code con WSL
+    WSL running as a remote server and VS Code running locally connects to WSL.
+    https://code.visualstudio.com/docs/remote/wsl#_getting-started
+
+In VS Code
+    Click on icon in left buttom corner
+    Select Remote-WLS / Open folder in WSL
+    Select folder \\wsl$\Ubuntu-18.04\home\
+
+To access WLS files from Windows
+    > wsl --list --runnin       // In PowerSherll
+    > cd \\wsl$\<DistributionName>
+    or put path this in File Explorer.
+
+To access Windows files from WLS
+    $ cd /mnt/c                 // Use quotes for windows names with spaces.
+
+
+
+*******************************************************************************
+                            PostgreSQL
+*******************************************************************************
+https://docs.microsoft.com/en-us/windows/wsl/tutorials/wsl-database
+https://www.postgresql.org/download/linux/ubuntu/
+
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+psql --version
+Success. You can now start the database server using:
+    /usr/lib/postgresql/10/bin/pg_ctl -D /var/lib/postgresql/10/main -l logfile start
+
+sudo service postgresql         # list of commands.
+sudo service postgresql status  # checking the status of DB.
+sudo service postgresql start   # to start running DB.
+sudo service postgresql stop    # to stop running DB.
+
+default admin user, postgres, set a password:
+    sudo passwd postgres
+    Close and reopen your terminal.
+
+If password does not work, change it
+    https://stackoverflow.com/questions/12720967/
+    postgresql-how-to-change-postgresql-user-password/12721095#12721095
+        # sudo -u user_name psql db_name      # login without a password
+        sudo -u postgres psql
+        # ALTER USER user_name WITH PASSWORD 'new_password';
+        ALTER USER postgres WITH PASSWORD 'new_password';
+        [ALTER USER myuser RENAME TO newname;]
+
+
+Execute a command from terminal
+    su - postgres               # If the actual user is NOT created in DB
+    psql -c "\du"
+
+Using psql shell
+    sudo service postgresql start
+    sudo -u postgres psql
+    # exit with \q or ctrl + D
+
+Using pgadmin in windows with psql un WSL Ubuntu
+    https://stackoverflow.com/questions/45707319/
+    pgadmin-on-windows-10-with-postgres-when-installed-via-bash-on-ubuntu-on-windows
+    Open WSL / start postgres
+    Install pgadmin in windows https://www.pgadmin.org/download/
+    
+    Launch pgAdmin / Add New Server link.
+    Create - Server window:
+        General tab - Name: localhost
+        Connection tab - Host name/address: localhost
+        Set Password to ¿postgres?, which is the default
+        Click on Save password?
+        Save the setting
+        # if localhost does not work, chage it by 127.0.0.1
+        # if password does not work, change it
+        https://stackoverflow.com/questions/12720967/
+        postgresql-how-to-change-postgresql-user-password/12721095#12721095
+            # sudo -u user_name psql db_name      # login without a password
+            sudo -u postgres psql
+            # ALTER USER user_name WITH PASSWORD 'new_password';
+            ALTER USER postgress WITH PASSWORD 'new_password';
+            [ALTER USER myuser RENAME TO newname;]
+        Try again connection in Create - Server window
+    
+
+Commands
+    https://www.postgresql.org/docs/13/tutorial-createdb.html
+    \du             # List of users accounts
+    $ su - postgres # Change to super user [or other valid DB user]
+    $ createdb mydb
+    $ dropdb mydb
+    $ psql --help=commands
+    $ psql -l       # List databases
+    $ psql mydb     # Start using mydb. -s option puts you in single step mode.
+    mydb=> \<cmd>   # \dt           List of tables
+                    # \d            List of relations (tables + seqs)
+                    # \d <table>    Table description (cols, types,...)
+                    # \?            shows all backslash commands.
+                    # \l            List of databases.
+                    # \c[onnect] {[DBNAME|- USER|- HOST|- PORT|-] | conninfo}
+    mydb=> SELECT version();
+    mydb=> SELECT current_date;
+    mydb=> \i basics.sql
+
+    show max_connections;
+    # In AWS RDS Postgres max connections: 6 to 8388607
+    # Default value: LEAST({DBInstanceClassMemory/9531392}, 5000)
+
+    \pset expanded auto/false     # Vertical (Nice) view.
+    \pset null '(NULL)'           # Show null explicit
+
+    \conninfo                       # information about current connection from the psql command prompt
+        SELECT current_user;        # https://www.postgresql.org/docs/12/functions-info.html
+    \c - a_new_user                 # To change user
+    \c a_new_database a_new_user
+
+    \dp [table_name]    # Check tables privileges
+    SELECT table_catalog, table_schema, table_name, privilege_type FROM information_schema.table_privileges WHERE  grantee = 'user_name';
+
+
+pg_dump dbname > dumpfile   # -n schema or -t table -h host and -p port
+                            # -U option or set the environment variable PGUSER. 
+psql dbname < dumpfile      # --set ON_ERROR_STOP=on
+                            # -1 or --single-transaction
+pg_dump -h host1 dbname | psql -h host2 dbname
+
+pg_dumpall backs up each database in a given cluster,
+    and also preserves cluster-wide data such as role and tablespace definition 
+pg_dumpall > dumpfile
+psql -f dumpfile postgres
+
+psql postgresql://<user>:<password>@<host>:<port>/<dbname>
+
+Through Tailscale VPN
+    psql postgresql://social_media_analytics_prod:smx3kNorw2h-YMwXbNVYYUHt@social-media-analytics-rds.ctjbyijuq2if.us-east-2.rds.amazonaws.com:5432/social_media_analytics
+    time psql postgresql://social_media_analytics_prod:smx3kNorw2h-YMwXbNVYYUHt@social-media-analytics-rds.ctjbyijuq2if.us-east-2.rds.amazonaws.com:5432/social_media_analytics < restore.sql                         
+    time psql postgresql://social_media_analytics_prod:<password>@social-media-analytics-rds.ctjbyijuq2if.us-east-2.rds.amazonaws.com:5432/social_media_analytics < restore.sql
+    time psql --set ON_ERROR_STOP=on postgresql://social_media_analytics_prod:smx3kNorw2h-YMwXbNVYYUHt@social-media-analytics-rds.ctjbyijuq2if.us-east-2.rds.amazonaws.com:5432/social_media_analytics < fbtable_backup_plain
+     psql postgresql://social_media_analytics_prod:smx3kNorw2h-YMwXbNVYYUHt@social-media-analytics-rds.ctjbyijuq2if.us-east-2.rds.amazonaws.com:5432/social_media_analytics < fbtable_backup_plain
+
+Through HAPROXY
+    psql postgresql://social_media_analytics_prod:smx3kNorw2h-YMwXbNVYYUHt@ec2-3-22-212-32.us-east-2.compute.amazonaws.com:5432/social_media_analytics
+    psql postgresql://social_media_analytics_prod:smx3kNorw2h-YMwXbNVYYUHt@3.22.212.32:5432/social_media_analytics
+
+
+Init transaction
+    a=> begin;
+    BEGIN
+    a=> delete from facebook_video_post;
+    DELETE 397240
+    a=> commit;
+    COMMIT
+    a=>
+
+Actual queries
+    \pset expanded auto
+    \pset border 1
+    \pset pager on
+    SELECT
+      pid,
+      now() - pg_stat_activity.query_start AS duration,
+      query,
+      state
+    FROM pg_stat_activity;
+
+SELECT pg_terminate_backend(<pid of the process>)
+SELECT setval('public.tableA_id_seq', 1179639, true);
+
+Change ID sequence (e.g. in case data was copied)
+    select id from <schema>.<table_name> order by id desc limit 1;
+        --> <new_id_value>
+    SELECT * from <schema>.<table_name>_id_seq;
+    SELECT setval('<schema>.<table_name>_id_seq', <new_id_value>, true);
+
+
+
+INSERT INTO <table> (...,created_at) VALUES (..., current_timestamp)
+
+
+How to change the port
+    cd /etc/postgresql/12/main/
+    sudo nano postgresql.conf
+        port = 5432
+    # On Windows it is C:\Program Files\PostgreSQL\9.3\data
+    sudo service postgresql restart 
+
+How to change the password
+     sudo -u <username> psql
+    \password <username>
+
+
+PERFORMANCE
+    https://hakibenita.com/fast-load-data-python-postgresql
+
+Uninstall
+    sudo apt-get purge postgresql*
+    [dpkg -l | grep postgres]
+    [sudo apt-get --purge remove postgresql postgresql-doc postgresql-common ...]
+    whereis postgres
+    whereis postgresql
+    sudo rm -rf /var/lib/postgresql/
+    sudo rm -rf /var/log/postgresql/
+    sudo rm -rf /etc/postgresql/
+    sudo deluser postgres   // userdel -f postgres
+    
+
+*******************************************************************************
+                                    Miniconda
+*******************************************************************************
+
+https://docs.conda.io/en/latest/miniconda.html
+wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.11.0-Linux-x86_64.sh
+bash Miniconda3-py38_4.11.0-Linux-x86_64.sh     # Accept the defaults.
+rm Miniconda3-py38_4.11.0-Linux-x86_64.sh
+exit
+bash
+[conda config --set auto_activate_base false]
+conda create --name py38dev python=3.8
+conda activate production
+[pip install -r requirements.txt]
+
+Repository
+    https://hub.docker.com/r/continuumio/miniconda3
+    docker pull continuumio/miniconda3
+    docker run -i -t continuumio/miniconda3 /bin/bash
+
+Jupyter Notebook serve
+    docker run -i -t -p 8888:8888 continuumio/miniconda3 /bin/bash -c "\
+    conda install jupyter -y --quiet && \
+    mkdir -p /opt/notebooks && \
+    jupyter notebook \
+    --notebook-dir=/opt/notebooks --ip='*' --port=8888 \
+    --no-browser --allow-root"
+
+Pip and conda
+    https://www.anaconda.com/blog/using-pip-in-a-conda-environment
+
+http://localhost:8888 in your browser, or http://<DOCKER-MACHINE-IP>:8888
+
+https://docs.sqlalchemy.org/en/14/core/type_basics.html
+
+
+
+*******************************************************************************
+            Alternatives to cpython / miniconda implementations
+*******************************************************************************
+
+https://github.com/conda-forge/miniforge/#download      # Can install pypy
+https://www.pypy.org/
+
+
+
+
+*******************************************************************************
+                                    Alembic
+*******************************************************************************
+
+sqlalchemy.url = driver://user:pass@localhost/dbname
+
+DB migrations
+    $ alembic history
+    # Creating and applying a migration
+    Make the changes to the ORM classes (see `models/*.py`)
+        add more fields, or add new ORM classes there.
+    Generate the migration file
+        check the current schema in code, compare schema with DB
+        Generate a python file with the changes required
+            $ cd $REPO_ROOT/layers/custom_packages/orm
+            $ alembic revision --autogenerate -m 'description...'
+    Apply migration, performs the schema changes in the DB
+        $ alembic upgrade head    `head` means latest version of the schema.
+
+    # Switching the schema to a particular migration
+        $ alembic upgrade bb8f4e1bd09f
+
+    # Rollback migrations
+        $ alembic downgrade bb8f4e1bd09f
+    # Deleting migrations files (versions) ¿?
+        $ alembic downgrade bb8f4e1bd09f
+        # Delete files
+        $alembic upgrade head
+
+ERROR [alembic.util.messaging] Can't locate revision identified by '6b1254d88faf'
+  FAILED: Can't locate revision identified by '6b1254d88faf'
+  --> There is a table alembic_version in db with this info (change it¿?)
+  --> Delete all tables --> alembic upgrade head (reconstruct everything)
+        
+See https://alembic.sqlalchemy.org/en/latest/index.html for more info.
+
+
+
+-- Database: analytics_dev
+
+-- DROP DATABASE analytics_dev;
+
+CREATE DATABASE analytics_dev
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'C.UTF-8'
+    LC_CTYPE = 'C.UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+
+*******************************************************************************
+                            MongoDB container
+*******************************************************************************
+
+docker create --name mongo \
+  -e MONGO_INITDB_ROOT_USERNAME=mongoadmin \
+  -e MONGO_INITDB_ROOT_PASSWORD=secret \
+  -e MONGO_INITDB_DATABASE=analytics_dev \
+  --publish=27017:27017 \
+  mongo:4-bionic
+
+Install mongo shell (deprecated)
+    https://www.mongodb.com/try/download/community?tck=docs_server
+    $ wget https://fastdl.mongodb.org/linux/mongodb-shell-linux-x86_64-ubuntu2004-5.0.2.tgz
+    $ tar xvzf mongodb-shell-linux-x86_64-ubuntu2004-5.0.2.tgz
+    $ cp mongodb-linux-x86_64-ubuntu2004-5.0.2/bin/mongo /usr/bin
+
+Install mongodb shell (mongosh)
+    https://docs.mongodb.com/mongodb-shell/
+    https://docs.mongodb.com/mongodb-shell/install/#std-label-mdb-shell-install
+    
+
+mongo mongodb://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_HOST}:27017/{dbname}
+    host: 3.139.41.210
+    dbname: mvpdata
+    port: 27017
+    user: mvpdata
+    pw: EfR2t62Hrz7bac992ff
+mongo mongodb://mvpdata:EfR2t62Hrz7bac992ff@3.139.41.210:27017/mvpdata
+
+
+*******************************************************************************
+                        Dev Environment - onboarding
+*******************************************************************************
+
+Installing development environment:
+    Tailscale VPN with @wave.tv account
+    Links for the project (
+    WSL installation
+    WSL files, access to/from Windows
+    Node for WSL and updates
+    VS Code connected with WSL
+    Firebase usage and JSON files.
+    AWS mini assets
+    Mini app: 
+        File structure
+        Clone repo.
+        Configuration (dockerfile)
+        npm commands.
+    Puppy CMS
+    dockerfile 
+        update npm install npm@7.18.1
+        npm install
+    scrcpy program
+    Credentials file (.env.local)
+    Run npm start --> ver en localhost:3000
+    Run npm test
+    Run npm run package
+    To build a puppy
+    Run app in Snapchat mobile and share it with scrcpy
+
+
+
+*******************************************************************************
+                                STYLE
+*******************************************************************************
+
+Black configuration with VS Code. Install MS Black extension.
+    .vscode/settings.json in the project
+        {
+          "python.formatting.provider": "black",
+          "editor.formatOnSave": true
+        }
+
+Running `mypy`
+    $ mypy .
+
+Running `pylint`
+    $ pylint <file>
+    # Use in-line comments like  # pylint: disable=line-too-long
+    # Or comments like
+        # pylint: disable=fixme
+        # TODO ...
+
+
+
+*******************************************************************************
+                                PYTEST
+*******************************************************************************
+
+https://docs.pytest.org/en/stable/reference.html            # API reference
+https://docs.pytest.org/en/stable/contents.html
+https://docs.pytest.org/en/6.2.x/getting-started.html
+
+$ pip install -U pytest
+$ pytest --version
+
+Test function
+    # content of test_sample.py
+        def func(x):
+            return x + 1
+        def test_answer():
+            assert func(3) == 5
+$ pytest
+
+Use the assert statement to verify test expectations.
+Run all files of the form test_*.py or *_test.py in current dir and subdirs.
+
+Use the raises helper to assert that some code raises an exception:
+    # content of test_sysexit.py
+    import pytest
+    def f():
+        raise SystemExit(1)
+    def test_mytest():
+        with pytest.raises(SystemExit):
+            f()
+
+Use class to group tests
+    # content of test_class.py
+    class TestClass:
+        def test_one(self):
+            x = "this"
+            assert "h" in x
+        def test_two(self):
+            x = "hello"
+            assert hasattr(x, "check")
+
+Built-in fixtures
+    $ pytest [-q] [-v] --fixtures
+
+
+*** USAGE ***
+
+https://docs.pytest.org/en/6.2.x/usage.html
+
+python -m pytest [...]
+    Equivalent to pytest [...]  adding  current directory to sys.path
+
+pytest -x           # stop after first failure
+pytest --maxfail=2  # stop after two failures
+pytest test_mod.py  # Run tests in a module
+pytest testing/     # Run tests in a directory
+pytest.main()       # Calling pytest from Python code
+    # pytest.main(["-x", "mytestdir"])
+    # multiple calls to pytest.main() from the same process
+    # (in order to re-run tests, for example) is not recommended.
+
+-r flag
+    default is equivalent to -rfE
+    accepts characters after it, meaning “all except passes”.
+        f - failed
+        E - error
+        s - skipped
+        x - xfailed
+        X - xpassed
+        p - passed
+        P - passed with output
+    Special characters for (de)selection of groups:
+        a - all except pP
+        A - all
+        N - none, display nothing (since fE is the default).
+
+On any failure the exception information is stored on:
+    sys.last_value, sys.last_type and sys.last_traceback.
+
+
+*** CUSTOMIZE ***
+
+https://docs.pytest.org/en/stable/customize.html
+
+Look for pytest.ini first (then others) in the ancestor directory and upwards.
+    Then it becomes the configfile and its directory becomes the rootdir.
+    Then look for setup.py
+
+pytest.ini files take precedence over other files, even when empty.
+    # pytest.ini
+    # 1) Activate commented options as needed.
+    # 2) Export previously the PYTHONPATH environment variable needed, e.g: 
+    #       $ export PYTHONPATH='layers/custom_packages/python'
+    # 3) Then run the following command in the same folder of this file:
+    #       $ pytest
+
+    [pytest]
+    minversion = 6.2.4
+
+    # Files considered as test modules (default: test_*.py and *_test.py)
+    python_files = *_test.py
+
+    #   -r chars            show extra test summary info as specified by chars:
+    #                       (f)ailed, (E)rror, (s)kipped, (x)failed, (X)passed,
+    #                       (p)assed, (P)assed with output, (a)ll except passed
+    #                       (p/P), or (A)ll. (w)arnings are enabled by default
+    #                       (see --disable-warnings), 'N' can be used to reset
+    #                       the list. (default: 'fE').
+    addopts = -ra -q
+
+    # Change to classic or count output in case of an unexpected output error.
+    # console_output_style = classic # count
+
+    # Dumps the tracebacks of all threads if a test takes longer.
+    # faulthandler_timeout= 5 # seconds
+
+    # To ignore deprecation warnings and turn all other warnings into errors.
+    # filterwarnings =
+    #    error
+    #    ignore::DeprecationWarning
+
+    # To store log info into a file (overwrites at each run test session).
+    # log_cli = True
+    log_file = pytest.log
+    log_file_level = INFO
+    log_file_format = "%(asctime)s %(levelname)s %(message)s"
+    log_file_date_format ="%Y-%m-%d %H:%M:%S"
+
+    # https://docs.pytest.org/en/stable/reference.html#confval-norecursedirs
+    # Set the directory basename patterns to avoid when recursing for test discovery. 
+    # Default patterns are:
+    # '*.egg', '.*', '_darcs', 'build', 'CVS', 'dist', 'node_modules', 'venv', '{arch}'.
+    # norecursedirs = .svn _build tmp*
+
+    # Classes considered for test collection (default: class prefixed with Test)
+    #python_classes = *Suite
+
+    # Test functions and methods considered for tests (default: prefixed with test).
+    # python_functions = *_test
+
+    # Add the specified OPTS to the set of command line arguments:
+    #  --durations=N        Show N slowest setup/test durations (N=0 for all).
+    #  --rootdir=ROOTDIR    Define root directory for tests (default: current dir of this file).
+    # e.g.: exit after 2 failures, report fail info, any warnings encountered while parsing
+    # the `pytest` section of the configuration file raise errors.
+    # addopts = --maxfail=2 -rf --strict-config 
+
+    # List of directories that should be searched for tests.
+    # testpaths = tests integration
+
+    # Set environment variables for testing in test files using:
+    #   import pytest
+    #   @pytest.fixture
+    #   def mock_env_user(monkeypatch):
+    #       monkeypatch.setenv("ENV", "development")
+
+
+
+Config object (accessible via hooks or through the pytestconfig fixture)
+    will subsequently carry these attributes:
+    config.rootpath: the determined root directory, guaranteed to exist.
+    config.inipath: the determined configfile, may be None
+        (it is named inipath for historical reasons).
+
+
+*** monkeypatch ***
+    # Set environment variables for testing in test files using:
+    https://docs.pytest.org/en/6.2.x/monkeypatch.html
+        monkeypatch.setattr(obj, name, value, raising=True)
+        monkeypatch.delattr(obj, name, raising=True)
+        monkeypatch.setitem(mapping, name, value)
+        monkeypatch.delitem(obj, name, raising=True)
+        monkeypatch.setenv(name, value, prepend=False)
+        monkeypatch.delenv(name, raising=True)
+        monkeypatch.syspath_prepend(path)
+        monkeypatch.chdir(path)
+
+    https://docs.pytest.org/en/6.2.x/monkeypatch.html?
+        highlight=environment#monkeypatching-environment-variables
+    def test_upper_to_lower(monkeypatch):
+        """Set the USER env var to assert the behavior."""
+        monkeypatch.setenv("USER", "TestingUser")
+
+    from pytest import fixture
+    @fixture
+    def mock_env_user(monkeypatch):
+        monkeypatch.setenv("ENV", "development")
+
+    def test_main1(monkeypatch):
+        assert bmd.main(date1, date2) == (0, 0)
+
+
+
+*******************************************************************************
+                            LAMBDA FUNCTION IN AWS
+*******************************************************************************
+
+https://docs.aws.amazon.com/serverless-application-model/latest/
+    developerguide/sam-cli-command-reference-sam-local-invoke.html
+
+https://blog.cloudcraft.co/what-architects-need-to-know-about-networking-on-aws/
+
+LOCAL EXECUTION
+    Install AWS SAM CLI
+        https://docs.aws.amazon.com/serverless-application-model/latest/
+            developerguide/serverless-sam-cli-install-linux.html
+        $ https://github.com/aws/aws-sam-cli/releases/latest/download/
+            aws-sam-cli-linux-x86_64.zip
+        $ unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+        $ sudo ./sam-installation/install
+        $ sam --version
+    Add a JSON file that has event parameters such as start_date and end_date.
+    {
+        "start_date": "2021-09-10",
+        "end_date": "2021-09-10"
+    }
+    Run the lambda function with --event option on local with above json file.
+    sam local invoke "myLambdaFunc" --region us-east-2 --event JSON_FILE_PATH
+
+Valid output of a lambda function (valid JSON)
+    https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
+    
+    "Hello from Lambda!"
+    
+    { "message": "Hello from Lambda!" }
+    
+    {
+        "cookies" : ["cookie1", "cookie2"],
+        "isBase64Encoded": true|false,
+        "statusCode": httpStatusCode,
+        "headers": { "headername": "headervalue", ... },
+        "body": "Hello from Lambda!"
+    }
+
+UPDATE (Deploy)
+    In dev branch
+        git pull origin dev
+    Change locally to use py37 (by the moment)
+        conda activate py37
+    Backup lambda from AWS
+        Actions button / export function -> zip
+    Edit layers
+        Create new layer ./layers/upload_deps_layer.sh
+        In AWS/lambda/Layers/Edit select the new created layer
+    In AWS console, select lambda,
+        layers tab, select layer number
+        Runtime settings tab: select py3.7
+        Configuration / Permissions
+            Check permisions to InvokeFunction for this lambda.
+        Configuration / VPC tab, edit
+            VPC: vpc-07118d6476b7ece74
+            Subnets: use private subnets
+            Security group: default-lambda-prod
+    Upload lambda
+        In fb_analytics_datasource/lambda_funcs/fb_analytics_query/
+            $ chmod u+x *
+            $ ./update_lambda_function.sh
+    Test lambda with
+        {
+        "fb_page_id": "379614696228217"
+        }
+    Monitor tab, View logs in CloudWatch button
+    Close related issues.
+
+
+MANUAL LAUNCH
+aws --region=us-east-2 lambda invoke --function-name videocms_monitor_incoming_ugc-prod --cli-binary-format raw-in-base64-out --payload '{ "version": "0", "id": "53dc4d37-cffa-4f76-80c9-8b7d4a4d2eaa", "detail-type": "Scheduled Event", "source": "aws.events", "account": "123456789012", "time": "2015-10-08T16:53:06Z", "region": "us-east-1", "resources": ["arn:aws:events:us-east-1:123456789012:rule/my-scheduled-rule"], "detail": {} }' lambda-output.json
+
+
+
+*******************************************************************************
+                            pyproject.toml
+*******************************************************************************
+https://snarky.ca/what-the-heck-is-pyproject-toml/
+https://discuss.python.org/t/where-to-get-started-with-pyproject-toml/4906/13
+
+Introduce pyproject.toml into your setuptools-based project so you get benefits
+like build isolation and the ability to specify the version of setuptools
+
+The current directory is not put on sys.path automatically; you will need
+sys.path.insert(0, os.path.dirname(__file__)) or equivalent if you're importing
+local files).
+
+To use pyproject.toml, run:
+    $ python -m pip install .
+
+If you need a setup.py for an editable install, you could use a shim in setup.py:
+#!/usr/bin/env python
+import setuptools
+if __name__ == "__main__":
+    setuptools.setup()
+
+
+
+https://setuptools.readthedocs.io/en/latest/build_meta.html
+https://boto3.amazonaws.com/v1/documentation/api/latest/index.html
+e.g project https://github.com/chaostoolkit/chaostoolkit
+
+
+testear solo postgres w/r
+
+
+https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
+one of the following command on Linux to see open ports:
+    sudo netstat -tulpn | grep LISTEN
+        -t : Show only TCP sockets on Linux
+        -u : Display only UDP sockets on Linux
+        -l : Show listening sockets. For example, TCP port 22 is opened by SSHD server.
+        -p : List process name that opened sockets
+        -n : Don’t resolve service names i.e. don’t use DNS
+    sudo lsof -i -P -n | grep LISTEN
+    sudo ss -tulpn | grep LISTEN
+    sudo lsof -i:22 ## see a specific port such as 22 ##
+    sudo nmap -sTU -O IP-address-Here
+
+
+    DB_URL = postgresql://postgres:abc123@localhost:5432/analytics_dev"
+    engine = create_engine(DB_URL, future=True,)
+
+
+
+*******************************************************************************
+                                AWS CLI
+*******************************************************************************
+
+https://aws.amazon.com/cli/
+https://aws.amazon.com/amazon-linux-ami/
+http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html
+
+https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html#cliv2-linux-install 
+    sudo apt install unzip
+    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    unzip awscliv2.zip
+    sudo ./aws/install
+    rm awscliv2.zip
+    rm -rf aws/
+https://docs.aws.amazon.com/cli/latest/userguide/welcome-examples.html
+    aws configure [--profile account1]
+        AWS Access Key ID [None]: ****
+        AWS Secret Access Key [None]: ****
+        Default region name [None]: us-east-2
+        Default output format [None]:
+
+    [export AWS_DEFAULT_PROFILE=account1]   # Change to the new profile
+    [export AWS_DEFAULT_PROFILE=default]    # Return to default (first) account
+    [ aws configure list[-profiles]]
+    aws s3 cp s3://iconik-develop-files/LC/instagram.com_cookies.txt .
+
+
+https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/welcome.html
+
+
+
+Cross-Account Access
+    https://aws.amazon.com/blogs/security/how-to-enable-cross-account-access-to-the-aws-management-console/
+    https://aws.amazon.com/blogs/security/enable-a-new-feature-in-the-aws-management-console-cross-account-access/
+    https://aws.amazon.com/blogs/security/delegating-api-access-to-aws-services-using-iam-roles/
+    https://stackoverflow.com/questions/44171849/aws-boto3-assumerole-example-which-includes-role-usage
+    https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-policies.html
+    https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html
+    https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html
+
+    OPTION 2 - CHANGING THE ROL:
+        Account target (have the needed resource):
+        Create role:
+            arn:aws:iam::909296964707:role/S3_wearewave-net
+            With type: Another AWS account and specify the ID (12 digits) of the other account
+            Attach a new policy (with access to "Resource"):
+                arn:aws:iam::909296964707:policy/S3_Write_PutObject_wearewave-net
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "VisualEditor0",
+                            "Effect": "Allow",
+                            "Action": "s3:PutObject",
+                            "Resource": [
+                                "arn:aws:s3:::wearewave-net/*",
+                                "arn:aws:s3:::wearewave-net-testing/*"
+                            ]
+                        }
+                    ]
+                }
+            Copy the Role ARN
+        Account source (have the user who needs the resource):
+        Create user:
+            arn:aws:iam::945204924800:user/videocms_integration
+            Store key/secure_key in ssm to retrieve them securely
+            Attach a new policy and paste the Role ARN as value for the "Resource" key:
+                arn:aws:iam::945204924800:policy/S3_wearewave-net_back
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "sts:AssumeRole"
+                            ],
+                            "Resource": "arn:aws:iam::909296964707:role/S3_wearewave-net"
+                        }
+                    ]
+                }
+
+    OPTION 1 - USER WITH ACCESS TO GLOBAL BUCKET (one for prod, one for testing):
+        User: arn:aws:iam::945204924800:user/videocms_integration_production
+        Policy: arn:aws:iam::945204924800:policy/S3_wearewave-net_production
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Sid": "S3PutObjectAccessToVideocmsProduction",
+                        "Effect": "Allow",
+                        "Action": "s3:PutObject",
+                        "Resource": [
+                            "arn:aws:s3:::wearewave-net/*",
+                            "arn:aws:s3:::wearewave-net-testing/*"
+                        ]
+                    }
+                ]
+            }
+        arn:aws:iam::945204924800:user/videocms_integration_testing
+        arn:aws:iam::945204924800:policy/S3_wearewave-net_testing
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Sid": "S3PutObjectAccessToVideocmsTesting",
+                        "Effect": "Allow",
+                        "Action": "s3:PutObject",
+                        "Resource": [
+                            "arn:aws:s3:::wearewave-net-testing/*"
+                        ]
+                    }
+                ]
+            }
+
+        Add this statement in actual S3 policy
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::945204924800:user/videocms_integration_production"
+                },
+                "Action": "s3:PutObject",
+                "Resource": "arn:aws:s3:::wearewave-net/*",
+            }
+
+S3 production policy backup
+    {
+        "Version": "2008-10-17",
+        "Id": "PolicyForCloudFrontPrivateContent",
+        "Statement": [
+            {
+                "Sid": "1",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity EF40JWIWSRSC0"
+                },
+                "Action": "s3:GetObject",
+                "Resource": "arn:aws:s3:::wearewave-net/*"
+            },
+            {
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::945204924800:user/wavetv-WIN"
+                },
+                "Action": "s3:*",
+                "Resource": [
+                    "arn:aws:s3:::wearewave-net",
+                    "arn:aws:s3:::wearewave-net/*"
+                ]
+            },
+            {
+                "Sid": "3",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E2CPEM6SXVQBTD"
+                },
+                "Action": "s3:GetObject",
+                "Resource": "arn:aws:s3:::wearewave-net/*"
+            }
+        ]
+    }
+
+S3 testing policy
+    {
+        "Version": "2008-10-17",
+        "Id": "PolicyForCloudFrontPrivateContent",
+        "Statement": [
+            {
+                "Sid": "1",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": [
+                      "arn:aws:iam::945204924800:user/videocms_integration_production",
+                      "arn:aws:iam::945204924800:user/videocms_integration_testing"
+                    ]
+                },
+                "Action": "s3:PutObject",
+                "Resource": "arn:aws:s3:::wearewave-net-testing/*"
+            }
+        ]
+    }
+
+    FINALLY CODES:
+
+        ### Code to upload the file to the s3 bucket in the same account (it will need new policy)
+        s3_client = client(
+            "s3",
+            aws_access_key_id=ACCESS_KEY_FOR_VIDEOCMS_INTEGRATION_USER,
+            aws_secret_access_key=SECRET_KEY_FOR_VIDEOCMS_INTEGRATION_USER,
+        )
+        with open(str(file_object), "rb") as file:
+            response = s3_client.put_object(Body=file, Bucket=bucket, Key=key)
+
+        ### Code to upload the file to the s3 bucket in the other accout.
+        # Create an STS client with videocms_integration user credentials.
+        sts_client = client(
+            "sts",
+            aws_access_key_id=ACCESS_KEY_FOR_VIDEOCMS_INTEGRATION_USER,
+            aws_secret_access_key=SECRET_KEY_FOR_VIDEOCMS_INTEGRATION_USER,
+        )
+        # Change the rol for videocms_integration user to one with access to the s3.
+        assumed_role_object = sts_client.assume_role(
+            RoleArn="arn:aws:iam::909296964707:role/S3_wearewave-net",
+            RoleSessionName="AssumeRoleSession1",
+        )
+        # Get temporary credentials to make subsequent API calls.
+        credentials = assumed_role_object["Credentials"]
+        # Create a s3 client to send the downloaded file using the new (temp) rol.
+        s3_client = client(
+            "s3",
+            aws_access_key_id=credentials["AccessKeyId"],
+            aws_secret_access_key=credentials["SecretAccessKey"],
+            aws_session_token=credentials["SessionToken"],
+        )
+        with open(str(file_object), "rb") as file:
+            response = s3_client.put_object(Body=file, Bucket=bucket, Key=key)
+        remove(file_object)
+        if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+            # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.put_object
+            # Amazon S3 never adds partial objects; if we receive a success
+            # response, Amazon S3 added (or overwrite if already exists) the
+            # entire object to the bucket.
+            return "s3://" + bucket + "/" + key
+
+
+AWS ARN
+https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-access-points.html
+    arn:partition:service:region:account-id:resource-id
+    arn:partition:service:region:account-id:resource-type/resource-id
+    arn:partition:service:region:account-id:resource-type:resource-id
+    e.g:    arn:aws:s3:us-east-2:123456789012:resource-type/resource-id
+            arn:aws:iam::909296964707:role/S3_Write_PutObject_wearewave-net
+            arn:aws:s3:::wearewave-net
+arn:aws:s3::909296964707:wearewave-net
+arn:aws:s3:us-east-1:909296964707:accesspoint/wearewave-net
+
+Role in 9092:   arn:aws:iam::909296964707:role/S3_wearewave-net
+
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.put_object
+
+
+
+*******************************************************************************
+                            Terraform
+*******************************************************************************
+https://cloudlinuxtech.com/install-terraform-on-ubuntu-uninstall-terraform/
+
+Infrastructure as Code (IaC)
+
+Write -> Plan -> Apply
+
+Prerequisites: Terraform CLI, AWS CLI, AWS account
+
+Folder .terraform
+    main.tf
+
+main.tf Build infrastructure:
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+      version = "~> 3.27"
+    }
+  }
+  required_version = ">= 0.14.9"
+}
+provider "aws" {
+  profile = ""
+  region = var.aws_region
+}
+resource "aws_s3_bucket" "bucket_example1" {
+  bucket = "bucket01-endava"
+  acl = "private"
+  tags = {
+    Name = ""
+    
+  }
+  
+}
+
+cd .terraform
+terraform ini       # Just the first time or if new pluggins
+terraform fmt       # Reformat your configuration in the standard style
+terraform validate  # Check whether the configuration is valid
+
+export IMAGE_TAG=$(git rev-parse dev)       --> in dev/master to use as image tag in plan
+terraform plan      # Show changes required by the current configuration
+terraform apply [-var-file-"test.tfvars.json"]
+                    # Create or update infrastructure
+    if not var file, then it will use variables.tf
+
+variables.tf
+    variable "aws_region" {
+        type = string
+        default = "us-east-1"
+    }
+
+terraform workspace list        # Environments
+terraform workspace new test
+
+Automated Terraform CLI Workflow
+When running Terraform in automation, the focus is usually on the core plan/apply cycle.
+The main path, then, is broadly the same as for CLI usage:
+
+Initialize the Terraform working directory.
+Produce a plan for changing resources to match the current configuration.
+Have a human operator review that plan, to ensure it is acceptable.
+Apply the changes described by the plan.
+
+Steps 1, 2 and 4 can be carried out using the familiar Terraform CLI commands, with some additional options:
+
+terraform init -input=false to initialize the working directory.
+terraform plan -out=tfplan -input=false to create a plan and save it to the local file tfplan.
+terraform apply -input=false tfplan to apply the plan stored in the file tfplan.
+
+terraform state list
+terraform state show <resource>
+terraform state show module.videocms_monitor_incoming_ugc.aws_ecr_repository.VideoCMSMonitorIncomingUGCEcr
+
+
+
+
+
+
+
+
+Change to dev environment and check migrations
+    $ export ENV='development'
+    $ alembic upgrade head
+Take rds snapshoot
+Check alembic_version in prod
+    => select * from alembic_version;
+Deploy migration in prod environment
+    $ export ENV='production'
+    $ alembic upgrate head
+Check prod
+    => select * from alembic_version;
+    => 'query to check new changes'
+Return to development
+    $ export ENV='development'
+In pgAdmin -> schema diff
+    dev_server vs prod_server       analytics_dev_backup vs social_media_analytics
+
+
+* Copy data from LF _temp tables to non _temp tables
+    begin;
+    INSERT INTO listen_first_tiktok_content SELECT * FROM listen_first_tiktok_content_temp;
+    ...
+    commit;
+* Check data, compare analytics_dev_backup vs social_media_analytics
+    select count(*) from listen_first_facebook_brand;
+    ...
+* Change id counter
+* Run lambda for 2021-09-01 (with dev='production')
+* Check data in prod for 2021-09-01
+    select count(*) from listen_first_facebook_brand where fact_date='2021-09-01';
+* Run lambda for 2021-09-02 to 2021-09-07 (with dev='production')
+* Check data in prod for 2021-09-02 to 2021-09-07
+    select count(*) from listen_first_facebook_brand where fact_date='2021-09-01';
+* Update tables columns for LF in WIKI
+* Send PR for new lambda (LC)
+Review/approval new PR (JR)
+Update lambda layer to 32?
+Update lambda + db code
+Check behavior of new lambda deployed (JR/LC)
+
+https://crontab.cronhub.io/
+
+0 10 * * ? *
+
+
+https://developers.facebook.com/docs/graph-api/overview/rate-limiting/
+https://developers.facebook.com/docs/graph-api/reference
+https://developers.facebook.com/docs/graph-api/reference/page/videos/
+https://developers.facebook.com/docs/graph-api/reference/video
+https://developers.facebook.com/docs/graph-api/reference/video-list/
+https://developers.facebook.com/docs/graph-api/reference/page/insights/
+https://developers.facebook.com/docs/graph-api/reference/insights-result/
+https://developers.facebook.com/docs/graph-api/results
+https://developers.facebook.com/docs/marketing-api/insights/best-practices/#asynchronous
+https://towardsdatascience.com/sqlalchemy-python-tutorial-79a577141a91
+
+
+    logger.info(f"Page id {page_id}: {len(videos_list)} new videos.")
+
+Pages with videos:
+    select page_id, count(*) from facebook_video group by page_id ORDER BY page_id;
+    select distinct page_id from facebook_video;
+Pages with incomes:
+    social_media_analytics=> select page_name, page_id from facebook_video_post where sample_date > '2021-08-01' and earnings_usd > 0 group by page_name, page_id;
+
+TO CHECK EACH VIDEO HAS REGISTERS FOR ALL DAYS AFTERS ITS CREATION
+    select sample_date from facebook_video_post where page_id =401841013316776 and video_id = 260497432415267 and sample_date > created_time order by sample_date;
+    select sample_date from facebook_video_post where page_id = 100216741718929 and video_id = 288883022177696 and sample_date > created_time order by sample_date;
+Contar cuantos registros tiene cada video, comparar con los dias desde created_time/2021-01-01 hasta última fecha de registro en la base de datos
+    select count(sample_date) from facebook_video_post where page_id = 100216741718929 and video_id = 288883022177696 and sample_date > created_time;
+
+select video_id, created_time from facebook_video where page_id = 100216741718929;
+
+
+select page_id, sample_date, count(*) from facebook_video_post where sample_date in ('2021-10-12', '2021-10-05') group by page_id, sample_date;
+
+select sample_date, count(*) from facebook_video_post where page_id=314261889393308 and sample_date in ('2021-10-12', '2021-10-05') group by sample_date;
+
+select count(distinct video_id) from facebook_video_post where sample_date = '2021-10-12';
+
+select distinct video_id from facebook_video_post where sample_date = '2021-10-12';
+select distinct page_id from facebook_video_post where sample_date = '2021-10-12';
+select distinct page_id from facebook_video where sample_date = '2021-10-12';
+select distinct page_id from facebook_video where sample_date = '2021-10-12';
+
+
+*******************************************************************************
+                                tmux - ssh connections
+*******************************************************************************
+
+https://github.com/tmux/tmux/wiki/Getting-Started
+https://blog.cloudcraft.co/what-architects-need-to-know-about-networking-on-aws/
+
+Alternative: https://mosh.org/
+
+These settings will send a null packet to the other side every 300 seconds,
+and give up if it doesn’t receive any response after 5 tries.
+    Keep ssh CLIENT alive, insert the following:
+        $ sudo nano /etc/ssh/ssh_config     # For global
+            Host *
+                ServerAliveInterval 300
+                ServerAliveCountMax 5
+        $ sudo nano ~/.ssh/config           # For local
+            Host *
+                ServerAliveInterval 300
+                ServerAliveCountMax 5
+    Make your OpenSSH SERVER keep alive all connections with clients:
+        $ sudo nano /etc/ssh/sshd_config:   # For server
+            ServerAliveInterval 300
+            ServerAliveCountMax 5
+
+
+
+$ sudo apt install tmux
+$ tmux
+$ C-b ?     Listo of commands. C-b universal prefixed
+
+tmux new -s session_name    # Create a named session
+Ctrl+b d                    # Detaching from session (but will continue to run)
+tmux attach                 # attach to most recent session that is not attached
+tmux ls                     # List of running sessions
+tmux attach -t mysession
+tmux attach-session -t 0    # Attah to session 0
+Up, Down, C-Up, C-Down to scroll up and down, and q to exit the mode.
+C-b Up, C-b Down, C-b Left and C-b Right change to the pane.
+
+Buttom status bar
+Session | index:windows_name       | pane tittle  | Time and date   |
+--------+--------------------------+--------------+-----------------+
+[0]       0: man  1:bash  3:bash     "Name"         10:41 14-Oct-21 |
+
+Ctrl+b c    # Creates new windows in actual session.
+            # Numbers in status line (center)
+Ctrl+b w    ### Choose window from a list ###
+Ctrl+b 0    # Switch to window 0
+Ctrl+b ,    # Rename the current window
+Ctrl+b %    # Split current pane vertically into two panes
+Ctrl+b "    # Split current pane horizontally into two panes
+Ctrl+b o    # Go to the next pane
+Ctrl+b ;    # Toggle between the current and previous pane
+Ctrl+b x    # Close the current pane
+
+C-b :       # command prompt
+:set -g mouse on    # Turns mouse usage on
+C-b C-z     # suspend-client
+C-b Space   # next-layout
+C-b !       # break-pane
+C-b \#      #list-buffers
+C-b \$      # rename-session
+C-b &       # kill-window%
+C-b \'      # command-prompt -p index "select-window -t ':%%'"
+C-b (       # switch-client (session)
+C-b )       # switch-client (session)
+
+
+
+SELECT page_id, sample_date, COUNT(page_id) FROM facebook_video_post WHERE sample_date IN ('2021-10-12', '2021-10-05') GROUP BY page_id, sample_date;
+
+
+CMS nuevo
+    on error, continue normal process.
+INSERT INTO public."Submissions"(id, "firstName", "lastName", email, country, phone, handle, social, url, file, "sportId", "subSportId", "create", age, citizen, terms, source, "hasAudio", quality, description, status, tags, "createdAt", "updatedAt", "isPosted", document, "submitChip", camera, "submitOptions", "clipDuration") VALUES (32638,'Star','Zkillz','starzkillz1@gmail.com','United States',9177816516,'@Starzkil1Z','Instagram','https://vm.tiktok.com/ZM8Ay6tt2/','',NULL,NULL, true,true,true,true,NULL,true,NULL,NULL,'unapproved',NULL,'2021-10-22 20:37:03.126+00','2021-10-22 20:37:07.333+00',false,'documents/4444158d44c3c3ea518531f45556d5b6efc90c82.pdf',false,NULL,NULL,1);
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html#S3.Client.put_object
+
+
+curso security
+ticket fb, comment, done
+ticket CMS-145
+Backfill 2021-01-01 / 2021-04-30
+sql workshop
+
+uri - assertion failure :
+https://wearewave-net-testing.s3.         .amazonaws.com/uploads/0000000000.mp4 https://wearewave-net-testing.s3.us-east-1.amazonaws.com/uploads/0000000000.mp4
+
+
+$ dmesg
+
+*** Staging ***
+    Update ecr image
+        bash ../../modules/videocms_monitor_incoming_ugc/create_initial_ecr_image.sh 945204924800.dkr.ecr.us-east-2.amazonaws.com/videocms_monitor_incoming_ugc_staging us-east-2 3e30f6f57cbe90d5935404dd42527b8890ad31fd
+    Migrations
+        aws lambda update-function-code --region 'us-east-2' --function videocms_monitor_incoming_ugc-staging-sqlmigrationhelper --image-uri 945204924800.dkr.ecr.us-east-2.amazonaws.com/videocms_monitor_incoming_ugc_staging:3e30f6f57cbe90d5935404dd42527b8890ad31fd
+        aws lambda invoke --function-name videocms_monitor_incoming_ugc-staging-sqlmigrationhelper  --cli-binary-format raw-in-base64-out --payload '{"alembic_migrate": true}' --invocation-type RequestResponse migration-output.txt
+    [terraform init]
+    terraform plan
+    terraform apply
+    Run lambda
+        aws --region=us-east-2 lambda invoke --function-name videocms_monitor_incoming_ugc-staging --cli-binary-format raw-in-base64-out --payload '{ "version": "0", "id": "53dc4d37-cffa-4f76-80c9-8b7d4a4d2eaa", "detail-type": "Scheduled Event", "source": "aws.events", "account": "123456789012", "time": "2015-10-08T16:53:06Z", "region": "us-east-1", "resources": ["arn:aws:events:us-east-1:123456789012:rule/my-scheduled-rule"], "detail": {} }' lambda-output.json
+
+*** Production ***
+    Update ecr image
+        bash ../../modules/videocms_monitor_incoming_ugc_production/create_initial_ecr_image.sh 945204924800.dkr.ecr.us-east-2.amazonaws.com/videocms_monitor_incoming_ugc_production us-east-2 3e30f6f57cbe90d5935404dd42527b8890ad31fd
+    Migrations
+        aws lambda update-function-code --region 'us-east-2' --function videocms_monitor_incoming_ugc-production-sqlmigrationhelper --image-uri 945204924800.dkr.ecr.us-east-2.amazonaws.com/videocms_monitor_incoming_ugc_production:3e30f6f57cbe90d5935404dd42527b8890ad31fd
+        aws lambda invoke --function-name videocms_monitor_incoming_ugc-production-sqlmigrationhelper  --cli-binary-format raw-in-base64-out --payload '{"alembic_migrate": true}' --invocation-type RequestResponse migration-output.txt
+    [terraform init]
+    terraform plan
+    terraform apply
+    Run lambda
+        aws --region=us-east-2 lambda invoke --function-name videocms_monitor_incoming_ugc-staging --cli-binary-format raw-in-base64-out --payload '{ "version": "0", "id": "53dc4d37-cffa-4f76-80c9-8b7d4a4d2eaa", "detail-type": "Scheduled Event", "source": "aws.events", "account": "123456789012", "time": "2015-10-08T16:53:06Z", "region": "us-east-1", "resources": ["arn:aws:events:us-east-1:123456789012:rule/my-scheduled-rule"], "detail": {} }' lambda-output.json
+
+
+
+
+*******************************************************************************
+      VS Code with ssh connection to remote server instance EC2 in windows
+*******************************************************************************
+
+https://code.visualstudio.com/docs/remote/ssh
+
+Create a config file
+    Host ec2-18-223-190-45.us-east-2.compute.amazonaws.com
+      HostName ec2-18-123-123-45.us-east-2.compute.amazonaws.com
+      IdentityFile c:\temp\Consultant-LC3.pem
+      User ubuntu
+Change the properties of ssh key file  (e.g. Consultant-LC3.pem)
+    Right click / properties / Secutiry / Advanced / Disable inheritance
+    Add local user with Read Access
+    Delete other user access.
+In VS Code, click on left bottom corner (green), new conection with config file.
+
+
+********************************************************************************
+                                EC2 INSTANCE
+********************************************************************************
+
+To connect using Session Manager (Web CLI)
+    Add IAM Role: AmazonSSMRoleForInstancesQuickSetup
+    Restart instance, and wait a few minutes.
+
+https://aws.amazon.com/ec2/instance-types/
+
+
+********************************************************************************
+                        How to install pip
+********************************************************************************
+
+wget https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+export PATH="/home/ssm-user/.local/bin:$PATH"
+
+
+
+    # For each FB API call it is common to have inconsistent data and when we gather a
+    # videos list for a Fb page, we can have some things missing.
+    # Trying to solve this weakness we gather the new videos each day and store this list
+    # of videos for each page in the videos_list table.
+    # Because of the inconsistencies, gathering new videos is not enough so we go back
+    # three months and gather all videos until today, and store the new list using an
+    # upsert operation.
+    # By doing this daily we can fill in the possible missing data we could have in the
+    # videos list, so we substract 3 months (7'776.000 seconds) to the timestamp of the
+    # last video in the database.
+
+
+
+https://app.sworkit.com/coupon/ENDAVA60
+https://www.youtube.com/watch?v=RnqAXuLZlaE
+https://notlaura.com/is-css-turing-complete/
+
+
+
+def unarchive_asset2(
+    asset_id: str, file_name: str, path: str = PORTAL_SUBMISSIONS_S3_BASE_PATH
+) -> tuple:
+    """
+    Delete file format Archived status for an asset.
+    asset_id -- Id of the asset in iconik.
+    file_name -- filename for the asset in iconik.
+    path -- Directory where file must be located in storage.
+    """
+
+    try:
+        format_id = create_format(asset_id)
+        file_set_id = create_file_set(asset_id, format_id, file_name, path)
+        file_id = create_file(asset_id, format_id, file_set_id, file_name, path)
+
+        # Get all asset's format for the asset_id
+        url = "{base_url}/files/v1/assets/{asset_id}/formats/".format(
+            base_url=ICONIK_BASE_URL, asset_id=asset_id
+        )
+        r = requests.get(url, headers=HEADERS, timeout=TIMEOUT_SECONDS)
+        result = json.loads(r.text)
+
+        # Delete all 'Archived' formats.
+        for object in result["objects"]:
+            # archive_status is None if it is Archived OR 'NOT_ARCHIVED' if not.
+            if object["archive_status"]:
+                continue
+            # Archived format id .
+            format_id = object["id"]
+            url = "{base_url}/files/v1/assets/{asset_id}/formats/{format_id}/".format(
+                base_url=ICONIK_BASE_URL, asset_id=asset_id, format_id=format_id
+            )
+            r = requests.delete(url, headers=HEADERS, timeout=TIMEOUT_SECONDS)
+
+        return asset_id, file_id
+    except Exception as ex:
+        print(ex)
+        raise
+
+
+*******************************************************************************
+                                haproxy
+*******************************************************************************
+https://www.haproxy.com/documentation/hapee/latest/onepage/#2.6
+https://www.haproxy.com/blog/the-four-essential-sections-of-an-haproxy-configuration/
+
+Assuming haproxy is in $PATH, test these configurations in a shell with:
+    $ sudo haproxy -f configuration.conf -c
+
+netstat -tulpn
+
+    Adjust haproxy:
+        receive connections on 5433 --> redirect to CMS_DB on port 5432
+            /etc/haproxy/haproxy.cfg
+        restart haproxy
+            sudo service haproxy restart
+            [systemctl restart haproxy]
+    ajustar reglas del security group
+        modify security group to allow fivetran IPs to 5433
+
+
+
+
+aws --region us-east-2 \
+    lambda create-function \
+    --function-name $LAMBDA_NAME \
+    --description "Lambda function to store youtube renvenue in snowflake database." \
+    --code S3Bucket=$BASE_BUCKET,S3Key=$LAMBDA_ZIPFILE \
+    --handler lambda.lambda_handler \
+    --runtime python3.8 \
+    --timeout 900 \
+    --memory-size 1024 \
+    --environment 'Variables={ENV=staging}' \
+    --role arn:aws:iam::945204924800:role/LambdaWithParameterStoreAccess
+
+aws --region us-east-2 \
+    lambda create-function \
+    --function-name $LAMBDA_NAME \
+    --package-type Image \
+    --code ImageUri=945204924800.dkr.ecr.us-east-2.amazonaws.com/youtube-revenue:latest \
+    --description "Lambda function to store youtube renvenue in snowflake database." \
+    --timeout 900 \
+    --memory-size 1024 \
+    --environment 'Variables={ENV=staging}' \
+    --role arn:aws:iam::945204924800:role/LambdaWithParameterStoreAccess
+
+aws --region us-east-2 \
+    lambda update-function-code \
+    --function-name $LAMBDA_NAME \
+    --zip-file fileb://$LAMBDA_ZIPFILE
+
+aws --region us-east-2 \
+    lambda update-function-code \
+    --function-name $LAMBDA_NAME \
+    --image-uri 945204924800.dkr.ecr.us-east-2.amazonaws.com/youtube-revenue:latest
+
+# Update the layers for the lambda
+# Put the value of the 'LayerVersionArn' keys for LAYER_NAME_FOR_NP_PD and LAYER_NAME_FOR_LAMBDA
+aws --region us-east-2 \
+    lambda update-function-configuration \
+    --function-name $LAMBDA_NAME \
+    --environment 'Variables={ENV=staging}' \
+    --layers \
+    arn:aws:lambda:us-east-2:945204924800:layer:numpy-pandas-layer:1 \
+    arn:aws:lambda:us-east-2:945204924800:layer:youtube-revenue-layer:1
+
+
+https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/
+How to use the && and || operators with exit codes
+    command && echo "success"
+    command || echo "failed"
+    command && echo "success" || echo "failed"
+If a dir named “/tmp/foo” not found create it:
+    [ ! -d "/tmp/foo" ] && mkdir -p "/tmp/foo"
+
+
+
+gRCP o conocer más en profundidad esta tecnología un posible “welcome pack” sería el siguiente:
+    Guías oficiales de gRPC (https://grpc.io/docs/languages/) y Protocols Buffers (https://developers.google.com/protocol-buffers/docs/overview) a través de tutoriales y ejemplos de uso.
+    El grupo de Google (https://groups.google.com/g/grpc-io) con la comunidad para poder trasladar las dudas y ver cuestiones de otros desarrolladores.
+    Algunas herramientas incluidas en el ecosistema de gRCP en GitHub (https://github.com/grpc-ecosystem).
+
+
+
+
+                        Python in web front
+
+https://pyscript.net/
+https://github.com/pyscript/pyscript
+    <!DOCTYPE html>
+    <html>
+    <body>
+        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <py-script> print("Faster!") </py-script>
+    </body>
+    </html>
+
