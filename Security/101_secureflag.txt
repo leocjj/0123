@@ -1223,3 +1223,32 @@ Protected
 
 ********************************************************************************
 https://owasp.org/Top10/A11_2021-Next_Steps/
+
+
+
+
+
+
+2025-07-23 Links update
+
+Web App ASVS
+    https://owasp.org/www-project-application-security-verification-standard/
+    
+Mobile MASVS
+    https://mas.owasp.org/MASVS/
+
+NIST
+    https://pages.nist.gov/800-63-3/sp800-63b.html
+
+https://top10proactive.owasp.org/the-top-10/c7-secure-digital-identities/
+https://devguide.owasp.org/en/04-design/02-web-app-checklist/06-digital-identity/
+https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+
+https://chatgpt.com/g/g-6882a3432cc8819189c5e99f39837332-security-standards-advisor-owasp
+List the chapters
+List the sections in chapter 6
+List all the requirements related with authentication
+Explain me 6.2.4
+    List all the requirements related with authorization
+    Access Link Expiration Time. What is the recommended expiration time for a secure access link (sent via email)? We want to balance security with usability — currently we’re considering 15 minutes, but is that too short or too long? 
+    Should users be required to reset their password after logging in via a link? Our current flow allows access directly via the link, without prompting for a password change. Is this acceptable?
