@@ -1,0 +1,221 @@
+********************************************************************************
+                Python tip, tricks, tools, and techniques.
+********************************************************************************
+
+# To let a process running in an EC2 instance for example.
+https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
+    screen -r   // To go back to actual background screen running
+    screeen     // To create another screen and run process in parallel (e.g. web server)
+    ctrl+a+d    // To detach from created screen
+
+https://github.com/Textualize/textual
+https://github.com/Textualize/rich
+
+asyncstdlib
+    extiendo la biblioteca standar para hacerla compatible con async functions
+
+import flag
+flag.flag("CO")
+
+ulid <--> uuid
+
+Ellipsis <--> ... <--> pass
+
+# Merge dictionaries
+d3 = {**d1, **d2}  
+d1 |= d2
+
+# Generator expression / comprehension
+lst1 = [i for i in range(10000)] # list comprehension
+lst2 = (i for i in range(10000)) # generator comprehension
+
+# Generator functions
+def read_line_by_line(filename):
+  for row in open(filename, "r"):
+    yield row # access the lines of file on demand
+
+# Sort dictionary by values
+from operator import itemgetter
+d = {"v3": 44,, "v2": 33, "v4": 55, "v1": 22,}
+sorted_d = dict(sorted(d.items(), key=itemgetter(1)))
+
+# Named tuple
+from collections import namedtuple
+Student = namedtuple("Student", 'name, age, grade')
+lines = [ 
+   ["Albie Bailey", 21, 3],
+   ["Brooklyn Price", 23, 5],
+]
+students = list(map(Student._make, lines))
+
+# match
+    option = input()
+    match option:
+      case "M":
+        print("Menu List")
+      case "1" | "2":
+        print("Menu Option")
+      case _:
+        print("Exit")
+
+# Add progress bar to loops
+    from tqdm import tqdm
+    paths = os.walk('/')
+    for fpath in tqdm(paths, desc="Looping over root dir"):
+        ...
+
+# Create a context manager
+class MyContextManager:
+  def __enter__(self):
+    resource = object()
+    return resource
+  def __exit__(self, exe_type, exe_value, traceback):
+    # clean up the resource
+with MyContextManager() as cx:
+  print(cx)
+
+# timeit - test performance of a piece of code
+import timeit
+setup = """
+import random
+import string
+"""
+stmt = """ 
+def get_random_token(n_lenght: int) -> str:
+    chars = string.ascii_uppercase + string.digits
+    token = ''.join(random.choice(chars) for _ in range(n_lenght))
+    return token
+get_random_token(100)
+"""
+times = timeit.repeat(stmt=stmt, setup=setup, repeat=2, number=1000)
+print(times)
+# python -m timeit --n [number] -s [setup] [stmt]
+
+# The Walrus Operator
+numbers = [1,2,4,5,6,6,89]
+if (length := len(numbers)) >= 5:
+    print("The length of the list is:",length)
+
+# Store the results of expensive or frequently called function calls and return
+#   the cached result when the same inputs that occur again.
+from functools import lru_cache
+@lru_cache(maxsize=12)  # Cache up to 12 unique results
+def fibonacci(n):
+    ...
+
+# Shell Commands From Python
+    Use native functions before directly calling other programs or OS commands
+pathlib - If you need to create or delete a file/directory; check if a file exists; change permissions; etc.
+tempfile - Similarly, if you need a temporary file just use tempfile module, don't mess with /tmp manually.
+shutil  - if you need to copy, move, chown, which or create an archive, then you should turn to shutil.
+signal  - in case you need to use signal handlers.
+syslog  - for an interface to Unix syslog.
+# pip install sh
+subprocess -p = subprocess.run('ls -l', shell=True, check=True, capture_output=True, encoding='utf-8')
+            print(f'Command {p.args} exited with {p.returncode} code, output: \n{p.stdout}')
+os      -   print(os.getenv('PATH'))
+            from base64 import b64encode
+            random_bytes = os.urandom(64)
+            print(b64encode(random_bytes).decode('utf-8'))
+
+>>> def mul(a, b):
+...     return a * b
+>>> l1 = [1, 2, 3, 4]
+>>> l2 = [5, 6, 7]
+>>> result=list(map(mul,l1,l2))
+[5, 12, 21]
+
+
+import numpy as np
+import pandas as pd
+import time
+def complex_function(x1, x2): # Define the complex function
+    return np.log(x1 + 1) * np.sqrt(x2)
+df = pd.DataFrame({ # Generate sample data
+    'feature1': np.random.rand(1000000),
+    'feature2': np.random.rand(1000000)
+})
+# Using pandas apply (slower)
+start_time = time.time()
+df['new_feature_apply'] = df.apply(lambda row: complex_function(row['feature1'], row['feature2']), axis=1)
+apply_duration = time.time() - start_time
+# Using NumPy vectorization (faster)
+start_time = time.time()
+df['new_feature_vectorized'] = complex_function(df['feature1'].values, df['feature2'].values)
+vectorized_duration = time.time() - start_time
+print(f"Apply duration: {apply_duration:.2f} seconds")
+print(f"Vectorized duration: {vectorized_duration:.2f} seconds")
+#Apply duration: 10.07 seconds
+#Vectorized duration: 0.01 seconds
+
+asyncio
+    For managing many waiting tasks
+Threads
+    For parallel task that share data with minimal CPU use
+Processes
+    For maximizing performance on CPU intensive tasks
+
+https://www.youtube.com/watch?v=Qb9s3UiMSTA
+import asyncio
+# coroutine 
+async def main():
+    print("Start of main coroutine")
+# main() is a coroutine object, not executable directly
+
+
+# python dataclass vs Attrs vs Pydantic: class definition
+
+
+
+Introduction to Generative AI
+    https://learning.oreilly.com/videos/introduction-to-generative/28468307VIDEOPAIML/28468307VIDEOPAIML-c1_s9/
+Prompt engineering
+    (book) https://learning.oreilly.com/library/view/ai-engineering/9781098166298/ch05.html
+    (videos) https://learning.oreilly.com/videos/introduction-to-generative/28468307VIDEOPAIML/28468307VIDEOPAIML-c2_s1/
+GitHub Copilot for Developers
+    https://endava.sharepoint.com/sites/GitHubCopilotDevAcademy/SitePages/Github-Copilot-Adoption-for-Developers.aspx
+RAG and Agents
+    https://learning.oreilly.com/library/view/ai-engineering/9781098166298/ch06.html
+
+
+
+
+https://python-patterns.guide/gang-of-four/builder/
+
+
+https://endava.sharepoint.com/sites/DevelopmentDiscipline/Shared%20Documents/Forms/AllItems.aspx?web=1&FolderCTID=0x0120005AE3A6F5F6803B48AC6ED6DBB986DC56&OR=Teams%2DHL&CT=1701274575128&id=%2Fsites%2FDevelopmentDiscipline%2FShared%20Documents%2FStream%20Migrated%20Videos%2FDevWeek%20%2D%202023%2FLATAM%2FMTD&viewid=38774d0b%2D054b%2D4691%2D8dd8%2D28cf1eb723a4
+https://endava-my.sharepoint.com/personal/carolina_sosa_endava_com/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fcarolina%5Fsosa%5Fendava%5Fcom%2FDocuments%2FRecordings&FolderCTID=0x0120006A87B9E42A7DDA4FA597B25C9D2D454B&view=0&noAuthRedirect=1
+https://endava-my.sharepoint.com/personal/carolina_sosa_endava_com/_layouts/15/stream.aspx?id=%2Fpersonal%2Fcarolina%5Fsosa%5Fendava%5Fcom%2FDocuments%2FRecordings%2FPotencia%20tu%20Realidad%20%5F%20Bonus%20track%20Navide%C3%B1o%20L%26D%20Latam%2D20231206%5F160352%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview&ga=1
+
+https://python-patterns.guide/
+https://app.daily.dev/my-feed
+
+https://github.com/jd/tenacity
+https://github.com/hynek/stamina
+
+https://github.com/kidscancode/pygame_tutorials/blob/dd5574788cfbfc4736d7d507b5b3d15eb5f1b115/shmup/rot-example.py
+
+https://hablemospython.dev/
+
+https://kobzol.github.io/rust/python/2023/05/20/writing-python-like-its-rust.html
+
+https://streamlit.io/   A faster way to build and share data apps
+
+PEP 636 – Structural Pattern Matching
+https://docs.python-guide.org/writing/style/
+https://wiki.python.org/moin/PythonSpeed/PerformanceTips
+
+To develop CI/CD pipelines in Python, and run them on any OCI-compatible container runtime.
+https://docs.dagger.io/sdk/python
+
+Python
+    https://docs.pydantic.dev/
+    https://www.mit.edu/~xela/tao.html
+    https://news.ycombinator.com/
+    https://dzone.com/
+    https://daily.dev/
+    https://www.thoughtworks.com/radar
+
+
+Kedro is a toolbox for production-ready data science.
+    https://kedro.org/
