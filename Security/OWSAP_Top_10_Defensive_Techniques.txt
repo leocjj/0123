@@ -1,0 +1,45 @@
+
+We need to make Builders “The Yellow Team” and gives them the capacity to make their applications more secure.
+    https://hackernoon.com/introducing-the-infosec-colour-wheel-blending-developers-with-red-and-blue-security-teams-6437c1a07700
+
+https://pauljerimy.com/security-certification-roadmap/
+https://confluence.endava.com/display/GPRASDV/ADHOC+-+Security+Community 
+https://confluence.endava.com/display/GPRASDV/
+https://confluence.endava.com/display/GPRASDV/Endava+Security+Champion+Training+Program
+
+https://www.secureflag.com/
+    SQL Injection
+    
+    Username:   user';--    Password: p
+
+    loging.py:41
+        sql_statement = "SELECT username FROM users WHERE username='%s' and password='%s'" % (username, password_hash.hexdigest())
+        c.execute(sql_statement)
+    replace by
+        sql_statement = "SELECT username FROM users WHERE username=? and password=?"
+        c.execute(sql_statement, (username, password_hash.hexdigest()))
+
+    www.vulnerableapp.com/manual/?filename=manual-app-v2.pdf
+    www.vulnerableapp.com/manual/?filename=license.txt
+    
+https://github.com/leocjj/0123/blob/master/Security/101_secureflag.txt 
+
+
+
+*************************
+
+wget https://www.mathstat.dal.ca/~selinger/md5collision/hello
+wget https://www.mathstat.dal.ca/~selinger/md5collision/erase
+diff hello erase
+md5sum hello erase
+    da5c61e1edc0f18337e46418e48c1290  hello
+    da5c61e1edc0f18337e46418e48c1290  erase
+
+
+
+
+
+
+
+
+
