@@ -1,4 +1,34 @@
 
+Format and Linter
+    uvx ruff check   // Linter
+    uvx ruff format  // Formater
+
+Python GUI
+    https://www.gradio.app/
+    https://flet.dev/
+    streamlit
+
+
+
+
+itertools
+    Infinite sequences?
+    Complex data manipulations?
+    Combinatorial problems?
+
+    itertools.pairwise
+    itertools.product
+    permutations & combinations
+    Combinations with replacement
+    itertools.zip_longest
+    itertools.cycle
+    itertools.groupby
+    itertools.accumulate
+    itertools.count
+
+
+
+
 Python Intallation
     CPython     # https://www.python.org/downloads/
     Pypy        # https://www.pypy.org/download.html
@@ -63,6 +93,14 @@ New must-have
     GUI, Web apps, Local Apps, Create installer
         https://nicegui.io/
 
+Safety / Security / Dependencies scanner
+    https://github.com/pyupio/safety
+    https://github.com/pypa/pip-audit
+    https://github.com/owenlamont/uv-secure
+    https://github.com/feynmanix/pipask
+    https://github.com/DataDog/guarddog
+    https://trivy.dev/docs/latest/coverage/language/python/
+    https://oracle.github.io/macaron/pages/tutorials/detect_malicious_package.html
 
 Environments and Package Managers
     https://packaging.python.org/en/latest/key_projects/
@@ -149,3 +187,260 @@ Utilities:
 *   https://boltons.readthedocs.io/en/latest/index.html
 
 
+text->voice https://github.com/resemble-ai/chatterbox
+
+1. Sweetviz — Automated EDA That Makes Your Boss Think You Didn’t Sleep
+    import sweetviz as sv
+    import pandas as pd
+    df = pd.read_csv("data.csv")
+    report = sv.analyze(df)
+    report.show_html("eda_report.html")
+
+    For support NumPy 2.x, create your imports as:
+    import numpy as np
+    # Fix Sweetviz compatibility with NumPy 2.x
+    if not hasattr(np, "VisibleDeprecationWarning"):
+    class VisibleDeprecationWarning(Warning):
+    pass
+    np.VisibleDeprecationWarning = VisibleDeprecationWarning
+    import sweetviz as sv
+    print("SweetViz Version : {}".format(sv.__version__))
+    And it will work :)
+
+2. River — Machine Learning That Learns Continuously
+    from river import linear_model, optim, metrics
+    model = linear_model.LogisticRegression(optimizer=optim.SGD(0.01))
+    metric = metrics.Accuracy()
+    for x, y in stream:  # stream yields row-by-row data
+        y_pred = model.predict_one(x)
+        model.learn_one(x, y)
+        metric.update(y, y_pred)
+    print(metric.get())
+
+3. Lux — Pandas, But It Shows You Insights Automatically
+    import pandas as pd
+    import lux
+    df = pd.read_csv("sales.csv")
+    df  # Just display it-Lux handles the magic
+
+4. DirtyCat — When Your Categorical Data Is an Absolute Disaster
+    # migrated to skrub?
+    from dirty_cat import SimilarityEncoder
+    import pandas as pd
+    df = pd.DataFrame({"company": ["Google", "Gooogle", "Gogle", "Amazon"]})
+    enc = SimilarityEncoder()
+    encoded = enc.fit_transform(df[["company"]])
+    print(encoded)
+
+5. Dython — Visual Relationship Maps for Your Dataset
+    from dython.nominal import associations
+    import pandas as pd
+    df = pd.read_csv("marketing_data.csv")
+    associations(df, figsize=(12,10))
+
+6. Eli5 — Explain Your ML Models Like a Fortune Teller
+    import eli5
+    from eli5.sklearn import PermutationImportance
+    perm = PermutationImportance(model).fit(X, y)
+    eli5.show_weights(perm, feature_names=X.columns.tolist())
+
+7. Textattack — The Library For Breaking NLP Models
+
+8. PyOD — Your One-Stop Shop for Anomaly Detection
+
+9. Featuretools — Automated Feature Engineering at the Level of Sorcery
+
+
+Python
+
+1. Requests. The most famous http library written by kenneth reitz. It’s a must have for every python developer.
+2. Scrapy. If you are involved in webscraping then this is a must have library for you. After using this library you won’t use any other.
+3. wxPython. A gui toolkit for python. I have primarily used it in place of tkinter. You will really love it.
+4. Pillow. A friendly fork of PIL (Python Imaging Library). It is more user friendly than PIL and is a must have for anyone who works with images.
+5. SQLAlchemy. A database library. Many love it and many hate it. The choice is yours.
+6. BeautifulSoup. I know it’s slow but this xml and html parsing library is very useful for beginners.
+7. Twisted. The most important tool for any network application developer. It has a very beautiful api and is used by a lot of famous python developers.
+8. NumPy. How can we leave this very important library ? It provides some advance math functionalities to python.
+9. SciPy. When we talk about NumPy then we have to talk about scipy. It is a library of algorithms and mathematical tools for python and has caused many scientists to switch from ruby to python.
+10. matplotlib. A numerical plotting library. It is very useful for any data scientist or any data analyzer.
+11. Pygame. Which developer does not like to play games and develop them ? This library will help you achieve your goal of 2d game development.
+12. Pyglet. A 3d animation and game creation engine. This is the engine in which the famous python port of minecraft was made
+13. pyQT. A GUI toolkit for python. It is my second choice after wxpython for developing GUI’s for my python scripts.
+14. pyGtk. Another python GUI library. It is the same library in which the famous Bittorrent client is created.
+15. Scapy. A packet sniffer and analyzer for python made in python.
+16. pywin32. A python library which provides some useful methods and classes for interacting with windows.
+17. nltk. Natural Language Toolkit – I realize most people won’t be using this one, but it’s generic enough. It is a very useful library if you want to manipulate strings. But it’s capacity is beyond that. Do check it out.
+18. nose. A testing framework for python. It is used by millions of python developers. It is a must have if you do test driven development.
+19. SymPy. SymPy can do algebraic evaluation, differentiation, expansion, complex numbers, etc. It is contained in a pure Python distribution.
+20. IPython. I just can’t stress enough how useful this tool is. It is a python prompt on steroids. It has completion, history, shell capabilities, and a lot more. Make sure that you take a look at it.
+
+
+
+https://towardsdatascience.com/tag/apache-arrow/
+While JSON and CSVs, for example, are text-based formats,
+Arrow is a columnar in-memory data format (and that allows for fast data interchange between different data processing tools). Arrow is therefore designed to optimize performance by enabling zero-copy reads, reducing memory usage, and supporting efficient compression
+
+
+APITable (14.5k GitHub Stars)
+Okay, imagine Airtable, but less expensive and open-source. APITable is this awesome tool where you can build apps with a spreadsheet vibe.
+
+ToolJet (27.2k GitHub Stars)
+ToolJet’s my go-to for quick internal tools.
+Think dashboards or little apps for your team.
+It connects to databases and APIs, and you build it visually. With 27.2k stars, it’s a no-brainer for saving time on custom work stuff.
+https://github.com/ToolJet/ToolJet
+
+NocoDB (43.1k GitHub Stars)
+NocoDB is like Airtable’s cooler cousin. It turns your database into a spreadsheet you can play with — grids, kanbans, you name it. It’s got 43.1k stars because it’s free, handles huge data, and makes organizing anything a breeze.
+https://github.com/nocodb/nocodb
+
+
+
+https://www.openwebui.com/
+
+https://marketplace.visualstudio.com/items?itemName=chrisdias.promptboost&ssr=false#overview
+
+
+https://leapcell.medium.com/diy-jwt-authentication-in-fastapi-using-only-python-5dd039c3cbee
+
+
+Python is the interface. Rust is the engine.
+1. uv vs Poetry
+2. Ruff vs Flake8 (and friends)
+3. Polars vs pandas
+4. Pydantic (v2) vs its v1 implementation
+5. cryptography (Rust components) vs legacy C-heavy extensions
+6. PyO3 vs traditional CPython C-API extensions
+7. ty vs mypy
+
+
+3. PyScript — Run Python in the Browser
+4. Pandera — Data Validation for Pandas
+5. Textual — Build TUI Apps in Python
+6. LlamaIndex — Build Custom AI Assistants
+7. Robyn — The Fastest Python Web Framework
+8. DuckDB — The Lightning-Fast In-Memory Database. SQL on your local files, no server required
+9. Django — Full-Stack Web Framework
+10. FastAPI — High-Performance APIs
+11. LangChain — AI-Powered Applications
+12. Pydantic — Data Validation & Parsing
+13. Flet — Python for Web, Mobile & Desktop UI
+14. Weaviate — Vector Database for AI & Search
+15. Reflex — Web Apps in Python (Frontend + Backend) React-like UI in Python
+
+6. Textual — terminal UIs that don’t look like they’re from 1995
+7. Instructor — getting structured data out of LLMs without losing your mind
+
+
+Find secrets with Gitleaks
+    https://github.com/gitleaks/gitleaks
+
+OCR
+    https://www.e-iceblue.com/Introduce/ocr-for-python.html
+    pip install Spire.OCR
+    https://www.e-iceblue.com/resource/ocr_python/win-x64.zip
+    https://www.e-iceblue.com/resource/ocr_python/linux.zip
+    https://www.e-iceblue.com/Introduce/pdf-for-python.html
+
+W&D
+    Python
+    FastAPI
+    SQLAlchemy
+    Pytest
+    UV
+    Docker / Kubernetes
+    AWS
+    ArgoCD + helmcharts
+    Gitlab + GitlabCI
+    queue
+        Celery, Django Q, Huey, RQ (Redis Queue), APScheduler, Dramatiq
+        Redis and RabbitMQ as brokers
+
+
+glom — The Nested Data Wrangler
+2. boltons. It's a collection of pure-Python utilities like
+    iterutils: chunked, windowed, remap
+    strutils: slugify, camel2under
+    timeutils
+3. beartype — Runtime Type Checking
+4. result — Stop Returning None, Start Returning Truth
+    Rust's Result type to Python. Functions either return Ok(value) or Err(error)
+5. whenever — Date and Time Done Right. makes timezone mistakes impossible
+6. pyinstrument — Profile Your Code 
+7. dirty-equals — Test Assertions That Don't Lie to You
+    IsDatetime, IsUUID, IsPositiveInt, IsStr, Contains
+    IsApprox for floating point comparisons, IsJson, IsList(length=5)
+8. stamina — Production-Grade Retry Logic for Async Too
+9. pyfunctional — Pipeline Your Data
+
+Data visualization stack is gorgeous:
+    Plotly & Dash: Interactive web-based visualizations
+    Altair: Declarative statistical visualization (based on Vega-Lite)
+    Seaborn: Statistical plots that actually look good by default
+    PyGWalker: Turn pandas DataFrames into Tableau-like interfaces in one line
+
+
+hatch: Modern project management (replaces setuptools)
+
+
+
+Build Python Data & BI web applications
+    https://taipy.io/
+
+https://dipanshu10.medium.com/paying-for-software-is-stupid-open-source-tools-to-destroy-your-saas-expenses-a80303a83ff1
+S-Tier: Mission-Critical Tools (Most Essential)
+    Backend and Infrastructure
+      * 1. Appwrite: Comprehensive backend server designed for frontend and mobile developers.
+      * 2. Supabase: PostgreSQL-based backend platform alternative to Firebase, built on PostgreSQL.
+        3. PocketBase: Lightweight backend solution that includes a database, authentication, and file storage capabilities.
+        4. Airbyte: Data integration powerhouse platform that aggregates data from multiple sources.
+        5. Taubyte: Serverless computing platform that simplify backend management for developers.
+    Development and Deployment
+        6. Coolify: Self-hostable deployment platform Heroku & Netlify alternative.
+      * 7. Dokku: Minimal Platform-as-a-Service for hosting applications using Docker.
+        8. n8n: Workflow automation toolkit that connects various apps and services.
+A-Tier: High-Impact Tools
+    AI and Machine Learning
+        9. LLMWare : AI-driven solution platform
+        10. Trieve: AI infrastructure for retrieval designed for retrieval and ranking tasks.
+    Project Management and Collaboration
+        11. Plane: Advanced issue tracking designed to streamline software development workflows.
+        12. Affine: Collaborative knowledge base
+    Authentication and Security
+        13. Hanko: passwordless authentication
+        14. Flipt: Feature flag management
+    Monitoring and Analytics
+        15. PostHog: product analytics suite that allows you to understand user behavior.
+B-Tier: Productivity Enhancers
+    Web Development and Frameworks
+        16. Phoenix:High-performance web framework
+        17. ToolJet: Low-code internal tool builder that enables the rapid development of internal tools.
+    Customer Engagement
+        18. Chatwoot :Customer Support platform
+        19. Novu :Notification infrastructure for developers to manage all communication channels.
+    Specialized Tools
+        20. Tolgee: Localization platform designed to streamline the translation process for software applications.
+        21. Cal: Scheduling platform that simplifies meeting bookings.
+C-Tier: Useful Specialized Solutions
+    22. MedusaJS: Headless commerce platform
+    23. Formbricks: Form Backend Solution that simplifies data collection and processing.
+    24. Prometheus: System monitoring and alerting toolkit
+  * 25. NocoDB: SQL database interface. NocoDB turns your SQL databases into a smart spreadsheet interface.
+    26. Plausible: Privacy-focused analytics. Plausible is a lightweight, open-source web analytics tool.
+    27. Documenso: Digital signature platform. 
+    28. Mautic: Marketing Automation
+    29. Nextcloud: File hosting and collaboration
+    30. Jitsi: Secure Video Conferencing
+D-Tier: Niche but Valuable Tools
+    31. Postiz: Social Media scheduling designed to streamline content management across various platforms.
+    32. Dub: URL shortening
+    33. Composio: Content Management aimed at simplifying web content creation and collaboration.
+    34. Papermark: Documentation Platform. collaborative documentation platform that combines note-taking and project management.
+    35. ERPNext: Buisness Management
+    36. PrestaShop: E-commerce platform
+    37. Mattermost: Team Communication
+    38. Wekan:kanban board for task and project management.
+    39. Fathom: Web analytics
+    40. AppFlowy: Note-taking alternative to Notion, focusing on privacy and extensibility.
+
+---
