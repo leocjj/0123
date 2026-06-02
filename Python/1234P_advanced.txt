@@ -1068,4 +1068,20 @@ https://pythonspeed.com/articles/faster-conda-install/
 
 
 
+Use __slots__ for Lightweight Objects
+Every Python object normally stores its attributes in a dictionary (__dict__). That dictionary costs memory.
+If you’re creating thousands (or millions) of objects, that overhead adds up fast.
 
+    #Default class
+    class User:
+        def __init__(self, name, age):
+            self.name = name
+            self.age = age
+
+    # Memory-optimized class
+    class User:
+        __slots__ = ("name", "age")
+
+        def __init__(self, name, age):
+            self.name = name
+            self.age = age
