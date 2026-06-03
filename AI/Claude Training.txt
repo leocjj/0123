@@ -1,0 +1,35 @@
+
+Claude.ai
+Claude code
+
+Claude, consider:
+    setting the stage (your role, objectives, and context),
+    defining the task (what action you want Claude to take),
+    and specifying rules (style, tone, and examples)
+
+Memory automatically saves key context from your conversations — your role, preferences, past decisions, and working style —
+
+The 4D Framework for AI Fluency,
+    Delegation:
+        Deciding on what work should be done by humans,
+        what work should be done by AI, and how to distribute tasks between them.
+        Includes understanding your goals, AI capabilities, and making strategic
+        choices about collaboration.
+    Description:
+        Effectively communicating with AI systems.
+        Includes clearly defining outputs, guiding AI processes, and
+        specifying desired AI behaviors and interactions.
+    Discernment:
+        Thoughtfully and critically evaluating AI outputs, processes,
+        behaviors and interactions. Includes assessing quality, accuracy,
+        appropriateness, and determining areas for improvement.
+    Diligence:
+        Using AI responsibly and ethically. Includes making thoughtful choices
+        about AI systems and interactions, maintaining transparency, and
+        taking accountability for AI-assisted work.
+
+Test prompts - to evaluate how Claude might work with your data:
+    Find a dataset you've manually analyzed
+    Create prompts that request Claude to do the analysis on your behalf
+    Compare Claude's results to your originals
+    Note patterns and refine your prompt accordingly: Maybe Claude gets the right numbers but misses the overall patterns
