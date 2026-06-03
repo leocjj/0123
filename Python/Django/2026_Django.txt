@@ -1,0 +1,222 @@
+uv add django
+source .venv/bin/activate
+python -m django --version
+
+import django
+django.get_version()
+
+django-admin startproject <project_name> <directory_name>
+django-admin startproject  mysite         djangotutorial
+// python manage.py
+// sets the DJANGO_SETTINGS_MODULE environment variable
+// so that it points to your project’s settings.py file.
+
+// The following is an equivalent code
+    python -m django startproject mysite djangotutorial
+    // To add django-admin to PATH
+        nano ~/.bashrc
+        // Add this line to the end
+        export PATH=$PATH:.venv/bin/
+    // Go to the UV project folder and run django-admin
+
+
+python manage.py check
+python manage.py shell
+python manage.py migrate
+    #  Check settings and creates necessary database tables for apps
+python manage.py dbshell
+    # sudo apt install sqlite3
+    # \dt (PostgreSQL)
+    # SHOW TABLES; (MariaDB, MySQL)
+    # .tables (SQLite)
+    # SELECT TABLE_NAME FROM USER_TABLES; (Oracle)
+python manage.py runserver [port]
+python manage.py startapp <app_name>
+    # e.g. polls, creates a directory polls.
+python manage.py makemigrations <app_name>
+
+
+An app is a web application that does something – e.g., a blog system, a database of public records or a small poll app.
+A project is a collection of configuration and apps for a particular website.
+A project can contain multiple apps.
+An app can be in multiple projects.
+
+
+1) polls/views.py
+    from django.shortcuts import render
+    # Create your views here.
+    from django.http import HttpResponse
+    def index(request):
+        return HttpResponse("Hello, world. You're at the polls index.")
+    def latest(request):
+        return HttpResponse("Hello, world. You're at the latest index page.")
+
+2) polls/urls.py
+    from django.urls import path
+    from . import views
+    urlpatterns = [
+        # path(<route>, <view>, [name=<name>])
+        path("", views.index, name="index"),
+        path("latest", views.latest, name="index_alt"),
+    ]
+
+3) mysite/urls.py
+    # ADD URLS CONFIG FROM POLLS APP
+    from django.contrib import admin
+    from django.urls import include, path
+    urlpatterns = [
+        # path(<route>, <view>)
+        path('polls/', include('polls.urls')),
+        path('admin/', admin.site.urls),
+    ]
+
+Go to http://127.0.0.1:8000/polls/
+
+
+Project-URLS -> App-URLS -> App-Views -> App-Templates -> Browser
+
+********************************************************************************
+
+Models: database layout with additional metadata
+
+4) polls/models.py
+    import datetime
+    from django.db import models
+    from django.utils import timezone
+    class Question(models.Model):
+        question_text = models.CharField(max_length=200)
+        pub_date = models.DateTimeField("date published")
+        def __str__(self):
+            return self.question_text
+        def was_published_recently(self):
+            return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    class Choice(models.Model):
+        question = models.ForeignKey(Question, on_delete=models.CASCADE)
+        choice_text = models.CharField(max_length=200)
+        votes = models.IntegerField(default=0)
+        def __str__(self):
+            return self.choice_text
+
+5) mysite/settings.py
+    ...
+    INSTALLED_APPS = [
+        "polls.apps.PollsConfig",
+        ...
+    ]
+
+# Store models changes as a migration
+python manage.py makemigrations polls
+
+# Takes migration names and returns their SQL
+python manage.py sqlmigrate <app_name> <migration_name>
+python manage.py sqlmigrate polls 0001
+
+# Checks for any problems in your project without making migrations
+python manage.py check
+
+# Runs all the migrations that haven't been applied
+python manage.py migrate
+
+python manage.py shell
+Question.objects.all()
+from django.utils import timezone
+q = Question(question_text="What's new?", pub_date=timezone.now())
+q.save()
+q.id
+q.question_text
+q.pub_date
+Question.objects.all()
+Question.objects.filter(id=1)
+Question.objects.filter(question_text__startswith="What")
+Question.objects.get(pub_date__year=timezone.now().year)
+q = Question.objects.get(pk=1)  # Question.objects.get(id=1)
+q.was_published_recently()
+
+
+****
+https://docs.djangoproject.com/en/6.0/ref/models/relations/
+
+# Give the Question a couple of Choices. The create call constructs a new
+# Choice object, does the INSERT statement, adds the choice to the set
+# of available choices and returns the new Choice object. Django creates
+# a set (defined as "choice_set") to hold the "other side" of a ForeignKey
+# relation (e.g. a question's choice) which can be accessed via the API.
+>>> q = Question.objects.get(pk=1)
+
+# Display any choices from the related object set -- none so far.
+>>> q.choice_set.all()
+<QuerySet []>
+
+# Create three choices.
+>>> q.choice_set.create(choice_text="Not much", votes=0)
+<Choice: Not much>
+>>> q.choice_set.create(choice_text="The sky", votes=0)
+<Choice: The sky>
+>>> c = q.choice_set.create(choice_text="Just hacking again", votes=0)
+
+# Choice objects have API access to their related Question objects.
+>>> c.question
+<Question: What's up?>
+
+# And vice versa: Question objects get access to Choice objects.
+>>> q.choice_set.all()
+<QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+>>> q.choice_set.count()
+3
+
+# The API automatically follows relationships as far as you need.
+# Use double underscores to separate relationships.
+# This works as many levels deep as you want; there's no limit.
+# Find all Choices for any question whose pub_date is in this year
+# (reusing the 'current_year' variable we created above).
+>>> Choice.objects.filter(question__pub_date__year=current_year)
+<QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+
+# Let's delete one of the choices. Use delete() for that.
+>>> c = q.choice_set.filter(choice_text__startswith="Just hacking")
+>>> c.delete()
+
+
+
+********************************************************************************
+
+python manage.py createsuperuser
+
+# Make the poll app modifiable in the admin
+# polls/admin.py
+    from django.contrib import admin
+    from .models import Question
+    admin.site.register(Question)
+
+
+
+
+App Server      Add more instances behind a load balancer [13].
+Read Operations Implement database read replicas [1].
+Write Operation Optimize indexes, use sharding, or move to distributed DBs like Citus [1].
+Static Assets   Use a Content Delivery Network (CDN) to serve images/CSS [9].
+Heavy Process   Move to async task queues like Celery [3].
+
+products/
+├── models.py        database models
+├── views.py         page logic
+├── urls.py          app routes
+├── forms.py         forms
+├── admin.py         admin configuration
+├── tests.py         tests
+├── serializers.py   API serializers, for Django REST Framework
+├── services.py      business logic
+├── templates/
+└── static/
+
+
+
+
+
+
+
+
+
+
+
+
