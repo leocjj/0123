@@ -1,3 +1,13 @@
+Better choice coding
+	https://towardsdatascience.com/memory-management-in-python-6bea0c8aecc9
+
+Patterns
+	https://refactoring.guru/es/design-patterns/python
+
+SOLID
+	https://experto.dev/principios-solid-con-ejemplos/
+
+
 ********************************************************************************
                 Python tip, tricks, tools, and techniques.
 ********************************************************************************
