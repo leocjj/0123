@@ -1,3 +1,187 @@
+
+We need to make Builders “The Yellow Team” and gives them the capacity to make their applications more secure.
+    https://hackernoon.com/introducing-the-infosec-colour-wheel-blending-developers-with-red-and-blue-security-teams-6437c1a07700
+
+https://pauljerimy.com/security-certification-roadmap/
+
+https://decentsecurity.com/routerwifi-configuration
+
+
+********************************************************************************
+                            OWASP Juice Shop
+********************************************************************************
+
+Vulnerable app for security awareness and training on Web Applications
+This is a really nice, intentionally vulnerable application created by OWASP for
+    training purposes: https://owasp.org/www-project-juice-shop/
+You can try it online (if you're lucky) here: https://juice-shop.herokuapp.com/
+
+But we recommend you to install it locally, this is the repository:
+    https://github.com/juice-shop/juice-shop
+
+and here you have the simplified steps:
+    Install WSL (Windows only)
+    Install Docker (https://docs.docker.com/engine/install/)
+    Run
+        docker pull bkimminich/juice-shop
+        docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop
+    Browse to http://localhost:3000
+
+
+
+********************************************************************************
+                            Cryptography
+********************************************************************************
+
+https://www.stationx.net/symmetric-vs-asymmetric-encryption/
+
+RSA Algorithm - How does it work?
+    https://www.youtube.com/watch?v=Pq8gNbvfaoM
+
+
+https://www.practicalnetworking.net/series/cryptography/cryptography/
+https://www.youtube.com/watch?v=_zyKvPvh808&list=PLIFyRwBY_4bTwRX__Zn4-letrtpSj1mzY
+https://anycript.com/crypto
+https://courses.stationx.net/p/introduction-to-encryption-cybersecurity?_gl=1*f8wxat*_ga*MTE5NTc0NDQ4MC4xNzQzNjU4OTcy*_ga_E8HBRYEEDZ*czE3NDcyNDQyOTIkbzUkZzAkdDE3NDcyNDQyOTIkajYwJGwwJGgw
+https://courses.stationx.net/p/digital-signature?_gl=1*1mz9xic*_ga*MTE5NTc0NDQ4MC4xNzQzNjU4OTcy*_ga_E8HBRYEEDZ*czE3NDcyNDQyOTIkbzUkZzEkdDE3NDcyNDQ2MzMkajYwJGwwJGgw
+https://www.cryptosys.net/pqc/
+
+https://www.stationx.net/symmetric-vs-asymmetric-encryption/
+https://aws.amazon.com/what-is/ssl-certificate/
+https://aws.amazon.com/compare/the-difference-between-ssl-and-tls/
+https://aws.amazon.com/compare/the-difference-between-https-and-http/
+
+
+Symmetric Encryption (secret-key ciphering)
+    Use a single key for both encryption and decryption
+    The same key is used by both the sending and receiving parties
+    The key is kept confidential and must be exchanged securely.
+    Ideal for quickly encrypting large amounts of data.
+    Advanced Encryption Standard (AES)
+        https://www.devglan.com/online-tools/aes-encryption-decryption
+        Data is encrypted in 128-bit blocks,
+        which are then encrypted using 128, 192, and 256-bit keys.
+    Others (legacy or obsolete)
+        Data Encryption Standard (DES)
+        3DES
+        Rivest Cipher 4 (RC4)
+    There are many use cases for symmetric encryption, including:
+        WiFi: WPA2 uses symmetric encryption to secure communication between a device and a router.
+        Disk encryption: Encrypts all data, including temporary files and swap space. 
+        Data encryption: Transparent Data Encryption (TDE) in SQL servers uses AES to protect data at rest
+
+Asymmetric Encryption (public-key encryption)
+    Uses a pair of public and private keys
+    The public key is available to anyone, while the private key remains confidential.
+    offers a solution to the key distribution problem faced by symmetric digital security.
+    enables the creation of digital signatures, providing authenticity
+    Rivest-Shamir-Adleman (RSA)
+        Security is based on the difficulty of factoring large integers composed of two or more large prime numbers.
+        https://www.devglan.com/online-tools/rsa-encryption-decryption
+    Elliptic Curve Cryptography (ECC)
+    Digital Signature Algorithm (DSA)
+    Here are some of the most common ways asymmetric encryption is used:
+        Secure Data Transmission: Used in SSL/TLS for secure web browsing.
+            Encrypted HTTPS communication relies in part on asymmetric key pairs.
+        Digital Signatures: Ensures the authenticity and integrity of a message.
+        Key Exchange: Used to securely exchange symmetric keys for encryption algorithms like AES.
+        Email encryption: Most email providers use TLS to encrypt messages and thus rely on public key encryption methods.
+
+    https://www.practicalnetworking.net/series/cryptography/using-asymmetric-keys/
+
+Real World Encryption
+    Use asymmetric encryption to share a symmetric key
+
+Real World Signatures
+    Run the message through a Hashing Algorithm, then encrypt the resulting digest with Private Key.
+    Send the encrypted digest along with the original message.
+    Use public key to decrypt the received digest, then calculate independently the hash of the original message.
+    Compare the (now decrypted) digest which was sent, and the digest which he calculated.
+
+
+********************************************************************************
+
+Encrypt Data (Symetric Encryption)
+
+1. Create secret key (AES)
+    -----BEGIN PRIVATE KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAubTzabALXgB7YGBj9s3NyRhz2yGkjn6yY5dSi+rzpLVpA3RiaZJxP7Kb8uFza3hQcWTZjIsQlxhJbLK9HZymK+MR95tlGOGTksh4UHtSAyxvvYhAdZFSqYjd4/hPjDlKaN0rPCNlWrhylQZRLO2Iv4U7IcVLiPcoJACynJ5/QybMQkCU5ZS+ZY9L4R7MbegXG7m8KpaVMvx/N2k7kv5bLd/80x0lwnmrlVN2mvCxbT5De6WBPPsRgaWJvNLB+1oy9ai7lSsD0jBWNy2lH0uxyiltwqoi5NWFdAlrKbHPM5IjnHDzr/ufKlwNKWkDHh/6MJfDBFO7Nqdm+bhdnz5YDwIDAQAB
+    -----END PRIVATE KEY-----
+
+2. Encrypt data using private key
+    Encrypted output: "asñdfjasñldjkfalslaskjlñjkf"
+
+In my local (data at rest)
+    3.a Decrypt data using private key
+        Decrypted output: "Hola team!"
+
+For others
+    3.b Share the private key !!! (USE ASYMETRIC ENCRYPTION)
+    3.c Decrypt data using private key
+        Decrypted output: "Hola team!"
+
+
+********************************************************************************
+
+Encrypt Data (Asymetric Encryption)
+1. Receiver/transmiter 1 (RT1) USING RSA ALGORITHM
+    1.1 Create the RSA key pair
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArPbceIgMk3pqpjp+2VZdg7ms1a8fEds7rgPEk7pea3HO9gPEoqNTWOxvgedxDuguCeh5jv534q8k5jwrltn+AukxJ//1iAp4GxyhiGy+pdGU8eijBvEd9lkbgKDiSt6nfrfTKqjrSWIbkQDUfeAQEOtWHgWJFWpxZyt8G7jY+vBZ6eCsu2h/GvaLbTC4aCmSQoP1B5r4R1SUhxxUjAxlI1u+2K1mzJqS3WKDhb5Roc09n7HXtV0gH/1AsOhzEQKReJsvjchC0ieIiP8BxJQIKDug2RHrZK/c1p9UuBfP7rnPRKI9AqUficgqMd1SGpCdwJhN3fmSvvpgPlvEajcXwQIDAQAB
+        -----END PUBLIC KEY-----
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCs9tx4iAyTemqmOn7ZVl2DuazVrx8R2zuuA8STul5rcc72A8Sio1NY7G+B53EO6C4J6HmO/nfiryTmPCuW2f4C6TEn//WICngbHKGIbL6l0ZTx6KMG8R32WRuAoOJK3qd+t9MqqOtJYhuRANR94BAQ61YeBYkVanFnK3wbuNj68Fnp4Ky7aH8a9ottMLhoKZJCg/UHmvhHVJSHHFSMDGUjW77YrWbMmpLdYoOFvlGhzT2fsde1XSAf/UCw6HMRApF4my+NyELSJ4iI/wHElAgoO6DZEetkr9zWn1S4F8/uuc9Eoj0CpR+JyCox3VIakJ3AmE3d+ZK++mA+W8RqNxfBAgMBAAECggEAGBo0YdVvjzONXgmjuIyI7ny2wXYsSbQ3rkmXIJDlbGqJEQ44XgONb0RPS5ZhUlb3Z2kOW2dJdHy8kxrKZjSNaYFuWKkZ4XG4B+sm9VhV/sxkSYuGAEckSjpjkzqYHh/Fzmo2UmkElI7H0Z6AfeP1yS3KK9fQoPvavqo4GrLZBaqyRpXyJVE34akNlZi+8qiXDA9/hRJ5jo39S62eoft/dnxAIlpiZdOoal18j5YzufzXK5urGbHQX54CoUmJ1XpB7h5/zZeXG4wJ2KjhzntDu+sXluy+Fzp1aZguDkmR/S1r0QC9RlBsst18+U4OmuCHAeyVm7K0Nj9ndQkY/iq+cwKBgQD0cnfyGia5yCnIJlukrV/DqjeazP7IUzVdIgcBYTTYiH8rcvHITDIUDOdB+Yv68jutaY/DS6c+86XjT//mtdoUyyT3DkWy//op6l+aPEOuM5nH6ZIZK6TShDOkEupeir/HhiHN06k4zdmys2MyKFM7d0T+jzkFeU9b1W9Cc0yRnwKBgQC1I4go/2CZo6xdgNIeVA0FehQpGfByeN1xrqQYjNLFd8KH6l1XYQ2Yeg/z2wdQqu1u11H67AEkl20DKf1NaQuaVrEE/LeCGHoNr7c0Tuq3Wi6fZl9m6weEtQUPwgTGbpNAgrVZuUXnn3zxU2teXF1CX6Zv4vmu3pslQDEy3ZGanwKBgCFnszSGllw1GmCbvVJXzwpyLH8fHIJLvLMpf0OVAR/GJ3rMjnYM05sh2EiPza1RhQ5Bqr/JiuVzbmwN9q6Uk2TcDgUlEilQCePIf6AYNDeOHanQJYMDD9ck8dmuLBEXbPXbQqtaDXoRx3pAQYINOLKbrfYLpIM2/L1UAYxXLVOJAoGAeN/WG62W88+R1O+Cx3RFIDN/wpGpr2nSM+tbW3qVp+or6PDPCuEb5nUFsi+l6QG24XFUJoJYnOdjemoJux9u+7X/+Jj/iBP3Vqy8L26+GE5YsEvrO814vejiEMriztu47aKLi+0jpdX61TtaeaRfI0yazy0CetvXYfs9GXlbkXcCgYEA8G+E/SuFPsqa/XnU3/hFNTu54D+Z2ku+sTHWEagP0Sp+96lqe8VjJydYan9dNw+SE8xs3sENGuskCkvqxxyrDLvWg7Mb7nbovBFg2SqZm/au6uyQpk7NbeyluOJvdPpBsJRczfZeZ5NCVyTIoG1Et+vYcq3bUji7b6k7NrNhbvg=
+        -----END RSA PRIVATE KEY-----
+    1.2 Share the public key with RT2
+    1.3 STORE PRIVATE KEY IN A SECURE PLACE
+
+2. Receiver/transmiter 2 (RT2):
+    2.1 Create the RSA key pair
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2Qr1Sg4kWCrTc4nuaUXf5dikdT1X6WENjzB+XpFLWCBPzlPXE5P5kJgSUb8pT5THJ63oe182V4vncuzG119DiKC1DuJrurrCKiSzBXjCMznvyF4Z3f+mBzr7h54QfOyk5TQZaUqK6VLbzG0GOsNjgx2GGzClfcgPvn8Ap8BdR/CInA15CoSx1FOG4kQFP08Hd9rQRhaHE3t/gp6umPR8PeMlqqd5YK/CR3jHSfTJWtgtT/a4Myhs1H6QzxSND3o1fRrC4+ihvSE0jMc+a9J5WfCbogM+WL6WWuN8n5et2wuETjNhcoi1xs6rtjtRm4x0/VLq+o2paIf+AYVGXWo8XQIDAQAB
+        -----END PUBLIC KEY-----
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDZCvVKDiRYKtNzie5pRd/l2KR1PVfpYQ2PMH5ekUtYIE/OU9cTk/mQmBJRvylPlMcnreh7XzZXi+dy7MbXX0OIoLUO4mu6usIqJLMFeMIzOe/IXhnd/6YHOvuHnhB87KTlNBlpSorpUtvMbQY6w2ODHYYbMKV9yA++fwCnwF1H8IicDXkKhLHUU4biRAU/Twd32tBGFocTe3+Cnq6Y9Hw94yWqp3lgr8JHeMdJ9Mla2C1P9rgzKGzUfpDPFI0PejV9GsLj6KG9ITSMxz5r0nlZ8JuiAz5YvpZa43yfl63bC4ROM2FyiLXGzqu2O1GbjHT9Uur6jaloh/4BhUZdajxdAgMBAAECggEARbANiw4YYFC73PycFqQPXDrfrx8Xo4D8fA3LfWy0XuLdDPgBdjFMb79MHoA88ObpvRVLMJWlGp36nf1laNCXG/7Rs6pCgc2mOybWbjrUS+Nd2J1SO+PyOJ8ZFPXNAHdxCIDead671Ge82BnnZqXGxVoM7Z0EfernFzirCrGqocaDj2U7wsOLZOAUdJR6QfuJkroGiWZ4pDtaHv2p5JmpEJi6E/2+rQI+VBfIR9OU940w/kc/2UVDuboG0u45lVSQjIeXA4Iz7L0wVkpmvQacJbzgnA+d4CO0CrqvKYD7DV7gsmMwz6UkJq0MqvaMk9wZ9bEEoPFGKL5xrbwqSyC+twKBgQDq0psH6uw6YrJb8jS3w7anY3pM735iA36ntBgJZogGs2uuDVCvtJmqKaxDRyu++QzRGt43H/lUpRxSBPArnTkQREqO2XIJQs1KScDBAidSJL0WVSUH6tWiRJ0sm/RGem2Wezc1q4ddoUrJIPE9ZmSTQIWZTetZ2m7crRp0F1qXLwKBgQDsnd2JN8osoYPCQsILngoL2if2g2g6otkNhuh/JrBluN6pd7ZRcKg21MKEUd1zh6WBbeB8J1K6coF8j/CoSATXObla88DIp8QQqeDwi5OfTg5IasAtBzFU/rTmyIp5rTnk+fKTaHolzOWK1KieimTHuS1Hh0xW6kotgv10wdxCMwKBgQCddCpP3M4ZOCSwUm/W6HyJMMLI462yuvUqLjAP3ZhIJfaF9peruUVwPBEt64MBwq09aO6nt+DPSQb8WCNSm1Gv/pqfvl4gp5JPxbRhtrf29Ht1hhIWhPhKngdl6gyZVW42ANi8PA/AUG58/oHD0eyOcC0k5oJw9W5wugGK5j3wMQKBgQDIkuFyKeqlfpx0FabrtiIJ/fmWS7oUymp3vv5immc5M0b8HNBdpMPTBvOEuuifwEKZvoxmceb8yYfeER4NaE9CKlpnMO0gqqXXAkn9XjPa/I268VLKWKiGxgqO/zvy/NZwtTfdoNi6JkAGOVJeYi4f52bslVIu8xfCEKHNUW/mZQKBgAR4L7klQXLX5220nmx2AzETRzWvxwvQNYx+y6YEA72emHkM699DGZULPCIC1wKU43+stQ1i6GxYhhcvXhDa0E7jGUNOVmf2QqmZ/EhHusVII/sLKLcrP12abNcEPX39wf0iFt638xRC8Q6hXgrRN0hDIwAPCXu4+wyJD+mp+qqD
+        -----END RSA PRIVATE KEY-----
+    2.2 Share the public key with RT1
+    2.3 STORE PRIVATE KEY IN A SECURE PLACE
+
+3. Transmition FROM RT1 to RT2
+    3.1 RT1 Encrypt data with PUBLIC KEY RT2
+    3.2 RT1 Transmit encrypted data to RT2
+    3.3 RT2 Receive data from RT1
+    3.4 RT2 Decrypt data with PRIVATE KEY RT2
+
+4. Transmition FROM RT2 to RT1
+    4.1 RT2 Encrypt data with PUBLIC KEY RT1
+    4.2 RT2 Transmit encrypted data to RT1
+    4.3 RT1 Receive data from RT2
+    4.4 RT1 Decrypt data with PRIVATE KEY RT1
+
+
+3. Healthcare & Life-Sciences (providers, insurers, pharma/biotech)
+•	Protected health information (PHI) carries lifetime confidentiality and high black-market value.
+•	U.S. HHS guidance notes that quantum-breaking of RSA/ECC would expose tele-medicine feeds, EHR databases and connected-device firmware and urges sector-specific planning today(HHS.gov).
+
+1.	Begin with a crypto-inventory.
+2.	Pilot hybrid PQC deployments at your network edge.
+3.	Procurement clauses — require vendors to be “PQC-ready by 2027” in new contracts.
+4.	Executive governance — create a Quantum Readiness Board to track KPIs quarterly.
+
+
+wget https://www.mathstat.dal.ca/~selinger/md5collision/hello
+wget https://www.mathstat.dal.ca/~selinger/md5collision/erase
+diff hello erase
+md5sum hello erase
+    da5c61e1edc0f18337e46418e48c1290  hello
+    da5c61e1edc0f18337e46418e48c1290  erase
+
+
+
+********************************************************************************
+                                Hats
+********************************************************************************
+
 Red Team are the breakers or the ethical hackers,
     their role is to act as Attackers and search for security holes that a
     malicious individual can exploit.
@@ -40,15 +224,12 @@ non-legal   Red    (“vigilantes") pursue black
             Whistleblowers (Employees or insiders)
             Black  (cybercriminals) find vulnerabilities to exploit them
 
-********************************************************************************
-
-
-https://decentsecurity.com/routerwifi-configuration
 
 
 ********************************************************************************
 
-https://pauljerimy.com/security-certification-roadmap/
+********************************************************************************
+
 https://kali.training/
     Paths for PREVENTION
         from https://mile2.com/role-based-certification-roadmap/
@@ -120,9 +301,11 @@ https://www.youtube.com/watch?v=1DvTwuByjo0
 15. 101 Reverse Engineering for the Public https://lnkd.in/g9NQXt5p
 
 
+
 *******************************************************************************
                                   New user
 *******************************************************************************
+
 https://linuxize.com/post/how-to-create-users-in-linux-using-the-useradd-command/
 
 cat /etc/os-release
@@ -135,11 +318,14 @@ sudo passwd leocjj
 su - leocjj
 
 
+
 *******************************************************************************
                                 password
 *******************************************************************************
+
 https://www.howtogeek.com/howto/30184/
     10-ways-to-generate-a-random-password-from-the-command-line/
+
 https://keepass.info/
 
 </dev/urandom tr -dc '1234567890!@#$%qwertQWERTasdfgASDFGzxcvbZXCVByuiopYUIOPhjklHJKLnmNM.' | head -c32
@@ -157,7 +343,7 @@ date | md5sum
 
 
 *******************************************************************************
-                                Wifi - wireless - Mobile
+                            Wifi - wireless - Mobile
 *******************************************************************************
 
 Wireless connections:
@@ -319,7 +505,9 @@ Puede correr varias VM
         ls /etc/postgresql
         systemctl stop postgresql@14-main
         /usr/bin/pg_dropcluster --stop 14 main
-    
+
+
+
 *******************************************************************************
                         Footprinting tools
 *******************************************************************************
@@ -370,7 +558,7 @@ OS Discovery
     Wireshark
     Unicornscan
     nmap --script smb-os-discovery.nse 10.10.10.10
-    
+
 
 https://www.nvidia.com/es-la/omniverse/
 https://github.com/AdguardTeam/AdguardHome
@@ -398,43 +586,9 @@ Letters in the email address can have differenc UTF codes
 
 
 
-
-
-
 *******************************************************************************
 
 *******************************************************************************
+
     https://my.securityjourney.com/tryus/belts/1/modules/124/lesson
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
