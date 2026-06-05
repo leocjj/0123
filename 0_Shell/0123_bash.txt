@@ -1,0 +1,387 @@
+(base) leocjj@123456:~/tmp$ cat deploy.sh
+#!/bin/bash
+set -e  # exit on command error
+set -u  # exit on undefined variable
+set -o pipefail  # exit on error in pipeline command
+echo $'\n' " ! Deployment tool for AWS lambda function using a continer image !" $'\n'
+
+print_options(){
+    echo $'\n' " Usage:  ./`basename $0` <option>" $'\n'
+    echo "Please be sure you're running this script in the repository root directory."
+    echo "The code to be used is the one from main and dev branches." $'\n'
+    echo "  staging_code        - Update the code from dev branch to the staging lambda function."
+    echo "  production_code     - Update the code from main branch to the production lambda function."
+    echo "  staging_lambda      - Creates the lambda in AWS for staging environment."
+    echo "  production_lambda   - Creates the lambda in AWS for production environment."
+    echo "  help                - This help message." $'\n'
+    exit $E_BADARGS
+}
+
+exit_with_messsage(){
+    echo $'\n' " `basename $0` process aborted!" $'\n'
+    echo "The option you must type to continue with the process is 'yes'" $'\n'
+    exit $E_INTERRUPTED
+}
+
+create_staging_container_image(){
+    # Creates a new container image for staging, and store it in AWS ECR.
+    echo $'\n' " Creating new container image (latest) for staging in AWS ECR..." $'\n'
+    git checkout dev
+    git pull origin dev
+    podman build -t $LAMBDA_NAME_STAGING .
+    podman tag  $LAMBDA_NAME_STAGING:latest $ECR_REPOSITORY/$LAMBDA_NAME_STAGING:latest
+    podman push $ECR_REPOSITORY/$LAMBDA_NAME_STAGING:latest
+}
+
+create_production_container_image(){
+    # Creates a new container image for production, and store it in AWS ECR.
+    echo $'\n' " Creating new container image (latest) for production in AWS ECR..." $'\n'
+    git checkout main
+    git pull origin main
+    podman build -t $LAMBDA_NAME_PRODUCTION .
+    podman tag  $LAMBDA_NAME_PRODUCTION:latest $ECR_REPOSITORY/$LAMBDA_NAME_PRODUCTION:latest
+    podman push $ECR_REPOSITORY/$LAMBDA_NAME_PRODUCTION:latest
+}
+
+ARGS=1;  E_BADARGS=85;  E_INTERRUPTED=4;
+if [ $# -ne "$ARGS" ]
+then
+    print_options
+    exit $E_BADARGS
+fi
+
+########################### Init deployment ###################################
+GIT_REPOSITORY=youtube-revenue
+LAMBDA_NAME_STAGING=$GIT_REPOSITORY-staging
+LAMBDA_NAME_PRODUCTION=$GIT_REPOSITORY-production
+ECR_REPOSITORY=123456789.dkr.ecr.us-east-2.amazonaws.com/$GIT_REPOSITORY
+
+# DEPLOYMENT OF NEW CODE IN ACTUAL STAGING LAMBDA FUNCION
+if   [ "$1" = "staging_code" ]
+then
+    read -p 'Are you sure you want to update the code for the actual STAGING lambda in AWS (yes/no)?: ' okay_staging
+    if   [ "$okay_staging" = "yes" ]
+    then
+        echo $'\n' " Updating lambda code for staging environment..."
+        create_staging_container_image
+        aws --region us-east-2 lambda update-function-code \
+            --function-name $LAMBDA_NAME_STAGING \
+            --image-uri $ECR_REPOSITORY/$LAMBDA_NAME_STAGING:latest
+    else
+        exit_with_messsage
+    fi
+
+# DEPLOYMENT OF NEW CODE IN ACTUAL PRODUCTION LAMBDA FUNCION
+elif [ "$1" = "production_code" ]
+then
+    read -p 'Are you sure you want to update the code for the actual PRODUCTION lambda in AWS (yes/no)?: ' okay_production
+    if   [ "$okay_production" = "yes" ]
+    then
+        echo $'\n' " Updating lambda code for production environment..."
+        create_production_container_image
+        aws --region us-east-2 lambda update-function-code \
+            --function-name $LAMBDA_NAME_PRODUCTION \
+            --image-uri $ECR_REPOSITORY/$LAMBDA_NAME_PRODUCTION:latest
+    else
+        exit_with_messsage
+    fi
+
+# DEPLOYMENT OF A NEW STAGING LAMBDA FUNCION IN AWS
+elif [ "$1" = "staging_lambda" ]
+then
+    read -p 'Are you sure you want to create this lambda function in STAGING environment (yes/no)?: ' okay_staging
+    if   [ "$okay_staging" = "yes" ]
+    then
+        echo $'\n' " Creating lambda function in staging..." $'\n'
+        create_staging_container_image
+        ############ aws delete-function --function-name $LAMBDA_NAME_STAGING
+        aws --region us-east-2 lambda create-function \
+            --function-name $LAMBDA_NAME_STAGING \
+            --package-type Image \
+            --code ImageUri=$ECR_REPOSITORY/$LAMBDA_NAME_STAGING:latest \
+            --description "Lambda function to store YouTube revenue in snowflake database, staging table." \
+            --timeout 900 \
+            --memory-size 2048 \
+            --environment 'Variables={ENV=staging}' \
+            --role arn:aws:iam::123456789:role/LambdaWithParameterStoreAccess
+        aws lambda create-event-source-mapping \
+            --event-source-arn arn:aws:events:us-east-2:123456789:rule/daily-at-6am-PT
+    else
+        exit_with_messsage
+    fi
+
+# DEPLOYMENT OF A NEW PRODUCTION LAMBDA FUNCION IN AWS
+elif [ "$1" = "production_lambda" ]
+then
+    read -p 'Are you sure you want to create this lambda function in PRODUCTION environment  (yes/no)?: ' okay_container
+    if   [ "$okay_container" = "yes" ]
+    then
+        echo $'\n' " Creating lambda function in production..." $'\n'
+        create_production_container_image
+        ############ aws delete-function --function-name $LAMBDA_NAME_PRODUCTION
+        aws --region us-east-2 lambda create-function \
+            --function-name $LAMBDA_NAME_PRODUCTION \
+            --package-type Image \
+            --code ImageUri=$ECR_REPOSITORY/$LAMBDA_NAME_PRODUCTION:latest \
+            --description "Lambda function to store YouTube revenue in snowflake database, production table" \
+            --timeout 900 \
+            --memory-size 2048 \
+            --environment 'Variables={ENV=production}' \
+            --role arn:aws:iam::123456789:role/LambdaWithParameterStoreAccess
+        aws lambda create-event-source-mapping \
+            --event-source-arn arn:aws:events:us-east-2:123456789:rule/daily-at-6am-PT
+    else
+        exit_with_messsage
+    fi
+elif [ "$1" = "help" ]
+then
+    print_options
+else
+    print_options
+fi
+echo $'\n' " Deployment process finished successfully !!!" $'\n'(base) leocjj@123456:~/tmp$
+
+
+
+********************************************************************************
+
+
+(base) $ cat start.sh
+#!/bin/bash
+# set -e  # exit on command error
+# set -u  # exit on undefined variable
+# set -o pipefail  # exit on error in pipeline command
+echo $'\n' " ! Deployment tool for AWS lambda function using a continer image !" $'\n'
+
+# run from the directory that contains this shell script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd $SCRIPT_DIR
+
+while :
+do
+   echo helpp
+   sleep 1
+done
+
+####################################### INIT CONFIG ####################################
+# 1. Merge the code in dev branch to deploy to staging or in main branch for production.
+GIT_REPOSITORY=reels-scraper
+
+# 2. Create these manually first in:
+# https://us-east-2.console.aws.amazon.com/ecr/repositories?region=us-east-2
+ECR_REPOSITORY=123456789.dkr.ecr.us-east-2.amazonaws.com/$GIT_REPOSITORY
+
+# 3. Also create these triggers too (or use a default one like: daily-at-6am-PT)
+# https://us-east-2.console.aws.amazon.com/events/home?region=us-east-2#/rules
+LAMBDA_TRIGGER_STAGING=$GIT_REPOSITORY-trigger
+LAMBDA_TRIGGER_PRODUCTION=$GIT_REPOSITORY-trigger
+
+LAMBDA_NAME_STAGING=$GIT_REPOSITORY-staging
+LAMBDA_NAME_PRODUCTION=$GIT_REPOSITORY-production
+
+# 4. Update the Dockerfile as needed.
+# 5. Finally run this script with:    $ bash deploy
+########################################################################################
+
+print_options(){
+    echo $'\n' " Usage:  $ bash `basename $0` <option>" $'\n'
+    echo "Please be sure you're running this script in the root directory of the repository."
+    echo "The code to be used comes from dev branch for staging and main branch for production." $'\n'
+    echo "  staging_code        - Update the code from dev branch to the staging lambda function."
+    echo "  production_code     - Update the code from main branch to the production lambda function."
+    echo "  staging_lambda      - Creates the lambda in AWS for staging environment."
+    echo "  production_lambda   - Creates the lambda in AWS for production environment."
+    echo "  help                - This help message." $'\n'
+    exit $E_BADARGS
+}
+
+exit_with_messsage(){
+    echo $'\n' " `basename $0` process aborted!" $'\n'
+    echo "The option you must type to continue with the process is 'yes'" $'\n'
+    exit $E_INTERRUPTED
+}
+
+create_staging_container_image(){
+    # Creates a new container image for staging, and store it in AWS ECR.
+    echo "  Creating new container image (latest) for staging in AWS ECR..."
+    echo "  This can take a while..." $'\n'
+    git checkout dev
+    git pull origin dev
+    podman build -t $LAMBDA_NAME_STAGING .
+    podman tag  $LAMBDA_NAME_STAGING $ECR_REPOSITORY:$LAMBDA_NAME_STAGING
+    podman push $ECR_REPOSITORY:$LAMBDA_NAME_STAGING
+    git checkout -
+}
+
+create_production_container_image(){
+    # Creates a new container image for production, and store it in AWS ECR.
+    echo "  Creating new container image (latest) for production in AWS ECR..." $'\n'
+    echo "  This can take a while..." $'\n'
+    git checkout main
+    git pull origin main
+    podman build -t $LAMBDA_NAME_PRODUCTION .
+    podman tag $LAMBDA_NAME_PRODUCTION $ECR_REPOSITORY:$LAMBDA_NAME_PRODUCTION
+    podman push $ECR_REPOSITORY:$LAMBDA_NAME_PRODUCTION
+    git checkout -
+}
+
+ARGS=1;  E_BADARGS=85;  E_INTERRUPTED=4;
+if [ $# -ne "$ARGS" ]
+then
+    print_options
+    exit $E_BADARGS
+fi
+
+
+# DEPLOYMENT OF NEW CODE IN ACTUAL STAGING LAMBDA FUNCION
+if   [ "$1" = "staging_code" ]
+then
+    read -p 'Are you sure you want to update the code for the actual STAGING lambda in AWS (yes/no)?: ' okay_staging
+    if   [ "$okay_staging" = "yes" ]
+    then
+        if  [ $(aws lambda list-functions | grep --max-count 1 --count $LAMBDA_NAME_STAGING) = "0" ]
+        then
+            echo  $'\n' " The lambda function in STAGING don't exist!" $'\n'
+            echo  "  Use the following command to create it:  bash deploy staging_lambda" $'\n'
+            exit $E_INTERRUPTED
+        fi
+        echo $'\n' " Updating lambda code for STAGING environment..."
+        create_staging_container_image
+        aws --region us-east-2 lambda update-function-code \
+            --function-name $LAMBDA_NAME_STAGING \
+            --image-uri $ECR_REPOSITORY:$LAMBDA_NAME_STAGING
+    else
+        exit_with_messsage
+    fi
+
+# DEPLOYMENT OF NEW CODE IN ACTUAL PRODUCTION LAMBDA FUNCION
+elif [ "$1" = "production_code" ]
+then
+    read -p 'Are you sure you want to update the code for the actual PRODUCTION lambda in AWS (yes/no)?: ' okay_production
+    if   [ "$okay_production" = "yes" ]
+    then
+        if  [ $(aws lambda list-functions | grep --max-count 1 --count $LAMBDA_NAME_PRODUCTION) = "0" ]
+        then
+            echo  $'\n' " The lambda function in PRODUCTION don't exist!" $'\n'
+            echo  "  Use the following command to create it:  bash deploy production_lambda" $'\n'
+            exit $E_INTERRUPTED
+        fi
+        echo $'\n' " Updating lambda code for PRODUCTION environment..."
+        create_production_container_image
+        aws --region us-east-2 lambda update-function-code \
+            --function-name $LAMBDA_NAME_PRODUCTION \
+            --image-uri $ECR_REPOSITORY:$LAMBDA_NAME_PRODUCTION
+    else
+        exit_with_messsage
+    fi
+
+# DEPLOYMENT OF A NEW STAGING LAMBDA FUNCION IN AWS
+elif [ "$1" = "staging_lambda" ]
+then
+    read -p 'Are you sure you want to create this lambda function in STAGING environment (yes/no)?: ' okay_staging
+    if   [ "$okay_staging" = "yes" ]
+    then
+        if  [ $(aws lambda list-functions | grep --max-count 1 --count $LAMBDA_NAME_STAGING) != "0" ]
+        then
+            read -p 'The actual function in STAGING will be deleted, proceed?: (yes/no)?: ' okay_delete_staging
+            if   [ "$okay_delete_staging" = "yes" ]
+            then
+                echo "Deleting actual lambda function in STAGING..."
+                aws --region us-east-2 lambda delete-function \
+                    --function-name "arn:aws:lambda:us-east-2:123456789:function:"$LAMBDA_NAME_STAGING
+            else
+                exit_with_messsage
+            fi
+        fi
+        echo $'\n' " Creating a new lambda function in STAGING..." $'\n'
+        create_staging_container_image
+        aws --region us-east-2 lambda create-function \
+            --function-name $LAMBDA_NAME_STAGING \
+            --package-type Image \
+            --code ImageUri=$ECR_REPOSITORY:$LAMBDA_NAME_STAGING \
+            --description "Lambda function to store IG reels scraping in snowflake database, STAGING table." \
+            --timeout 900 \
+            --memory-size 2048 \
+            --environment 'Variables={ENV=staging}' \
+            --role arn:aws:iam::123456789:role/LambdaWithParameterStoreAccess
+
+        echo "Wait while the lambda function is been created..."
+        sleep 30
+
+        aws lambda add-permission \
+            --function-name $LAMBDA_NAME_STAGING \
+            --statement-id $LAMBDA_NAME_STAGING-scheduled-event \
+            --action 'lambda:InvokeFunction' \
+            --principal events.amazonaws.com \
+            --source-arn arn:aws:events:us-east-2:123456789:rule/$LAMBDA_TRIGGER_STAGING
+
+        aws events put-targets \
+            --rule $LAMBDA_TRIGGER_STAGING \
+            --targets "Id"="1","Arn"="arn:aws:lambda:us-east-2:123456789:function:"$LAMBDA_NAME_STAGING
+
+        aws lambda put-function-concurrency \
+            --function-name $LAMBDA_NAME_STAGING \
+            --reserved-concurrent-executions 1
+
+    else
+        exit_with_messsage
+    fi
+
+# DEPLOYMENT OF A NEW PRODUCTION LAMBDA FUNCION IN AWS
+elif [ "$1" = "production_lambda" ]
+then
+    read -p 'Are you sure you want to create this lambda function in PRODUCTION environment  (yes/no)?: ' okay_container
+    if   [ "$okay_container" = "yes" ]
+    then
+        if  [ $(aws lambda list-functions | grep --max-count 1 --count $LAMBDA_NAME_PRODUCTION) != "0" ]
+        then
+            read -p 'The actual function in PRODUCTION will be deleted (if exist), proceed?: (yes/no)?: ' okay_delete_production
+            if   [ "$okay_delete_production" = "yes" ]
+            then
+                echo "Deleting actual lambda function in PRODUCTION..."
+                aws --region us-east-2 lambda delete-function \
+                    --function-name "arn:aws:lambda:us-east-2:123456789:function:"$LAMBDA_NAME_PRODUCTION
+            else
+                exit_with_messsage
+            fi
+        fi
+        echo $'\n' " Creating a new lambda function in PRODUCTION..." $'\n'
+        create_production_container_image
+        aws --region us-east-2 lambda create-function \
+            --function-name $LAMBDA_NAME_PRODUCTION \
+            --package-type Image \
+            --code ImageUri=$ECR_REPOSITORY:$LAMBDA_NAME_PRODUCTION \
+            --description "Lambda function to store IG reels scraping in snowflake database, PRODUCTION table" \
+            --timeout 900 \
+            --memory-size 2048 \
+            --environment 'Variables={ENV=production}' \
+            --role arn:aws:iam::123456789:role/LambdaWithParameterStoreAccess
+
+        echo "Wait while the lambda function is been created..."
+        sleep 30
+
+        aws lambda add-permission \
+            --function-name $LAMBDA_NAME_PRODUCTION \
+            --statement-id $LAMBDA_NAME_PRODUCTION-scheduled-event \
+            --action 'lambda:InvokeFunction' \
+            --principal events.amazonaws.com \
+            --source-arn arn:aws:events:us-east-2:123456789:rule/$LAMBDA_TRIGGER_PRODUCTION
+
+        aws events put-targets \
+            --rule $LAMBDA_TRIGGER_PRODUCTION \
+            --targets "Id"="1","Arn"="arn:aws:lambda:us-east-2:123456789:function:"$LAMBDA_NAME_PRODUCTION
+
+        aws lambda put-function-concurrency \
+            --function-name $LAMBDA_NAME_PRODUCTION \
+            --reserved-concurrent-executions 1
+
+    else
+        exit_with_messsage
+    fi
+elif [ "$1" = "help" ]
+then
+    print_options
+else
+    print_options
+fi
+echo $'\n' " Deployment process finished successfully !!!" $'\n'
