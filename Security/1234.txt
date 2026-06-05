@@ -6,6 +6,10 @@ https://pauljerimy.com/security-certification-roadmap/
 
 https://decentsecurity.com/routerwifi-configuration
 
+https://certgames.com/home
+https://github.com/CarterPerez-dev/CertGames-Core/blob/prod/frontend/user-app/index.html
+
+
 
 ********************************************************************************
                             OWASP Juice Shop
