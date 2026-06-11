@@ -1,6 +1,7 @@
 
 Claude.ai
 Claude code
+Claude app: chat (claude.ai), cowork (agentic), code
 
 Claude, consider:
     setting the stage (your role, objectives, and context),
@@ -33,3 +34,32 @@ Test prompts - to evaluate how Claude might work with your data:
     Create prompts that request Claude to do the analysis on your behalf
     Compare Claude's results to your originals
     Note patterns and refine your prompt accordingly: Maybe Claude gets the right numbers but misses the overall patterns
+
+Project instructions typically include:
+    - Context about what you're working on:
+        "This project is for creating marketing content for our B2B software product."
+    - Process instructions:
+        "First consider a blog structure that will entice this audience, then write the draft."
+    - Tone and style preferences:
+        "Use a professional but conversational tone. Avoid jargon when possible."
+    - Specific requirements:
+        "Always include a call-to-action at the end of marketing copy."
+
+Projects
+    - Start focused, then expand
+    - Write clear instructions
+    - Create knowledge base
+    - Upload files for reference or connect to Google Drive
+    - Name files descriptively
+    - Keep your knowledge base current
+    - Reference documents by name
+
+Artifacts
+    Documents (including markdown, plain text, Word docs, PDFs, PowerPoint, and Excel),
+    Code snippets, HTML pages, SVG images, Mermaid diagrams, React components
+    - Be specific about what you want
+    - Describe the end user
+    - Iterate incrementally
+    - Request artifacts when needed
+
+
