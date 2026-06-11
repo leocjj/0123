@@ -1,0 +1,39 @@
+
+Security
+    Security Software Development Life Cycle (S-SDLC)
+        https://github.com/leocjj/0123/blob/master/Security/103_secureflag_SDLC.txt
+    SecureFlag, a training platform for Secure Development and Threat Modeling
+        https://www.secureflag.com/
+    https://atlas.mitre.org/matrices/ATLAS
+
+----
+
+https://blogs.cisco.com/security/cisco-ai-defense-comprehensive-security-for-enterprise-ai-adoption
+
+CS 101          https://www.youtube.com/watch?v=-uleG_Vecis
+
+Como conectarnos a la VPN de HTB Openvpn / Curso HTB #4
+    https://www.youtube.com/watch?v=HffP_bPGyvY&list=PLDDlXGEVHjAHTgUgaknJ5Bb_XOYLvpkDt&index=13
+
+https://cheatsheetseries.owasp.org/index.html
+
+DevSecOps
+    Amazon CodeGuru - Code reviewer
+    Amazon ECR - Enhanded scanning / Basic scanning
+    Amazon Fault Injection Service
+    Amazon DevOpsGuru
+
+----------------------------------------------------------------------------------------------------------------------
+Udemy  Ultimate – Stephan maarek
+whizlabs
+
+https://www.youtube.com/watch?v=OmJ-4B-mS-Y&t=7s
+https://www.sonarsource.com/products/sonarqube/
+aws training
+    https://www.twitch.tv/aws_namer_programs/schedule
+    https://www.redbubble.com/about
+siempre conectate a traves de por lo menos una VM con las contraseñas de root cambiadas.
+https://behacker.pro/courses/pentesting/
+https://www.isc2.org/Landing/1MCC#
+https://www.youtube.com/@AllThingsSecured
+https://www.youtube.com/@CyberDefense01
