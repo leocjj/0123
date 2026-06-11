@@ -1,5 +1,9 @@
 
+Step 1: Disconnect from any VPNs that you may be connected to
+Step 2: Click here: https://me.censys.io
+
 https://urlscan.io/
+
 
 We need to make Builders “The Yellow Team” and gives them the capacity to make their applications more secure.
     https://hackernoon.com/introducing-the-infosec-colour-wheel-blending-developers-with-red-and-blue-security-teams-6437c1a07700
@@ -10,6 +14,92 @@ https://decentsecurity.com/routerwifi-configuration
 
 https://certgames.com/home
 https://github.com/CarterPerez-dev/CertGames-Core/blob/prod/frontend/user-app/index.html
+
+
+REST API fuzzer and negative testing tool.
+Run thousands of self-healing API tests within minutes with no coding effort!
+    https://github.com/Endava/cats
+
+
+
+********************************************************************************
+                                Generalities
+********************************************************************************
+Strong passwords, 2FA, password manager
+
+Update modem, router, smartphones, laptop
+Key fob that has an RFID shield unit
+Antivirus
+Password manager
+Wired keyboard & mouse
+RFID blocking/protection for cards
+Cellphone IS vulnerable
+
+https://www.youtube.com/watch?v=Uy60wy20ADE
+Separate primary email address from secret email address ONLY for finances logins
+Tap to pay instead of using credit card number
+    Use wallets (Apple pay / Google pay) to pay with a tap (use token instead of cc number)
+Use Unique Usernames and Unique Strong Passwords
+    If requires an email, create a random alias with the same email account
+Credit freeze: order not to release credit info to any one, need my approval first.
+DeleteMe?
+Tether to your mobile data instead of connecting to public wifi
+Turn off wifi and blutehooth when not in use
+Phone:
+    backup (cloud?)
+    setup stolen device protection
+        Theft Detection Lock (Android)
+        Stolen Device Protection (IoS
+
+AllThingsSecured.com
+Password manager: 1password, ProtonPass, bitwarden. Use passkeys instead of passwords
+2FA always: physical 2FA key is better (yubikey) with a backup
+Brave browser instead of chrome
+Email: public gmail, private proton email with alliases or simplelogin (powered by proton)
+Messages: Signal
+Virtual info:
+    virtual address (PostScanMail)
+    virtual (secondary) phone number (Hushed)
+    virtual credit card (Privacy.com)
+DeleteMe
+Identity guard
+
+Personal security
+mobile
+wifi + repetidor + guest account
+antivirus
+android configuration
+laptops
+emails + redes sociales con MFA y pass en keepass
+dds backups everything
+trainings
+
+No abrir links/adjuntos
+Limitar información personal
+Administrar contraseñas
+No centralizar credenciales (mismo usuario o correo)
+Mantener todo actualizado y legal
+Backups siempre: regla 3-2-1 (3 copias, 2 medios diferentes, 1 remoto)
+
+
+haveibeenpwned.com
+support.google.com/websearch/answer/15191143
+Desencriptar ransomwares conocidos
+    www.avast.com/ransomware-decryption-tools#pc
+    www.nomoreransom.org/es/decryption-tools.html
+Análisis archivos sospechosos
+    www.virustotal.com/gui/home/upload
+    www.filescan.io/scan
+www.thousandeyes.com/outages/
+threatmap.checkpoint.com
+cybermap.kaspersky.com/stats
+www.ibm.com/reports/data-breach
+go.veeam.com/wp-ransomware-trends-report-2024
+www.idtheftcenter.org/publication/2023-data-breach-report
+Frameworks
+    www.nist.gov/itl/smallbusinessbycer/nist-cybersecurity-framework-0
+    attack.mitre.org/resources/
+    owasp.org/Top10
 
 
 
@@ -38,6 +128,8 @@ and here you have the simplified steps:
 ********************************************************************************
                             Cryptography
 ********************************************************************************
+
+Cryptography    https://www.youtube.com/watch?v=NuyzuNBFWxQ
 
 https://www.stationx.net/symmetric-vs-asymmetric-encryption/
 
@@ -597,4 +689,7 @@ Letters in the email address can have differenc UTF codes
 *******************************************************************************
 
     https://my.securityjourney.com/tryus/belts/1/modules/124/lesson
+
+
+https://www.hackerone.com/
 
