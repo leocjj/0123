@@ -63,3 +63,11 @@ Artifacts
     - Request artifacts when needed
 
 
+Agents have:
+    - Foundational Model
+    - Instructions
+    - Memory/context
+    - Tools
+    - Orchestration
+    - Knowledge
+
